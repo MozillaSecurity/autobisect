@@ -10,6 +10,7 @@ import os
 import re
 import subprocess
 import tempfile
+import datetime
 import time
 import logging
 
@@ -94,8 +95,8 @@ def findBlamedCset(options, repoDir, testRev):
 
         iterNum += 1
         endTime = time.time()
-        oneRunTime = endTime - startTime
-        log.info("This iteration took %.3f seconds to run".format(oneRunTime))
+        elapsed = datetime.timedelta(seconds=(int(endTime-startTime)))
+        log.info("This iteration completed in {0}".format(elapsed))
 
     if blamedRev is not None:
         checkBlameParents(repoDir, blamedRev, blamedGoodOrBad, labels, testRev, realStartRepo,

@@ -64,18 +64,18 @@ class Bisector:
         subprocess.check_call(self.hg_prefix + ['purge', '--all'])
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
-        realStartRepo = sRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
-        realEndRepo = eRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
+        start_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
+        end_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
 
         # Establish baseline
         # All future runs must match this baseline to be considered 'good'
-        if self.establish_baseline(sRepo, eRepo):
+        if self.establish_baseline(start_rev, end_rev):
             log.info("Established baseline.  All future runs must return: {0}".format(self.baseline))
         else:
             log.error("Unable to perform bisection because the we were unable to establish a baseline.  Exiting!")
             return
 
-        log.info("Bisecting in range: {0} - {1}".format(sRepo, eRepo))
+        log.info("Bisecting in range: {0} - {1}".format(start_rev, end_rev))
 
         # Reset bisect ranges and set skip ranges.
         sps.captureStdout(self.hg_prefix + ['bisect', '-r'])
@@ -85,39 +85,39 @@ class Bisector:
 
         labels = {}
 
-        iterNum = 1
-        skipCount = 0
-        blamedRev = None
-        currRev = self.baseline
+        iter_count = 1
+        skip_count = 0
+        blame = None
+        current_rev = self.baseline
 
-        while currRev is not None:
-            startTime = time.time()
-            label = self.evaluator(currRev)
-            labels[currRev] = label
+        while current_rev is not None:
+            start_time = time.time()
+            label = self.evaluator(current_rev)
+            labels[current_rev] = label
             if label[0] == 'skip':
-                skipCount += 1
+                skip_count += 1
                 # If we use "skip", we tell hg bisect to do a linear search to get around the skipping.
                 # If the range is large, doing a bisect to find the start and endpoints of compilation
                 # bustage would be faster. 20 total skips being roughly the time that the pair of
                 # bisections would take.
-                if skipCount > 20:
+                if skip_count > 20:
                     logging.error("Reached maximum skip attempts! Exiting")
                     break
             logging.info(label[0] + " (" + label[1] + ") ")
 
             # Revisit this
-            """print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
-                  str(2**iterNum), "...",
-        (blamedGoodOrBad, blamedRev, currRev, sRepo, eRepo) = \
-            bisectLabel(self.hg_prefix, options, label[0], currRev, sRepo, eRepo)"""
+            """print "Bisecting for the n-th round where n is", iter_num, "and 2^n is", \
+                  str(2**iter_num), "...",
+        (blamedGoodOrBad, blame, current_rev, start_rev, end_rev) = \
+            bisectLabel(self.hg_prefix, options, label[0], current_rev, start_rev, end_rev)"""
 
-            iterNum += 1
-            endTime = time.time()
-            elapsed = datetime.timedelta(seconds=(int(endTime-startTime)))
+            iter_count += 1
+            end_time = time.time()
+            elapsed = datetime.timedelta(seconds=(int(end_time-start_time)))
             log.info("This iteration completed in {0}".format(elapsed))
 
         if blamedRev is not None:
-            checkBlameParents(self.repo_dir, blamedRev, blamedGoodOrBad, labels, self.evaluator, realStartRepo,
+            checkBlameParents(self.repo_dir, blame, blamedGoodOrBad, labels, self.evaluator, realStartRepo,
                               realEndRepo)
 
         sps.vdump("Resetting bisect")

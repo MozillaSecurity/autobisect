@@ -4,55 +4,35 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function
 
-import math
-import tempfile
 import os
 import re
-import shutil
-import stat
 import subprocess
-import sys
+import tempfile
 import time
-from optparse import OptionParser
+import logging
 
-import knownBrokenEarliestWorking as kbew
-
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, os.pardir, 'lithium', 'interestingness'))
-sys.path.append(path1)
-import ximport
-path2 = os.path.abspath(os.path.join(path0, os.pardir, 'js'))
-sys.path.append(path2)
-import compileShell
-import inspectShell
-path3 = os.path.abspath(os.path.join(path0, os.pardir, 'dom', 'automation'))
-sys.path.append(path3)
-import buildBrowser
-path4 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path4)
-import fileManipulation
-import buildOptions
-import downloadBuild
-import hgCmds
-import s3cache
-import subprocesses as sps
-import LockDir
+from util import ximport
+from util import inspectShell
+from util import fileManipulation
+from util import hgCmds
+from util import subprocesses as sps
 
 INCOMPLETE_NOTE = 'incompleteBuild.txt'
 MAX_ITERATIONS = 100
 
+log = logging.getLogger("bisect")
 
 def findBlamedCset(options, repoDir, testRev):
-    print "%s | Bisecting on: %s" % (sps.dateStr(), repoDir)
+    log.info("Begin bisection on {0}".format(repoDir))
 
     hgPrefix = ['hg', '-R', repoDir]
 
     # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
     realStartRepo = sRepo = hgCmds.getRepoHashAndId(repoDir, repoRev=options.startRepo)[0]
     realEndRepo = eRepo = hgCmds.getRepoHashAndId(repoDir, repoRev=options.endRepo)[0]
-    sps.vdump("Bisecting in the range " + sRepo + ":" + eRepo)
+    log.info("Bisecting in range: {0} - {1}".format(sRepo, eRepo))
 
     # Refresh source directory (overwrite all local changes) to default tip if required.
     if options.resetRepoFirst:
@@ -94,17 +74,18 @@ def findBlamedCset(options, repoDir, testRev):
             # bustage would be faster. 20 total skips being roughly the time that the pair of
             # bisections would take.
             if skipCount > 20:
-                print 'Skipped 20 times, stopping autoBisect.'
+                logging.error("Reached maximum skip attempts! Exiting")
                 break
-        print label[0] + " (" + label[1] + ") ",
+        logging.info(label[0] + " (" + label[1] + ") ")
 
         if iterNum <= 0:
-            print 'Finished testing the initial boundary revisions...',
+            log.info("Finished testing the initial boundary revisions...")
         else:
-            print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
+            # Revisit this
+            """print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
                   str(2**iterNum), "...",
         (blamedGoodOrBad, blamedRev, currRev, sRepo, eRepo) = \
-            bisectLabel(hgPrefix, options, label[0], currRev, sRepo, eRepo)
+            bisectLabel(hgPrefix, options, label[0], currRev, sRepo, eRepo)"""
 
         if options.testInitialRevs:
             options.testInitialRevs = False
@@ -114,7 +95,7 @@ def findBlamedCset(options, repoDir, testRev):
         iterNum += 1
         endTime = time.time()
         oneRunTime = endTime - startTime
-        print 'This iteration took %.3f seconds to run.' % oneRunTime
+        log.info("This iteration took %.3f seconds to run".format(oneRunTime))
 
     if blamedRev is not None:
         checkBlameParents(repoDir, blamedRev, blamedGoodOrBad, labels, testRev, realStartRepo,

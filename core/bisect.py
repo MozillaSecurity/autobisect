@@ -26,29 +26,32 @@ MAX_ITERATIONS = 100
 log = logging.getLogger("bisect")
 
 class Bisector:
-    def __init__(self):
-        pass
+    def __init__(self, args):
+        self.repo_dir = args.repo_dir
+        self.start_rev = args.start
+        self.end_rev = args.end
+        self.hg_prefix = ['hg', '-R', self.repo_dir]
+        
+        self.evaluator = None
 
-    def findBlamedCset(options, repoDir, testRev):
-        log.info("Begin bisection on {0}".format(repoDir))
-
-        hgPrefix = ['hg', '-R', repoDir]
+    def findBlamedCset(self, options):
+        log.info("Begin bisection on {0}".format(self.repo_dir))
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
-        realStartRepo = sRepo = hgCmds.getRepoHashAndId(repoDir, repoRev=options.startRepo)[0]
-        realEndRepo = eRepo = hgCmds.getRepoHashAndId(repoDir, repoRev=options.endRepo)[0]
+        realStartRepo = sRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
+        realEndRepo = eRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
         log.info("Bisecting in range: {0} - {1}".format(sRepo, eRepo))
 
         # Refresh source directory (overwrite all local changes) to default tip if required.
         if options.resetRepoFirst:
-            subprocess.check_call(hgPrefix + ['update', '-C', 'default'])
+            subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'])
             # Throws exit code 255 if purge extension is not enabled in .hgrc:
-            subprocess.check_call(hgPrefix + ['purge', '--all'])
+            subprocess.check_call(self.hg_prefix + ['purge', '--all'])
 
         # Reset bisect ranges and set skip ranges.
-        sps.captureStdout(hgPrefix + ['bisect', '-r'])
+        sps.captureStdout(self.hg_prefix + ['bisect', '-r'])
         if options.skipRevs:
-            sps.captureStdout(hgPrefix + ['bisect', '--skip', options.skipRevs])
+            sps.captureStdout(self.hg_prefix + ['bisect', '--skip', options.skipRevs])
 
         labels = {}
         # Specify `hg bisect` ranges.
@@ -57,9 +60,9 @@ class Bisector:
         else:
             labels[sRepo] = ('good', 'assumed start rev is good')
             labels[eRepo] = ('bad', 'assumed end rev is bad')
-            subprocess.check_call(hgPrefix + ['bisect', '-U', '-g', sRepo])
+            subprocess.check_call(self.hg_prefix + ['bisect', '-U', '-g', sRepo])
             currRev = hgCmds.getCsetHashFromBisectMsg(fileManipulation.firstLine(
-                sps.captureStdout(hgPrefix + ['bisect', '-U', '-b', eRepo])[0]))
+                sps.captureStdout(self.hg_prefix + ['bisect', '-U', '-b', eRepo])[0]))
 
         iterNum = 1
         if options.testInitialRevs:
@@ -70,7 +73,7 @@ class Bisector:
 
         while currRev is not None:
             startTime = time.time()
-            label = testRev(currRev)
+            label = self.evaluator(currRev)
             labels[currRev] = label
             if label[0] == 'skip':
                 skipCount += 1
@@ -90,7 +93,7 @@ class Bisector:
                 """print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
                       str(2**iterNum), "...",
             (blamedGoodOrBad, blamedRev, currRev, sRepo, eRepo) = \
-                bisectLabel(hgPrefix, options, label[0], currRev, sRepo, eRepo)"""
+                bisectLabel(self.hg_prefix, options, label[0], currRev, sRepo, eRepo)"""
 
             if options.testInitialRevs:
                 options.testInitialRevs = False
@@ -103,15 +106,15 @@ class Bisector:
             log.info("This iteration completed in {0}".format(elapsed))
 
         if blamedRev is not None:
-            checkBlameParents(repoDir, blamedRev, blamedGoodOrBad, labels, testRev, realStartRepo,
+            checkBlameParents(self.repo_dir, blamedRev, blamedGoodOrBad, labels, self.evaluator, realStartRepo,
                               realEndRepo)
 
         sps.vdump("Resetting bisect")
-        subprocess.check_call(hgPrefix + ['bisect', '-U', '-r'])
+        subprocess.check_call(self.hg_prefix + ['bisect', '-U', '-r'])
 
         sps.vdump("Resetting working directory")
-        sps.captureStdout(hgPrefix + ['update', '-C', '-r', 'default'], ignoreStderr=True)
-        hgCmds.destroyPyc(repoDir)
+        sps.captureStdout(self.hg_prefix + ['update', '-C', '-r', 'default'], ignoreStderr=True)
+        hgCmds.destroyPyc(self.repo_dir)
 
 
     def internalTestAndLabel(options):
@@ -178,12 +181,12 @@ class Bisector:
         return inner
 
 
-    def checkBlameParents(repoDir, blamedRev, blamedGoodOrBad, labels, testRev, startRepo, endRepo):
+    def checkBlameParents(self.repo_dir, blamedRev, blamedGoodOrBad, labels, self.evaluator, startRepo, endRepo):
         """If bisect blamed a merge, try to figure out why."""
         bisectLied = False
         missedCommonAncestor = False
 
-        parents = sps.captureStdout(["hg", "-R", repoDir] + ["parent", '--template={node|short},',
+        parents = sps.captureStdout(["hg", "-R", self.repo_dir] + ["parent", '--template={node|short},',
                                                              "-r", blamedRev])[0].split(",")[:-1]
 
         if len(parents) == 1:
@@ -195,13 +198,13 @@ class Bisector:
                 print ""
                 print ("Oops! We didn't test rev %s, a parent of the blamed revision! " +
                        "Let's do that now.") % str(p)
-                if not hgCmds.isAncestor(repoDir, startRepo, p) and \
-                        not hgCmds.isAncestor(repoDir, endRepo, p):
+                if not hgCmds.isAncestor(self.repo_dir, startRepo, p) and \
+                        not hgCmds.isAncestor(self.repo_dir, endRepo, p):
                     print ('We did not test rev %s because it is not a descendant of either ' +
                            '%s or %s.') % (str(p), startRepo, endRepo)
                     # Note this in case we later decide the bisect result is wrong.
                     missedCommonAncestor = True
-                label = testRev(p)
+                label = self.evaluator(p)
                 labels[p] = label
                 print label[0] + " (" + label[1] + ") "
                 print "As expected, the parent's label is the opposite of the blamed rev's label."
@@ -218,12 +221,12 @@ class Bisector:
         # Explain why bisect blamed the merge.
         if bisectLied:
             if missedCommonAncestor:
-                ca = hgCmds.findCommonAncestor(repoDir, parents[0], parents[1])
+                ca = hgCmds.findCommonAncestor(self.repo_dir, parents[0], parents[1])
                 print ""
                 print "Bisect blamed the merge because our initial range did not include one"
                 print "of the parents."
                 print "The common ancestor of %s and %s is %s." % (parents[0], parents[1], ca)
-                label = testRev(ca)
+                label = self.evaluator(ca)
                 print label[0] + " (" + label[1] + ") "
                 print "Consider re-running autoBisect with -s %s -e %s" % (ca, blamedRev)
                 print "in a configuration where earliestWorking is before the common ancestor."
@@ -251,23 +254,23 @@ class Bisector:
         return '\n'.join(sanitizedMsgList)
 
 
-    def bisectLabel(hgPrefix, options, hgLabel, currRev, startRepo, endRepo):
+    def bisectLabel(self.hg_prefix, options, hgLabel, currRev, startRepo, endRepo):
         """Tell hg what we learned about the revision."""
         assert hgLabel in ("good", "bad", "skip")
-        outputResult = sps.captureStdout(hgPrefix + ['bisect', '-U', '--' + hgLabel, currRev])[0]
+        outputResult = sps.captureStdout(self.hg_prefix + ['bisect', '-U', '--' + hgLabel, currRev])[0]
         outputLines = outputResult.split("\n")
 
-        repoDir = options.buildOptions.repoDir if options.buildOptions else options.browserOptions.repoDir
+        self.repo_dir = options.buildOptions.self.repo_dir if options.buildOptions else options.browserOptions.self.repo_dir
 
         if re.compile("Due to skipped revisions, the first (good|bad) revision could be any of:").match(outputLines[0]):
-            print '\n' + sanitizeCsetMsg(outputResult, repoDir) + '\n'
+            print '\n' + sanitizeCsetMsg(outputResult, self.repo_dir) + '\n'
             return None, None, None, startRepo, endRepo
 
         r = re.compile("The first (good|bad) revision is:")
         m = r.match(outputLines[0])
         if m:
             print '\n\nautoBisect shows this is probably related to the following changeset:\n'
-            print sanitizeCsetMsg(outputResult, repoDir) + '\n'
+            print sanitizeCsetMsg(outputResult, self.repo_dir) + '\n'
             blamedGoodOrBad = m.group(1)
             blamedRev = hgCmds.getCsetHashFromBisectMsg(outputLines[1])
             return blamedGoodOrBad, blamedRev, None, startRepo, endRepo
@@ -281,8 +284,8 @@ class Bisector:
         currRev = hgCmds.getCsetHashFromBisectMsg(outputLines[0])
         if currRev is None:
             print 'Resetting to default revision...'
-            subprocess.check_call(hgPrefix + ['update', '-C', 'default'])
-            hgCmds.destroyPyc(repoDir)
+            subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'])
+            hgCmds.destroyPyc(self.repo_dir)
             raise Exception("hg did not suggest a changeset to test!")
 
         # Update the startRepo/endRepo values.

@@ -34,7 +34,7 @@ class Bisector:
         
         self.evaluator = None
 
-    def findBlamedCset(self, options):
+    def bisect(self, options):
         log.info("Begin bisection on {0}".format(self.repo_dir))
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".

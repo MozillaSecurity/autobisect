@@ -30,6 +30,7 @@ class Bisector:
         self.repo_dir = args.repo_dir
         self.start_rev = args.start
         self.end_rev = args.end
+        self.skip_revs = args.skip
         self.hg_prefix = ['hg', '-R', self.repo_dir]
         
         self.evaluator = None
@@ -78,8 +79,9 @@ class Bisector:
 
         # Reset bisect ranges and set skip ranges.
         sps.captureStdout(self.hg_prefix + ['bisect', '-r'])
-        if options.skipRevs:
-            sps.captureStdout(self.hg_prefix + ['bisect', '--skip', options.skipRevs])
+        if self.skip_revs:
+            log.info("Skipping revisions matching: {0}".format(self.skip_revs))
+            subprocess.check_call(self.hg_prefix + ['bisect', '--skip', self.skip_revs])
 
         labels = {}
 

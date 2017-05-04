@@ -108,8 +108,6 @@ def findBlamedCset(options, repoDir, testRev):
     sps.captureStdout(hgPrefix + ['update', '-C', '-r', 'default'], ignoreStderr=True)
     hgCmds.destroyPyc(repoDir)
 
-    print sps.dateStr()
-
 
 def internalTestAndLabel(options):
     """Use autoBisectJs without interestingness tests to examine the revision of the js shell."""

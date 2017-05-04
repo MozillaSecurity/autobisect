@@ -34,17 +34,46 @@ class Bisector:
         
         self.evaluator = None
 
+        self.baseline = None
+
+    def establish_baseline(self, start, end):
+        log.info('Attempting to establish baseline for testcase')
+        subprocess.check_call(self.hg_prefix + ['update', '-r', end])
+        self.baseline = self.evaluate_testcase(end)
+
+        # Test to make sure the end revision crashes
+        if self.baseline is None or self.baseline == "skip":
+            log.error("Unable to establish baseline!")
+            return False
+
+        # Test to make sure the start revision doesn't
+        # This might be incorrect - We shoud probably just check that the return code is different
+        subprocess.check_call(self.hg_prefix + ['update', '-r', start])
+        start_result = self.evaluate_testcase(start)
+
+        if start_result is None:
+            return True
+        else:
+            return False
+
     def bisect(self, options):
         # Refresh source directory (overwrite all local changes) to tip
         log.info("Purging all local repository changes")
         subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'])
         subprocess.check_call(self.hg_prefix + ['purge', '--all'])
 
-        log.info("Begin bisection on {0}".format(self.repo_dir))
-
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
         realStartRepo = sRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
         realEndRepo = eRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
+
+        # Establish baseline
+        # All future runs must match this baseline to be considered 'good'
+        if self.establish_baseline(sRepo, eRepo):
+            log.info("Established baseline.  All future runs must return: {0}".format(self.baseline))
+        else:
+            log.error("Unable to perform bisection because the we were unable to establish a baseline.  Exiting!")
+            return
+
         log.info("Bisecting in range: {0} - {1}".format(sRepo, eRepo))
 
         # Reset bisect ranges and set skip ranges.
@@ -53,22 +82,11 @@ class Bisector:
             sps.captureStdout(self.hg_prefix + ['bisect', '--skip', options.skipRevs])
 
         labels = {}
-        # Specify `hg bisect` ranges.
-        if options.testInitialRevs:
-            currRev = eRepo  # If testInitialRevs mode is set, compile and test the latest rev first.
-        else:
-            labels[sRepo] = ('good', 'assumed start rev is good')
-            labels[eRepo] = ('bad', 'assumed end rev is bad')
-            subprocess.check_call(self.hg_prefix + ['bisect', '-U', '-g', sRepo])
-            currRev = hgCmds.getCsetHashFromBisectMsg(fileManipulation.firstLine(
-                sps.captureStdout(self.hg_prefix + ['bisect', '-U', '-b', eRepo])[0]))
 
         iterNum = 1
-        if options.testInitialRevs:
-            iterNum -= 2
-
         skipCount = 0
         blamedRev = None
+        currRev = self.baseline
 
         while currRev is not None:
             startTime = time.time()
@@ -85,19 +103,11 @@ class Bisector:
                     break
             logging.info(label[0] + " (" + label[1] + ") ")
 
-            if iterNum <= 0:
-                log.info("Finished testing the initial boundary revisions...")
-            else:
-                # Revisit this
-                """print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
-                      str(2**iterNum), "...",
-            (blamedGoodOrBad, blamedRev, currRev, sRepo, eRepo) = \
-                bisectLabel(self.hg_prefix, options, label[0], currRev, sRepo, eRepo)"""
-
-            if options.testInitialRevs:
-                options.testInitialRevs = False
-                assert currRev is None
-                currRev = sRepo  # If options.testInitialRevs is set, test earliest possible rev next.
+            # Revisit this
+            """print "Bisecting for the n-th round where n is", iterNum, "and 2^n is", \
+                  str(2**iterNum), "...",
+        (blamedGoodOrBad, blamedRev, currRev, sRepo, eRepo) = \
+            bisectLabel(self.hg_prefix, options, label[0], currRev, sRepo, eRepo)"""
 
             iterNum += 1
             endTime = time.time()

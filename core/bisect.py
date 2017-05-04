@@ -75,7 +75,7 @@ class Bisector:
             log.error("Unable to perform bisection because the we were unable to establish a baseline.  Exiting!")
             return
 
-        log.info("Bisecting in range: {0} - {1}".format(start_rev, end_rev))
+        log.info("Begin bisection in range: {0} - {1}".format(start_rev, end_rev))
 
         # Reset bisect ranges and set skip ranges.
         sps.captureStdout(self.hg_prefix + ['bisect', '-r'])

@@ -35,18 +35,17 @@ class Bisector:
         self.evaluator = None
 
     def bisect(self, options):
+        # Refresh source directory (overwrite all local changes) to tip
+        log.info("Purging all local repository changes")
+        subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'])
+        subprocess.check_call(self.hg_prefix + ['purge', '--all'])
+
         log.info("Begin bisection on {0}".format(self.repo_dir))
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
         realStartRepo = sRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
         realEndRepo = eRepo = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
         log.info("Bisecting in range: {0} - {1}".format(sRepo, eRepo))
-
-        # Refresh source directory (overwrite all local changes) to default tip if required.
-        if options.resetRepoFirst:
-            subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'])
-            # Throws exit code 255 if purge extension is not enabled in .hgrc:
-            subprocess.check_call(self.hg_prefix + ['purge', '--all'])
 
         # Reset bisect ranges and set skip ranges.
         sps.captureStdout(self.hg_prefix + ['bisect', '-r'])

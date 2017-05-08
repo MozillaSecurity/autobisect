@@ -6,8 +6,6 @@
 
 import argparse
 
-from browser.bisect_browser import BisectBrowser
-
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
@@ -18,14 +16,16 @@ def parse_arguments():
     global_args.add_argument('repo_dir', action='store', help='Path of repository')
     global_args.add_argument('build_dir', action='store', help='Path to store build')
     global_args.add_argument('testcase', action='store', help='Path to testcase')
-    global_args.add_argument('start_rev', action='store', help='Known good revision (default: earliest known working)')
-    global_args.add_argument('end_rev', default='tip', action='store', help='Known bad revision (default: %(default)s)')
+    global_args.add_argument('-start', action='store', help='Known good revision (default: earliest known working)')
+    global_args.add_argument('-end', default='tip', action='store', help='Known bad revision (default: tip')
+    global_args.add_argument('-skip', nargs='+', action='store',
+                             help='A revset expression representing the revisions to skip (example: (x::y)')
 
     subparsers = parser.add_subparsers(dest='target')
 
     browser_sub = subparsers.add_parser('browser', parents=[global_args], help='Perform bisection for Firefox builds')
     general_args = browser_sub.add_argument_group('build arguments')
-    general_args.add_argument('--mozconfig', required=True, action='store', help='Path to .mozconfig file')
+    general_args.add_argument('--config', required=True, action='store', help='Path to .mozconfig file')
     ffp_args = browser_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--extension',
                           help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')

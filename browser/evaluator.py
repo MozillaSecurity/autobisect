@@ -81,6 +81,7 @@ class BrowserEvaluator:
         # If compilation fails, skip it during bisection
         log.info('Attempting to compile {0}'.format(self.repo_dir))
         if not self.try_compile():
+            log.error('Compilation failed!')
             return 'skip'
         else:
             log.info('Compilation succeeded!')

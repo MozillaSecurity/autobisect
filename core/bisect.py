@@ -23,10 +23,8 @@ from util import fileManipulation
 from util import hgCmds
 from util import subprocesses as sps
 
-INCOMPLETE_NOTE = 'incompleteBuild.txt'
-MAX_ITERATIONS = 100
+log = logging.getLogger('bisect')
 
-log = logging.getLogger("bisect")
 
 class Bisector:
     def __init__(self, args):

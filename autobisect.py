@@ -29,8 +29,8 @@ def parse_arguments():
     ffp_args = browser_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--extension',
                           help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
-    ffp_args.add_argument("--timeout", type=int, default=60,
-                          help="Iteration timeout in seconds (default: %(default)s)")
+    ffp_args.add_argument('--timeout', type=int, default=60,
+                          help='Iteration timeout in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Number of seconds to wait for the browser to become responsive after launching. '
                                '(default: %(default)s)')

@@ -48,14 +48,15 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main():
-    args = parse_arguments()
+def main(args):
+    if args.target == 'browser':
+        evaluator = BrowserEvaluator(args)
+    #else:
+    #    print('Selected js')
 
-    if args.target == "browser":
-        print("Selected browser")
-        # tester = BisectBrowser(args)
-    else:
-        print("Selected js")
+        bisector = Bisector(args)
+        bisector.evaluate_testcase = evaluator.test_rev
+        bisector.bisect()
 
 
 if __name__ == '__main__':

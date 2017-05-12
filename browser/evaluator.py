@@ -11,7 +11,13 @@ import logging
 import os
 import shutil
 import subprocess
-import time
+
+try:
+    # subprocess v3.5
+    from subprocess import DEVNULL
+except ImportError:
+    import os
+    DEVNULL = open(os.devnull, 'wb')
 
 from ffpuppet import FFPuppet
 
@@ -46,12 +52,20 @@ class BisectBrowser:
         env = os.environ.copy()
         env['MOZCONFIG'] = self.moz_config
         env['MOZ_OBJDIR'] = self.build_dir
+        env['ASAN_OPTIONS'] = "detect_leaks=0"
 
         mach = os.path.join(self.repo_dir, 'mach')
 
         try:
-            subprocess.check_call([mach, 'build'], cwd=self.repo_dir, env=env, stderr=subprocess.STDOUT)
-        except subprocess.CalledProcessError:
+            subprocess.check_call(
+                [mach, 'build'],
+                cwd=self.repo_dir,
+                env=env,
+                # stdout=DEVNULL,
+                # stderr=subprocess.STDOUT,
+            )
+        except subprocess.CalledProcessError as e:
+            log.error(e.output)
             return False
 
         if not os.path.exists(self.build_dir):

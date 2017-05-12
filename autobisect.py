@@ -8,6 +8,9 @@ import argparse
 import logging
 import os
 
+from browser.evaluator import BrowserEvaluator
+from core.bisect import Bisector
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(

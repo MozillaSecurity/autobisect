@@ -124,14 +124,34 @@ class BrowserEvaluator:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--source', required=True, action='store', help='Path of Mozilla source')
-    parser.add_argument('-b', '--build', required=True, action='store', help='Path to store Mozilla build')
-    parser.add_argument('-c', '--config', required=True, action='store', help='Path to .mozconfig file')
-    parser.add_argument('-r', '--rev', required=True, action='store', help='Revision to test')
+
+    general_args = parser.add_argument_group('General Arguments')
+    general_args.add_argument('repo_dir', action='store', help='Path of repository')
+    general_args.add_argument('build_dir', action='store', help='Path to store build')
+    general_args.add_argument('testcase', action='store', help='Path to testcase')
+
+    build_args = parser.add_argument_group('Build Arguments')
+    build_args.add_argument('--config', required=True, action='store', help='Path to .mozconfig file')
+
+    ffp_args = parser.add_argument_group('Launcher Arguments')
+    ffp_args.add_argument('--extension',
+                          help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
+    ffp_args.add_argument('--timeout', type=int, default=60,
+                          help='Iteration timeout in seconds (default: %(default)s)')
+    ffp_args.add_argument('--launch-timeout', type=int, default=300,
+                          help='Number of seconds to wait for the browser to become responsive after launching.'
+                          '(default: %(default)s)')
+    ffp_args.add_argument('--prefs', help='prefs.js file to use')
+    ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')
+    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (Requires psutil)')
+    ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
+    ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
+    ffp_args.add_argument('--windbg', action='store_true', help='Use WinDBG (Windows only)')
+    ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     args = parser.parse_args()
-    bisector = BisectBrowser()
-    bisector.test_rev(args.source, args.build, args.config, args.rev)
+    bisector = BrowserEvaluator(args)
+    bisector.test_rev()
 
 
 if __name__ == '__main__':

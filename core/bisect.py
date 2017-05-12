@@ -6,16 +6,19 @@
 
 from __future__ import absolute_import, division, print_function
 
-import os
+import datetime
+import logging
 import re
 import subprocess
-import tempfile
-import datetime
 import time
-import logging
 
-from util import ximport
-from util import inspectShell
+try:
+    # subprocess v3.5
+    from subprocess import DEVNULL
+except ImportError:
+    import os
+    DEVNULL = open(os.devnull, 'wb')
+
 from util import fileManipulation
 from util import hgCmds
 from util import subprocesses as sps

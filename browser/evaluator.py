@@ -24,20 +24,19 @@ from ffpuppet import FFPuppet
 log = logging.getLogger('browser-bisect')
 
 
-class BisectBrowser:
+class BrowserEvaluator:
     def __init__(self, args):
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir
-        self.start_repo = args.start_rev
-        self.end_repo = args.end_rev
         self.testcase = args.testcase
 
-        self.moz_config = args.mozconfig
+        self.moz_config = args.config
 
         # FFPuppet arguments
-        self.binary = os.path.join(self.build_dir, 'firefox')
+        self.binary = os.path.join(self.build_dir, 'dist', 'bin', 'firefox')
         self.extension = args.extension
-        self.launch_timeout = args.timeout
+        self.timeout = args.timeout
+        self.launch_timeout = args.launch_timeout
         self.prefs = args.prefs
         self.memory = args.memory
         self.gdb = args.gdb

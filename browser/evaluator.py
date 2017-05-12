@@ -72,12 +72,13 @@ class BrowserEvaluator:
 
         return True
 
-    def test_rev(self, rev):
+    def test_rev(self):
         if os.path.exists(self.build_dir):
             log.info('Clobbering build dir: {0}'.format(self.build_dir))
             shutil.rmtree(self.build_dir)
 
-        log.info('Attempting to compile revision: {0}'.format(rev))
+        # If compilation fails, skip it during bisection
+        log.info('Attempting to compile {0}'.format(self.repo_dir))
         if not self.try_compile():
             return 'skip'
         else:

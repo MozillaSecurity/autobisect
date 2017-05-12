@@ -76,6 +76,7 @@ class BrowserEvaluator:
         if os.path.exists(self.build_dir):
             log.info('Clobbering build dir: {0}'.format(self.build_dir))
             shutil.rmtree(self.build_dir)
+            os.makedirs(self.build_dir)
 
         # If compilation fails, skip it during bisection
         log.info('Attempting to compile {0}'.format(self.repo_dir))

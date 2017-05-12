@@ -12,7 +12,7 @@ import re
 import sys
 import subprocess
 
-import subprocesses as sps
+from util import subprocesses as sps
 
 
 def destroyPyc(repoDir):

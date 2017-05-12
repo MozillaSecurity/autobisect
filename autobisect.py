@@ -42,8 +42,8 @@ def parse_arguments():
     ffp_args.add_argument('--windbg', action='store_true', help='Use WinDBG (Windows only)')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
-    js_args = subparsers.add_parser('js', parents=[global_args], help="Perform bisection for SpiderMonkey builds")
-    js_args.add_argument('--foo', required=True, help="Foo")
+    js_args = subparsers.add_parser('js', parents=[global_args], help='Perform bisection for SpiderMonkey builds')
+    js_args.add_argument('--foo', required=True, help='Foo')
 
     return parser.parse_args()
 

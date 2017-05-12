@@ -86,13 +86,13 @@ class BrowserEvaluator:
         else:
             log.info('Compilation succeeded!')
 
-        log.info('Attempting to launch browser with testcase...')
         result = self.launch()
 
-        # Why sleep?
-        time.sleep(8)
-
-        return result
+        # Return 'bad' if result is anything other than 0
+        if result != 0 or "Timeout":
+                return 'bad'
+        else:
+            return 'good'
 
     def launch(self):
         ffp = FFPuppet(
@@ -106,14 +106,14 @@ class BrowserEvaluator:
             ffp.launch(
                 self.binary,
                 location=os.path.abspath(self.testcase),
-                launch_timeout=self.timeout,
+                launch_timeout=self.launch_timeout,
                 memory_limit=self.memory,
                 prefs_js=self.prefs,
                 extension=self.extension)
 
             return_code = ffp.wait(self.timeout)
 
-            status = return_code or 'Timeout'
+            status = return_code or '0'
             log.info('Browser execution status: {0}'.format(status))
         finally:
             ffp.close()

@@ -16,7 +16,6 @@ try:
     # subprocess v3.5
     from subprocess import DEVNULL
 except ImportError:
-    import os
     DEVNULL = open(os.devnull, 'wb')
 
 from ffpuppet import FFPuppet

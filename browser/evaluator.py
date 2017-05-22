@@ -31,6 +31,9 @@ class BrowserBisector(Bisector):
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir
         self.testcase = args.testcase
+        self.start_rev = args.start
+        self.end_rev = args.end
+        self.skip_revs = args.skip
 
         self.moz_config = args.config
 

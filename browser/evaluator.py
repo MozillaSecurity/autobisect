@@ -104,7 +104,6 @@ class BrowserBisector(Bisector):
         ffp = FFPuppet(
             use_gdb=self.gdb,
             use_valgrind=self.valgrind,
-            use_windbg=self.windbg,
             use_xvfb=self.xvfb)
 
         try:

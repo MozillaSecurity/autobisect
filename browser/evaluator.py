@@ -95,7 +95,7 @@ class BrowserBisector(Bisector):
 
         # Return 'bad' if result is anything other than 0
         if result and result != 0:
-                return 'bad'
+            return 'bad'
         else:
             return 'good'
 

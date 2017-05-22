@@ -40,15 +40,14 @@ class Bisector(object):
         raise NotImplementedError
 
     def verify_bounds(self, start, end):
+        return True
         subprocess.check_call(self.hg_prefix + ['update', '-r', end], stdout=DEVNULL)
         if self.evaluate_testcase() != "bad":
-            log.error('Unable to verify end revision {0}'.format(end))
             return False
 
         # Test to make sure the start revision doesn't
         subprocess.check_call(self.hg_prefix + ['update', '-r', start], stdout=DEVNULL)
         if self.evaluate_testcase() != "good":
-            log.error('Unable to verify start revision {0}'.format(start))
             return False
 
         return True
@@ -63,7 +62,7 @@ class Bisector(object):
         start_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
         end_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
 
-        log.info('Begin validation of the start and end revisions: {0}, {1}'.format(self.start_rev, self.end_rev))
+        log.info('Begin validation of start ({0}) and end ({1}) revisions'.format(self.start_rev, self.end_rev))
         if self.verify_bounds(start_rev, end_rev):
             log.info('Successfully validated both revisions')
         else:
@@ -90,7 +89,7 @@ class Bisector(object):
 
         while current_rev is not None:
             iter_count += 1
-            log.info('Begin bisection round {0}'.format(iter_count))
+            log.info('Begin bisection round {0}, revision {1}'.format(iter_count, current_rev))
             start_time = time.time()
             result = self.evaluate_testcase(current_rev)
 
@@ -114,8 +113,8 @@ class Bisector(object):
     def apply_result(self, label, current_rev):
         """Tell hg what we learned about the revision."""
         assert label in ('good', 'bad', 'skip')
-        log.info('Marking current revision as: {0}'.format(label))
-        output_result = sps.captureStdout(self.hg_prefix + ['bisect', '-U', '--' + label, current_rev])[0]
+        log.info('Marking current revision as - {0}'.format(label))
+        output_result = sps.captureStdout(self.hg_prefix + ['bisect', '--' + label, current_rev])[0]
         output_lines = output_result.split('\n')
 
         if re.match('Due to skipped revisions, the first (good|bad) revision could be any of:', output_lines[0]):

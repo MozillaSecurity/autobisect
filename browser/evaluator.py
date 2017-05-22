@@ -80,7 +80,7 @@ class BrowserBisector(Bisector):
 
     def evaluate_testcase(self):
         if os.path.exists(self.build_dir):
-            log.info('Clobbering build dir: {0}'.format(self.build_dir))
+            log.info('Clobbering build dir - {0}'.format(self.build_dir))
             shutil.rmtree(self.build_dir)
             os.makedirs(self.build_dir)
 

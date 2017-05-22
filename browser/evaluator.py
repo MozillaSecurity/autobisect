@@ -95,7 +95,7 @@ class BrowserBisector(Bisector):
         result = self.launch()
 
         # Return 'bad' if result is anything other than 0
-        if result != 0 or "Timeout":
+        if result and result != 0:
                 return 'bad'
         else:
             return 'good'

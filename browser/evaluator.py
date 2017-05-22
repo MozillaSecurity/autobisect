@@ -70,8 +70,7 @@ class BrowserBisector(Bisector):
                 # stdout=DEVNULL,
                 # stderr=subprocess.STDOUT,
             )
-        except subprocess.CalledProcessError as e:
-            log.error(e.output)
+        except subprocess.CalledProcessError:
             return False
 
         if not os.path.exists(self.build_dir):

@@ -91,7 +91,7 @@ class Bisector(object):
             iter_count += 1
             log.info('Begin bisection round {0}, revision {1}'.format(iter_count, current_rev))
             start_time = time.time()
-            result = self.evaluate_testcase(current_rev)
+            result = self.evaluate_testcase()
 
             if result == 'skip':
                 skip_count += 1

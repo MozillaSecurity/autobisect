@@ -11,6 +11,7 @@ import logging
 import re
 import subprocess
 import time
+import abc
 
 try:
     # subprocess v3.5
@@ -26,15 +27,17 @@ from util import subprocesses as sps
 log = logging.getLogger('bisect')
 
 
-class Bisector:
-    def __init__(self, args):
-        self.repo_dir = args.repo_dir
-        self.start_rev = args.start
-        self.end_rev = args.end
-        self.skip_revs = args.skip
+class Bisector(object):
+    def __init__(self, repo_dir, start_rev, end_rev, skip_revs):
+        self.repo_dir = repo_dir
+        self.start_rev = start_rev
+        self.end_rev = end_rev
+        self.skip_revs = skip_revs
         self.hg_prefix = ['hg', '-R', self.repo_dir]
-        
-        self.evaluate_testcase = None
+
+    @abc.abstractmethod
+    def evaluate_testcase(self):
+        raise NotImplementedError
 
     def verify_bounds(self, start, end):
         subprocess.check_call(self.hg_prefix + ['update', '-r', end], stdout=DEVNULL)

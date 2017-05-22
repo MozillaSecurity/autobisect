@@ -20,11 +20,13 @@ except ImportError:
     DEVNULL = open(os.devnull, 'wb')
 
 from ffpuppet import FFPuppet
+from core.bisect import Bisector
+
 
 log = logging.getLogger('browser-bisect')
 
 
-class BrowserEvaluator:
+class BrowserBisector(Bisector):
     def __init__(self, args):
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir
@@ -43,6 +45,8 @@ class BrowserEvaluator:
         self.valgrind = args.valgrind
         self.windbg = args.windbg
         self.xvfb = args.xvfb
+
+        super(BrowserBisector, self).__init__(self.repo_dir, self.start_rev, self.end_rev, self.skip_revs)
 
     def try_compile(self):
         assert os.path.isdir(self.repo_dir)
@@ -72,7 +76,7 @@ class BrowserEvaluator:
 
         return True
 
-    def test_rev(self):
+    def evaluate_testcase(self):
         if os.path.exists(self.build_dir):
             log.info('Clobbering build dir: {0}'.format(self.build_dir))
             shutil.rmtree(self.build_dir)
@@ -150,8 +154,8 @@ def main():
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     args = parser.parse_args()
-    bisector = BrowserEvaluator(args)
-    bisector.test_rev()
+    bisector = BrowserBisector(args)
+    bisector.evaluate_testcase()
 
 
 if __name__ == '__main__':

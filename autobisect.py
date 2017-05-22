@@ -8,8 +8,7 @@ import argparse
 import logging
 import os
 
-from browser.evaluator import BrowserEvaluator
-from core.bisect import Bisector
+from browser.evaluator import BrowserBisector
 
 
 def parse_arguments():
@@ -55,13 +54,11 @@ def parse_arguments():
 
 def main(args):
     if args.target == 'browser':
-        evaluator = BrowserEvaluator(args)
+        bisector = BrowserBisector(args)
     #else:
     #    print('Selected js')
 
-        bisector = Bisector(args)
-        bisector.evaluate_testcase = evaluator.test_rev
-        bisector.bisect()
+    bisector.bisect()
 
 
 if __name__ == '__main__':

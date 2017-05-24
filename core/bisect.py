@@ -74,7 +74,8 @@ class Bisector(object):
         subprocess.check_call(self.hg_prefix + ['bisect', '-r'], stdout=DEVNULL)
         if self.skip_revs:
             log.info('Skipping revisions matching: {0}'.format(self.skip_revs))
-            subprocess.check_call(self.hg_prefix + ['bisect', '--skip', self.skip_revs])
+            for rev in self.skip_revs:
+                subprocess.check_call(self.hg_prefix + ['bisect', '--skip', rev])
 
         # Set bisection's start and end revisions
         subprocess.check_call(self.hg_prefix + ['bisect', '-g', start_rev])

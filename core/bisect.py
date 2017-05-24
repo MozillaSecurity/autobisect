@@ -125,8 +125,8 @@ class Bisector(object):
         r = re.compile("The first (good|bad) revision is:")
         m = r.match(output_lines[0])
         if m:
-            log.info('autoBisect shows this is probably related to the following changeset:')
-            log.info(sanitize_msg(output_result, self.repo_dir))
+            msg = sanitize_msg(output_result, self.repo_dir)
+            log.info('autoBisect shows this is probably related to the following changeset: \n%s' % msg)
             # blamedGoodOrBad = m.group(1)
             # blamedRev = hgCmds.getCsetHashFromBisectMsg(output_lines[1])
             # Call checkBlameParents here

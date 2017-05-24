@@ -57,7 +57,7 @@ class BrowserBisector(Bisector):
         env = os.environ.copy()
         env['MOZCONFIG'] = self.moz_config
         env['MOZ_OBJDIR'] = self.build_dir
-        env['ASAN_OPTIONS'] = "detect_leaks=0"
+        # env['ASAN_OPTIONS'] = "detect_leaks=0"
 
         mach = os.path.join(self.repo_dir, 'mach')
 
@@ -66,8 +66,8 @@ class BrowserBisector(Bisector):
                 [mach, 'build'],
                 cwd=self.repo_dir,
                 env=env,
-                # stdout=DEVNULL,
-                # stderr=subprocess.STDOUT,
+                stdout=DEVNULL,
+                stderr=subprocess.STDOUT,
             )
         except subprocess.CalledProcessError:
             return False
@@ -91,7 +91,13 @@ class BrowserBisector(Bisector):
         else:
             log.info('Compilation succeeded!')
 
-        result = self.launch()
+        # Verify that build works
+        log.info('Verifying build')
+        if self.launch() != 0:
+            log.error('Failed to verify build')
+            return 'skip'
+
+        result = self.launch(os.path.abspath(self.testcase))
 
         # Return 'bad' if result is anything other than 0
         if result and result != 0:
@@ -99,26 +105,26 @@ class BrowserBisector(Bisector):
         else:
             return 'good'
 
-    def launch(self):
+    def launch(self, testcase=None):
         ffp = FFPuppet(
             use_gdb=self.gdb,
             use_valgrind=self.valgrind,
             use_xvfb=self.xvfb)
 
         try:
-            log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))
+            if testcase:
+                log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))
+
             ffp.launch(
                 self.binary,
-                location=os.path.abspath(self.testcase),
+                location=testcase,
                 launch_timeout=self.launch_timeout,
                 memory_limit=self.memory,
                 prefs_js=self.prefs,
                 extension=self.extension)
 
-            return_code = ffp.wait(self.timeout)
-
-            status = return_code or '0'
-            log.info('Browser execution status: {0}'.format(status))
+            return_code = ffp.wait(self.timeout) or 0
+            log.info('Browser execution status: {0}'.format(return_code))
         finally:
             ffp.close()
             ffp.clean_up()

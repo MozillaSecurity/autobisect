@@ -12,6 +12,7 @@ import re
 import sys
 import subprocess
 
+from datetime import datetime
 from util import subprocesses as sps
 
 
@@ -161,3 +162,13 @@ def hgQpopQrmAppliedPatch(patchFile, repoDir):
     print "Patch qpop'ed...",
     subprocess.check_call(['hg', '-R', repoDir, 'qdelete', os.path.basename(patchFile)])
     print "Patch qdelete'd."
+
+
+def rev_date(repo_dir, rev):
+    """
+    Return the date of a rev as a date object
+    """
+    date_string = sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', rev, '--template', '{date|shortdate}\n'])[0]
+    if re.match(r"\d{4}-\d{2}-\d{2}", date_string):
+        return datetime.strptime(date_string, '%Y-%m-%d').date()
+

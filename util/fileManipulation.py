@@ -8,12 +8,16 @@ from __future__ import absolute_import
 
 
 def first_line(s):
-    """Return the first line of any series of text with / without line breaks."""
+    """
+    Return the first line of any series of text with / without line breaks
+    """
     return s.split('\n')[0]
 
 
 def fuzz_dice(filename):
-    """Return the lines of the file, except for the one line containing DICE."""
+    """
+    Return the lines of the file, except for the one line containing DICE
+    """
     before = []
     after = []
     with open(filename, 'rb') as f:
@@ -27,7 +31,9 @@ def fuzz_dice(filename):
 
 
 def fuzz_splice(filename):
-    """Return the lines of a file, minus the ones between the two lines containing SPLICE."""
+    """
+    Return the lines of a file, minus the ones between the two lines containing SPLICE
+    """
     before = []
     after = []
     with open(filename, 'rb') as f:
@@ -45,7 +51,9 @@ def fuzz_splice(filename):
 
 
 def lines_with(lines, search):
-    """Return the lines from an array that contain a given string."""
+    """
+    Return the lines from an array that contain a given string
+    """
     matches = []
     for line in lines:
         if line.find(search) != -1:
@@ -54,7 +62,9 @@ def lines_with(lines, search):
 
 
 def lines_starting_with(lines, search):
-    """Return the lines from an array that start with a given string."""
+    """
+    Return the lines from an array that start with a given string
+    """
     matches = []
     for line in lines:
         if line.startswith(search):
@@ -63,13 +73,17 @@ def lines_starting_with(lines, search):
 
 
 def truncate_mid(a, limit, insert):
-    """Return a list with the middle portion removed, if it has more than limit*2 items."""
+    """
+    Return a list with the middle portion removed, if it has more than limit*2 items
+    """
     if len(a) <= limit + limit:
         return a
     return a[0:limit] + insert + a[-limit:]
 
 
 def write_lines_to_file(lines, filename):
-    """Write lines to a given filename."""
+    """
+    Write lines to a given filename
+    """
     with open(filename, 'wb') as f:
         f.writelines(lines)

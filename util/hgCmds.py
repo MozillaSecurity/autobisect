@@ -20,8 +20,11 @@ log = logging.getLogger(__name__)
 
 
 def destroy_pyc(repo_dir):
-    # This is roughly equivalent to ['hg', 'purge', '--all', '--include=**.pyc'])
-    # but doesn't run into purge's issues (incompatbility with -R, requiring an hg extension)
+    """
+    Remove *.pyc files from repo_dir
+    Roughly equivalent to hg purge --all --include=**.pyc without requiring the purge extension
+    """
+
     for root, dirs, files in os.walk(repo_dir):
         for fn in files:
             if fn.endswith(".pyc"):
@@ -32,7 +35,10 @@ def destroy_pyc(repo_dir):
 
 
 def ensure_mg_enabled():
-    """Ensure that mq is enabled in the ~/.hgrc file."""
+    """
+    Ensure that mq is enabled in the ~/.hgrc file.
+    """
+
     hgrc_path = os.path.join(os.path.expanduser('~'), '.hgrc')
     assert os.path.isfile(hgrc_path)
 
@@ -46,26 +52,41 @@ def ensure_mg_enabled():
 
 
 def find_common_ancestor(repo_dir, a, b):
+    """
+    Find a common ancestor of two revisions 
+    """
+
     return sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', 'ancestor(' + a + ',' + b + ')',
                               '--template={node|short}'])[0]
 
 
 def is_ancestor(repo_dir, a, b):
-    """Return true iff |a| is an ancestor of |b|. Throw if |a| or |b| does not exist."""
+    """
+    Determine if "a" is an ancestor of "b". 
+    Throws an exception if either rev doesn't exist
+    """
+
     return sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', a + ' and ancestor(' + a + ',' + b + ')',
                               '--template={node|short}'])[0] != ""
 
 
 def exists_and_is_ancestor(repo_dir, a, b):
-    """Return true iff |a| exists and is an ancestor of |b|."""
-    # Takes advantage of "id(badhash)" being the empty set, in contrast to just "badhash", which is an error
+    """
+    Determine if "a" is an ancestor of "b"
+    Throws an exception if either rev doesn't exist 
+    """
+
     out = sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', a + ' and ancestor(' + a + ',' + b + ')',
                              '--template={node|short}'], combineStderr=True, ignoreExitCode=True)[0]
     return out != "" and out.find("abort: unknown revision") < 0
 
 
 def get_bisect_changeset(msg):
-    # Example bisect msg: "Testing changeset 41831:4f4c01fb42c3 (2 changesets remaining, ~1 tests)"
+    """
+    Extracts the current changeset from a bisect message
+    I.e. - "Testing changeset 41831:4f4c01fb42c3 (2 changesets remaining, ~1 tests)"
+    """
+
     r = re.compile(r"(^|.* )(\d+):(\w{12}).*")
     m = r.match(msg)
     if m:
@@ -78,11 +99,10 @@ assert get_bisect_changeset("12345:abababababab y") == "abababababab"
 
 
 def get_full_hash(repo_dir, rev):
-    """Return the repository hash and id, and whether it is on default.
-
-    It will also ask what the user would like to do, should the repository not be on default.
     """
-    # This returns null if the repository is not on default.
+    Converts a partial hash to a full one
+    """
+
     cmd = ['hg', '-R', repo_dir, 'log', '-l', '1', '--template' '{node}\n' '-r', rev]
     full_hash = sps.captureStdout(cmd)[0]
     assert full_hash != ''
@@ -90,7 +110,9 @@ def get_full_hash(repo_dir, rev):
 
 
 def get_repo_name(repo_dir):
-    """Look in the hgrc file in the .hg directory of the repository and return the name."""
+    """
+    Extract the repository name from the hgrc file
+    """
     assert is_valid_repo(repo_dir)
     hgrc = configparser.ConfigParser()
     hgrc.read(sps.normExpUserPath(os.path.join(repo_dir, '.hg', 'hgrc')))
@@ -99,12 +121,18 @@ def get_repo_name(repo_dir):
 
 
 def is_valid_repo(repo):
-    """Check that a repository is valid by ensuring that the hgrc file is around."""
+    """
+    Validate repository by checking for the existence of repo_dir/.hg/hgrc
+    """
+
     return os.path.isfile(sps.normExpUserPath(os.path.join(repo, '.hg', 'hgrc')))
 
 
 def patch_repo_using_mg(patch_path, repo_dir=os.getcwdu()):
-    # We may have passed in the patch_path with or without the full directory.
+    """
+    Apply a patch using the mg extension
+    """
+
     full_patch_path = os.path.abspath(sps.normExpUserPath(patch_path))
     pname = os.path.basename(full_patch_path)
     assert pname != ''
@@ -134,7 +162,10 @@ def patch_repo_using_mg(patch_path, repo_dir=os.getcwdu()):
 
 
 def pop_applied_patch(patch, repo_dir):
-    """Remove applied patch using `hg qpop` and `hg qdelete`."""
+    """
+    Remove an applied patch
+    """
+
     qpop_output, qpop_ret_code = sps.captureStdout(['hg', '-R', repo_dir, 'qpop'], combineStderr=True,
                                                    ignoreStderr=True, ignoreExitCode=True)
     log.info("Patch qpop'ed...")

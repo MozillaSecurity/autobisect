@@ -39,6 +39,9 @@ class Bisector(object):
         raise NotImplementedError
 
     def verify_bounds(self, start, end):
+        """
+        Verify that the supplied start/end revisions behave as expected
+        """
         return True
         subprocess.check_call(self.hg_prefix + ['update', '-r', end], stdout=DEVNULL)
         if self.evaluate_testcase() != "bad":
@@ -52,7 +55,9 @@ class Bisector(object):
         return True
 
     def bisect(self):
-        # Refresh source directory (overwrite all local changes) to tip
+        """
+        Bisect using mercurial repository
+        """
         log.info('Purging all local repository changes')
         subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'], stdout=DEVNULL)
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)

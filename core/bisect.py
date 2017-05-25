@@ -57,8 +57,9 @@ class Bisector(object):
         """
         Bisect using mercurial repository
         """
-        log.info('Purging all local repository changes')
+        log.info('Updating to tip...')
         subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'], stdout=DEVNULL)
+        log.info('Purging all local repository changes...')
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".

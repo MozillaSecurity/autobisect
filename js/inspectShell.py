@@ -8,18 +8,9 @@ from __future__ import absolute_import
 
 import os
 import platform
-import sys
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import subprocesses as sps
-
-path2 = os.path.abspath(os.path.join(path0, os.pardir, os.pardir, 'lithium', 'interestingness'))
-sys.path.append(path2)
-if not os.path.exists(path2):
-    print "Please check out Lithium and FuzzManager side-by-side with funfuzz. Links in https://github.com/MozillaSecurity/funfuzz/#setup"
-    sys.exit(2)
+from util import subprocesses as sps
+from lithium import interestingness
 import envVars
 
 RUN_NSPR_LIB = ''

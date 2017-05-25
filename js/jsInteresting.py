@@ -7,20 +7,14 @@ import sys
 
 from optparse import OptionParser
 
-import inspectShell
-p0 = os.path.dirname(os.path.abspath(__file__))
-p1 = os.path.abspath(os.path.join(p0, os.pardir, os.pardir, 'lithium', 'interestingness'))
-sys.path.append(p1)
-import timedRun
-p2 = os.path.abspath(os.path.join(p0, os.pardir, "detect"))
-sys.path.append(p2)
-import detect_malloc_errors
-import findIgnoreLists
-p3 = os.path.abspath(os.path.join(p0, os.pardir, 'util'))
-sys.path.append(p3)
-import subprocesses as sps
-import createCollector
-import fileManipulation
+from js import inspectShell
+# This may be wrong
+from lithium import timedRun
+from lithium import detect_malloc_errors
+from lithium import findIgnoreLists
+from util import subprocesses as sps
+from util import createCollector
+from util import fileManipulation
 
 # From FuzzManager (in sys.path thanks to import createCollector above)
 import FTB.Signatures.CrashInfo as CrashInfo

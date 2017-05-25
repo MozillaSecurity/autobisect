@@ -9,20 +9,16 @@ import sys
 import time
 from optparse import OptionParser
 
-import compareJIT
-import jsInteresting
-import pinpoint
-import shellFlags
+from js import compareJIT
+from js import jsInteresting
+from js import pinpoint
+from js import shellFlags
 
-p0 = os.path.dirname(os.path.abspath(__file__))
-interestingpy = os.path.abspath(os.path.join(p0, 'jsInteresting.py'))
-p1 = os.path.abspath(os.path.join(p0, os.pardir, 'util'))
-sys.path.append(p1)
-import createCollector
-import fileManipulation
-import lithOps
-import linkJS
-import subprocesses as sps
+from util import createCollector
+from util import fileManipulation
+from util import lithOps
+from util import linkJS
+from util import subprocesses as sps
 
 
 def parseOpts(args):

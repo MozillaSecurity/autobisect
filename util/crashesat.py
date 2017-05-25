@@ -3,16 +3,13 @@
 from __future__ import absolute_import
 
 import os
-import sys
 from optparse import OptionParser
 
-import subprocesses as sps
+from util import subprocesses as sps
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, os.pardir, 'lithium', 'interestingness'))
-sys.path.append(path1)
-import timedRun
-import fileIngredients
+# These may be wrong
+from lithium import timedRun
+from lithium import fileIngredients
 
 
 def parseOptions(arguments):

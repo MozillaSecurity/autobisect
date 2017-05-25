@@ -6,16 +6,13 @@ import os
 import sys
 from optparse import OptionParser
 
-import jsInteresting
-import pinpoint
-import shellFlags
+from js import jsInteresting
+from js import pinpoint
+from js import shellFlags
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import subprocesses as sps
-import lithOps
-import createCollector
+from util import subprocesses as sps
+from util import lithOps
+from util import createCollector
 
 # From FuzzManager (in sys.path thanks to import createCollector above)
 import FTB.Signatures.CrashInfo as CrashInfo

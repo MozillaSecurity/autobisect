@@ -12,7 +12,7 @@ import shutil
 import subprocess
 import tempfile
 
-import subprocesses as sps
+from util import subprocesses as sps
 
 p0 = os.path.dirname(os.path.abspath(__file__))
 lithiumpy = os.path.join(p0, os.pardir, os.pardir, "lithium", "lithium", "lithium.py")

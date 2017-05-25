@@ -13,7 +13,7 @@ import sys
 from HTMLParser import HTMLParser
 
 from optparse import OptionParser
-import subprocesses as sps
+from util import subprocesses as sps
 
 # Use curl/wget rather than urllib because urllib can't check certs.
 useCurl = False

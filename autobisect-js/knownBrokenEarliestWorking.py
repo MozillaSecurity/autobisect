@@ -6,15 +6,8 @@
 
 from __future__ import absolute_import
 
-import os
-import platform
-import sys
 from distutils.version import StrictVersion
-
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import subprocesses as sps
+from util import subprocesses as sps
 
 
 def hgrange(firstBad, firstGood):

@@ -3,16 +3,11 @@
 from __future__ import absolute_import
 
 import multiprocessing
-import os
 import random
 import sys
 
-import inspectShell
-
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import subprocesses as sps
+from js import inspectShell
+from util import subprocesses as sps
 
 
 def memoize(f, cache={}):

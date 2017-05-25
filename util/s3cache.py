@@ -8,12 +8,8 @@ from __future__ import absolute_import
 
 import os
 import shutil
-import sys
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import subprocesses as sps
+from util import subprocesses as sps
 
 isBoto = False
 # We need to first install boto into MozillaBuild via psbootstrap on Windows

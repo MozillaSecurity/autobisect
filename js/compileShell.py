@@ -12,22 +12,18 @@ import multiprocessing
 import os
 import shutil
 import subprocess
-import sys
 import tarfile
 import traceback
 
 from optparse import OptionParser
 
-import buildOptions
-import inspectShell
+from js import buildOptions
+from js import inspectShell
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import hgCmds
-import s3cache
-import subprocesses as sps
-from LockDir import LockDir
+from util import hgCmds
+from util import s3cache
+from util import subprocesses as sps
+from util.LockDir import LockDir
 
 S3_SHELL_CACHE_DIRNAME = 'shell-cache'  # Used by autoBisect
 

@@ -8,22 +8,11 @@ import re
 import shutil
 import subprocess
 import sys
-from jsInteresting import JS_OVERALL_MISMATCH, JS_VG_AMISS
-from inspectShell import testJsShellOrXpcshell
-
-# Note that the python executable invoking lithiumpy and autobisectpy have to have pip requirements installed
-p0 = os.path.dirname(os.path.abspath(__file__))
-lithiumpy = os.path.abspath(os.path.join(p0, os.pardir, os.pardir, 'lithium', 'lithium', 'lithium.py'))
-autobisectpy = os.path.abspath(os.path.join(p0, os.pardir, 'autobisect-js', 'autoBisect.py'))
-
-p1 = os.path.abspath(os.path.join(p0, os.pardir, 'util'))
-sys.path.append(p1)
-import fileManipulation
-from lithOps import LITH_FINISHED, LITH_PLEASE_CONTINUE, runLithium
-import subprocesses as sps
-
-p2 = os.path.abspath(os.path.join(p0, os.pardir, 'interestingness'))
-sys.path.append(p2)
+from js.jsInteresting import JS_OVERALL_MISMATCH, JS_VG_AMISS
+from js.inspectShell import testJsShellOrXpcshell
+from util import fileManipulation
+from util import subprocesses as sps
+from util.lithOps import LITH_FINISHED, LITH_PLEASE_CONTINUE, runLithium
 from fileIngredients import fileContainsStr
 
 

@@ -14,7 +14,7 @@ from __future__ import absolute_import
 from copy import deepcopy
 import logging
 import os
-import subprocesses as sps
+from util import subprocesses as sps
 
 
 logging.basicConfig(level=logging.INFO)

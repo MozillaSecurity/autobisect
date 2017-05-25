@@ -7,13 +7,9 @@ import hashlib
 import os
 import platform
 import random
-import sys
 
-path0 = os.path.dirname(os.path.abspath(__file__))
-path1 = os.path.abspath(os.path.join(path0, os.pardir, 'util'))
-sys.path.append(path1)
-import hgCmds
-import subprocesses as sps
+from util import hgCmds
+from util import subprocesses as sps
 
 DEFAULT_TREES_LOCATION = sps.normExpUserPath(os.path.join('~', 'trees'))
 deviceIsFast = not sps.isARMv7l

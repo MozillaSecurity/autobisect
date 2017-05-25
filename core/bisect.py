@@ -111,17 +111,19 @@ class Bisector(object):
             hgCmds.destroy_pyc(self.repo_dir)
 
     def apply_result(self, label, current_rev):
-        """Tell hg what we learned about the revision."""
+        """
+        Tell hg what we learned about the revision.
+        """
         assert label in ('good', 'bad', 'skip')
         log.info('Marking current revision as - {0}'.format(label))
         result = subprocess.check_output(self.hg_prefix + ['bisect', '--' + label, current_rev]).splitlines()
 
+        # Determine if we should continue
         # e.g. "Testing changeset 52121:573c5fa45cc4 (440 changesets remaining, ~8 tests)"
-        m = re.match(r"(Testing changeset \d+:)([a-fA-F0-9]+)( .*)", result)
-        if m:
-            current_rev = m.group(2)
+        current_rev = hgCmds.get_bisect_changeset(result)
+        if current_rev:
             return current_rev
 
-        # If no further test suggested, return bisect message
+        # Otherwise, return results
         log.info(result)
         return None

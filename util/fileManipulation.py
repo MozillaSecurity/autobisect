@@ -6,12 +6,13 @@
 
 from __future__ import absolute_import
 
-def firstLine(s):
+
+def first_line(s):
     """Return the first line of any series of text with / without line breaks."""
     return s.split('\n')[0]
 
 
-def fuzzDice(filename):
+def fuzz_dice(filename):
     """Return the lines of the file, except for the one line containing DICE."""
     before = []
     after = []
@@ -25,7 +26,7 @@ def fuzzDice(filename):
     return [before, after]
 
 
-def fuzzSplice(filename):
+def fuzz_splice(filename):
     """Return the lines of a file, minus the ones between the two lines containing SPLICE."""
     before = []
     after = []
@@ -43,32 +44,32 @@ def fuzzSplice(filename):
     return [before, after]
 
 
-def linesWith(lines, searchFor):
+def lines_with(lines, search):
     """Return the lines from an array that contain a given string."""
-    matchingLines = []
+    matches = []
     for line in lines:
-        if line.find(searchFor) != -1:
-            matchingLines.append(line)
-    return matchingLines
+        if line.find(search) != -1:
+            matches.append(line)
+    return matches
 
 
-def linesStartingWith(lines, searchFor):
+def lines_starting_with(lines, search):
     """Return the lines from an array that start with a given string."""
-    matchingLines = []
+    matches = []
     for line in lines:
-        if line.startswith(searchFor):
-            matchingLines.append(line)
-    return matchingLines
+        if line.startswith(search):
+            matches.append(line)
+    return matches
 
 
-def truncateMid(a, limitEachSide, insertIfTruncated):
-    """Return a list with the middle portion removed, if it has more than limitEachSide*2 items."""
-    if len(a) <= limitEachSide + limitEachSide:
+def truncate_mid(a, limit, insert):
+    """Return a list with the middle portion removed, if it has more than limit*2 items."""
+    if len(a) <= limit + limit:
         return a
-    return a[0:limitEachSide] + insertIfTruncated + a[-limitEachSide:]
+    return a[0:limit] + insert + a[-limit:]
 
 
-def writeLinesToFile(lines, filename):
+def write_lines_to_file(lines, filename):
     """Write lines to a given filename."""
     with open(filename, 'wb') as f:
         f.writelines(lines)

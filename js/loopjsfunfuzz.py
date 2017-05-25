@@ -160,12 +160,12 @@ def many_timed_runs(targetTime, wtmpDir, args, collector):
 
             # splice jsfunfuzz.js with `grep "/*FRC-" wN-out`
             filenameToReduce = logPrefix + "-reduced.js"
-            [before, after] = fileManipulation.fuzzSplice(fuzzjs)
+            [before, after] = fileManipulation.fuzz_splice(fuzzjs)
 
             with open(logPrefix + '-out.txt', 'rb') as f:
-                newfileLines = before + [l.replace('/*FRC-', '/*') for l in fileManipulation.linesStartingWith(f, "/*FRC-")] + after
-            fileManipulation.writeLinesToFile(newfileLines, logPrefix + "-orig.js")
-            fileManipulation.writeLinesToFile(newfileLines, filenameToReduce)
+                newfileLines = before + [l.replace('/*FRC-', '/*') for l in fileManipulation.lines_starting_with(f, "/*FRC-")] + after
+            fileManipulation.write_lines_to_file(newfileLines, logPrefix + "-orig.js")
+            fileManipulation.write_lines_to_file(newfileLines, filenameToReduce)
 
             # Run Lithium and autobisect (make a reduced testcase and find a regression window)
             itest = [interestingpy]
@@ -204,7 +204,7 @@ def many_timed_runs(targetTime, wtmpDir, args, collector):
                     jsInterestingOptions.shellIsDeterministic and flagsAreDeterministic:
                 linesToCompare = jitCompareLines(logPrefix + '-out.txt', "/*FCM*/")
                 jitcomparefilename = logPrefix + "-cj-in.js"
-                fileManipulation.writeLinesToFile(linesToCompare, jitcomparefilename)
+                fileManipulation.write_lines_to_file(linesToCompare, jitcomparefilename)
                 anyBug = compareJIT.compareJIT(options.jsEngine, engineFlags, jitcomparefilename,
                                                logPrefix + "-cj", options.repo,
                                                options.buildOptionsStr, targetTime, jsInterestingOptions)

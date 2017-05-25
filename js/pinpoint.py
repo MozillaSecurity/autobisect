@@ -48,7 +48,7 @@ def pinpoint(itest, logPrefix, jsEngine, engineFlags, infilename, bisectRepo, bu
 
             with open(autoBisectLogFilename, 'rb') as f:
                 lines = f.readlines()
-                autoBisectLog = fileManipulation.truncateMid(lines, 50, ["..."])
+                autoBisectLog = fileManipulation.truncate_mid(lines, 50, ["..."])
     else:
         autoBisectLog = []
 
@@ -85,7 +85,7 @@ def strategicReduction(logPrefix, infilename, lithArgs, targetTime, lev):
     hasTryItOutRegex = re.compile(r'count=[0-9]+; tryItOut\("')
 
     with open(infilename, 'rb') as f:
-        for line in fileManipulation.linesWith(f, '; tryItOut("'):
+        for line in fileManipulation.lines_with(f, '; tryItOut("'):
             # Checks if testcase came from jsfunfuzz or compareJIT.
             # Do not use .match here, it only matches from the start of the line:
             # https://docs.python.org/2/library/re.html#search-vs-match
@@ -121,7 +121,7 @@ def strategicReduction(logPrefix, infilename, lithArgs, targetTime, lev):
                                          # The 1-line offset is added here.
                                          .replace('SPLICE DDBEGIN', 'SPLICE DDBEGIN\n'))
 
-        fileManipulation.writeLinesToFile(intendedLines, infilename)
+        fileManipulation.write_lines_to_file(intendedLines, infilename)
         print '\nRunning 1 instance of 2-line reduction after moving count=X to its own line...\n'
         lithResult, lithDetails = lithReduceCmd(['--chunksize=2'])
 

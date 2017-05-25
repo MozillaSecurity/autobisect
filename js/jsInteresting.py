@@ -127,7 +127,7 @@ class ShellResult:
         print logPrefix + " | " + summaryString(issues, lev, runinfo.elapsedtime)
 
         if lev != JS_FINE:
-            fileManipulation.writeLinesToFile(
+            fileManipulation.write_lines_to_file(
                 ['Number: ' + logPrefix + '\n',
                  'Command: ' + sps.shellify(runthis) + '\n'] +
                 ['Status: ' + i + "\n" for i in issues],

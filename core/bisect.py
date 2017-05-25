@@ -80,7 +80,7 @@ class Bisector(object):
         # Set bisection's start and end revisions
         subprocess.check_call(self.hg_prefix + ['bisect', '-g', start_rev])
         current_rev = hgCmds.getCsetHashFromBisectMsg(
-            fileManipulation.firstLine(
+            fileManipulation.first_line(
                 subprocess.check_output(self.hg_prefix + ['bisect', '-b', end_rev])
             )
         )

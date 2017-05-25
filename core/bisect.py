@@ -59,8 +59,8 @@ class Bisector(object):
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
-        start_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)[0]
-        end_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)[0]
+        start_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.start_rev)
+        end_rev = hgCmds.getRepoHashAndId(self.repo_dir, repoRev=self.end_rev)
 
         log.info('Begin validation of start ({0}) and end ({1}) revisions'.format(self.start_rev, self.end_rev))
         if self.verify_bounds(start_rev, end_rev):

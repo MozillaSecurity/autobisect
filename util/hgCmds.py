@@ -79,30 +79,10 @@ def getRepoHashAndId(repoDir, repoRev='parents() and default'):
     It will also ask what the user would like to do, should the repository not be on default.
     """
     # This returns null if the repository is not on default.
-    hgLogTmplList = ['hg', '-R', repoDir, 'log', '-r', repoRev,
-                     '--template', '{node|short} {rev}']
+    hgLogTmplList = ['hg', '-R', repoDir, 'parent', '--template' '{node}']
     hgIdFull = sps.captureStdout(hgLogTmplList)[0]
-    onDefault = bool(hgIdFull)
-    if not onDefault:
-        updateDefault = raw_input('Not on default tip! ' +
-                                  'Would you like to (a)bort, update to (d)efault, or (u)se this rev: ')
-        updateDefault = updateDefault.strip()
-        if updateDefault == 'a':
-            print 'Aborting...'
-            sys.exit(0)
-        elif updateDefault == 'd':
-            subprocess.check_call(['hg', '-R', repoDir, 'update', 'default'])
-            onDefault = True
-        elif updateDefault == 'u':
-            hgLogTmplList = ['hg', '-R', repoDir, 'log', '-r', 'parents()', '--template',
-                             '{node|short} {rev}']
-        else:
-            raise Exception('Invalid choice.')
-        hgIdFull = sps.captureStdout(hgLogTmplList)[0]
     assert hgIdFull != ''
-    (hgIdChangesetHash, hgIdLocalNum) = hgIdFull.split(' ')
-    sps.vdump('Finished getting the hash and local id number of the repository.')
-    return hgIdChangesetHash, hgIdLocalNum, onDefault
+    return hgIdFull
 
 
 def getRepoNameFromHgrc(repoDir):

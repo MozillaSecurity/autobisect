@@ -59,8 +59,8 @@ class Bisector(object):
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)
 
         # Resolve names such as "tip", "default", or "52707" to stable hg hash ids, e.g. "9f2641871ce8".
-        start_rev = hgCmds.getRepoHashAndId(self.repo_dir, self.start_rev)
-        end_rev = hgCmds.getRepoHashAndId(self.repo_dir, self.end_rev)
+        start_rev = hgCmds.get_full_hash(self.repo_dir, self.start_rev)
+        end_rev = hgCmds.get_full_hash(self.repo_dir, self.end_rev)
 
         log.info('Begin validation of start ({0}) and end ({1}) revisions'.format(self.start_rev, self.end_rev))
         if self.verify_bounds(start_rev, end_rev):
@@ -79,7 +79,7 @@ class Bisector(object):
 
         # Set bisection's start and end revisions
         subprocess.check_call(self.hg_prefix + ['bisect', '-g', start_rev])
-        current_rev = hgCmds.getCsetHashFromBisectMsg(
+        current_rev = hgCmds.get_bisect_changeset(
             fileManipulation.first_line(
                 subprocess.check_output(self.hg_prefix + ['bisect', '-b', end_rev])
             )
@@ -109,7 +109,7 @@ class Bisector(object):
             end_time = time.time()
             elapsed = datetime.timedelta(seconds=(int(end_time-start_time)))
             log.info('Round {0} completed in {1}'.format(iter_count, elapsed))
-            hgCmds.destroyPyc(self.repo_dir)
+            hgCmds.destroy_pyc(self.repo_dir)
 
     def apply_result(self, label, current_rev):
         """Tell hg what we learned about the revision."""
@@ -135,7 +135,7 @@ class Bisector(object):
         # e.g. "Testing changeset 52121:573c5fa45cc4 (440 changesets remaining, ~8 tests)"
         log.info(output_lines[0])
 
-        current_rev = hgCmds.getCsetHashFromBisectMsg(output_lines[0])
+        current_rev = hgCmds.get_bisect_changeset(output_lines[0])
         if current_rev is None:
             raise Exception("hg did not suggest a changeset to test!")
 

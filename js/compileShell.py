@@ -107,7 +107,7 @@ class CompiledShell(object):
         return sps.normExpUserPath(os.path.join(self.getRepoDir(), 'js', 'src'))
 
     def getRepoName(self):
-        return hgCmds.getRepoNameFromHgrc(self.buildOptions.repoDir)
+        return hgCmds.get_repo_name(self.buildOptions.repoDir)
 
     def getS3TarballWithExt(self):
         return self.getShellNameWithoutExt() + '.tar.bz2'
@@ -623,7 +623,7 @@ def obtainShell(shell, updateToRev=None, updateLatestTxt=False):
         sps.rmTreeIncludingReadOnly(shell.getShellCacheDir())
 
     os.mkdir(shell.getShellCacheDir())
-    hgCmds.destroyPyc(shell.buildOptions.repoDir)
+    hgCmds.destroy_pyc(shell.buildOptions.repoDir)
 
     s3CacheObj = s3cache.S3Cache(S3_SHELL_CACHE_DIRNAME)
     useS3Cache = s3CacheObj.connect()
@@ -647,7 +647,7 @@ def obtainShell(shell, updateToRev=None, updateLatestTxt=False):
         if updateToRev:
             updateRepo(shell.buildOptions.repoDir, updateToRev)
         if shell.buildOptions.patchFile:
-            hgCmds.patchHgRepoUsingMq(shell.buildOptions.patchFile, shell.getRepoDir())
+            hgCmds.patch_repo_using_mg(shell.buildOptions.patchFile, shell.getRepoDir())
 
         cfgJsCompile(shell)
         verifyFullWinPageHeap(shell.getShellCacheFullPath())
@@ -664,7 +664,7 @@ def obtainShell(shell, updateToRev=None, updateLatestTxt=False):
         raise
     finally:
         if shell.buildOptions.patchFile:
-            hgCmds.hgQpopQrmAppliedPatch(shell.buildOptions.patchFile, shell.getRepoDir())
+            hgCmds.pop_applied_patch(shell.buildOptions.patchFile, shell.getRepoDir())
 
     if useS3Cache:
         s3CacheObj.compressAndUploadDirTarball(shell.getShellCacheDir(), shell.getS3TarballWithExtFullPath())
@@ -721,7 +721,7 @@ def main():
         if options.revision:
             shell = CompiledShell(options.buildOptions, options.revision)
         else:
-            localOrigHgHash = hgCmds.getRepoHashAndId(options.buildOptions.repoDir, 'tip')
+            localOrigHgHash = hgCmds.get_full_hash(options.buildOptions.repoDir, 'tip')
             shell = CompiledShell(options.buildOptions, localOrigHgHash)
 
         obtainShell(shell, updateToRev=options.revision)

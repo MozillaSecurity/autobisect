@@ -181,10 +181,10 @@ def parseShellOptions(inputArgs):
                 buildOptions.repoDir = os.path.realpath(sps.normExpUserPath(
                     os.path.join(DEFAULT_TREES_LOCATION, 'mozilla-central')))
 
-        assert hgCmds.isRepoValid(buildOptions.repoDir)
+        assert hgCmds.is_valid_repo(buildOptions.repoDir)
 
         if buildOptions.patchFile:
-            hgCmds.ensureMqEnabled()
+            hgCmds.ensure_mg_enabled()
             buildOptions.patchFile = sps.normExpUserPath(buildOptions.patchFile)
             assert os.path.isfile(buildOptions.patchFile)
 

@@ -721,7 +721,7 @@ def main():
         if options.revision:
             shell = CompiledShell(options.buildOptions, options.revision)
         else:
-            localOrigHgHash = hgCmds.getRepoHashAndId(options.buildOptions.repoDir)
+            localOrigHgHash = hgCmds.getRepoHashAndId(options.buildOptions.repoDir, 'tip')
             shell = CompiledShell(options.buildOptions, localOrigHgHash)
 
         obtainShell(shell, updateToRev=options.revision)

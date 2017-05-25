@@ -73,13 +73,13 @@ assert getCsetHashFromBisectMsg("x 12345:123412341234") == "123412341234"
 assert getCsetHashFromBisectMsg("12345:abababababab y") == "abababababab"
 
 
-def getRepoHashAndId(repoDir, repoRev='parents() and default'):
+def getRepoHashAndId(repoDir, rev):
     """Return the repository hash and id, and whether it is on default.
 
     It will also ask what the user would like to do, should the repository not be on default.
     """
     # This returns null if the repository is not on default.
-    hgLogTmplList = ['hg', '-R', repoDir, 'parent', '--template' '{node}']
+    hgLogTmplList = ['hg', '-R', repoDir, 'log', '-l', '1', '--template' '{node}\n' '-r', rev]
     hgIdFull = sps.captureStdout(hgLogTmplList)[0]
     assert hgIdFull != ''
     return hgIdFull

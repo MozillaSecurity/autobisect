@@ -4,8 +4,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function
 
+import logging
 import os
 import re
 import subprocess
@@ -14,6 +15,8 @@ from datetime import datetime
 import configparser
 
 from util import subprocesses as sps
+
+log = logging.getLogger(__name__)
 
 
 def destroy_pyc(repo_dir):
@@ -68,6 +71,7 @@ def get_bisect_changeset(msg):
     if m:
         return m.group(3)
 
+
 assert get_bisect_changeset("x 12345:abababababab") == "abababababab"
 assert get_bisect_changeset("x 12345:123412341234") == "123412341234"
 assert get_bisect_changeset("12345:abababababab y") == "abababababab"
@@ -108,7 +112,7 @@ def patch_repo_using_mg(patch_path, repo_dir=os.getcwdu()):
                                             ignoreStderr=True, ignoreExitCode=True)
     if return_code != 0:
         if 'already exists' in output:
-            print "A patch_path with the same name has already been qpush'ed. Please qremove it first."
+            log.error("A patch_path with the same name has already been qpush'ed. Please qremove it first.")
         raise Exception('Return code from `hg qimport` is: ' + str(return_code))
 
     print("Patch qimport'ed..."),
@@ -119,13 +123,13 @@ def patch_repo_using_mg(patch_path, repo_dir=os.getcwdu()):
 
     if qpush_ret_code != 0:
         pop_applied_patch(patch_path, repo_dir)
-        print 'You may have untracked .rej or .orig files in the repository.'
-        print '`hg status` output of the repository of interesting files in ' + repo_dir + ' :'
+        log.error('You may have untracked .rej or .orig files in the repository.')
+        log.error('`hg status` output of the repository of interesting files in ' + repo_dir + ' :')
         subprocess.check_call(['hg', '-R', repo_dir, 'status', '--modified', '--added',
                                '--removed', '--deleted'])
-        raise Exception('Return code from `hg qpush` is: ' + str(qpush_ret_code))
+        raise Exception('Return code from `hg qpush` is: %s' % qpush_ret_code)
 
-    print("Patch qpush'ed. Continuing..."),
+    log.info("Patch qpush'ed. Continuing...")
     return pname
 
 
@@ -133,13 +137,14 @@ def pop_applied_patch(patch, repo_dir):
     """Remove applied patch using `hg qpop` and `hg qdelete`."""
     qpop_output, qpop_ret_code = sps.captureStdout(['hg', '-R', repo_dir, 'qpop'], combineStderr=True,
                                                    ignoreStderr=True, ignoreExitCode=True)
+    log.info("Patch qpop'ed...")
+
     if qpop_ret_code != 0:
-        print '`hg qpop` output is: ' + qpop_output
+        log.error('`hg qpop` output is: %s' % qpop_output)
         raise Exception('Return code from `hg qpop` is: ' + str(qpop_ret_code))
 
-    print "Patch qpop'ed...",
     subprocess.check_call(['hg', '-R', repo_dir, 'qdelete', os.path.basename(patch)])
-    print "Patch qdelete'd."
+    log.error("Patch qdelete'd.")
 
 
 def rev_date(repo_dir, rev):
@@ -149,4 +154,3 @@ def rev_date(repo_dir, rev):
     date_string = sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', rev, '--template', '{date|shortdate}\n'])[0]
     if re.match(r"\d{4}-\d{2}-\d{2}", date_string):
         return datetime.strptime(date_string, '%Y-%m-%d').date()
-

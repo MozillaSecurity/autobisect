@@ -86,11 +86,9 @@ def get_bisect_changeset(msg):
     Extracts the current changeset from a bisect message
     I.e. - "Testing changeset 41831:4f4c01fb42c3 (2 changesets remaining, ~1 tests)"
     """
-
-    r = re.compile(r"(^|.* )(\d+):(\w{12}).*")
-    m = r.match(msg)
+    m = re.match(r"(Testing changeset \d+:)([a-fA-F0-9]+)( .*)", msg)
     if m:
-        return m.group(3)
+        return m.group(2)
 
 
 assert get_bisect_changeset("x 12345:abababababab") == "abababababab"

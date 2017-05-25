@@ -22,7 +22,6 @@ except ImportError:
 
 from util import fileManipulation
 from util import hgCmds
-from util import subprocesses as sps
 
 log = logging.getLogger('bisect')
 
@@ -115,42 +114,14 @@ class Bisector(object):
         """Tell hg what we learned about the revision."""
         assert label in ('good', 'bad', 'skip')
         log.info('Marking current revision as - {0}'.format(label))
-        output_result = sps.captureStdout(self.hg_prefix + ['bisect', '--' + label, current_rev])[0]
-        output_lines = output_result.split('\n')
-
-        if re.match('Due to skipped revisions, the first (good|bad) revision could be any of:', output_lines[0]):
-            log.info(sanitize_msg(output_result, self.repo_dir))
-            return None
-
-        r = re.compile("The first (good|bad) revision is:")
-        m = r.match(output_lines[0])
-        if m:
-            msg = sanitize_msg(output_result, self.repo_dir)
-            log.info('autoBisect shows this is probably related to the following changeset: \n%s' % msg)
-            # blamedGoodOrBad = m.group(1)
-            # blamedRev = hgCmds.getCsetHashFromBisectMsg(output_lines[1])
-            # Call checkBlameParents here
-            return None
+        result = subprocess.check_output(self.hg_prefix + ['bisect', '--' + label, current_rev]).splitlines()
 
         # e.g. "Testing changeset 52121:573c5fa45cc4 (440 changesets remaining, ~8 tests)"
-        log.info(output_lines[0])
+        m = re.match(r"(Testing changeset \d+:)([a-fA-F0-9]+)( .*)", result)
+        if m:
+            current_rev = m.group(2)
+            return current_rev
 
-        current_rev = hgCmds.get_bisect_changeset(output_lines[0])
-        if current_rev is None:
-            raise Exception("hg did not suggest a changeset to test!")
-
-        return current_rev
-
-
-def sanitize_msg(msg, repo):
-    """Sanitize changeset messages, removing email addresses."""
-    sanitized = []
-
-    for line in msg.splitlines():
-        if line.find('<') != -1 and line.find('@') != -1 and line.find('>') != -1:
-            line = ' '.join(line.split(' ')[:-1])
-        elif line.startswith('changeset:') and 'mozilla-central' in repo:
-            line = 'changeset:   https://hg.mozilla.org/mozilla-central/rev/' + line.split(':')[-1]
-        sanitized.append(line)
-
-    return '\n'.join(sanitized)
+        # If no further test suggested, return bisect message
+        log.info(result)
+        return None

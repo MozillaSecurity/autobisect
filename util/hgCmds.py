@@ -91,9 +91,9 @@ def get_bisect_changeset(msg):
         return m.group(2)
 
 
-assert get_bisect_changeset("x 12345:abababababab") == "abababababab"
-assert get_bisect_changeset("x 12345:123412341234") == "123412341234"
-assert get_bisect_changeset("12345:abababababab y") == "abababababab"
+assert get_bisect_changeset("Testing changeset 12345:abababababab") == "abababababab"
+assert get_bisect_changeset("Testing changeset 12345:123412341234") == "123412341234"
+assert get_bisect_changeset("Testing changeset 12345:abababababab y") == "abababababab"
 
 
 def get_full_hash(repo_dir, rev):

@@ -96,9 +96,9 @@ def get_full_hash(repo_dir, rev):
     Converts a partial hash to a full one
     """
 
-    cmd = ['hg', '-R', repo_dir, 'log', '-l', '1', '--template' '{node}\n' '-r', rev]
+    cmd = ['hg', '-R', repo_dir, 'log', '-l', '1', '--template', '{node}', '-r', rev]
     full_hash = sps.captureStdout(cmd)[0]
-    assert full_hash != ''
+    assert len(full_hash) == 40
     return full_hash
 
 

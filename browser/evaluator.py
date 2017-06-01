@@ -50,18 +50,23 @@ class BrowserBisector(Bisector):
 
         super(BrowserBisector, self).__init__(self.repo_dir, self.start_rev, self.end_rev, self.skip_revs)
 
+    def clobber_build(self):
+        if os.path.exists(self.build_dir):
+            log.info('Clobbering build dir - {0}'.format(self.build_dir))
+            shutil.rmtree(self.build_dir)
+            os.makedirs(self.build_dir)
+
     def try_compile(self):
-        assert os.path.isdir(self.repo_dir)
-        assert os.path.isfile(self.moz_config)
+        self.clobber_build()
 
         env = os.environ.copy()
         env['MOZCONFIG'] = self.moz_config
         env['MOZ_OBJDIR'] = self.build_dir
-        # env['ASAN_OPTIONS'] = "detect_leaks=0"
 
         mach = os.path.join(self.repo_dir, 'mach')
 
         try:
+            log.info('Attempting to compile {0}'.format(self.repo_dir))
             subprocess.check_call(
                 [mach, 'build'],
                 cwd=self.repo_dir,
@@ -70,33 +75,24 @@ class BrowserBisector(Bisector):
                 stderr=subprocess.STDOUT,
             )
         except subprocess.CalledProcessError:
+            log.error('Compilation failed!')
             return False
 
         if not os.path.exists(self.build_dir):
+            log.error('Compilation failed!')
             return False
+
+        log.info('Verifying build')
+        if self.launch() != 0:
+            log.error('Build crashed.  Skipping!')
+            return False
+
+        log.info('Compilation succeeded!')
 
         return True
 
     def evaluate_testcase(self):
-        if os.path.exists(self.build_dir):
-            log.info('Clobbering build dir - {0}'.format(self.build_dir))
-            shutil.rmtree(self.build_dir)
-            os.makedirs(self.build_dir)
-
-        # If compilation fails, skip it during bisection
-        log.info('Attempting to compile {0}'.format(self.repo_dir))
-        if not self.try_compile():
-            log.error('Compilation failed!')
-            return 'skip'
-        else:
-            log.info('Compilation succeeded!')
-
-        # Verify that build works
-        log.info('Verifying build')
-        if self.launch() != 0:
-            log.error('Failed to verify build')
-            return 'skip'
-
+        log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))
         result = self.launch(os.path.abspath(self.testcase))
 
         # Return 'bad' if result is anything other than 0
@@ -112,9 +108,6 @@ class BrowserBisector(Bisector):
             use_xvfb=self.xvfb)
 
         try:
-            if testcase:
-                log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))
-
             ffp.launch(
                 self.binary,
                 location=testcase,
@@ -124,7 +117,7 @@ class BrowserBisector(Bisector):
                 extension=self.extension)
 
             return_code = ffp.wait(self.timeout) or 0
-            log.info('Browser execution status: {0}'.format(return_code))
+            log.debug('Browser execution status: {0}'.format(return_code))
         finally:
             ffp.close()
             ffp.clean_up()

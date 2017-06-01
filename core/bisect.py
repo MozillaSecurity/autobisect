@@ -21,17 +21,22 @@ except ImportError:
 
 from util import fileManipulation
 from util import hgCmds
+from util.builds import BuildRange
+from util.builds import Build
 
 log = logging.getLogger('bisect')
 
 
 class Bisector(object):
-    def __init__(self, repo_dir, start_rev, end_rev, skip_revs):
+    def __init__(self, repo_dir, start_rev, end_rev, skip_revs, asan, debug):
         self.repo_dir = repo_dir
         self.start_rev = start_rev
         self.end_rev = end_rev
         self.skip_revs = skip_revs
         self.hg_prefix = ['hg', '-R', self.repo_dir]
+
+        self.asan = asan
+        self.debug = debug
 
     @abc.abstractmethod
     def evaluate_testcase(self):
@@ -42,13 +47,14 @@ class Bisector(object):
         Verify that the supplied start/end revisions behave as expected
         """
         return True
+        # Test that end revision crashes
         subprocess.check_call(self.hg_prefix + ['update', '-r', end], stdout=DEVNULL)
-        if self.evaluate_testcase() != "bad":
+        if not self.try_compile() and self.evaluate_testcase() != "bad":
             return False
 
         # Test to make sure the start revision doesn't
         subprocess.check_call(self.hg_prefix + ['update', '-r', start], stdout=DEVNULL)
-        if self.evaluate_testcase() != "good":
+        if not self.try_compile() and self.evaluate_testcase() != "good":
             return False
 
         return True
@@ -57,7 +63,8 @@ class Bisector(object):
         """
         Bisect using mercurial repository
         """
-        log.info('Updating to tip...')
+        self.bisect_builds()
+        log.info('Purging all local repository changes')
         subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'], stdout=DEVNULL)
         log.info('Purging all local repository changes...')
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)
@@ -96,7 +103,11 @@ class Bisector(object):
             iter_count += 1
             log.info('Begin bisection round {0}, revision {1}'.format(iter_count, current_rev))
             start_time = time.time()
-            result = self.evaluate_testcase()
+
+            if self.try_compile():
+                result = self.evaluate_testcase()
+            else:
+                result = 'skip'
 
             if result == 'skip':
                 skip_count += 1
@@ -132,3 +143,32 @@ class Bisector(object):
         # Otherwise, return results
         log.info(result)
         return None
+
+    def bisect_builds(self):
+        # Convert start and end revisions to dates
+        start_date = hgCmds.rev_date(self.repo_dir, self.start_rev) + datetime.timedelta(days=1)
+        end_date = hgCmds.rev_date(self.repo_dir, self.end_rev)
+
+        # The oldest available build is 365 days from today
+        oldest_build_date = datetime.datetime.now().date() - datetime.timedelta(days=364)
+
+        # Taskcluster only retains builds up to a year old
+        # If start_rev is older than that, continue to compiled builds
+        if oldest_build_date > end_date:
+            log.error('End revision is older than 365 days.  Unable to reduce range using prebuilt binaries!')
+            return
+
+        builds = []
+        log.info('Identifying available builds between %s and %s' % (oldest_build_date, end_date))
+        for i in range((end_date - oldest_build_date).days + 1):
+            target_date = oldest_build_date + datetime.timedelta(days=i)
+
+            try:
+                builds.append(Build('browser', 'central', target_date, self.asan, self.debug))
+            except:
+                log.info("Unable to retrieve build for date: %s" % str(target_date))
+
+        build_range = BuildRange(builds)
+
+        while len(build_range) > 2:
+            target_build = None

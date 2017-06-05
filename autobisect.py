@@ -7,8 +7,13 @@
 import argparse
 import logging
 import os
+import time
+import datetime
 
+from core.bisect import Bisector
 from browser.evaluator import BrowserBisector
+
+log = logging.getLogger('autobisect')
 
 
 def parse_arguments():
@@ -17,11 +22,11 @@ def parse_arguments():
         usage='%(prog)s <command> [options]')
 
     global_args = argparse.ArgumentParser(add_help=False)
-    global_args.add_argument('repo_dir', action='store', help='Path of repository')
-    global_args.add_argument('build_dir', action='store', help='Path to store build')
-    global_args.add_argument('testcase', action='store', help='Path to testcase')
-    global_args.add_argument('-start', action='store', help='Known good revision (default: earliest known working)')
-    global_args.add_argument('-end', default='tip', action='store', help='Known bad revision (default: tip')
+    global_args.add_argument('repo_dir', help='Path of repository')
+    global_args.add_argument('build_dir', help='Path to store build')
+    global_args.add_argument('testcase', help='Path to testcase')
+    global_args.add_argument('-start', help='Known good revision (default: earliest known working)')
+    global_args.add_argument('-end', default='tip', help='Known bad revision (default: tip')
     global_args.add_argument('-skip', nargs='+', action='store',
                              help='A revset expression representing the revisions to skip (example: (x::y)')
 
@@ -29,7 +34,9 @@ def parse_arguments():
 
     browser_sub = subparsers.add_parser('browser', parents=[global_args], help='Perform bisection for Firefox builds')
     general_args = browser_sub.add_argument_group('build arguments')
-    general_args.add_argument('--config', required=True, action='store', help='Path to .mozconfig file')
+    general_args.add_argument('--asan', action='store_true', help='Test asan builds')
+    general_args.add_argument('--debug', action='store_true', help='Test debug builds')
+
     ffp_args = browser_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--extension',
                           help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
@@ -53,12 +60,15 @@ def parse_arguments():
 
 
 def main(args):
+    bisector = Bisector(args)
     if args.target == 'browser':
-        bisector = BrowserBisector(args)
-    #else:
-    #    print('Selected js')
+        bisector.evaluator = BrowserBisector(args)
 
+    start_time = time.time()
     bisector.bisect()
+    end_time = time.time()
+    elapsed = datetime.timedelta(seconds=(int(end_time - start_time)))
+    log.info('Bisection completed in: %s' % elapsed)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,6 @@ from __future__ import absolute_import, division, print_function
 import argparse
 import logging
 import os
-import shutil
 import subprocess
 
 try:
@@ -30,11 +29,18 @@ class BrowserBisector(Bisector):
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir
         self.testcase = args.testcase
-        self.start_rev = args.start
-        self.end_rev = args.end
-        self.skip_revs = args.skip
 
-        self.moz_config = args.config
+        # ToDo: Automatically select platform
+        self._autobisect_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self._mozconfig_base = os.path.join(self._autobisect_base, 'config', 'mozconfigs')
+        if args.asan and args.debug:
+            self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
+        elif args.asan:
+            self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-release')
+        # elif args.debug:
+        #     self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
+        # else:
+        #     self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
 
         # FFPuppet arguments
         self.binary = os.path.join(self.build_dir, 'dist', 'bin', 'firefox')
@@ -48,25 +54,22 @@ class BrowserBisector(Bisector):
         self.windbg = args.windbg
         self.xvfb = args.xvfb
 
-        super(BrowserBisector, self).__init__(self.repo_dir, self.start_rev, self.end_rev, self.skip_revs)
-
-    def clobber_build(self):
-        if os.path.exists(self.build_dir):
-            log.info('Clobbering build dir - {0}'.format(self.build_dir))
-            shutil.rmtree(self.build_dir)
-            os.makedirs(self.build_dir)
-
-    def try_compile(self):
-        self.clobber_build()
+    def test_compilation(self):
+        """
+        Compile from source and evaluate testcase
+        """
+        # Ensure that the build_dir is empty
+        assert os.listdir(self.build_dir) == []
 
         env = os.environ.copy()
+        env['AB_ROOT'] = self._autobisect_base
         env['MOZCONFIG'] = self.moz_config
         env['MOZ_OBJDIR'] = self.build_dir
 
         mach = os.path.join(self.repo_dir, 'mach')
 
         try:
-            log.info('Attempting to compile {0}'.format(self.repo_dir))
+            log.info('Attempting to compile from source: {0}'.format(self.repo_dir))
             subprocess.check_call(
                 [mach, 'build'],
                 cwd=self.repo_dir,
@@ -76,20 +79,36 @@ class BrowserBisector(Bisector):
             )
         except subprocess.CalledProcessError:
             log.error('Compilation failed!')
-            return False
+            return 'skip'
 
         if not os.path.exists(self.build_dir):
             log.error('Compilation failed!')
-            return False
+            return 'skip'
 
+        if not self.verify_build():
+            return 'skip'
+
+        return self.evaluate_testcase()
+
+    def test_build(self):
+        """
+        Verify downloaded build and evaluate testcase
+        """
+        if not self.verify_build():
+            return 'skip'
+
+        return self.evaluate_testcase()
+
+    def verify_build(self):
+        """
+        Verify that build doesn't crash
+        """
         log.info('Verifying build')
-        if self.launch() != 0:
+        if self.launch() == 0:
+            log.debug('Build verified successfully!')
+            return True
+        else:
             log.error('Build crashed.  Skipping!')
-            return False
-
-        log.info('Compilation succeeded!')
-
-        return True
 
     def evaluate_testcase(self):
         log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))

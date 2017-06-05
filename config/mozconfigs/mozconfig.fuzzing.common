@@ -1,0 +1,29 @@
+# Adjust this to the number of CPU cores + 2
+mk_add_options MOZ_MAKE_FLAGS=-j6
+
+# ASan Options
+export CC="/usr/bin/clang-3.9 -fsanitize=address"
+export CXX="/usr/bin/clang++-3.9 -fsanitize=address"
+export SANFLAG="-fsanitize=address -Dxmalloc=myxmalloc -fPIC -v"
+export CFLAGS="$SANFLAG"
+export CXXFLAGS="$SANFLAG"
+export LDFLAGS="-fsanitize=address"
+
+mk_add_options AUTOCLOBBER=1
+
+# Features
+export MOZ_WEBRTC_TESTS=1
+ac_add_options --enable-tests
+ac_add_options --enable-address-sanitizer
+ac_add_options --disable-jemalloc
+ac_add_options --disable-crashreporter
+
+# Keep symbols to symbolize ASan traces later
+export MOZ_DEBUG_SYMBOLS=1
+ac_add_options --enable-debug-symbols
+ac_add_options --disable-install-strip
+
+# Build
+export MOZ_LLVM_HACKS=1
+export MOZ_DEBUG_SYMBOLS=1
+ac_add_options --enable-optimize="-O2"

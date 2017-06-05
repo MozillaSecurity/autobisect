@@ -32,18 +32,18 @@ def parse_arguments():
 
     subparsers = parser.add_subparsers(dest='target')
 
-    browser_sub = subparsers.add_parser('browser', parents=[global_args], help='Perform bisection for Firefox builds')
-    general_args = browser_sub.add_argument_group('build arguments')
+    firefox_sub = subparsers.add_parser('firefox', parents=[global_args], help='Perform bisection for Firefox builds')
+    general_args = firefox_sub.add_argument_group('build arguments')
     general_args.add_argument('--asan', action='store_true', help='Test asan builds')
     general_args.add_argument('--debug', action='store_true', help='Test debug builds')
 
-    ffp_args = browser_sub.add_argument_group('launcher arguments')
+    ffp_args = firefox_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--extension',
                           help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
     ffp_args.add_argument('--timeout', type=int, default=60,
                           help='Iteration timeout in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
-                          help='Number of seconds to wait for the browser to become responsive after launching. '
+                          help='Number of seconds to wait for firefox to become responsive after launching. '
                                '(default: %(default)s)')
     ffp_args.add_argument('--prefs', help='prefs.js file to use')
     ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')
@@ -61,7 +61,7 @@ def parse_arguments():
 
 def main(args):
     bisector = Bisector(args)
-    if args.target == 'browser':
+    if args.target == 'firefox':
         bisector.evaluator = BrowserBisector(args)
 
     start_time = time.time()

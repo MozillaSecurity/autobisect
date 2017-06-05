@@ -29,6 +29,7 @@ log = logging.getLogger('bisect')
 
 class Bisector(object):
     def __init__(self, args):
+        self.target = args.target
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir
         self.start = Boundary.new(args.start, self.repo_dir)
@@ -133,7 +134,7 @@ class Bisector(object):
         for i in range((self.end.date - oldest_build_date).days + 1):
             target_date = oldest_build_date + datetime.timedelta(days=i)
             try:
-                builds.append(Build('browser', 'central', target_date, self.asan, self.debug))
+                builds.append(Build(self.target, 'central', target_date, self.asan, self.debug))
             except:
                 log.debug("Unable to retrieve build for date: %s" % str(target_date))
 
@@ -218,7 +219,7 @@ class Bisector(object):
     def test_revision(self, rev):
         try:
             log.info('Attempting to find build for revision %s' % rev)
-            target_build = Build('browser', 'central', rev, self.asan, self.debug)
+            target_build = Build(self.target, 'central', rev, self.asan, self.debug)
             target_build.build_info.extract_build(self.build_dir)
             result = self.evaluator.test_build()
             return result

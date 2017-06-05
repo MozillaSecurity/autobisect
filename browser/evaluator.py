@@ -111,7 +111,7 @@ class BrowserBisector(Bisector):
             log.error('Build crashed.  Skipping!')
 
     def evaluate_testcase(self):
-        log.info('Attempting to launch browser with testcase: {0}'.format(self.testcase))
+        log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
         result = self.launch(os.path.abspath(self.testcase))
 
         # Return 'bad' if result is anything other than 0
@@ -161,7 +161,7 @@ def main():
     ffp_args.add_argument('--timeout', type=int, default=60,
                           help='Iteration timeout in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
-                          help='Number of seconds to wait for the browser to become responsive after launching.'
+                          help='Number of seconds to wait for firefox to become responsive after launching.'
                           '(default: %(default)s)')
     ffp_args.add_argument('--prefs', help='prefs.js file to use')
     ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')

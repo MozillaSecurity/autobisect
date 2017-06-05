@@ -12,6 +12,7 @@ import os
 import time
 
 from browser.evaluator import BrowserBisector
+from config.config import Config
 from core.bisect import Bisector
 
 log = logging.getLogger('autobisect')
@@ -57,7 +58,18 @@ def parse_arguments():
     js_args = subparsers.add_parser('js', parents=[global_args], help='Perform bisection for SpiderMonkey builds')
     js_args.add_argument('--foo', required=True, help='Foo')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    config = Config(args.target)
+    if not args.start:
+        args.start = config.last_known_good
+
+    if not args.skip:
+        args.skip = config.known_broken
+    else:
+        args.skip.extend(config.known_broken)
+
+    return args
 
 
 def main(args):

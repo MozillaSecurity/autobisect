@@ -73,7 +73,7 @@ def main(args):
 
 if __name__ == '__main__':
     log_level = logging.INFO
-    log_fmt = "[%(asctime)s] %(levelname)s %(message)s"
+    log_fmt = "[%(asctime)s] %(levelname).4s: %(message)s"
     if bool(os.getenv("DEBUG")):
         log_level = logging.DEBUG
         log_fmt = "%(levelname)s %(name)s [%(asctime)s] %(message)s"

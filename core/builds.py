@@ -11,6 +11,7 @@ import copy
 import logging
 
 from util.fetch import Fetcher
+
 log = logging.getLogger('builds')
 
 

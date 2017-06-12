@@ -13,7 +13,7 @@ class Boundary(object):
 
     @classmethod
     def new(cls, revision, repo_dir):
-        if not re.match(r'(?=[0-9A-F]*$)(?:.{12}|.{40})', revision, re.IGNORECASE):
+        if not re.match(r'(tip)|(?=[0-9A-Fa-f]*$)(?:.{12}|.{40})', revision, re.IGNORECASE):
             raise Exception('Invalid revision specified')
 
         if not os.path.isdir(repo_dir):

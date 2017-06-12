@@ -171,9 +171,17 @@ class Bisector(object):
 
         if status == "good" and date >= self.start.date:
             self.start = Boundary.new(revision, self.repo_dir)
+            if self.start.date != date:
+                log.warn('The taskcluster revision or date is incorrect for this build!')
+                log.warn('Setting the start date to the value associated with the hg revision (%s)' % self.start.date)
+                i = self.build_range.get_index(self.end.date)
             self.build_range = self.build_range[i+1:]
         elif status == "bad" and date <= self.end.date:
             self.end = Boundary.new(revision, self.repo_dir)
+            if self.end.date != date:
+                log.warn('The taskcluster revision or date is incorrect for this build!')
+                log.warn('Setting the end date to the value associated with the hg revision (%s)' % self.end.date)
+                i = self.build_range.get_index(self.end.date)
             self.build_range = self.build_range[:i]
         elif status == "skip":
             del self.build_range[i]
@@ -224,7 +232,7 @@ class Bisector(object):
             result = self.evaluator.test_build()
             return result
         except:
-            log.error('Unable to find build.  Falling back to compilation')
+            log.warn('Unable to find build.  Falling back to compilation')
 
         subprocess.check_call(self.hg_prefix + ['update', '-r', rev], stdout=DEVNULL)
         result = self.evaluator.test_compilation()

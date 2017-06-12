@@ -34,7 +34,9 @@ class Config(object):
 
         if platform.system() == "Linux":
             self._known_broken = [
-                'b9caaf6c527f:54654348e033'
+                'b9caaf6c527f:54654348e033',
+                '457667d6808b:a791295adccb',
+                'bc92ac281e5e560853dd6e7939a37e7d401608dd'
             ]
         else:
             raise OSError('Platform is unsupported')

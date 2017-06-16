@@ -54,15 +54,14 @@ class Bisector(object):
         subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'], stdout=DEVNULL)
         subprocess.check_call(self.hg_prefix + ['purge', '--all'], stdout=DEVNULL)
 
-        # If we were unable to reduce bisection range using builds, validate start/end revisions 
-        if not self.reduce_range():
-            log.info('Attempting to validate boundaries')
-            if not self.verify_bounds(self.start.rev, self.end.rev):
-                log.critical('Unable to validate supplied revisions.  Cannot bisect!')
-                return
+        if not self.verify_bounds():
+            log.critical('Unable to validate supplied revisions.  Cannot bisect!')
+            return
+
+        if self.reduce_range():
+            log.info('Reduced build range to %s - %s' % (self.start.date, self.end.date))
 
         log.info('Continue bisection using mercurial...')
-
         # Reset bisect ranges and set skip ranges.
         subprocess.check_call(self.hg_prefix + ['bisect', '-r'], stdout=DEVNULL)
         if self.skip_revs:
@@ -101,7 +100,7 @@ class Bisector(object):
                     log.error('Reached maximum skip attempts! Exiting')
                     break
 
-            current = self.apply_result(result, current)
+            current = self.update_hg(result, current)
 
             end_time = time.time()
             elapsed = datetime.timedelta(seconds=(int(end_time-start_time)))
@@ -147,8 +146,6 @@ class Bisector(object):
             next_build.build_info.extract_build(self.build_dir)
             self.update_build_range(next_build.date)
 
-        log.info('Reduced build range to %s - %s' % (self.start.date, self.end.date))
-
         return True
 
     def clobber_build(self):
@@ -167,44 +164,42 @@ class Bisector(object):
         """
         i = self.build_range.get_index(date)
         status = self.evaluator.test_build()
-        revision = self.build_range.builds[i].build_info.changeset
+        revision = hgCmds.get_full_hash(
+            self.repo_dir,
+            self.build_range.builds[i].build_info.changeset
+        )
 
         if status == "good" and date >= self.start.date:
-            self.start = Boundary.new(revision, self.repo_dir)
-            if self.start.date != date:
-                log.warn('The taskcluster revision or date is incorrect for this build!')
-                log.warn('Setting the start date to the value associated with the hg revision (%s)' % self.start.date)
-                i = self.build_range.get_index(self.end.date)
+            self.start = Boundary(date, revision)
             self.build_range = self.build_range[i+1:]
         elif status == "bad" and date <= self.end.date:
-            self.end = Boundary.new(revision, self.repo_dir)
-            if self.end.date != date:
-                log.warn('The taskcluster revision or date is incorrect for this build!')
-                log.warn('Setting the end date to the value associated with the hg revision (%s)' % self.end.date)
-                i = self.build_range.get_index(self.end.date)
+            self.end = Boundary(date, revision)
             self.build_range = self.build_range[:i]
         elif status == "skip":
-            del self.build_range[i]
+            self.build_range.builds.pop(i)
         else:
-            raise Exception('wtf')
+            log.warn('Build range appears to be out of sync')
+            log.warn('Removing build and continuing')
+            self.build_range.builds.pop(i)
 
-    def verify_bounds(self, start, end):
+    def verify_bounds(self):
         """
-        Verify that the supplied start/end revisions behave as expected
+        If start or end dates weren't adjusted via build reduction, test again
         """
         # Test that end revision crashes
         self.clobber_build()
-        if self.test_revision(end) != "bad":
+        if self.test_revision(self.start.rev) != 'good':
+            log.critical('Start revision crashes!')
             return False
 
-        # Test to make sure the start revision doesn't
         self.clobber_build()
-        if self.test_revision(start) != "good":
+        if self.test_revision(self.end.rev) != 'bad':
+            log.critical('End revision doesn\'t crash!')
             return False
 
         return True
 
-    def apply_result(self, label, current):
+    def update_hg(self, label, current):
         """
         Tell hg what we learned about the revision.
         """

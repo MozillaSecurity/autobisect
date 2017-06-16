@@ -17,7 +17,7 @@ try:
 except ImportError:
     DEVNULL = open(os.devnull, 'wb')
 
-from ffpuppet import FFPuppet
+from ffpuppet import FFPuppet, LaunchError
 from core.bisect import Bisector
 
 
@@ -65,6 +65,7 @@ class BrowserBisector(Bisector):
         env['AB_ROOT'] = self._autobisect_base
         env['MOZCONFIG'] = self.moz_config
         env['MOZ_OBJDIR'] = self.build_dir
+        env['ASAN_OPTIONS'] = 'detect_leaks=0'
 
         mach = os.path.join(self.repo_dir, 'mach')
 
@@ -108,7 +109,7 @@ class BrowserBisector(Bisector):
             log.debug('Build verified successfully!')
             return True
         else:
-            log.error('Build crashed.  Skipping!')
+            log.error('Build crashed!')
 
     def evaluate_testcase(self):
         log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
@@ -137,6 +138,9 @@ class BrowserBisector(Bisector):
 
             return_code = ffp.wait(self.timeout) or 0
             log.debug('Browser execution status: {0}'.format(return_code))
+        except LaunchError:
+            log.warn('Failed to start browser')
+            return_code = None
         finally:
             ffp.close()
             ffp.clean_up()

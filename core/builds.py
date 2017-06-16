@@ -42,12 +42,9 @@ class BuildRange(object):
     def get_index(self, date):
         for build in self.builds:
             if build.date == date:
-                i = self.builds.index(build)
-                break
+                return self.builds.index(build)
 
-        assert(i is not None)
-
-        return i
+        return None
 
 
 class Build(object):

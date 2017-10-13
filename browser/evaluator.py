@@ -94,32 +94,16 @@ class BrowserBisector(object):
             log.error('Compilation failed!')
             return 'skip'
 
-        if not self.verify_build():
-            return 'skip'
-
         return self.evaluate_testcase()
-
-    def test_build(self):
-        """
-        Verify downloaded build and evaluate testcase
-        """
-        if not self.verify_build():
-            return 'skip'
-
-        return self.evaluate_testcase()
-
-    def verify_build(self):
-        """
-        Verify that build doesn't crash
-        """
-        log.info('Verifying build')
-        if self.launch() == 0:
-            log.debug('Build verified successfully!')
-            return True
-        else:
-            log.error('Build crashed!')
 
     def evaluate_testcase(self):
+        """
+        Validate build and launch with supplied testcase
+        :return: Result of evaluation
+        """
+        if not self.verify_build():
+            return 'skip'
+
         log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
         result = self.launch(os.path.abspath(self.testcase))
 

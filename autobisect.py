@@ -8,11 +8,11 @@ from __future__ import absolute_import, division, print_function
 import argparse
 import logging
 import os
+import re
 import time
 from datetime import datetime, timedelta
 
 from browser.evaluator import BrowserBisector
-from config.config import Config
 from core.bisect import Bisector
 
 log = logging.getLogger('autobisect')
@@ -60,14 +60,10 @@ def parse_arguments():
 
     args = parser.parse_args()
 
-    config = Config(args.target)
-    if not args.start:
-        args.start = config.last_known_good
-
-    if not args.skip:
-        args.skip = config.known_broken
-    else:
-        args.skip.extend(config.known_broken)
+    if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.start):
+        parser.error('Invalid start value supplied')
+    if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
+        parser.error('Invalid end value supplied')
 
     return args
 

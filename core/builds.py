@@ -9,8 +9,7 @@ from __future__ import absolute_import, division, print_function
 
 import copy
 import logging
-
-from util.fetch import Fetcher
+from datetime import timedelta
 
 log = logging.getLogger('builds')
 
@@ -39,16 +38,25 @@ class BuildRange(object):
         i = len(self) // 2
         return self._builds[i]
 
-    def get_index(self, date):
-        for build in self.builds:
-            if build.date == date:
-                return self.builds.index(build)
+    def index(self, build):
+        return self.builds.index(build)
 
-        return None
+    @classmethod
+    def new(cls, start, end):
+        """
+        Creates a list of builds between two ranges
+        :param start: A starting datetime object
+        :type start: datetime.datetime
+        :param end: An ending datetime object
+        :type end: datetime.datetime
+        :return: A BuildRange object
+        """
+        dates = []
+        # Remove time date
+        start = start.replace(hour=0, minute=0, second=0, microsecond=0)
+        end = end.replace(hour=0, minute=0, second=0, microsecond=0)
+        delta = end - start
+        for n in range(delta.days + 1):
+            dates.append((start + timedelta(days=n)).strftime('%Y-%m-%d'))
 
-
-class Build(object):
-    # ToDo: This should be updated to support more platforms, bits, repos, and build types
-    def __init__(self, target, branch, date, asan, debug):
-        self.date = date
-        self.build_info = Fetcher(target, branch, str(date), asan, debug)
+        return BuildRange(dates)

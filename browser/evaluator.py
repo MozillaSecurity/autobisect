@@ -51,13 +51,24 @@ class BrowserBisector(object):
         self.windbg = args.windbg
         self.xvfb = args.xvfb
 
+    def verify_build(self):
+        """
+        Verify that build doesn't crash on start
+        :return: Boolean
+        """
+        log.info('Verifying build')
+        if self.launch() == 0:
+            log.debug('Build verified successfully!')
+            return True
+        else:
+            log.error('Build crashed!')
+            return False
+
     def test_compilation(self):
         """
         Compile from source and evaluate testcase
+        :return: Result of evaluation
         """
-        # Ensure that the build_dir is empty
-        assert os.listdir(self.build_dir) == []
-
         env = os.environ.copy()
         env['AB_ROOT'] = self._autobisect_base
         env['MOZCONFIG'] = self.moz_config

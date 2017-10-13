@@ -27,10 +27,19 @@ def parse_arguments():
     global_args.add_argument('repo_dir', help='Path of repository')
     global_args.add_argument('build_dir', help='Path to store build')
     global_args.add_argument('testcase', help='Path to testcase')
-    global_args.add_argument('-start', help='Known good revision (default: earliest known working)')
-    global_args.add_argument('-end', default='tip', help='Known bad revision (default: tip')
-    global_args.add_argument('-skip', nargs='+', action='store',
-                             help='A revset expression representing the revisions to skip (example: (x::y)')
+
+    boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision')
+    boundary_args.add_argument('-start',
+                               default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
+                               help='Start revision (default: earliest available TC build)')
+    boundary_args.add_argument('-end',
+                               default=datetime.utcnow().strftime('%Y-%m-%d'),
+                               help='End revision (default: latest available TC build)')
+
+    bisection_args = global_args.add_argument_group('bisection arguments')
+    bisection_args.add_argument('-find-fix', action='store_true', help='Indentify fix date')
+    bisection_args.add_argument('-verify', action='store_true', help='Verify boundaries')
+    bisection_args.add_argument('-mach-reduce', action='store_true', help='Further reduce range using compiled builds')
 
     subparsers = parser.add_subparsers(dest='target')
 

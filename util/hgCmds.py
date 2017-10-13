@@ -10,7 +10,8 @@ import logging
 import os
 import re
 import subprocess
-from datetime import datetime
+import requests
+import datetime
 
 import configparser
 
@@ -102,7 +103,22 @@ def get_full_hash(repo_dir, rev):
     return full_hash
 
 
-def get_repo_name(repo_dir):
+def get_rev_push_date(branch, revision):
+    """
+    Retrieves the pushdate from hg.mozilla.org
+    """
+    url = "https://hg.mozilla.org/mozilla-%s/json-rev/%s" % (branch, revision)
+    try:
+        data = requests.get(url)
+        data.raise_for_status()
+    except requests.exceptions.RequestException:
+        raise Exception("Unable to find revision at: %s", url)
+
+    json = data.json()
+    return datetime.datetime.utcfromtimestamp(json['pushdate'])
+
+
+def get_branch_name(repo_dir):
     """
     Extract the repository name from the hgrc file
     """
@@ -169,12 +185,3 @@ def pop_applied_patch(patch, repo_dir):
 
     subprocess.check_call(['hg', '-R', repo_dir, 'qdelete', os.path.basename(patch)])
     log.error("Patch qdelete'd.")
-
-
-def rev_date(repo_dir, rev):
-    """
-    Return the date of a rev as a date object
-    """
-    date_string = sps.captureStdout(['hg', '-R', repo_dir, 'log', '-r', rev, '--template', '{date|shortdate}\n'])[0]
-    if re.match(r"\d{4}-\d{2}-\d{2}", date_string):
-        return datetime.strptime(date_string, '%Y-%m-%d').date()

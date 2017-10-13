@@ -152,13 +152,11 @@ def main():
     build_args.add_argument('--config', required=True, action='store', help='Path to .mozconfig file')
 
     ffp_args = parser.add_argument_group('Launcher Arguments')
-    ffp_args.add_argument('--extension',
-                          help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
     ffp_args.add_argument('--timeout', type=int, default=60,
-                          help='Iteration timeout in seconds (default: %(default)s)')
+                          help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
-                          help='Number of seconds to wait for firefox to become responsive after launching.'
-                          '(default: %(default)s)')
+                          help='Maximum launch time in seconds (default: %(default)s)')
+    ffp_args.add_argument('--ext', help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
     ffp_args.add_argument('--prefs', help='prefs.js file to use')
     ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')
     ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (Requires psutil)')

@@ -11,15 +11,13 @@ import logging
 import os
 import subprocess
 
-try:
-    # subprocess v3.5
-    from subprocess import DEVNULL
-except ImportError:
-    DEVNULL = open(os.devnull, 'wb')
-
 from ffpuppet import FFPuppet, LaunchError
 from core.bisect import Bisector
 
+if bool(os.getenv("DEBUG")):
+    OUTPUT = None
+else:
+    OUTPUT = open(os.devnull, 'wb')
 
 log = logging.getLogger('browser-bisect')
 
@@ -75,8 +73,8 @@ class BrowserBisector(Bisector):
                 [mach, 'build'],
                 cwd=self.repo_dir,
                 env=env,
-                stdout=DEVNULL,
-                stderr=subprocess.STDOUT,
+                stdout=OUTPUT,
+                stderr=OUTPUT,
             )
         except subprocess.CalledProcessError:
             log.error('Compilation failed!')

@@ -12,7 +12,6 @@ import os
 import subprocess
 
 from ffpuppet import FFPuppet, LaunchError
-from core.bisect import Bisector
 
 if bool(os.getenv("DEBUG")):
     OUTPUT = None
@@ -22,7 +21,7 @@ else:
 log = logging.getLogger('browser-bisect')
 
 
-class BrowserBisector(Bisector):
+class BrowserBisector(object):
     def __init__(self, args):
         self.repo_dir = args.repo_dir
         self.build_dir = args.build_dir

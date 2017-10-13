@@ -41,7 +41,7 @@ class BrowserBisector(object):
 
         # FFPuppet arguments
         self.binary = os.path.join(self.build_dir, 'dist', 'bin', 'firefox')
-        self.extension = args.extension
+        self.extension = args.ext
         self.timeout = args.timeout
         self.launch_timeout = args.launch_timeout
         self.prefs = args.prefs

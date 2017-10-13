@@ -122,11 +122,14 @@ def get_branch_name(repo_dir):
     """
     Extract the repository name from the hgrc file
     """
-    assert is_valid_repo(repo_dir)
+    hgrc_path = os.path.join(repo_dir, '.hg', 'hgrc')
+    if not os.path.isfile(hgrc_path):
+        raise Exception('Invalid repository!  Could not find %s' % hgrc_path)
+
     hgrc = configparser.ConfigParser()
-    hgrc.read(sps.normExpUserPath(os.path.join(repo_dir, '.hg', 'hgrc')))
-    # Not all default entries in [paths] end with "/".
-    return [i for i in hgrc.get('paths', 'default').split('/') if i][-1]
+    hgrc.read(hgrc_path)
+    m = re.search('(?<=/mozilla-)\w+', hgrc.get('paths', 'default'))
+    return m.group(0)
 
 
 def is_valid_repo(repo):

@@ -6,10 +6,10 @@
 from __future__ import absolute_import, division, print_function
 
 import argparse
-import datetime
 import logging
 import os
 import time
+from datetime import datetime, timedelta
 
 from browser.evaluator import BrowserBisector
 from config.config import Config
@@ -80,7 +80,7 @@ def main(args):
     start_time = time.time()
     bisector.bisect()
     end_time = time.time()
-    elapsed = datetime.timedelta(seconds=(int(end_time - start_time)))
+    elapsed = timedelta(seconds=(int(end_time - start_time)))
     log.info('Bisection completed in: %s' % elapsed)
 
 

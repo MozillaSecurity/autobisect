@@ -49,16 +49,14 @@ def parse_arguments():
     general_args.add_argument('--debug', action='store_true', help='Test debug builds')
 
     ffp_args = firefox_sub.add_argument_group('launcher arguments')
-    ffp_args.add_argument('--extension',
-                          help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
     ffp_args.add_argument('--timeout', type=int, default=60,
-                          help='Iteration timeout in seconds (default: %(default)s)')
+                          help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
-                          help='Number of seconds to wait for firefox to become responsive after launching. '
-                               '(default: %(default)s)')
-    ffp_args.add_argument('--prefs', help='prefs.js file to use')
-    ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')
-    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (Requires psutil)')
+                          help='Maximum launch time in seconds (default: %(default)s)')
+    ffp_args.add_argument('--ext', help='Path to fuzzPriv extension')
+    ffp_args.add_argument('--prefs', help='Path to preference file')
+    ffp_args.add_argument('--profile', help='Path to profile directory')
+    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
     ffp_args.add_argument('--windbg', action='store_true', help='Use WinDBG (Windows only)')

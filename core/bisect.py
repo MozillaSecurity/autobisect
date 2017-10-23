@@ -11,9 +11,9 @@ import os
 import shutil
 import subprocess
 import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-import fuzzfetch
+from fuzzfetch import *
 
 from core.builds import BuildRange
 from util import hgCmds
@@ -28,14 +28,14 @@ class Bisector(object):
         self.repo_dir = args.repo_dir
         self.branch = hgCmds.get_branch_name(self.repo_dir)
         self.build_dir = args.build_dir
-        self.build_flags = fuzzfetch.BuildFlags(asan=args.asan, debug=args.debug, fuzzing=False, coverage=False)
+        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=False, coverage=False)
 
         self.find_fix = args.find_fix
         self.needs_verified = args.verify
         self.mach_reduce = args.mach_reduce
 
-        self.start = fuzzfetch.Fetcher(self.target, self.branch, args.start, self.build_flags)
-        self.end = fuzzfetch.Fetcher(self.target, self.branch, args.end, self.build_flags)
+        self.start = Fetcher(self.target, self.branch, args.start, self.build_flags)
+        self.end = Fetcher(self.target, self.branch, args.end, self.build_flags)
 
         self.hg_prefix = ['hg', '-R', self.repo_dir]
 
@@ -60,7 +60,7 @@ class Bisector(object):
             log.info('> Start: %s (%s)' % (self.start.changeset, self.start.build_id))
             log.info('> End: %s (%s)' % (self.end.changeset, self.end.build_id))
         else:
-            log.warn('Unable to reduce bisection range using taskcluster binaries!')
+            log.warning('Unable to reduce bisection range using taskcluster binaries!')
 
         if self.mach_reduce:
             log.info('Continue bisection using mercurial...')
@@ -90,8 +90,8 @@ class Bisector(object):
 
                 try:
                     log.info('Attempting to find build for revision %s' % current)
-                    target_build = fuzzfetch.Fetcher(self.target, self.branch, current, self.build_flags)
-                except fuzzfetch.FetcherException:
+                    target_build = Fetcher(self.target, self.branch, current, self.build_flags)
+                except FetcherException:
                     log.info('Unable to find build for revision %s' % current)
                     # self.clobber_build()
                     subprocess.check_call(self.hg_prefix + ['update', '-r', current], stdout=DEVNULL)
@@ -125,55 +125,73 @@ class Bisector(object):
         Reduce bisection range using taskcluster builds
         :return: Boolean to identify whether the build range was successfully reduced
         """
-        orig_start = datetime.strptime(self.start.build_id, '%Y%m%d%H%M%S')
-        orig_end = datetime.strptime(self.end.build_id, '%Y%m%d%H%M%S')
+        orig_start = self.start.build_date
+        orig_end = self.end.build_date
 
-        # Verify_bounds covers start and end so adjust by 1
-        build_range = BuildRange.new(orig_start + timedelta(days=1), orig_end - timedelta(days=1))
-        while len(build_range) != 0:
+        # Reduce using one build per day
+        build_range = BuildRange.new(self.start.build_date + timedelta(days=1), self.end.build_date - timedelta(days=1))
+        while len(build_range) > 0:
             next_date = build_range.mid_point
             i = build_range.index(next_date)
 
             try:
-                next_build = self.get_build(next_date)
-            except fuzzfetch.FetcherException:
-                next_build = None
-
-            if not next_build:
+                next_build = Fetcher(self.target, self.branch, next_date, self.build_flags)
+            except FetcherException:
+                log.warning('Unable to find build for %s' % next_date)
                 build_range.builds.pop(i)
-                continue
             else:
                 log.info('Testing build %s' % next_build.build_id)
                 status = self.test_build(next_build)
+                build_range = self.update_build_range(next_build, i, status, build_range)
 
-                if status == 'good':
-                    if not self.find_fix:
-                        self.start = next_build
-                        build_range = build_range[i+1:]
-                    else:
-                        self.end = next_build
-                        build_range = build_range[:i]
-                elif status == 'bad':
-                    if not self.find_fix:
-                        self.end = next_build
-                        build_range = build_range[:i]
-                    else:
-                        self.start = next_build
-                        build_range = build_range[i+1:]
-                elif status == "skip":
-                    build_range.builds.pop(i)
-                else:
-                    log.warn('Build range appears to be out of sync')
-                    log.warn('Removing build and continuing')
-                    build_range.builds.pop(i)
+        # Further reduce using all available builds for start and end dates
+        start_date = self.start.build_date.strftime('%Y-%m-%d')
+        builds = list(Fetcher.iterall(self.target, self.branch, start_date, self.build_flags))
+        end_date = self.start.build_date.strftime('%Y-%m-%d')
+        builds.extend(list(Fetcher.iterall(self.target, self.branch, end_date, self.build_flags)))
+
+        # Sort by date
+        build_range.builds.sort(key=lambda x: x.build_date)
+
+        # Remove start and end builds as they've already been tested
+        for build in [self.start, self.end]:
+            builds = filter(lambda x: x.build_id != build.build_id, builds)
+
+        build_range = BuildRange(builds)
+        while len(build_range) > 0:
+            next_build = build_range.mid_point
+            i = build_range.index(next_build)
+
+            log.info('Testing build %s' % next_build.build_id)
+            status = self.test_build(next_build)
+            build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Was reduction successful?
-        if orig_start < datetime.strptime(self.start.build_id, '%Y%m%d%H%M%S'):
+        if orig_start < self.start.build_date:
             return True
-        if orig_end > datetime.strptime(self.end.build_id, '%Y%m%d%H%M%S'):
+        if orig_end > self.end.build_date:
             return True
 
         return False
+
+    def update_build_range(self, build, index, status, build_range):
+        if status == 'good':
+            if not self.find_fix:
+                self.start = build
+                return build_range[index + 1:]
+            else:
+                self.end = build
+                return build_range[:index]
+        elif status == 'bad':
+            if not self.find_fix:
+                self.end = build
+                return build_range[:index]
+            else:
+                self.start = build
+                return build_range[index + 1:]
+        elif status == 'skip':
+            build_range.builds.pop(index)
+            return build_range
 
     def clobber_build(self):
         """
@@ -188,7 +206,7 @@ class Bisector(object):
         """
         Prepare the build directory and launch the supplied build
         :param build: The build to test
-        :type: fuzzfetch.Fetcher
+        :type: Fetcher
         :return: The result of the build evaluation
         """
         self.clobber_build()
@@ -239,16 +257,3 @@ class Bisector(object):
         # Otherwise, return results
         log.info(results)
         return None
-
-    def get_build(self, build_string):
-        """
-        Retrieves a build for a specified value
-        :param build_string: String in the format of %Y-%m-%d or revision (SHA1) 
-        :return: A Fetcher build object
-        """
-        try:
-            build = fuzzfetch.Fetcher(self.target, self.branch, build_string, self.build_flags)
-            log.info('Found build: %s (%s)' % (build.changeset, build.build_id))
-            return build
-        except fuzzfetch.FetcherException:
-            log.warn('Unable to retrieve build for %s' % build_string)

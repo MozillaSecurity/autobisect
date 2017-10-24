@@ -125,11 +125,13 @@ class Bisector(object):
         Reduce bisection range using taskcluster builds
         :return: Boolean to identify whether the build range was successfully reduced
         """
-        orig_start = self.start.build_date
-        orig_end = self.end.build_date
+        orig_start = self.start.build_datetime
+        orig_end = self.end.build_datetime
 
         # Reduce using one build per day
-        build_range = BuildRange.new(self.start.build_date + timedelta(days=1), self.end.build_date - timedelta(days=1))
+        build_range = BuildRange.new(
+            self.start.build_datetime + timedelta(days=1),
+            self.end.build_datetime - timedelta(days=1))
         while len(build_range) > 0:
             next_date = build_range.mid_point
             i = build_range.index(next_date)
@@ -145,13 +147,13 @@ class Bisector(object):
                 build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Further reduce using all available builds for start and end dates
-        start_date = self.start.build_date.strftime('%Y-%m-%d')
+        start_date = self.start.build_datetime.strftime('%Y-%m-%d')
         builds = list(Fetcher.iterall(self.target, self.branch, start_date, self.build_flags))
-        end_date = self.start.build_date.strftime('%Y-%m-%d')
+        end_date = self.start.build_datetime.strftime('%Y-%m-%d')
         builds.extend(list(Fetcher.iterall(self.target, self.branch, end_date, self.build_flags)))
 
         # Sort by date
-        build_range.builds.sort(key=lambda x: x.build_date)
+        build_range.builds.sort(key=lambda x: x.build_datetime)
 
         # Remove start and end builds as they've already been tested
         for build in [self.start, self.end]:
@@ -167,9 +169,9 @@ class Bisector(object):
             build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Was reduction successful?
-        if orig_start < self.start.build_date:
+        if orig_start < self.start.build_datetime:
             return True
-        if orig_end > self.end.build_date:
+        if orig_end > self.end.build_datetime:
             return True
 
         return False

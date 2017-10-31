@@ -28,25 +28,27 @@ def parse_arguments():
     global_args.add_argument('testcase', help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision')
-    boundary_args.add_argument('-start',
-                               default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
+    boundary_args.add_argument('--start', default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
                                help='Start revision (default: earliest available TC build)')
-    boundary_args.add_argument('-end',
-                               default=datetime.utcnow().strftime('%Y-%m-%d'),
+    boundary_args.add_argument('--end', default=datetime.utcnow().strftime('%Y-%m-%d'),
                                help='End revision (default: latest available TC build)')
 
     bisection_args = global_args.add_argument_group('bisection arguments')
-    bisection_args.add_argument('-find-fix', action='store_true', help='Indentify fix date')
-    bisection_args.add_argument('-verify', action='store_true', help='Verify boundaries')
-    bisection_args.add_argument('-mach-reduce', action='store_true', help='Further reduce range using compiled builds')
+    bisection_args.add_argument('--find-fix', action='store_true', help='Indentify fix date')
+    bisection_args.add_argument('--verify', action='store_true', help='Verify boundaries')
+    bisection_args.add_argument('--mach-reduce', action='store_true', help='Further reduce range using compiled builds')
+    bisection_args.add_argument('--config', help='Path to optional config file')
+
+    build_args = global_args.add_argument_group('build arguments')
+    build_args.add_argument('--asan', action='store_true', help='Test asan builds')
+    build_args.add_argument('--debug', action='store_true', help='Test debug builds')
+    build_args.add_argument('--fuzzing', action='store_true', help='Test --enable-fuzzing builds')
+    build_args.add_argument('--coverage', action='store_true', help='Test --coverage builds')
+    build_args.add_argument('--32', dest='arch_32', action='store_true',
+                            help='Test 32 bit version of browser on 64 bit system.')
 
     subparsers = parser.add_subparsers(dest='target')
-
     firefox_sub = subparsers.add_parser('firefox', parents=[global_args], help='Perform bisection for Firefox builds')
-    general_args = firefox_sub.add_argument_group('build arguments')
-    general_args.add_argument('--asan', action='store_true', help='Test asan builds')
-    general_args.add_argument('--debug', action='store_true', help='Test debug builds')
-
     ffp_args = firefox_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--timeout', type=int, default=60,
                           help='Maximum iteration time in seconds (default: %(default)s)')
@@ -58,7 +60,6 @@ def parse_arguments():
     ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
-    ffp_args.add_argument('--windbg', action='store_true', help='Use WinDBG (Windows only)')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     js_args = subparsers.add_parser('js', parents=[global_args], help='Perform bisection for SpiderMonkey builds')

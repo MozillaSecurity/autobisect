@@ -47,7 +47,7 @@ class BisectionConfig(object):
     """
     def __init__(self, target, config_file=None):
         """
-        Initializes the object using either the specified config_file or a new database
+        Initializes the object using either the specified config_file or creates a new database using default values
         :param target: The build target currently being bisected
         :param config_file: A path to custom configuration file
         """

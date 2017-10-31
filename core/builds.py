@@ -59,4 +59,4 @@ class BuildRange(object):
         for n in range(delta.days + 1):
             dates.append((start + timedelta(days=n)).strftime('%Y-%m-%d'))
 
-        return BuildRange(dates)
+        return cls(dates)

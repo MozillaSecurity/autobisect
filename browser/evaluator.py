@@ -155,7 +155,6 @@ def main():
     ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (Requires psutil)')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
-    ffp_args.add_argument('--windbg', action='store_true', help='Use WinDBG (Windows only)')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     args = parser.parse_args()

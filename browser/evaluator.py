@@ -40,6 +40,7 @@ class BrowserBisector(object):
         #     self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
 
         # FFPuppet arguments
+        self.ffp = FFPuppet(use_gdb=args.gdb, use_valgrind=args.valgrind, use_xvfb=args.xvfb)
         self.binary = os.path.join(self.build_dir, 'dist', 'bin', 'firefox')
         self.extension = args.ext
         self.timeout = args.timeout
@@ -47,9 +48,6 @@ class BrowserBisector(object):
         self.prefs = args.prefs
         self.memory = args.memory
         self.gdb = args.gdb
-        self.valgrind = args.valgrind
-        self.windbg = args.windbg
-        self.xvfb = args.xvfb
 
     def verify_build(self):
         """
@@ -114,13 +112,8 @@ class BrowserBisector(object):
             return 'good'
 
     def launch(self, testcase=None):
-        ffp = FFPuppet(
-            use_gdb=self.gdb,
-            use_valgrind=self.valgrind,
-            use_xvfb=self.xvfb)
-
         try:
-            ffp.launch(
+            self.ffp.launch(
                 self.binary,
                 location=testcase,
                 launch_timeout=self.launch_timeout,
@@ -128,14 +121,14 @@ class BrowserBisector(object):
                 prefs_js=self.prefs,
                 extension=self.extension)
 
-            return_code = ffp.wait(self.timeout) or 0
+            return_code = self.ffp.wait(self.timeout) or 0
             log.debug('Browser execution status: {0}'.format(return_code))
         except LaunchError:
             log.warn('Failed to start browser')
             return_code = None
         finally:
-            ffp.close()
-            ffp.clean_up()
+            self.ffp.close()
+            self.ffp.clean_up()
 
         return return_code
 

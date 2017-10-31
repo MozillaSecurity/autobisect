@@ -16,6 +16,7 @@ from datetime import timedelta
 from fuzzfetch import *
 
 from core.builds import BuildRange
+from core.config import BisectionConfig
 from util import hgCmds
 
 DEVNULL = open(os.devnull, 'wb')
@@ -25,6 +26,8 @@ log = logging.getLogger('bisect')
 class Bisector(object):
     def __init__(self, args):
         self.target = args.target
+        self.config = BisectionConfig(self.target, args.config)
+        
         self.repo_dir = args.repo_dir
         self.branch = hgCmds.get_branch_name(self.repo_dir)
         self.build_dir = args.build_dir
@@ -101,6 +104,7 @@ class Bisector(object):
 
                 if result == 'skip':
                     skip_count += 1
+                    self.config.skipdb.add(current)
                     # If we use 'skip', we tell hg bisect to do a linear search to get around the skipping.
                     # If the range is large, doing a bisect to find the start and endpoints of compilation
                     # bustage would be faster. 20 total skips being roughly the time that the pair of
@@ -192,6 +196,7 @@ class Bisector(object):
                 self.start = build
                 return build_range[index + 1:]
         elif status == 'skip':
+            self.config.skipdb.add(build.changeset)
             build_range.builds.pop(index)
             return build_range
 
@@ -211,6 +216,9 @@ class Bisector(object):
         :type: Fetcher
         :return: The result of the build evaluation
         """
+        if self.config.skipdb.includes(build.changeset):
+            return 'skip'
+
         self.clobber_build()
         build.extract_build(self.build_dir)
         return self.evaluator.evaluate_testcase()

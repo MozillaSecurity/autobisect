@@ -15,6 +15,7 @@ from datetime import timedelta
 
 from fuzzfetch import *
 
+from browser.evaluator import BrowserBisector
 from core.builds import BuildRange
 from core.config import BisectionConfig
 from util import hgCmds
@@ -42,8 +43,10 @@ class Bisector(object):
 
         self.hg_prefix = ['hg', '-R', self.repo_dir]
 
-        self.evaluator = None
-        self.build_range = None
+        if self.target == "firefox":
+            self.evaluator = BrowserBisector(args)
+        else:
+            self.evaluator = None
 
     def bisect(self):
         """

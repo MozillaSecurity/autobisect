@@ -12,7 +12,6 @@ import re
 import time
 from datetime import datetime, timedelta
 
-from browser.evaluator import BrowserBisector
 from core.bisect import Bisector
 
 log = logging.getLogger('autobisect')
@@ -77,9 +76,6 @@ def parse_arguments():
 
 def main(args):
     bisector = Bisector(args)
-    if args.target == 'firefox':
-        bisector.evaluator = BrowserBisector(args)
-
     start_time = time.time()
     bisector.bisect()
     end_time = time.time()

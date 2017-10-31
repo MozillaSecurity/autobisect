@@ -10,34 +10,38 @@ import logging
 import os
 import shutil
 import subprocess
+import tempfile
 import time
 from datetime import timedelta
 
-from fuzzfetch import *
+from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from browser.evaluator import BrowserBisector
 from core.builds import BuildRange
 from core.config import BisectionConfig
 from util import hgCmds
 
-DEVNULL = open(os.devnull, 'wb')
 log = logging.getLogger('bisect')
+
+DEVNULL = open(os.devnull, 'wb')
+
+BISECT_GOOD = 'good'
+BISECT_BAD = 'bad'
+BISECT_SKIP = 'skip'
 
 
 class Bisector(object):
     def __init__(self, args):
-        self.target = args.target
-        self.config = BisectionConfig(self.target, args.config)
-        
         self.repo_dir = args.repo_dir
         self.branch = hgCmds.get_branch_name(self.repo_dir)
-        self.build_dir = args.build_dir
+        self.target = args.target
+        self.config = BisectionConfig(self.target, self.branch, args.config)
 
         self.find_fix = args.find_fix
         self.needs_verified = args.verify
         self.mach_reduce = args.mach_reduce
 
-        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=False, coverage=False)
+        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage)
         self.start = Fetcher(self.target, self.branch, args.start, self.build_flags)
         self.end = Fetcher(self.target, self.branch, args.end, self.build_flags)
 
@@ -75,9 +79,6 @@ class Bisector(object):
             subprocess.check_call(self.hg_prefix + ['pull'], stdout=DEVNULL)
             subprocess.check_call(self.hg_prefix + ['update', '-C', 'default'], stdout=DEVNULL)
 
-            # Clobber build directory once at start, then rely on AUTOCLOBBER
-            self.clobber_build()
-
             # Set bisection's start and end revisions
             # Start and end revisions are flipped depending on self.find_fix
             subprocess.check_call(self.hg_prefix + ['bisect', '-r'], stdout=DEVNULL)
@@ -94,17 +95,7 @@ class Bisector(object):
                 log.info('Begin round %d - %s' % (iter_count, current))
                 start_time = time.time()
 
-                try:
-                    log.info('Attempting to find build for revision %s' % current)
-                    target_build = Fetcher(self.target, self.branch, current, self.build_flags)
-                except FetcherException:
-                    log.info('Unable to find build for revision %s' % current)
-                    # self.clobber_build()
-                    subprocess.check_call(self.hg_prefix + ['update', '-r', current], stdout=DEVNULL)
-                    result = self.evaluator.test_compilation()
-                else:
-                    result = self.test_build(target_build)
-
+                result = self.test_build(current)
                 if result == 'skip':
                     skip_count += 1
                     self.config.skipdb.add(current)
@@ -124,7 +115,7 @@ class Bisector(object):
 
                 end_time = time.time()
                 elapsed = timedelta(seconds=(int(end_time-start_time)))
-                log.info('Round %d completed in %d' % (iter_count, elapsed))
+                log.info('Round %d completed in %s' % (iter_count, elapsed))
                 hgCmds.destroy_pyc(self.repo_dir)
 
     def reduce_range(self):
@@ -149,7 +140,7 @@ class Bisector(object):
                 log.warning('Unable to find build for %s' % next_date)
                 build_range.builds.pop(i)
             else:
-                status = self.test_build(next_build)
+                status = self.test_build(next_build.changeset, next_build)
                 build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Further reduce using all available builds for start and end dates
@@ -159,9 +150,7 @@ class Bisector(object):
         builds = []
         builds.extend(list(Fetcher.iterall(self.target, self.branch, start_date, self.build_flags)))
         builds.extend(list(Fetcher.iterall(self.target, self.branch, end_date, self.build_flags)))
-
-        # Sort by date
-        build_range.builds.sort(key=lambda x: x.build_datetime)
+        builds.sort(key=lambda x: x.build_datetime)
 
         # Remove start and end builds as they've already been tested
         for build in [self.start, self.end]:
@@ -171,7 +160,7 @@ class Bisector(object):
         while len(build_range) > 0:
             next_build = build_range.mid_point
             i = build_range.index(next_build)
-            status = self.test_build(next_build)
+            status = self.test_build(next_build.changeset, next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Was reduction successful?
@@ -202,29 +191,51 @@ class Bisector(object):
             build_range.builds.pop(index)
             return build_range
 
-    def clobber_build(self):
-        """
-        Delete the build directory and recreate it
-        """
-        if os.path.exists(self.build_dir):
-            log.debug('Clobbering build dir:  %s' % self.build_dir)
-            shutil.rmtree(self.build_dir)
-            os.makedirs(self.build_dir)
+    def compile_build(self):
+        pass
 
-    def test_build(self, build):
+    def test_build(self, rev, build=None):
         """
         Prepare the build directory and launch the supplied build
-        :param build: The build to test
+        :param rev: The revision to test
+        :type: str
+        
+        :param build: An optional build object to prevent duplicate fetching
         :type: Fetcher
+        
         :return: The result of the build evaluation
         """
-        if self.config.skipdb.includes(build.changeset):
+        if self.config.skipdb.includes(rev):
             return 'skip'
 
-        self.clobber_build()
-        log.info('Testing build %s (%s)' % (build.changeset, build.build_id))
-        build.extract_build(self.build_dir)
-        return self.evaluator.evaluate_testcase()
+        # If persistence is enabled and a build exists, use it
+        if self.config.persist:
+            build_path = self.config.persist.get_build(rev)
+            if build_path:
+                log.info('Testing build %s' % rev)
+                return self.evaluator.evaluate_testcase(build_path)
+
+        # If we were unable to find a build, try to download or compile one
+        build_path = tempfile.mkdtemp(prefix='autobisect-')
+        try:
+            if build:
+                build.extract_build(build_path)
+            else:
+                try:
+                    build = Fetcher(self.target, self.branch, rev, self.build_flags)
+                    build.extract_build(build_path)
+                except FetcherException:
+                    self.evaluator.compile_build(build_path)
+
+            log.info('Testing build %s' % rev)
+            result = self.evaluator.evaluate_testcase(build_path)
+            # If persistence is enabled and the build was good, save it
+            if self.config.persist and result != 'skip':
+                self.config.persist.save_build(rev, build_path)
+
+            return result
+        finally:
+            shutil.rmtree(build_path)
 
     def verify_bounds(self):
         """
@@ -232,14 +243,14 @@ class Bisector(object):
         :return: Boolean
         """
         log.info('Attempting to verify boundaries...')
-        status = self.test_build(self.start)
+        status = self.test_build(self.start.changeset, self.start)
         if status == 'skip':
             log.critical('Unable to launch the start build!')
         elif status == 'bad' and not self.find_fix:
             log.critical('Start revision crashes!')
             return False
 
-        status = self.test_build(self.end)
+        status = self.test_build(self.end.changeset, self.end)
         if status == 'skip':
             log.critical('Unable to launch the end build!')
         elif status == 'good' and not self.find_fix:

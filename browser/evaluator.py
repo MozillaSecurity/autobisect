@@ -23,9 +23,8 @@ log = logging.getLogger('browser-bisect')
 
 class BrowserBisector(object):
     def __init__(self, args):
-        self.repo_dir = args.repo_dir
-        self.build_dir = args.build_dir
-        self.testcase = args.testcase
+        self.repo_dir = os.path.abspath(args.repo_dir)
+        self.testcase = os.path.abspath(args.testcase)
 
         # ToDo: Automatically select platform
         self._autobisect_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,36 +40,34 @@ class BrowserBisector(object):
 
         # FFPuppet arguments
         self.ffp = FFPuppet(use_gdb=args.gdb, use_valgrind=args.valgrind, use_xvfb=args.xvfb)
-        self.binary = os.path.join(self.build_dir, 'dist', 'bin', 'firefox')
-        self.extension = args.ext
         self.timeout = args.timeout
         self.launch_timeout = args.launch_timeout
+        self.extension = args.ext
         self.prefs = args.prefs
+        self.profile = os.path.abspath(args.profile) if args.profile is not None else None
         self.memory = args.memory
-        self.gdb = args.gdb
 
-    def verify_build(self):
+    def verify_build(self, build):
         """
         Verify that build doesn't crash on start
         :return: Boolean
         """
-        log.info('Verifying build')
-        if self.launch() == 0:
-            log.debug('Build verified successfully!')
-            return True
-        else:
+        log.info('Verifying build...')
+        if self.launch(build) != 0:
             log.error('Build crashed!')
             return False
 
-    def test_compilation(self):
+        return True
+
+    def compile_build(self, build_path):
         """
-        Compile from source and evaluate testcase
-        :return: Result of evaluation
+        Compile build using mach
+        :param build_path: Path to store the build
         """
         env = os.environ.copy()
         env['AB_ROOT'] = self._autobisect_base
         env['MOZCONFIG'] = self.moz_config
-        env['MOZ_OBJDIR'] = self.build_dir
+        env['MOZ_OBJDIR'] = build_path
         env['ASAN_OPTIONS'] = 'detect_leaks=0'
 
         mach = os.path.join(self.repo_dir, 'mach')
@@ -85,39 +82,33 @@ class BrowserBisector(object):
                 stderr=OUTPUT,
             )
         except subprocess.CalledProcessError:
-            log.error('Compilation failed!')
-            return 'skip'
+            pass
 
-        if not os.path.exists(self.build_dir):
-            log.error('Compilation failed!')
-            return 'skip'
-
-        return self.evaluate_testcase()
-
-    def evaluate_testcase(self):
+    def evaluate_testcase(self, build_path):
         """
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        if not self.verify_build():
-            return 'skip'
+        binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
+        if os.path.isfile(binary) and self.verify_build(binary):
+            log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
+            result = self.launch(binary, os.path.abspath(self.testcase))
 
-        log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
-        result = self.launch(os.path.abspath(self.testcase))
+            # Return 'bad' if result is anything other than 0
+            if result and result != 0:
+                return 'bad'
+            else:
+                return 'good'
 
-        # Return 'bad' if result is anything other than 0
-        if result and result != 0:
-            return 'bad'
-        else:
-            return 'good'
+        return 'skip'
 
-    def launch(self, testcase=None):
+    def launch(self, binary, testcase=None):
         try:
             self.ffp.launch(
-                self.binary,
+                binary,
                 location=testcase,
                 launch_timeout=self.launch_timeout,
-                memory_limit=self.memory,
+                memory_limit=self.memory * 1024 * 1024 if self.memory else 0,
                 prefs_js=self.prefs,
                 extension=self.extension)
 

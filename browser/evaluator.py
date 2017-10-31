@@ -73,7 +73,7 @@ class BrowserBisector(object):
         mach = os.path.join(self.repo_dir, 'mach')
 
         try:
-            log.info('Attempting to compile from source: {0}'.format(self.repo_dir))
+            log.info('Attempting to compile from source: %s' % self.repo_dir)
             subprocess.check_call(
                 [mach, 'build'],
                 cwd=self.repo_dir,
@@ -91,7 +91,7 @@ class BrowserBisector(object):
         """
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
-            log.info('Attempting to launch with testcase: {0}'.format(self.testcase))
+            log.info('Launching build with testcase...')
             result = self.launch(binary, os.path.abspath(self.testcase))
 
             # Return 'bad' if result is anything other than 0
@@ -113,7 +113,7 @@ class BrowserBisector(object):
                 extension=self.extension)
 
             return_code = self.ffp.wait(self.timeout) or 0
-            log.debug('Browser execution status: {0}'.format(return_code))
+            log.debug('Browser execution status: %d' % return_code)
         except LaunchError:
             log.warn('Failed to start browser')
             return_code = None

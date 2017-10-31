@@ -17,15 +17,22 @@ from core.bisect import Bisector
 log = logging.getLogger('autobisect')
 
 
+class ExpandPath(argparse.Action):
+    """
+    Expand user and relative-paths
+    """
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
+
+
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Autobisection tool for Mozilla Firefox and Spidermonkey',
         usage='%(prog)s <command> [options]')
 
     global_args = argparse.ArgumentParser(add_help=False)
-    global_args.add_argument('repo_dir', help='Path of repository')
-    global_args.add_argument('build_dir', help='Path to store build')
-    global_args.add_argument('testcase', help='Path to testcase')
+    global_args.add_argument('repo_dir', action=ExpandPath, help='Path of repository')
+    global_args.add_argument('testcase', action=ExpandPath, help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision')
     boundary_args.add_argument('--start', default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
@@ -37,7 +44,7 @@ def parse_arguments():
     bisection_args.add_argument('--find-fix', action='store_true', help='Indentify fix date')
     bisection_args.add_argument('--verify', action='store_true', help='Verify boundaries')
     bisection_args.add_argument('--mach-reduce', action='store_true', help='Further reduce range using compiled builds')
-    bisection_args.add_argument('--config', help='Path to optional config file')
+    bisection_args.add_argument('--config', action=ExpandPath, help='Path to optional config file')
 
     build_args = global_args.add_argument_group('build arguments')
     build_args.add_argument('--asan', action='store_true', help='Test asan builds')
@@ -54,9 +61,9 @@ def parse_arguments():
                           help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Maximum launch time in seconds (default: %(default)s)')
-    ffp_args.add_argument('--ext', help='Path to fuzzPriv extension')
-    ffp_args.add_argument('--prefs', help='Path to preference file')
-    ffp_args.add_argument('--profile', help='Path to profile directory')
+    ffp_args.add_argument('--ext', action=ExpandPath, help='Path to fuzzPriv extension')
+    ffp_args.add_argument('--prefs', action=ExpandPath, help='Path to preference file')
+    ffp_args.add_argument('--profile', action=ExpandPath, help='Path to profile directory')
     ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')

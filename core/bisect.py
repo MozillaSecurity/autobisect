@@ -124,7 +124,7 @@ class Bisector(object):
 
                 end_time = time.time()
                 elapsed = timedelta(seconds=(int(end_time-start_time)))
-                log.info('Round {0} completed in {1}'.format(iter_count, elapsed))
+                log.info('Round %d completed in %d' % (iter_count, elapsed))
                 hgCmds.destroy_pyc(self.repo_dir)
 
     def reduce_range(self):
@@ -257,7 +257,7 @@ class Bisector(object):
         :return: The next revision or None
         """
         assert label in ('good', 'bad', 'skip')
-        log.info('Marking revision {0} as {1}'.format(current, label))
+        log.info('Marking revision %s as %s' % (current, label))
         results = subprocess.check_output(self.hg_prefix + ['bisect', '--' + label, current])
 
         # Determine if we should continue

@@ -32,12 +32,12 @@ class Bisector(object):
         self.repo_dir = args.repo_dir
         self.branch = hgCmds.get_branch_name(self.repo_dir)
         self.build_dir = args.build_dir
-        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=False, coverage=False)
 
         self.find_fix = args.find_fix
         self.needs_verified = args.verify
         self.mach_reduce = args.mach_reduce
 
+        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=False, coverage=False)
         self.start = Fetcher(self.target, self.branch, args.start, self.build_flags)
         self.end = Fetcher(self.target, self.branch, args.end, self.build_flags)
 
@@ -149,14 +149,15 @@ class Bisector(object):
                 log.warning('Unable to find build for %s' % next_date)
                 build_range.builds.pop(i)
             else:
-                log.info('Testing build %s' % next_build.build_id)
                 status = self.test_build(next_build)
                 build_range = self.update_build_range(next_build, i, status, build_range)
 
         # Further reduce using all available builds for start and end dates
         start_date = self.start.build_datetime.strftime('%Y-%m-%d')
-        builds = list(Fetcher.iterall(self.target, self.branch, start_date, self.build_flags))
         end_date = self.start.build_datetime.strftime('%Y-%m-%d')
+
+        builds = []
+        builds.extend(list(Fetcher.iterall(self.target, self.branch, start_date, self.build_flags)))
         builds.extend(list(Fetcher.iterall(self.target, self.branch, end_date, self.build_flags)))
 
         # Sort by date
@@ -170,8 +171,6 @@ class Bisector(object):
         while len(build_range) > 0:
             next_build = build_range.mid_point
             i = build_range.index(next_build)
-
-            log.info('Testing build %s' % next_build.build_id)
             status = self.test_build(next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
@@ -223,6 +222,7 @@ class Bisector(object):
             return 'skip'
 
         self.clobber_build()
+        log.info('Testing build %s (%s)' % (build.changeset, build.build_id))
         build.extract_build(self.build_dir)
         return self.evaluator.evaluate_testcase()
 

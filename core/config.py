@@ -121,6 +121,11 @@ class SkipDB(object):
         return False
 
     def add(self, rev):
+        """
+        Add 'skip' rev to the skidb
+        :param rev: SHA1 revision
+        :type rev: str 
+        """
         self.cursor.execute('BEGIN TRANSACTION')
         self.cursor.execute('INSERT OR IGNORE INTO skips VALUES (?, ?)', (self._build_type, rev))
         self.conn.commit()

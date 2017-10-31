@@ -43,7 +43,7 @@ class Bisector(object):
 
         self.hg_prefix = ['hg', '-R', self.repo_dir]
 
-        if self.target == "firefox":
+        if self.target == 'firefox':
             self.evaluator = BrowserBisector(args)
         else:
             self.evaluator = None

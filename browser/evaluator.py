@@ -32,13 +32,15 @@ class BrowserBisector(object):
         self._moz_config = os.path.join(self._moz_root, self._build_string)
 
         # FFPuppet arguments
-        self.ffp = FFPuppet(use_gdb=args.gdb, use_valgrind=args.valgrind, use_xvfb=args.xvfb)
-        self.timeout = args.timeout
-        self.launch_timeout = args.launch_timeout
-        self.extension = args.ext
-        self.prefs = args.prefs
-        self.profile = os.path.abspath(args.profile) if args.profile is not None else None
-        self.memory = args.memory
+        self._use_gdb = args.gdb
+        self._use_valgrind = args.valgrind
+        self._use_xvfb = args.xvfb
+        self._timeout = args.timeout
+        self._launch_timeout = args.launch_timeout
+        self._extension = args.ext
+        self._prefs = args.prefs
+        self._profile = os.path.abspath(args.profile) if args.profile is not None else None
+        self._memory = args.memory
 
     @property
     def _build_string(self):
@@ -118,23 +120,23 @@ class BrowserBisector(object):
         return 'skip'
 
     def launch(self, binary, testcase=None):
+        ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
+
         try:
-            self.ffp.launch(
+            ffp.launch(
                 binary,
                 location=testcase,
                 launch_timeout=self.launch_timeout,
                 memory_limit=self.memory * 1024 * 1024 if self.memory else 0,
                 prefs_js=self.prefs,
                 extension=self.extension)
-
             return_code = self.ffp.wait(self.timeout) or 0
             log.debug('Browser execution status: %d' % return_code)
         except LaunchError:
             log.warn('Failed to start browser')
             return_code = None
         finally:
-            self.ffp.close()
-            self.ffp.clean_up()
+            ffp.clean_up()
 
         return return_code
 

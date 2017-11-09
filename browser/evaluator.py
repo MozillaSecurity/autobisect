@@ -50,13 +50,14 @@ class BrowserBisector(object):
             ('.debug' if self._debug else '')
         )
 
-    def verify_build(self, build):
+    def verify_build(self, binary):
         """
         Verify that build doesn't crash on start
+        :param binary: The path to the target binary 
         :return: Boolean
         """
         log.info('Verifying build...')
-        if self.launch(build) != 0:
+        if self.launch(binary) != 0:
             log.error('Build crashed!')
             return False
 
@@ -109,7 +110,7 @@ class BrowserBisector(object):
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
             log.info('Launching build with testcase...')
-            result = self.launch(binary, os.path.abspath(self.testcase))
+            result = self.launch(binary, self.testcase)
 
             # Return 'bad' if result is anything other than 0
             if result and result != 0:

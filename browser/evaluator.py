@@ -10,13 +10,11 @@ import argparse
 import logging
 import os
 import subprocess
+import platform
 
 from ffpuppet import FFPuppet, LaunchError
 
-if bool(os.getenv("DEBUG")):
-    OUTPUT = None
-else:
-    OUTPUT = open(os.devnull, 'wb')
+DEBUG = bool(os.getenv('DEBUG'))
 
 log = logging.getLogger('browser-bisect')
 
@@ -26,17 +24,12 @@ class BrowserBisector(object):
         self.repo_dir = os.path.abspath(args.repo_dir)
         self.testcase = os.path.abspath(args.testcase)
 
-        # ToDo: Automatically select platform
-        self._autobisect_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        self._mozconfig_base = os.path.join(self._autobisect_base, 'config', 'mozconfigs')
-        if args.asan and args.debug:
-            self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
-        elif args.asan:
-            self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-release')
-        # elif args.debug:
-        #     self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
-        # else:
-        #     self.moz_config = os.path.join(self._mozconfig_base, 'mozconfig.mi-asan-debug')
+        self._asan = args.asan
+        self._debug = args.debug
+
+        # Mach arguments
+        self._moz_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mozconfigs')
+        self._moz_config = os.path.join(self._moz_root, self._build_string)
 
         # FFPuppet arguments
         self.ffp = FFPuppet(use_gdb=args.gdb, use_valgrind=args.valgrind, use_xvfb=args.xvfb)
@@ -46,6 +39,14 @@ class BrowserBisector(object):
         self.prefs = args.prefs
         self.profile = os.path.abspath(args.profile) if args.profile is not None else None
         self.memory = args.memory
+
+    @property
+    def _build_string(self):
+        return (
+            (platform.system().lower()) +
+            ('.asan' if self._asan else '') +
+            ('.debug' if self._debug else '')
+        )
 
     def verify_build(self, build):
         """
@@ -65,12 +66,26 @@ class BrowserBisector(object):
         :param build_path: Path to store the build
         """
         env = os.environ.copy()
-        env['AB_ROOT'] = self._autobisect_base
-        env['MOZCONFIG'] = self.moz_config
+        env['MOZROOT'] = self._moz_root
+        env['MOZCONFIG'] = self._moz_config
         env['MOZ_OBJDIR'] = build_path
         env['ASAN_OPTIONS'] = 'detect_leaks=0'
 
         mach = os.path.join(self.repo_dir, 'mach')
+        stdout = None if DEBUG else open(os.devnull, 'wb')
+        stderr = subprocess.STDOUT if DEBUG else open(os.devnull, 'wb')
+
+        try:
+            log.info('Running bootstrap process')
+            subprocess.check_call(
+                [mach, 'bootstrap', '--no-interactive', '--application-choice=browser'],
+                cwd=self.repo_dir,
+                env=env,
+                stdout=stdout,
+                stderr=stderr
+            )
+        except subprocess.CalledProcessError:
+            pass
 
         try:
             log.info('Attempting to compile from source: %s' % self.repo_dir)
@@ -78,8 +93,8 @@ class BrowserBisector(object):
                 [mach, 'build'],
                 cwd=self.repo_dir,
                 env=env,
-                stdout=OUTPUT,
-                stderr=OUTPUT,
+                stdout=stdout,
+                stderr=stderr
             )
         except subprocess.CalledProcessError:
             pass

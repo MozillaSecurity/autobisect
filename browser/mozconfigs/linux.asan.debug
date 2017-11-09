@@ -1,0 +1,5 @@
+. $MOZROOT/mozconfig.common
+
+ac_add_options --enable-debug
+ac_add_options --enable-optimize=-Og
+ac_add_options --enable-crashreporter

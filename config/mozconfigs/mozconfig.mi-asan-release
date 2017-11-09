@@ -1,3 +1,0 @@
-. $AB_ROOT/config/mozconfigs/mozconfig.asan.base
-
-ac_add_options --enable-application=browser

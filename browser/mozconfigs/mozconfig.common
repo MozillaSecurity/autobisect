@@ -1,4 +1,0 @@
-# Basic options for compiling on linux
-mk_add_options AUTOCLOBBER=1
-mk_add_options MOZ_MAKE_FLAGS=-j6
-ac_add_options --enable-application=browser

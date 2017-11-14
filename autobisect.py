@@ -31,7 +31,6 @@ def parse_arguments():
         usage='%(prog)s <command> [options]')
 
     global_args = argparse.ArgumentParser(add_help=False)
-    global_args.add_argument('repo_dir', action=ExpandPath, help='Path of repository')
     global_args.add_argument('testcase', action=ExpandPath, help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision')
@@ -41,10 +40,23 @@ def parse_arguments():
                                help='End revision (default: latest available TC build)')
 
     bisection_args = global_args.add_argument_group('bisection arguments')
+    bisection_args.add_argument('--count', type=int, default=1, help='Number of times to evaluate testcase (per build)')
     bisection_args.add_argument('--find-fix', action='store_true', help='Indentify fix date')
     bisection_args.add_argument('--verify', action='store_true', help='Verify boundaries')
-    bisection_args.add_argument('--mach-reduce', action='store_true', help='Further reduce range using compiled builds')
     bisection_args.add_argument('--config', action=ExpandPath, help='Path to optional config file')
+
+    branch_args = global_args.add_argument_group('Branch')
+    branch_selector = branch_args.add_mutually_exclusive_group()
+    branch_selector.add_argument('--inbound', action='store_const', const='inbound', dest='branch',
+                                 help='Download from mozilla-inbound')
+    branch_selector.add_argument('--central', action='store_const', const='central', dest='branch',
+                                 help='Download from mozilla-central (default)')
+    branch_selector.add_argument('--release', action='store_const', const='release', dest='branch',
+                                 help='Download from mozilla-release')
+    branch_selector.add_argument('--beta', action='store_const', const='beta', dest='branch',
+                                 help='Download from mozilla-beta')
+    branch_selector.add_argument('--esr', action='store_const', const='esr52', dest='branch',
+                                 help='Download from mozilla-esr52')
 
     build_args = global_args.add_argument_group('build arguments')
     build_args.add_argument('--asan', action='store_true', help='Test asan builds')
@@ -78,6 +90,9 @@ def parse_arguments():
         parser.error('Invalid start value supplied')
     if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
         parser.error('Invalid end value supplied')
+
+    if args.branch is None:
+        args.branch = 'central'
 
     return args
 

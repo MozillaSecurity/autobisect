@@ -9,27 +9,17 @@ from __future__ import absolute_import, division, print_function
 import argparse
 import logging
 import os
-import subprocess
-import platform
+import tempfile
 
 from ffpuppet import FFPuppet, LaunchError
-
-DEBUG = bool(os.getenv('DEBUG'))
 
 log = logging.getLogger('browser-bisect')
 
 
 class BrowserBisector(object):
     def __init__(self, args):
-        self.repo_dir = os.path.abspath(args.repo_dir)
         self.testcase = os.path.abspath(args.testcase)
-
-        self._asan = args.asan
-        self._debug = args.debug
-
-        # Mach arguments
-        self._moz_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mozconfigs')
-        self._moz_config = os.path.join(self._moz_root, self._build_string)
+        self.count = args.count
 
         # FFPuppet arguments
         self._use_gdb = args.gdb
@@ -40,15 +30,7 @@ class BrowserBisector(object):
         self._extension = args.ext
         self._prefs = args.prefs
         self._profile = os.path.abspath(args.profile) if args.profile is not None else None
-        self._memory = args.memory
-
-    @property
-    def _build_string(self):
-        return (
-            (platform.system().lower()) +
-            ('.asan' if self._asan else '') +
-            ('.debug' if self._debug else '')
-        )
+        self._memory = args.memory * 1024 * 1024 if args.memory else 0
 
     def verify_build(self, binary):
         """
@@ -56,51 +38,22 @@ class BrowserBisector(object):
         :param binary: The path to the target binary 
         :return: Boolean
         """
-        log.info('Verifying build...')
-        if self.launch(binary) != 0:
-            log.error('Build crashed!')
+        test_fp, test_path = tempfile.mkstemp(prefix='autobisect-dummy')
+        try:
+            with open(test_path, 'w') as f:
+                f.write('<html><script>window.close()</script></html>')
+
+            log.info('> Verifying build...')
+            status = self.launch(binary, test_path)
+        finally:
+            os.remove(test_path
+                      )
+
+        if status != 0:
+            log.error('>> Build crashed!')
             return False
 
         return True
-
-    def compile_build(self, build_path):
-        """
-        Compile build using mach
-        :param build_path: Path to store the build
-        """
-        env = os.environ.copy()
-        env['MOZROOT'] = self._moz_root
-        env['MOZCONFIG'] = self._moz_config
-        env['MOZ_OBJDIR'] = build_path
-        env['ASAN_OPTIONS'] = 'detect_leaks=0'
-
-        mach = os.path.join(self.repo_dir, 'mach')
-        stdout = None if DEBUG else open(os.devnull, 'wb')
-        stderr = subprocess.STDOUT if DEBUG else open(os.devnull, 'wb')
-
-        try:
-            log.info('Running bootstrap process')
-            subprocess.check_call(
-                [mach, 'bootstrap', '--no-interactive', '--application-choice=browser'],
-                cwd=self.repo_dir,
-                env=env,
-                stdout=stdout,
-                stderr=stderr
-            )
-        except subprocess.CalledProcessError:
-            pass
-
-        try:
-            log.info('Attempting to compile from source: %s' % self.repo_dir)
-            subprocess.check_call(
-                [mach, 'build'],
-                cwd=self.repo_dir,
-                env=env,
-                stdout=stdout,
-                stderr=stderr
-            )
-        except subprocess.CalledProcessError:
-            pass
 
     def evaluate_testcase(self, build_path):
         """
@@ -109,8 +62,13 @@ class BrowserBisector(object):
         """
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
-            log.info('Launching build with testcase...')
-            result = self.launch(binary, self.testcase)
+
+            result = 0
+            for _ in range(0, self.count):
+                log.info('> Launching build with testcase...')
+                result = self.launch(binary, self.testcase)
+                if result != 0:
+                    break
 
             # Return 'bad' if result is anything other than 0
             if result and result != 0:
@@ -121,20 +79,25 @@ class BrowserBisector(object):
         return 'skip'
 
     def launch(self, binary, testcase=None):
+        """
+        Launch firefox using the supplied binary and testcase
+        :param binary: The path to the firefox binary
+        :param testcase: The path to the testcase
+        :return: The return code or None 
+        """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
-
         try:
             ffp.launch(
-                binary,
+                str(binary),
                 location=testcase,
-                launch_timeout=self.launch_timeout,
-                memory_limit=self.memory * 1024 * 1024 if self.memory else 0,
-                prefs_js=self.prefs,
-                extension=self.extension)
-            return_code = self.ffp.wait(self.timeout) or 0
-            log.debug('Browser execution status: %d' % return_code)
+                launch_timeout=self._launch_timeout,
+                memory_limit=self._memory,
+                prefs_js=self._prefs,
+                extension=self._extension)
+            return_code = ffp.wait(self._timeout) or 0
+            log.debug('>> Browser execution status: %d' % return_code)
         except LaunchError:
-            log.warn('Failed to start browser')
+            log.warn('> Failed to start browser')
             return_code = None
         finally:
             ffp.clean_up()
@@ -145,30 +108,29 @@ class BrowserBisector(object):
 def main():
     parser = argparse.ArgumentParser()
 
-    general_args = parser.add_argument_group('General Arguments')
-    general_args.add_argument('repo_dir', action='store', help='Path of repository')
-    general_args.add_argument('build_dir', action='store', help='Path to store build')
-    general_args.add_argument('testcase', action='store', help='Path to testcase')
+    global_args = parser.add_argument_group('General Arguments')
+    global_args.add_argument('build_dir', action='store', help='Path to store build')
+    global_args.add_argument('testcase', action='store', help='Path to testcase')
 
-    build_args = parser.add_argument_group('Build Arguments')
-    build_args.add_argument('--config', required=True, action='store', help='Path to .mozconfig file')
+    bisection_args = global_args.add_argument_group('bisection arguments')
+    bisection_args.add_argument('--count', type=int, default=1, help='Number of times to evaluate testcase (per build)')
 
-    ffp_args = parser.add_argument_group('Launcher Arguments')
+    ffp_args = global_args.add_argument_group('launcher arguments')
     ffp_args.add_argument('--timeout', type=int, default=60,
                           help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Maximum launch time in seconds (default: %(default)s)')
-    ffp_args.add_argument('--ext', help='Install the fuzzPriv extension (specify path to funfuzz/dom/extension)')
-    ffp_args.add_argument('--prefs', help='prefs.js file to use')
-    ffp_args.add_argument('--profile', help='Profile to use. (default: a temporary profile is created)')
-    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (Requires psutil)')
+    ffp_args.add_argument('--ext', help='Path to fuzzPriv extension')
+    ffp_args.add_argument('--prefs', help='Path to preference file')
+    ffp_args.add_argument('--profile', help='Path to profile directory')
+    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     args = parser.parse_args()
     bisector = BrowserBisector(args)
-    bisector.evaluate_testcase()
+    bisector.evaluate_testcase(args.build_dir)
 
 
 if __name__ == '__main__':

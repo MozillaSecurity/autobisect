@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
@@ -17,6 +18,9 @@ log = logging.getLogger('browser-bisect')
 
 
 class BrowserBisector(object):
+    """
+    Testcase evaluator for Firefox
+    """
     def __init__(self, args):
         self.testcase = os.path.abspath(args.testcase)
         self.count = args.count
@@ -35,10 +39,10 @@ class BrowserBisector(object):
     def verify_build(self, binary):
         """
         Verify that build doesn't crash on start
-        :param binary: The path to the target binary 
+        :param binary: The path to the target binary
         :return: Boolean
         """
-        test_fp, test_path = tempfile.mkstemp(prefix='autobisect-dummy')
+        _, test_path = tempfile.mkstemp(prefix='autobisect-dummy')
         try:
             with open(test_path, 'w') as f:
                 f.write('<html><script>window.close()</script></html>')
@@ -46,8 +50,7 @@ class BrowserBisector(object):
             log.info('> Verifying build...')
             status = self.launch(binary, test_path)
         finally:
-            os.remove(test_path
-                      )
+            os.remove(test_path)
 
         if status != 0:
             log.error('>> Build crashed!')
@@ -83,7 +86,7 @@ class BrowserBisector(object):
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param testcase: The path to the testcase
-        :return: The return code or None 
+        :return: The return code or None
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
         try:
@@ -95,7 +98,7 @@ class BrowserBisector(object):
                 prefs_js=self._prefs,
                 extension=self._extension)
             return_code = ffp.wait(self._timeout) or 0
-            log.debug('>> Browser execution status: %d' % return_code)
+            log.debug('>> Browser execution status: ', return_code)
         except LaunchError:
             log.warn('> Failed to start browser')
             return_code = None
@@ -106,6 +109,9 @@ class BrowserBisector(object):
 
 
 def main():
+    """
+    Entry-point for testing evaluator
+    """
     parser = argparse.ArgumentParser()
 
     global_args = parser.add_argument_group('General Arguments')

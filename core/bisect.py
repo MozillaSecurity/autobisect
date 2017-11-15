@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
@@ -23,6 +24,9 @@ log = logging.getLogger('bisect')
 
 
 class Bisector(object):
+    """
+    Taskcluster Bisection Class
+    """
     def __init__(self, args):
         self.target = args.target
         self.branch = args.branch
@@ -48,8 +52,8 @@ class Bisector(object):
         Main bisection function
         """
         log.info('Begin bisection...')
-        log.info('> Start: %s (%s)' % (self.start.changeset, self.start.build_id))
-        log.info('> End: %s (%s)' % (self.end.changeset, self.end.build_id))
+        log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
+        log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
 
         if self.needs_verified and not self.verify_bounds():
             log.critical('Unable to validate boundaries.  Cannot bisect!')
@@ -68,7 +72,7 @@ class Bisector(object):
             try:
                 next_build = Fetcher(self.target, self.branch, next_date, self.build_flags)
             except FetcherException:
-                log.warning('Unable to find build for %s' % next_date)
+                log.warning('Unable to find build for %s', next_date)
                 build_range.builds.pop(i)
             else:
                 status = self.test_build(next_build)
@@ -90,8 +94,8 @@ class Bisector(object):
             build_range = self.update_build_range(next_build, i, status, build_range)
 
         log.info('Reduced build range to:')
-        log.info('> Start: %s (%s)' % (self.start.changeset, self.start.build_id))
-        log.info('> End: %s (%s)' % (self.end.changeset, self.end.build_id))
+        log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
+        log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
 
     def update_build_range(self, build, index, status, build_range):
         """
@@ -130,7 +134,7 @@ class Bisector(object):
         if self.build_manager.has_skip(build.changeset):
             return 'skip'
 
-        log.info('Testing build %s (%s)' % (build.changeset, build.build_id))
+        log.info('Testing build %s (%s)', build.changeset, build.build_id)
         # If persistence is enabled and a build exists, use it
         if self.config.persist:
             with self.build_manager.get_build(build.changeset) as build_path:

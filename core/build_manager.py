@@ -8,6 +8,9 @@ log = logging.getLogger('browser-bisect')
 
 
 class DatabaseManager(object):
+    """
+    Sqlite3 wrapper class
+    """
     def __init__(self, db_path):
         self.con = None
         self.cur = None
@@ -57,6 +60,9 @@ class BuildManager(object):
 
     @staticmethod
     def get_build_size(build_path):
+        """
+        Recursively enumerate the size of the supplied build
+        """
         total_size = 0
         for dirpath, dirnames, filenames in os.walk(build_path):
             for f in filenames:
@@ -83,7 +89,7 @@ class BuildManager(object):
 
     def free_space(self, build_size):
         """
-        Removes stored builds to make room for newer builds 
+        Removes stored builds to make room for newer builds
         """
         self.db.cur.execute('BEGIN TRANSACTION')
         while self.get_total_build_size() + build_size > self._config.persist_limit:
@@ -100,6 +106,10 @@ class BuildManager(object):
 
     @contextmanager
     def get_build(self, rev):
+        """
+        Retrieve the build matching the supplied revision
+        :param rev: Revision of the requested build
+        """
         self.db.cur.execute('UPDATE builds '
                             'SET use_count = use_count + 1 '
                             'WHERE build_string = ? AND rev = ?',
@@ -116,6 +126,11 @@ class BuildManager(object):
             yield None
 
     def store_build(self, rev, build_path):
+        """
+        Store the provided build
+        :param rev: Revision of the supplied build
+        :param build_path: Path to the supplied build
+        """
         build_size = self.get_build_size(build_path)
         self.free_space(build_size)
 
@@ -149,6 +164,6 @@ class BuildManager(object):
         """
         Add 'skip' rev to the skidb
         :param rev: SHA1 revision
-        :type rev: str 
+        :type rev: str
         """
         self.db.cur.execute('INSERT OR IGNORE INTO skips VALUES (?, ?)', (self._build_string, rev))

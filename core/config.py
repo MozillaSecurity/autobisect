@@ -20,24 +20,11 @@ persist-limit: 30000
 """ % CONFIG_DIR
 
 
-def create_default_config():
-    """
-    Create a config file using default options and write to disk
-    @return: A path to the newly created configuration file
-    """
-    if not os.path.isdir(CONFIG_DIR):
-        os.makedirs(CONFIG_DIR)
-    if not os.path.isfile(CONFIG_FILE):
-        with open(CONFIG_FILE, 'w') as f:
-            f.write(DEFAULT_CONFIG)
-
-    return CONFIG_FILE
-
-
 class BisectionConfig(object):
     """
     Class for accessing configuration data and 'skip' revs
     """
+
     def __init__(self, config_file=None):
         """
         Initializes the object using either the specified config_file or creates a new database using default values
@@ -45,7 +32,7 @@ class BisectionConfig(object):
         """
 
         if not config_file:
-            config_file = create_default_config()
+            config_file = self.create_default_config()
 
         config_obj = configparser.ConfigParser()
         config_obj.read(config_file)
@@ -60,3 +47,16 @@ class BisectionConfig(object):
 
         self.db_path = os.path.join(self.store_path, 'autobisect.db')
 
+    @staticmethod
+    def create_default_config():
+        """
+        Create a config file using default options and write to disk
+        @return: A path to the newly created configuration file
+        """
+        if not os.path.isdir(CONFIG_DIR):
+            os.makedirs(CONFIG_DIR)
+        if not os.path.isfile(CONFIG_FILE):
+            with open(CONFIG_FILE, 'w') as f:
+                f.write(DEFAULT_CONFIG)
+
+        return CONFIG_FILE

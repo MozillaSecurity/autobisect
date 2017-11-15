@@ -9,8 +9,6 @@ from __future__ import absolute_import, division, print_function
 
 import logging
 import platform
-import shutil
-import tempfile
 from datetime import timedelta
 
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
@@ -127,29 +125,13 @@ class Bisector(object):
     def test_build(self, build):
         """
         Prepare the build directory and launch the supplied build
-        :param build: An optional Fetcher object to prevent duplicate fetching
+        :param build: An Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
         log.info('Testing build %s (%s)', build.changeset, build.build_id)
         # If persistence is enabled and a build exists, use it
-        if self.config.persist:
-            with self.build_manager.get_build(build.changeset) as build_path:
-                if build_path:
-                    return self.evaluator.evaluate_testcase(build_path)
-
-        # If we were unable to find a build, try to download
-        build_path = tempfile.mkdtemp(prefix='autobisect-')
-
-        try:
-            build.extract_build(build_path)
-            result = self.evaluator.evaluate_testcase(build_path)
-            # If persistence is enabled and the build was good, save it
-            if self.config.persist and result != 'skip':
-                self.build_manager.store_build(build.changeset, build_path)
-
-            return result
-        finally:
-            shutil.rmtree(build_path)
+        with self.build_manager.get_build(build) as build_path:
+            return self.evaluator.evaluate_testcase(build_path)
 
     def verify_bounds(self):
         """

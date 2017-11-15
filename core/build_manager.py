@@ -1,10 +1,14 @@
+# coding=utf-8
+from collections import namedtuple
 from contextlib import contextmanager
 import logging
 import os
 import shutil
 import sqlite3
+import time
 
 log = logging.getLogger('browser-bisect')
+Build = namedtuple('Build', ('path', 'stats'))
 
 
 class DatabaseManager(object):
@@ -25,14 +29,8 @@ class DatabaseManager(object):
         try:
             self.con = sqlite3.connect(db_path)
             self.cur = self.con.cursor()
-            self.cur.execute('BEGIN TRANSACTION')
-            # Create table for tracking revisions to skip
-            self.cur.execute('CREATE TABLE IF NOT EXISTS skips'
-                             '(build_string TEXT, rev TEXT, UNIQUE(build_string, rev))')
-            # Create table for tracking saved builds
-            self.cur.execute('CREATE TABLE IF NOT EXISTS builds '
-                             '(build_string TEXT, rev TEXT, size INT, use_count INT, UNIQUE(build_string, rev))')
-            self.con.commit()
+            self.cur.execute('CREATE TABLE IF NOT EXISTS in_use (build_path, pid INT)')
+            self.cur.execute('CREATE TABLE IF NOT EXISTS download_queue (build_path TEXT primary key, pid INT)')
         except sqlite3.Error:
             raise Exception('Error connecting to database!')
 
@@ -52,89 +50,99 @@ class BuildManager(object):
     """
     A class for managing downloaded builds
     """
-
     def __init__(self, config, build_string):
-        self._config = config
-        self._build_string = build_string
-        self.db = DatabaseManager(self._config.db_path)
+        self.config = config
+        self.build_prefix = build_string
+        self.pid = os.getpid()
+        self.db = DatabaseManager(self.config.db_path)
 
-    @staticmethod
-    def get_build_size(build_path):
+    @property
+    def current_build_size(self):
         """
         Recursively enumerate the size of the supplied build
         """
         total_size = 0
-        for dirpath, dirnames, filenames in os.walk(build_path):
+        for dirpath, dirnames, filenames in os.walk(self.config.store_path):
             for f in filenames:
                 fp = os.path.join(dirpath, f)
-                total_size += os.path.getsize(fp)
+                try:
+                    total_size += os.path.getsize(fp)
+                except OSError:
+                    log.debug('Directory became inaccessbile while iterating: %s', fp)
+
         return total_size
 
-    def get_total_build_size(self):
+    def enumerate_builds(self):
         """
-        Return the total size of all stored builds
+        Enumerate all available builds including their size and stats
         """
-        res = self.db.cur.execute('SELECT SUM(size) FROM builds')
-        size = res.fetchone()[0]
+        builds = []
+        for build in os.listdir(self.config.store_path):
+            build_path = os.path.join(self.config.store_path, build)
+            build_stats = os.stat(build_path)
+            builds.append(Build(build_path, build_stats))
 
-        return size if size else 0
+        return sorted(builds, key=lambda b: b.stats.st_atime)
 
-    def get_build_count(self):
-        """
-        Return the total number of stored builds
-        """
-        res = self.db.cur.execute('SELECT COUNT(*) FROM builds')
-        count = res.fetchone()[0]
-        return count if count else 0
-
-    def free_space(self, build_size):
+    def remove_old_builds(self):
         """
         Removes stored builds to make room for newer builds
         """
-        self.db.cur.execute('BEGIN TRANSACTION')
-        while self.get_total_build_size() + build_size > self._config.persist_limit:
-            if self.get_build_count() == 0:
-                break
+        while self.current_build_size > self.config.persist_limit:
+            builds = self.enumerate_builds()
+            for build in builds:
+                if self.current_build_size < self.config.persist_limit:
+                    break
 
-            res = self.db.cur.execute('SELECT build_string, rev FROM builds WHERE use_count = 0')
-            build_string, rev = res.fetchone()
-            self.db.cur.execute('DELETE FROM builds WHERE build_string = ? AND rev = ?', (build_string, rev))
-            build_dir = '%s-%s' % (build_string, rev)
-            shutil.rmtree(os.path.join(self._config.store_path, build_dir))
+                self.db.cur.execute('BEGIN TRANSACTION')
+                res = self.db.cur.execute('SELECT * FROM in_use, download_queue '
+                                          'WHERE in_use.build_path = ? OR download_queue.build_path = ?',
+                                          (build.path, build.path))
+                if res.fetchone() is None:
+                    shutil.rmtree(build.path)
+                self.db.con.commit()
 
-        self.db.con.commit()
+            time.sleep(0.1)
 
     @contextmanager
-    def get_build(self, rev):
+    def get_build(self, build):
         """
         Retrieve the build matching the supplied revision
-        :param rev: Revision of the requested build
+        :param build: A fuzzFetch.Fetcher build object
         """
-        self.db.cur.execute('UPDATE builds '
-                            'SET use_count = use_count + 1 '
-                            'WHERE build_string = ? AND rev = ?',
-                            (self._build_string, rev))
-        if self.db.cur.rowcount == 1:
+        target_path = os.path.join(self.config.store_path, '%s-%s' % (self.build_prefix, build.changeset))
+
+        try:
+            # Insert build_path into in_use to prevent deletion
+            self.db.cur.execute('INSERT INTO in_use VALUES (?, ?)', (target_path, self.pid))
+
+            # Try to insert the build_path into download_queue
+            # If the insert fails, another process is already downloading it
+            # Poll the database until it complete
             try:
-                yield os.path.join(self._config.store_path, '%s-%s' % (self._build_string, rev))
+                self.db.cur.execute('INSERT OR IGNORE INTO download_queue VALUES (?, ?)', (target_path, self.pid))
+                if self.db.cur.rowcount == 1:
+                    # If the build doesn't exist on disk, download it
+                    if not os.path.isdir(target_path):
+                        self.remove_old_builds()
+                        while True:
+                            # Hackish - FuzzFetch can fail when downloading - try until success
+                            try:
+                                build.extract_build(target_path)
+                                break
+                            except:  # ToDo: Add the correct exception to catch
+                                pass
+                else:
+                    while True:
+                        res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (target_path,))
+                        if res.fetchone() is None:
+                            break
+                        else:
+                            time.sleep(0.1)
             finally:
-                self.db.cur.execute('UPDATE builds '
-                                    'SET use_count = use_count - 1 '
-                                    'WHERE build_string = ? AND rev = ?',
-                                    (self._build_string, rev))
-        else:
-            yield None
+                self.db.cur.execute('DELETE FROM download_queue WHERE build_path = ? AND pid = ?',
+                                    (target_path, self.pid))
 
-    def store_build(self, rev, build_path):
-        """
-        Store the provided build
-        :param rev: Revision of the supplied build
-        :param build_path: Path to the supplied build
-        """
-        build_size = self.get_build_size(build_path)
-        self.free_space(build_size)
-
-        if self.get_total_build_size() + build_size < self._config.persist_limit:
-            build_dest = os.path.join(self._config.store_path, '%s-%s' % (self._build_string, rev))
-            self.db.cur.execute('INSERT INTO builds VALUES (?, ?, ?, ?)', (self._build_string, rev, build_size, 0))
-            shutil.copytree(build_path, build_dest, symlinks=True)
+            yield target_path
+        finally:
+            self.db.cur.execute('DELETE FROM in_use WHERE build_path = ? AND pid = ?', (target_path, self.pid))

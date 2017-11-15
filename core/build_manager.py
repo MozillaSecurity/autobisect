@@ -138,32 +138,3 @@ class BuildManager(object):
             build_dest = os.path.join(self._config.store_path, '%s-%s' % (self._build_string, rev))
             self.db.cur.execute('INSERT INTO builds VALUES (?, ?, ?, ?)', (self._build_string, rev, build_size, 0))
             shutil.copytree(build_path, build_dest, symlinks=True)
-
-    def has_skip(self, rev):
-        """
-        Checks if the requested rev has been marked as 'skip' for the selected build_type
-        :param rev: SHA1 revision
-        :type rev: str
-
-        :return: Result of revision check
-        :rtype: boolean
-        """
-        try:
-            result = self.db.cur.execute('SELECT COUNT(*) FROM skips '
-                                         'WHERE build_string = ? AND rev = ?',
-                                         (self._build_string, rev))
-            data = result.fetchone()
-            if data and data[0] > 0:
-                return True
-        except sqlite3.OperationalError:
-            pass
-
-        return False
-
-    def add_skip(self, rev):
-        """
-        Add 'skip' rev to the skidb
-        :param rev: SHA1 revision
-        :type rev: str
-        """
-        self.db.cur.execute('INSERT OR IGNORE INTO skips VALUES (?, ?)', (self._build_string, rev))

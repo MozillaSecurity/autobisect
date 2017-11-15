@@ -121,7 +121,6 @@ class Bisector(object):
                 self.start = build
                 return build_range[index + 1:]
         elif status == 'skip':
-            self.build_manager.add_skip(build.changeset)
             build_range.builds.pop(index)
             return build_range
 
@@ -131,9 +130,6 @@ class Bisector(object):
         :param build: An optional Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
-        if self.build_manager.has_skip(build.changeset):
-            return 'skip'
-
         log.info('Testing build %s (%s)', build.changeset, build.build_id)
         # If persistence is enabled and a build exists, use it
         if self.config.persist:

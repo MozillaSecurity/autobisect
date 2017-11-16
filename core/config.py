@@ -42,7 +42,8 @@ class BisectionConfig(object):
 
         try:
             self.persist = config_obj.getboolean('autobisect', 'persist')
-            self.persist_limit = config_obj.getint('autobisect', 'persist-limit') * 1024 * 1024
+            persist_limit = config_obj.getint('autobisect', 'persist-limit') * 1024 * 1024
+            self.persist_limit = persist_limit if self.persist else 0
             self.store_path = config_obj.get('autobisect', 'storage-path')
         except configparser.NoOptionError as e:
             log.critical('Unable to parser configuration file: %s', e.message)

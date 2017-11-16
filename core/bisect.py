@@ -5,8 +5,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from __future__ import absolute_import, division, print_function
-
 import logging
 import platform
 from datetime import timedelta
@@ -19,6 +17,10 @@ from core.builds import BuildRange
 from core.config import BisectionConfig
 
 log = logging.getLogger('bisect')
+
+BUILD_CRASHED = 0
+BUILD_PASSED = 1
+BUILD_FAILED = 2
 
 
 class Bisector(object):
@@ -63,7 +65,7 @@ class Bisector(object):
             self.start.build_datetime + timedelta(days=1),
             self.end.build_datetime - timedelta(days=1))
 
-        while len(build_range) > 0:
+        while build_range:
             next_date = build_range.mid_point
             i = build_range.index(next_date)
 
@@ -85,7 +87,7 @@ class Bisector(object):
                     builds.append(build)
 
         build_range = BuildRange(sorted(builds, key=lambda x: x.build_datetime))
-        while len(build_range) > 0:
+        while build_range:
             next_build = build_range.mid_point
             i = build_range.index(next_build)
             status = self.test_build(next_build)
@@ -104,21 +106,21 @@ class Bisector(object):
         :param build_range: The current BuildRange object
         :return: The adjusted BuildRange object
         """
-        if status == 'good':
+        if status == BUILD_PASSED:
             if not self.find_fix:
                 self.start = build
                 return build_range[index + 1:]
             else:
                 self.end = build
                 return build_range[:index]
-        elif status == 'bad':
+        elif status == BUILD_CRASHED:
             if not self.find_fix:
                 self.end = build
                 return build_range[:index]
             else:
                 self.start = build
                 return build_range[index + 1:]
-        elif status == 'skip':
+        elif status == BUILD_FAILED:
             build_range.builds.pop(index)
             return build_range
 
@@ -140,18 +142,18 @@ class Bisector(object):
         """
         log.info('Attempting to verify boundaries...')
         status = self.test_build(self.start)
-        if status == 'skip':
+        if status == BUILD_FAILED:
             log.critical('Unable to launch the start build!')
             return False
-        elif status == 'bad' and not self.find_fix:
+        elif status == BUILD_CRASHED and not self.find_fix:
             log.critical('Start revision crashes!')
             return False
 
         status = self.test_build(self.end)
-        if status == 'skip':
+        if status == BUILD_FAILED:
             log.critical('Unable to launch the end build!')
             return False
-        elif status == 'good' and not self.find_fix:
+        elif status == BUILD_PASSED and not self.find_fix:
             log.critical('End revision does not crash!')
             return False
 

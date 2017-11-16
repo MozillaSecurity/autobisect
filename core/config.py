@@ -16,7 +16,7 @@ DEFAULT_CONFIG = """
 storage-path: %s
 persist: true
 ; size in MBs
-persist-limit: 30000
+persist-limit: 5000
 """ % CONFIG_DIR
 
 
@@ -33,6 +33,9 @@ class BisectionConfig(object):
 
         if not config_file:
             config_file = self.create_default_config()
+
+        if not os.path.isfile(config_file):
+            raise IOError('Invalid configuration file specified')
 
         config_obj = configparser.ConfigParser()
         config_obj.read(config_file)

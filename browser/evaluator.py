@@ -5,8 +5,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from __future__ import absolute_import, division, print_function
-
 import argparse
 import logging
 import os
@@ -15,6 +13,10 @@ import tempfile
 from ffpuppet import FFPuppet, LaunchError
 
 log = logging.getLogger('browser-bisect')
+
+BUILD_CRASHED = 0
+BUILD_PASSED = 1
+BUILD_FAILED = 2
 
 
 class BrowserBisector(object):
@@ -67,7 +69,7 @@ class BrowserBisector(object):
         if os.path.isfile(binary) and self.verify_build(binary):
 
             result = 0
-            for _ in range(0, self.count):
+            for _ in range(self.count):
                 log.info('> Launching build with testcase...')
                 result = self.launch(binary, self.testcase)
                 if result != 0:
@@ -75,11 +77,11 @@ class BrowserBisector(object):
 
             # Return 'bad' if result is anything other than 0
             if result and result != 0:
-                return 'bad'
+                return BUILD_CRASHED
             else:
-                return 'good'
+                return BUILD_PASSED
 
-        return 'skip'
+        return BUILD_FAILED
 
     def launch(self, binary, testcase=None):
         """

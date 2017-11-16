@@ -26,13 +26,10 @@ class DatabaseManager(object):
         :param db_path: Path to the sqlite3 database
         :type db_path: str
         """
-        try:
-            self.con = sqlite3.connect(db_path)
-            self.cur = self.con.cursor()
-            self.cur.execute('CREATE TABLE IF NOT EXISTS in_use (build_path, pid INT)')
-            self.cur.execute('CREATE TABLE IF NOT EXISTS download_queue (build_path TEXT primary key, pid INT)')
-        except sqlite3.Error:
-            raise Exception('Error connecting to database!')
+        self.con = sqlite3.connect(db_path)
+        self.cur = self.con.cursor()
+        self.cur.execute('CREATE TABLE IF NOT EXISTS in_use (build_path, pid INT)')
+        self.cur.execute('CREATE TABLE IF NOT EXISTS download_queue (build_path TEXT primary key, pid INT)')
 
     def close(self):
         """
@@ -62,13 +59,13 @@ class BuildManager(object):
         Recursively enumerate the size of the supplied build
         """
         total_size = 0
-        for dirpath, dirnames, filenames in os.walk(self.config.store_path):
+        for dirpath, _, filenames in os.walk(self.config.store_path):
             for f in filenames:
                 fp = os.path.join(dirpath, f)
                 try:
                     total_size += os.path.getsize(fp)
                 except OSError:
-                    log.debug('Directory became inaccessbile while iterating: %s', fp)
+                    log.debug('Directory became inaccessible while iterating: %s', fp)
 
         return total_size
 

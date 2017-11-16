@@ -44,8 +44,7 @@ class BuildRange(object):
         """
         Returns the midpoint of the "builds" list
         """
-        i = len(self) // 2
-        return self._builds[i]
+        return self._builds[len(self) >> 1]
 
     def index(self, build):
         """

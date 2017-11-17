@@ -50,6 +50,11 @@ class BuildManager(object):
     def __init__(self, config, build_string):
         self.config = config
         self.build_prefix = build_string
+
+        self.build_dir = os.path.join(self.config.store_path, 'builds')
+        if not os.path.isdir(self.build_dir):
+            os.makedirs(self.build_dir)
+
         self.pid = os.getpid()
         self.db = DatabaseManager(self.config.db_path)
 
@@ -59,7 +64,7 @@ class BuildManager(object):
         Recursively enumerate the size of the supplied build
         """
         total_size = 0
-        for dirpath, _, filenames in os.walk(self.config.store_path):
+        for dirpath, _, filenames in os.walk(self.build_dir):
             for f in filenames:
                 fp = os.path.join(dirpath, f)
                 try:
@@ -74,8 +79,8 @@ class BuildManager(object):
         Enumerate all available builds including their size and stats
         """
         builds = []
-        for build in os.listdir(self.config.store_path):
-            build_path = os.path.join(self.config.store_path, build)
+        for build in os.listdir(self.build_dir):
+            build_path = os.path.join(self.build_dir, build)
             build_stats = os.stat(build_path)
             builds.append(Build(build_path, build_stats))
 
@@ -107,7 +112,7 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
-        target_path = os.path.join(self.config.store_path, '%s-%s' % (self.build_prefix, build.changeset))
+        target_path = os.path.join(self.build_dir, '%s-%s' % (self.build_prefix, build.changeset))
 
         try:
             # Insert build_path into in_use to prevent deletion

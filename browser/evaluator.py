@@ -100,7 +100,7 @@ class BrowserBisector(object):
                 prefs_js=self._prefs,
                 extension=self._extension)
             return_code = ffp.wait(self._timeout) or 0
-            log.debug('>> Browser execution status: ', return_code)
+            log.debug('>> Browser execution status: %s', return_code)
         except LaunchError:
             log.warn('> Failed to start browser')
             return_code = None

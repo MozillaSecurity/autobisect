@@ -73,6 +73,9 @@ def parse_arguments():
                           help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Maximum launch time in seconds (default: %(default)s)')
+    ffp_args.add_argument("--abort-token", action="append", default=list(['PBrowser::Msg_Destroy']),
+                          help="Scan the log for the given value and close browser on detection. "
+                               "For example '-a ###!!! ASSERTION:' would be used to detect soft assertions.")
     ffp_args.add_argument('--ext', action=ExpandPath, help='Path to fuzzPriv extension')
     ffp_args.add_argument('--prefs', action=ExpandPath, help='Path to preference file')
     ffp_args.add_argument('--profile', action=ExpandPath, help='Path to profile directory')

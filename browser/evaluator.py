@@ -33,6 +33,7 @@ class BrowserBisector(object):
         self._use_xvfb = args.xvfb
         self._timeout = args.timeout
         self._launch_timeout = args.launch_timeout
+        self._abort_token = args.abort_token
         self._extension = args.ext
         self._prefs = args.prefs
         self._profile = os.path.abspath(args.profile) if args.profile is not None else None
@@ -91,6 +92,9 @@ class BrowserBisector(object):
         :return: The return code or None
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
+        for a_token in self._abort_token:
+            ffp.add_abort_token(a_token)
+
         try:
             ffp.launch(
                 str(binary),
@@ -100,7 +104,7 @@ class BrowserBisector(object):
                 prefs_js=self._prefs,
                 extension=self._extension)
             return_code = ffp.wait(self._timeout) or 0
-            log.debug('>> Browser execution status: %s', return_code)
+            log.info('>> Browser execution status: %s', return_code)
         except LaunchError:
             log.warn('> Failed to start browser')
             return_code = None
@@ -128,6 +132,9 @@ def main():
                           help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Maximum launch time in seconds (default: %(default)s)')
+    ffp_args.add_argument("--abort-token", action="append", default=list(['PBrowser::Msg_Destroy']),
+                          help="Scan the log for the given value and close browser on detection. "
+                               "For example '-a ###!!! ASSERTION:' would be used to detect soft assertions.")
     ffp_args.add_argument('--ext', help='Path to fuzzPriv extension')
     ffp_args.add_argument('--prefs', help='Path to preference file')
     ffp_args.add_argument('--profile', help='Path to profile directory')

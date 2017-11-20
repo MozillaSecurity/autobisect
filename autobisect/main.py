@@ -28,8 +28,7 @@ def _parse_args(argv=None):
     Argument parser
     """
     parser = argparse.ArgumentParser(
-        description='Autobisection tool for Mozilla Firefox and Spidermonkey',
-        usage='%(prog)s <command> [options]')
+        description='Autobisection tool for Mozilla Firefox and Spidermonkey')
 
     global_args = argparse.ArgumentParser(add_help=False)
     global_args.add_argument('testcase', action=ExpandPath, help='Path to testcase')

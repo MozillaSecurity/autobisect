@@ -24,7 +24,7 @@ if __name__ == "__main__":
         ],
         description='Automatic bisection utility for Mozilla Firefox and SpiderMonkey',
         entry_points={
-            "console_scripts": ["autobisect = autobisect:main.main"]
+            "console_scripts": ["autobisect = autobisect.main:main"]
         },
         install_requires=[
             "configparser>=3.5.0",

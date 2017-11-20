@@ -42,7 +42,7 @@ class BisectionConfig(object):
             self.persist_limit = persist_limit if self.persist else 0
             self.store_path = config_obj.get('autobisect', 'storage-path')
         except configparser.NoOptionError as e:
-            log.critical('Unable to parser configuration file: %s', e.message)
+            log.critical('Unable to parse configuration file: %s', e.message)
             raise
 
         self.db_path = os.path.join(self.store_path, 'autobisect.db')

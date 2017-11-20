@@ -25,7 +25,10 @@ class ExpandPath(argparse.Action):
         setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
 
 
-def parse_arguments():
+def _parse_args(argv=None):
+    """
+    Argument parser
+    """
     parser = argparse.ArgumentParser(
         description='Autobisection tool for Mozilla Firefox and Spidermonkey',
         usage='%(prog)s <command> [options]')
@@ -87,7 +90,7 @@ def parse_arguments():
     js_args = subparsers.add_parser('js', parents=[global_args], help='Perform bisection for SpiderMonkey builds')
     js_args.add_argument('--foo', required=True, help='Foo')
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.start):
         parser.error('Invalid start value supplied')
@@ -100,21 +103,14 @@ def parse_arguments():
     return args
 
 
-def main(args):
+def main(argv=None):
+    """
+    Autobisect main entry point
+    """
+    args = _parse_args(argv)
     bisector = Bisector(args)
     start_time = time.time()
     bisector.bisect()
     end_time = time.time()
     elapsed = timedelta(seconds=(int(end_time - start_time)))
     log.info('Bisection completed in: %s' % elapsed)
-
-
-if __name__ == '__main__':
-    log_level = logging.INFO
-    log_fmt = "[%(asctime)s] %(levelname).4s: %(message)s"
-    if bool(os.getenv("DEBUG")):
-        log_level = logging.DEBUG
-        log_fmt = "%(levelname)s %(name)s [%(asctime)s] %(message)s"
-    logging.basicConfig(format=log_fmt, datefmt="%Y-%m-%d %H:%M:%S", level=log_level)
-
-    main(parse_arguments())

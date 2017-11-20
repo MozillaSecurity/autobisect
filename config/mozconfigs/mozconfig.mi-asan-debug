@@ -1,4 +1,0 @@
-. $AB_ROOT/config/mozconfigs/mozconfig.fuzzing.common
-
-ac_add_options --enable-application=browser
-ac_add_options --enable-debug

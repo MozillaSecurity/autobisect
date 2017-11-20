@@ -13,7 +13,7 @@ DEFAULT_CONFIG = """
 storage-path: %s
 persist: true
 ; size in MBs
-persist-limit: 5000
+persist-limit: 30000
 """ % CONFIG_DIR
 
 

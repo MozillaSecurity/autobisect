@@ -132,7 +132,7 @@ class BuildManager(object):
                             try:
                                 build.extract_build(target_path)
                                 break
-                            except:  # ToDo: Add the correct exception to catch
+                            except Exception:  # ToDo: Add the correct exception to catch
                                 pass
                 else:
                     while True:

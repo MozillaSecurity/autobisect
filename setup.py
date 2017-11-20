@@ -37,6 +37,5 @@ if __name__ == "__main__":
         maintainer_email="fuzzing@mozilla.com",
         name="autobisect",
         package_dir={"": "autobisect"},
-        packages=["autobisect"],
         url="https://github.com/MozillaSecurity/autobisect",
         version="0.0.1")

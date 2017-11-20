@@ -1,10 +1,6 @@
+import configparser
 import logging
 import os
-
-try:
-    import configparser
-except ImportError:
-    import ConfigParser as configparser
 
 log = logging.getLogger('browser-bisect')
 

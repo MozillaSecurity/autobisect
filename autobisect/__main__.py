@@ -1,4 +1,4 @@
 # coding=utf-8
-from .autobisect import main
+from .main import main
 
 main()

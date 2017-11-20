@@ -24,7 +24,7 @@ if __name__ == "__main__":
         ],
         description='Automatic bisection utility for Mozilla Firefox and SpiderMonkey',
         entry_points={
-            "console_scripts": ["autobisect = autobisect:Fetcher.main"]
+            "console_scripts": ["autobisect = autobisect:main.main"]
         },
         install_requires=[
             "configparser>=3.5.0",
@@ -36,6 +36,5 @@ if __name__ == "__main__":
         maintainer="Mozilla Fuzzing Team",
         maintainer_email="fuzzing@mozilla.com",
         name="autobisect",
-        package_dir={"": "autobisect"},
         url="https://github.com/MozillaSecurity/autobisect",
         version="0.0.1")

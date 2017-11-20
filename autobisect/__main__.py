@@ -1,3 +1,3 @@
-from .core import main
+from .autobisect import main
 
 main()

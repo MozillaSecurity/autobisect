@@ -108,7 +108,16 @@ def main(argv=None):
     """
     Autobisect main entry point
     """
+    log_level = logging.INFO
+    log_fmt = '[%(asctime)s] %(message)s'
+    if bool(os.getenv('DEBUG')):
+        log_level = logging.DEBUG
+        log_fmt = '%(levelname).1s %(name)s [%(asctime)s] %(message)s'
+    logging.basicConfig(format=log_fmt, datefmt='%Y-%m-%d %H:%M:%S', level=log_level)
+    logging.getLogger('requests').setLevel(logging.WARNING)
+
     args = _parse_args(argv)
+
     bisector = Bisector(args)
     start_time = time.time()
     bisector.bisect()

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
@@ -12,7 +13,7 @@ import re
 import time
 from datetime import datetime, timedelta
 
-from core.bisect import Bisector
+from .bisect import Bisector
 
 log = logging.getLogger('autobisect')
 

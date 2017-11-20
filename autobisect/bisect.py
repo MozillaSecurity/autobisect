@@ -10,10 +10,10 @@ from datetime import timedelta
 
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
-from browser.evaluator import BrowserBisector
-from core.build_manager import BuildManager
-from core.builds import BuildRange
-from core.config import BisectionConfig
+from .evaluator.browser import BrowserBisector
+from .build_manager import BuildManager
+from .builds import BuildRange
+from .config import BisectionConfig
 
 log = logging.getLogger('bisect')
 

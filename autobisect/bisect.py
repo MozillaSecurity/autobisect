@@ -31,7 +31,6 @@ class Bisector(object):
         self.branch = args.branch
 
         self.find_fix = args.find_fix
-        self.needs_verified = args.verify
 
         self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage)
         self.build_string = "m-%s-%s%s" % (self.branch[0], platform.system().lower(), self.build_flags.build_string())
@@ -54,7 +53,7 @@ class Bisector(object):
         log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
         log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
 
-        if self.needs_verified and not self.verify_bounds():
+        if not self.verify_bounds():
             log.critical('Unable to validate boundaries.  Cannot bisect!')
             return
 

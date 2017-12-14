@@ -42,7 +42,6 @@ def _parse_args(argv=None):
     bisection_args = global_args.add_argument_group('bisection arguments')
     bisection_args.add_argument('--count', type=int, default=1, help='Number of times to evaluate testcase (per build)')
     bisection_args.add_argument('--find-fix', action='store_true', help='Indentify fix date')
-    bisection_args.add_argument('--verify', action='store_true', help='Verify boundaries')
     bisection_args.add_argument('--config', action=ExpandPath, help='Path to optional config file')
 
     branch_args = global_args.add_argument_group('Branch')

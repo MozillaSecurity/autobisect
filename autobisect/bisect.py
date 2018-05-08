@@ -148,6 +148,9 @@ class Bisector(object):
         elif status == BUILD_CRASHED and not self.find_fix:
             log.critical('Start revision crashes!')
             return False
+        elif status != BUILD_CRASHED and self.find_fix:
+            log.critical("Start revision didn't crash!")
+            return False
 
         status = self.test_build(self.end)
         if status == BUILD_FAILED:
@@ -155,6 +158,9 @@ class Bisector(object):
             return False
         elif status == BUILD_PASSED and not self.find_fix:
             log.critical('End revision does not crash!')
+            return False
+        elif status == BUILD_CRASHED and self.find_fix:
+            log.critical('End revision crashes!')
             return False
 
         log.info('Verified supplied boundaries!')

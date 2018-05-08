@@ -53,7 +53,7 @@ class BrowserBisector(object):
         finally:
             os.remove(test_path)
 
-        if status != 0:
+        if status != BUILD_PASSED:
             log.error('>> Build crashed!')
             return False
 
@@ -66,19 +66,13 @@ class BrowserBisector(object):
         """
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
-
-            result = 0
             for _ in range(self.count):
                 log.info('> Launching build with testcase...')
                 result = self.launch(binary, self.testcase)
-                if result != 0:
+                if result == BUILD_CRASHED:
                     break
 
-            # Return 'bad' if result is anything other than 0
-            if result and result != 0:
-                return BUILD_CRASHED
-            else:
-                return BUILD_PASSED
+            return result
 
         return BUILD_FAILED
 
@@ -93,6 +87,8 @@ class BrowserBisector(object):
         for a_token in self._abort_token:
             ffp.add_abort_token(a_token)
 
+        result = BUILD_PASSED
+
         try:
             ffp.launch(
                 str(binary),
@@ -101,12 +97,28 @@ class BrowserBisector(object):
                 memory_limit=self._memory,
                 prefs_js=self._prefs,
                 extension=self._extension)
-            return_code = ffp.wait(self._timeout) or 0
-            log.info('>> Browser execution status: %s', return_code)
-        except LaunchError:
+            ffp.wait(self._timeout)
+
+            if not ffp.is_running():
+                ffp.close()
+                if ffp.reason == FFPuppet.RC_EXITED:
+                    log.info(">> Browser closed itself")
+                elif ffp.reason == FFPuppet.RC_ALERT:
+                    log.info(">> Browser crashed!")
+                    result = BUILD_CRASHED
+                else:
+                    log.info(">> Browser was closed")
+
+            elif not ffp.is_healthy():
+                log.info("Browser is alive but has crash reports. Terminating...")
+                result = BUILD_CRASHED
+                ffp.close()
+        except FFPuppet.LaunchError:
             log.warn('> Failed to start browser')
-            return_code = None
+            result = BUILD_FAILED
+        except FFPuppet.BrowserTerminatedError:
+            result = BUILD_FAILED
         finally:
             ffp.clean_up()
 
-        return return_code
+        return result

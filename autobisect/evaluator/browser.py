@@ -113,10 +113,8 @@ class BrowserBisector(object):
                 log.info("Browser is alive but has crash reports. Terminating...")
                 result = BUILD_CRASHED
                 ffp.close()
-        except FFPuppet.LaunchError:
+        except LaunchError:
             log.warn('> Failed to start browser')
-            result = BUILD_FAILED
-        except FFPuppet.BrowserTerminatedError:
             result = BUILD_FAILED
         finally:
             ffp.clean_up()

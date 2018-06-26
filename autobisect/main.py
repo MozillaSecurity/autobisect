@@ -31,7 +31,7 @@ def _parse_args(argv=None):
         description='Autobisection tool for Mozilla Firefox and Spidermonkey')
 
     global_args = argparse.ArgumentParser(add_help=False)
-    global_args.add_argument('testcase', action=ExpandPath, help='Path to testcase')
+    global_args.add_argument('testcase', help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision')
     boundary_args.add_argument('--start', default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
@@ -68,17 +68,18 @@ def _parse_args(argv=None):
     subparsers = parser.add_subparsers(dest='target')
     firefox_sub = subparsers.add_parser('firefox', parents=[global_args], help='Perform bisection for Firefox builds')
     ffp_args = firefox_sub.add_argument_group('launcher arguments')
+    ffp_args.add_argument('--asserts', action='store_true', help='Detect soft assertions')
+    ffp_args.add_argument('--detect', choices=['crash', 'memory', 'log', 'timeout'], default='crash',
+                          help='Type of failure to detect (default: %(default)s)')
     ffp_args.add_argument('--timeout', type=int, default=60,
                           help='Maximum iteration time in seconds (default: %(default)s)')
     ffp_args.add_argument('--launch-timeout', type=int, default=300,
                           help='Maximum launch time in seconds (default: %(default)s)')
-    ffp_args.add_argument("--abort-token", action="append", default=list(['PBrowser::Msg_Destroy']),
-                          help="Scan the log for the given value and close browser on detection. "
-                               "For example '-a ###!!! ASSERTION:' would be used to detect soft assertions.")
     ffp_args.add_argument('--ext', action=ExpandPath, help='Path to fuzzPriv extension')
     ffp_args.add_argument('--prefs', action=ExpandPath, help='Path to preference file')
     ffp_args.add_argument('--profile', action=ExpandPath, help='Path to profile directory')
-    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs')
+    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (default: no limit)')
+    ffp_args.add_argument('--log-limit', type=int, help='Log file size limit in MBs (default: no limit)')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
@@ -92,6 +93,12 @@ def _parse_args(argv=None):
         parser.error('Invalid start value supplied')
     if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
         parser.error('Invalid end value supplied')
+
+    if args.target == 'firefox':
+        if args.detect == 'log' and args.log_limit is None:
+            parser.error('Detect mode set to log-limit but no limit set!')
+        if args.detect == 'memory' and args.memory is None:
+            parser.error('Detect mode set to log-limit but no limit set!')
 
     if args.branch is None:
         args.branch = 'central'

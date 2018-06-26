@@ -22,16 +22,17 @@ class BrowserBisector(object):
     Testcase evaluator for Firefox
     """
     def __init__(self, args):
-        self.testcase = os.path.abspath(args.testcase)
+        self.testcase = args.testcase
         self.count = args.count
 
         # FFPuppet arguments
+        self._asserts = args.asserts
+        self._detect = args.detect
         self._use_gdb = args.gdb
         self._use_valgrind = args.valgrind
         self._use_xvfb = args.xvfb
         self._timeout = args.timeout
         self._launch_timeout = args.launch_timeout
-        self._abort_token = args.abort_token
         self._extension = args.ext
         self._prefs = args.prefs
         self._profile = os.path.abspath(args.profile) if args.profile is not None else None
@@ -84,8 +85,8 @@ class BrowserBisector(object):
         :return: The return code or None
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
-        for a_token in self._abort_token:
-            ffp.add_abort_token(a_token)
+        if self._asserts:
+            ffp.add_abort_token("###!!! ASSERTION:")
 
         result = BUILD_PASSED
 
@@ -102,19 +103,31 @@ class BrowserBisector(object):
             if not ffp.is_running():
                 ffp.close()
                 if ffp.reason == FFPuppet.RC_EXITED:
-                    log.info(">> Browser closed itself")
-                elif ffp.reason == FFPuppet.RC_ALERT:
-                    log.info(">> Browser crashed!")
+                    log.info('>> Target closed itself')
+                elif (ffp.reason == FFPuppet.RC_WORKER
+                      and self.detect == 'memory'
+                      and 'ffp_worker_memory_limiter' in ffp.available_logs()):
+                    log.info('>> Memory limit exceeded')
+                    result = BUILD_CRASHED
+                elif (ffp.reason == FFPuppet.RC_WORKER
+                      and self.detect == 'log'
+                      and 'ffp_worker_log_size_limiter' in ffp.available_logs()):
+                    log.info('>> Log size limit exceeded')
                     result = BUILD_CRASHED
                 else:
-                    log.info(">> Browser was closed")
-
+                    log.debug('>> Failure detected')
+                    result = BUILD_CRASHED
             elif not ffp.is_healthy():
-                log.info("Browser is alive but has crash reports. Terminating...")
+                # this should be e10s only
                 result = BUILD_CRASHED
+                log.info('>> Browser is alive but has crash reports. Terminating...')
+                ffp.close()
+            elif self._detect == 'timeout':
+                result = BUILD_CRASHED
+                log.debug('>> Timeout detected')
                 ffp.close()
         except LaunchError:
-            log.warn('> Failed to start browser')
+            log.warn('>> Failed to start browser')
             result = BUILD_FAILED
         finally:
             ffp.clean_up()

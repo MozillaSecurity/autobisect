@@ -28,7 +28,7 @@ if __name__ == "__main__":
         },
         install_requires=[
             "configparser>=3.5.0",
-            "ffpuppet",
+            "git+git://github.com/MozillaSecurity/ffpuppet@477532f#egg=ffpuppet",
             "fuzzfetch"
         ],
         keywords="fuzz fuzzing security test testing bisection",

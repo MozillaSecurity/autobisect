@@ -17,15 +17,15 @@ from .config import BisectionConfig
 
 log = logging.getLogger('bisect')
 
-BUILD_CRASHED = 0
-BUILD_PASSED = 1
-BUILD_FAILED = 2
-
 
 class Bisector(object):
     """
     Taskcluster Bisection Class
     """
+    BUILD_CRASHED = 0
+    BUILD_PASSED = 1
+    BUILD_FAILED = 2
+
     def __init__(self, args):
         self.target = args.target
         self.branch = args.branch
@@ -106,21 +106,21 @@ class Bisector(object):
         :param build_range: The current BuildRange object
         :return: The adjusted BuildRange object
         """
-        if status == BUILD_PASSED:
+        if status == self.BUILD_PASSED:
             if not self.find_fix:
                 self.start = build
                 return build_range[index + 1:]
             else:
                 self.end = build
                 return build_range[:index]
-        elif status == BUILD_CRASHED:
+        elif status == self.BUILD_CRASHED:
             if not self.find_fix:
                 self.end = build
                 return build_range[:index]
             else:
                 self.start = build
                 return build_range[index + 1:]
-        elif status == BUILD_FAILED:
+        elif status == self.BUILD_FAILED:
             build_range.builds.pop(index)
             return build_range
 
@@ -142,24 +142,24 @@ class Bisector(object):
         """
         log.info('Attempting to verify boundaries...')
         status = self.test_build(self.start)
-        if status == BUILD_FAILED:
+        if status == self.BUILD_FAILED:
             log.critical('Unable to launch the start build!')
             return False
-        elif status == BUILD_CRASHED and not self.find_fix:
+        elif status == self.BUILD_CRASHED and not self.find_fix:
             log.critical('Start revision crashes!')
             return False
-        elif status != BUILD_CRASHED and self.find_fix:
+        elif status != self.BUILD_CRASHED and self.find_fix:
             log.critical("Start revision didn't crash!")
             return False
 
         status = self.test_build(self.end)
-        if status == BUILD_FAILED:
+        if status == self.BUILD_FAILED:
             log.critical('Unable to launch the end build!')
             return False
-        elif status == BUILD_PASSED and not self.find_fix:
+        elif status == self.BUILD_PASSED and not self.find_fix:
             log.critical('End revision does not crash!')
             return False
-        elif status == BUILD_CRASHED and self.find_fix:
+        elif status == self.BUILD_CRASHED and self.find_fix:
             log.critical('End revision crashes!')
             return False
 

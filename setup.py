@@ -26,11 +26,7 @@ if __name__ == "__main__":
         entry_points={
             "console_scripts": ["autobisect = autobisect.main:main"]
         },
-        install_requires=[
-            "configparser>=3.5.0",
-            "git+git://github.com/MozillaSecurity/ffpuppet@477532f#egg=ffpuppet",
-            "fuzzfetch"
-        ],
+        install_requires=["configparser", "ffpuppet", "fuzzfetch"],
         keywords="fuzz fuzzing security test testing bisection",
         license="MPL 2.0",
         maintainer="Mozilla Fuzzing Team",

@@ -12,16 +12,16 @@ from ffpuppet import FFPuppet, LaunchError
 
 from ..bisect import Bisector
 
-log = logging.getLogger('browser-bisect')
+log = logging.getLogger('browser-eval')
 
 
-class BrowserBisector(object):
+class BrowserEvaluator(object):
     """
     Testcase evaluator for Firefox
     """
     def __init__(self, args):
         self.testcase = args.testcase
-        self.count = args.count
+        self.repeat = args.repeat
 
         # FFPuppet arguments
         self._asserts = args.asserts
@@ -65,7 +65,7 @@ class BrowserBisector(object):
         """
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
-            for _ in range(self.count):
+            for _ in range(self.repeat):
                 log.info('> Launching build with testcase...')
                 result = self.launch(binary, self.testcase)
                 if result == Bisector.BUILD_CRASHED:
@@ -113,7 +113,7 @@ class BrowserBisector(object):
                     log.info('>> Log size limit exceeded')
                     result = Bisector.BUILD_CRASHED
                 else:
-                    log.debug('>> Failure detected')
+                    log.info('>> Failure detected')
                     result = Bisector.BUILD_CRASHED
             elif not ffp.is_healthy():
                 # this should be e10s only
@@ -122,8 +122,10 @@ class BrowserBisector(object):
                 ffp.close()
             elif self._detect == 'timeout':
                 result = Bisector.BUILD_CRASHED
-                log.debug('>> Timeout detected')
+                log.info('>> Timeout detected')
                 ffp.close()
+            else:
+                log.info('>> Time limit exceeded')
         except LaunchError:
             log.warn('>> Failed to start browser')
             result = Bisector.BUILD_FAILED

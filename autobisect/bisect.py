@@ -10,7 +10,6 @@ from datetime import timedelta
 
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
-from .evaluator.browser import BrowserBisector
 from .build_manager import BuildManager
 from .builds import BuildRange
 from .config import BisectionConfig
@@ -26,7 +25,8 @@ class Bisector(object):
     BUILD_PASSED = 1
     BUILD_FAILED = 2
 
-    def __init__(self, args):
+    def __init__(self, evaluator, args):
+        self.evaluator = evaluator
         self.target = args.target
         self.branch = args.branch
 
@@ -39,11 +39,6 @@ class Bisector(object):
 
         self.config = BisectionConfig(args.config)
         self.build_manager = BuildManager(self.config, self.build_string)
-
-        if self.target == 'firefox':
-            self.evaluator = BrowserBisector(args)
-        else:
-            self.evaluator = None
 
     def bisect(self):
         """

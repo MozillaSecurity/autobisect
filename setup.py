@@ -26,7 +26,7 @@ if __name__ == "__main__":
         entry_points={
             "console_scripts": ["autobisect = autobisect.main:main"]
         },
-        install_requires=["configparser", "ffpuppet", "fuzzfetch"],
+        install_requires=["configparser", "ffpuppet", "fuzzfetch", "lithium-reducer"],
         keywords="fuzz fuzzing security test testing bisection",
         license="MPL 2.0",
         maintainer="Mozilla Fuzzing Team",

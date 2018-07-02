@@ -103,12 +103,12 @@ class BrowserEvaluator(object):
                 if ffp.reason == FFPuppet.RC_EXITED:
                     log.info('>> Target closed itself')
                 elif (ffp.reason == FFPuppet.RC_WORKER
-                      and self.detect == 'memory'
+                      and self._detect == 'memory'
                       and 'ffp_worker_memory_limiter' in ffp.available_logs()):
                     log.info('>> Memory limit exceeded')
                     result = Bisector.BUILD_CRASHED
                 elif (ffp.reason == FFPuppet.RC_WORKER
-                      and self.detect == 'log'
+                      and self._detect == 'log'
                       and 'ffp_worker_log_size_limiter' in ffp.available_logs()):
                     log.info('>> Log size limit exceeded')
                     result = Bisector.BUILD_CRASHED

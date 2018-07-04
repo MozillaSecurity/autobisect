@@ -80,13 +80,12 @@ class JSEvaluator(object):
                     args = [self._match, self.testcase] + common_args
                     if interestingness.outputs.interesting(args, None):
                         return Bisector.BUILD_CRASHED
-                else:
-                    if self._detect == 'crash':
-                        if interestingness.crashes.interesting(common_args, None):
-                            return Bisector.BUILD_CRASHED
-                    elif self._detect == 'hang':
-                        if interestingness.hangs.interesting(common_args, None):
-                            return Bisector.BUILD_CRASHED
+                elif self._detect == 'crash':
+                    if interestingness.crashes.interesting(common_args, None):
+                        return Bisector.BUILD_CRASHED
+                elif self._detect == 'hang':
+                    if interestingness.hangs.interesting(common_args, None):
+                        return Bisector.BUILD_CRASHED
 
             return Bisector.BUILD_PASSED
         else:

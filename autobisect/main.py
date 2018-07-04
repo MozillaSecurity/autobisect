@@ -29,7 +29,7 @@ def _parse_args(argv=None):
     """
     Argument parser
     """
-    parser = argparse.ArgumentParser(description='Autobisection tool for Mozilla Firefox and Spidermonkey')
+    parser = argparse.ArgumentParser(description='Autobisection tool for Mozilla Firefox and SpiderMonkey')
 
     global_args = argparse.ArgumentParser(add_help=False)
     global_args.add_argument('testcase', help='Path to testcase')
@@ -113,6 +113,8 @@ def _parse_args(argv=None):
         parser.error('Invalid start value supplied')
     if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
         parser.error('Invalid end value supplied')
+    if args.timeout <= 0:
+        parser.error('Invalid timeout value supplied')
 
     if args.target == 'firefox':
         if args.detect == 'log' and args.log_limit is None:
@@ -126,10 +128,12 @@ def _parse_args(argv=None):
         if args.detect == 'hang':
             if args.hang_time is None:
                 parser.error('Detect mode set to hang but no hang threshold supplied!')
+            if args.hang_time <= 0:
+                parser.error('Invalid hangout threshold value supplied!')
             if args.hang_time > args.timeout:
                 parser.error('Hang threshold greater than timeout!')
         if args.detect == 'output':
-            if args.arg_1 is None or args.args_2 is None:
+            if args.match is None:
                 parser.error('Detect mode set to output but no output string supplied!')
 
     return args

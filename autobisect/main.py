@@ -106,7 +106,7 @@ def _parse_args(argv=None):
 
     args = parser.parse_args(argv)
 
-    if args.branch is None:
+    if not args.branch:
         args.branch = 'central'
 
     if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.start):
@@ -123,7 +123,7 @@ def _parse_args(argv=None):
             parser.error('Detect mode set to log-limit but no limit set!')
     elif args.target == 'js':
         if args.detect == 'diff':
-            if args.arg_1 is None or args.args_2 is None:
+            if not args.arg_1 or not args.args_2:
                 parser.error('Detect mode set to diff but no arguments supplied!')
         if args.detect == 'hang':
             if args.hang_time is None:

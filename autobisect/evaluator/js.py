@@ -10,8 +10,6 @@ from lithium import interestingness
 
 from ..bisect import Bisector
 
-DEVNULL = open(os.devnull, 'w')
-
 log = logging.getLogger('js-eval')
 
 
@@ -88,5 +86,5 @@ class JSEvaluator(object):
                         return Bisector.BUILD_CRASHED
 
             return Bisector.BUILD_PASSED
-        else:
-            return Bisector.BUILD_FAILED
+
+        return Bisector.BUILD_FAILED

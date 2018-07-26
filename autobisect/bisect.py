@@ -17,6 +17,13 @@ from .config import BisectionConfig
 log = logging.getLogger('bisect')
 
 
+class StatusError(Exception):
+    """
+    Raised when an invalid status is supplied
+    """
+    pass
+
+
 class Bisector(object):
     """
     Taskcluster Bisection Class
@@ -105,19 +112,21 @@ class Bisector(object):
             if not self.find_fix:
                 self.start = build
                 return build_range[index + 1:]
-            else:
-                self.end = build
-                return build_range[:index]
+
+            self.end = build
+            return build_range[:index]
         elif status == self.BUILD_CRASHED:
             if not self.find_fix:
                 self.end = build
                 return build_range[:index]
-            else:
-                self.start = build
-                return build_range[index + 1:]
+
+            self.start = build
+            return build_range[index + 1:]
         elif status == self.BUILD_FAILED:
             build_range.builds.pop(index)
             return build_range
+        else:
+            raise StatusError('Invalid status supplied')
 
     def test_build(self, build):
         """

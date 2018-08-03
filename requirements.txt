@@ -1,3 +1,4 @@
 configparser>=3.5.0
 fuzzfetch==0.5.7
+-e git://github.com/MozillaSecurity/lithium@master#egg=lithium-reducer
 -e git://github.com/MozillaSecurity/ffpuppet@0.5.7#egg=ffpuppet

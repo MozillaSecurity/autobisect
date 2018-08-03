@@ -10,20 +10,18 @@ import tempfile
 
 from ffpuppet import FFPuppet, LaunchError
 
-log = logging.getLogger('browser-bisect')
+from ..bisect import Bisector
 
-BUILD_CRASHED = 0
-BUILD_PASSED = 1
-BUILD_FAILED = 2
+log = logging.getLogger('browser-eval')
 
 
-class BrowserBisector(object):
+class BrowserEvaluator(object):
     """
     Testcase evaluator for Firefox
     """
     def __init__(self, args):
         self.testcase = args.testcase
-        self.count = args.count
+        self.repeat = args.repeat
 
         # FFPuppet arguments
         self._asserts = args.asserts
@@ -54,7 +52,7 @@ class BrowserBisector(object):
         finally:
             os.remove(test_path)
 
-        if status != BUILD_PASSED:
+        if status != Bisector.BUILD_PASSED:
             log.error('>> Build crashed!')
             return False
 
@@ -67,15 +65,15 @@ class BrowserBisector(object):
         """
         binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
-            for _ in range(self.count):
+            for _ in range(self.repeat):
                 log.info('> Launching build with testcase...')
                 result = self.launch(binary, self.testcase)
-                if result == BUILD_CRASHED:
+                if result == Bisector.BUILD_CRASHED:
                     break
 
             return result
 
-        return BUILD_FAILED
+        return Bisector.BUILD_FAILED
 
     def launch(self, binary, testcase=None):
         """
@@ -88,7 +86,7 @@ class BrowserBisector(object):
         if self._asserts:
             ffp.add_abort_token("###!!! ASSERTION:")
 
-        result = BUILD_PASSED
+        result = Bisector.BUILD_PASSED
 
         try:
             ffp.launch(
@@ -105,30 +103,32 @@ class BrowserBisector(object):
                 if ffp.reason == FFPuppet.RC_EXITED:
                     log.info('>> Target closed itself')
                 elif (ffp.reason == FFPuppet.RC_WORKER
-                      and self.detect == 'memory'
+                      and self._detect == 'memory'
                       and 'ffp_worker_memory_limiter' in ffp.available_logs()):
                     log.info('>> Memory limit exceeded')
-                    result = BUILD_CRASHED
+                    result = Bisector.BUILD_CRASHED
                 elif (ffp.reason == FFPuppet.RC_WORKER
-                      and self.detect == 'log'
+                      and self._detect == 'log'
                       and 'ffp_worker_log_size_limiter' in ffp.available_logs()):
                     log.info('>> Log size limit exceeded')
-                    result = BUILD_CRASHED
+                    result = Bisector.BUILD_CRASHED
                 else:
-                    log.debug('>> Failure detected')
-                    result = BUILD_CRASHED
+                    log.info('>> Failure detected')
+                    result = Bisector.BUILD_CRASHED
             elif not ffp.is_healthy():
                 # this should be e10s only
-                result = BUILD_CRASHED
+                result = Bisector.BUILD_CRASHED
                 log.info('>> Browser is alive but has crash reports. Terminating...')
                 ffp.close()
             elif self._detect == 'timeout':
-                result = BUILD_CRASHED
-                log.debug('>> Timeout detected')
+                result = Bisector.BUILD_CRASHED
+                log.info('>> Timeout detected')
                 ffp.close()
+            else:
+                log.info('>> Time limit exceeded')
         except LaunchError:
             log.warn('>> Failed to start browser')
-            result = BUILD_FAILED
+            result = Bisector.BUILD_FAILED
         finally:
             ffp.clean_up()
 

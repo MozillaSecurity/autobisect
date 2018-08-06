@@ -8,6 +8,17 @@
 
 from setuptools import setup
 
+EXTRAS = {
+    "test": [
+        "flake8==3.5.0",
+        "flake8-commas==2.0.0",
+        "flake8-isort==2.5",
+        "flake8-quotes==1.0.0",
+        "pytest==3.7.1",
+        "pytest-flake8==1.0.2",
+    ],
+}
+
 if __name__ == "__main__":
     setup(
         classifiers=[
@@ -27,7 +38,11 @@ if __name__ == "__main__":
         entry_points={
             "console_scripts": ["autobisect = autobisect.main:main"],
         },
-        install_requires=["configparser", "ffpuppet", "fuzzfetch", "lithium-reducer"],
+        extras_require=EXTRAS,
+        install_requires=[
+              "configparser>=3.5.0",
+              "fuzzfetch==0.5.7",
+        ],
         keywords="fuzz fuzzing security test testing bisection",
         license="MPL 2.0",
         maintainer="Mozilla Fuzzing Team",

@@ -24,4 +24,4 @@ install:
   - travis_retry python -m pip install --upgrade -r requirements.txt  # Gets ffpuppet, lithium-reducer from GitHub
   - python -m flake8 --version
 script:
-  - python -m pytest --flake8
+  - python -m pytest --flake8 autobisect/

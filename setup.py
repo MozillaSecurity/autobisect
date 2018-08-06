@@ -32,5 +32,6 @@ if __name__ == "__main__":
         maintainer="Mozilla Fuzzing Team",
         maintainer_email="fuzzing@mozilla.com",
         name="autobisect",
+        packages=['autobisect', 'autobisect.evaluator'],
         url="https://github.com/MozillaSecurity/autobisect",
         version="0.0.1")

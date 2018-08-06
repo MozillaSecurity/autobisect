@@ -84,7 +84,7 @@ class BrowserEvaluator(object):
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
         if self._asserts:
-            ffp.add_abort_token("###!!! ASSERTION:")
+            ffp.add_abort_token('###!!! ASSERTION:')
 
         result = Bisector.BUILD_PASSED
 

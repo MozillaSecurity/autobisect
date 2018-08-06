@@ -6,7 +6,7 @@
 # Code originally taken from mozregression
 # https://github.com/mozilla/mozregression/blob/5b986a3165a5208dd0722d6fc882b47e7fc1b627/mozregression/build_range.py
 
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import, division, print_function  # isort:skip
 
 import copy
 import logging

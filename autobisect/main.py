@@ -7,11 +7,12 @@
 from __future__ import absolute_import
 
 import argparse
+from datetime import datetime
+from datetime import timedelta
 import logging
 import os
 import re
 import time
-from datetime import datetime, timedelta
 
 from .bisect import Bisector
 from .evaluator.browser import BrowserEvaluator

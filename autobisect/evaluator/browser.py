@@ -10,7 +10,8 @@ import logging
 import os
 import tempfile
 
-from ffpuppet import FFPuppet, LaunchError
+from ffpuppet import FFPuppet
+from ffpuppet import LaunchError
 
 from ..bisect import Bisector
 

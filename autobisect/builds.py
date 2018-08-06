@@ -9,8 +9,8 @@
 from __future__ import absolute_import, division, print_function  # isort:skip
 
 import copy
-import logging
 from datetime import timedelta
+import logging
 
 log = logging.getLogger('builds')
 

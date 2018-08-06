@@ -6,11 +6,13 @@
 
 from __future__ import absolute_import
 
+from datetime import timedelta
 import logging
 import platform
-from datetime import timedelta
 
-from fuzzfetch import BuildFlags, Fetcher, FetcherException
+from fuzzfetch import BuildFlags
+from fuzzfetch import Fetcher
+from fuzzfetch import FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange

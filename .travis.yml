@@ -13,7 +13,7 @@ matrix:
   allow_failures:
     - python: "nightly"
 before_install:
-  - git clone https://github.com/MozillaSecurity/ffpuppet
+  - git clone https://github.com/MozillaSecurity/ffpuppet.git
 install:
   # Already in venv, no need for --user
   - travis_retry python -m pip install --upgrade setuptools pip

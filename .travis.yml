@@ -21,7 +21,7 @@ install:
   - travis_retry python -m pip install --upgrade ffpuppet/  # Needs the trailing slash to refer to the cloned directory
   - travis_retry python -m pip install --upgrade .[test]  # Installs python testing-related packages
   # The current working dir has to be the current autobisect/ directory for this "-r" to work
-  - travis_retry python -m pip install --upgrade -r requirements.txt  # Gets ffpuppet, lithium-reducer from GitHub
+  - travis_retry python -m pip install --upgrade -r requirements.txt
   - python -m flake8 --version
 script:
   - python -m pytest autobisect/

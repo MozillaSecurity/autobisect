@@ -41,7 +41,9 @@ if __name__ == '__main__':
         extras_require=EXTRAS,
         install_requires=[
               'configparser>=3.5.0',
+              'ffpuppet',
               'fuzzfetch==0.5.7',
+              'lithium-reducer',
         ],
         keywords='fuzz fuzzing security test testing bisection',
         license='MPL 2.0',

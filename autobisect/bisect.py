@@ -4,11 +4,15 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from __future__ import absolute_import
+
+from datetime import timedelta
 import logging
 import platform
-from datetime import timedelta
 
-from fuzzfetch import BuildFlags, Fetcher, FetcherException
+from fuzzfetch import BuildFlags
+from fuzzfetch import Fetcher
+from fuzzfetch import FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange
@@ -40,7 +44,7 @@ class Bisector(object):
         self.find_fix = args.find_fix
 
         self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage)
-        self.build_string = "m-%s-%s%s" % (self.branch[0], platform.system().lower(), self.build_flags.build_string())
+        self.build_string = 'm-%s-%s%s' % (self.branch[0], platform.system().lower(), self.build_flags.build_string())
         self.start = Fetcher(self.target, self.branch, args.start, self.build_flags)
         self.end = Fetcher(self.target, self.branch, args.end, self.build_flags)
 

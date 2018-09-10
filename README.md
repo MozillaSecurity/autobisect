@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/MozillaSecurity/autobisect.svg?branch=master)](https://travis-ci.org/MozillaSecurity/autobisect)
+
 Autobisect
 ==========
 Autobisect is a python module that automates bisection of Mozilla Firefox and SpiderMonkey bugs.

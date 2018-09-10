@@ -8,29 +8,48 @@
 
 from setuptools import setup
 
-if __name__ == "__main__":
+EXTRAS = {
+    'test': [
+        'flake8==3.5.0',
+        'flake8-commas==2.0.0',
+        'flake8-isort==2.5',
+        'flake8-quotes==1.0.0',
+        'pytest==3.7.1',
+        'pytest-flake8==1.0.2',
+    ],
+}
+
+if __name__ == '__main__':
     setup(
         classifiers=[
-            "Intended Audience :: Developers",
-            "Topic :: Software Development :: Testing",
-            "Topic :: Security",
-            "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
-            "Programming Language :: Python :: 2",
-            "Programming Language :: Python :: 2.7",
-            "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.4",
-            "Programming Language :: Python :: 3.5",
-            "Programming Language :: Python :: 3.6"
+            'Intended Audience :: Developers',
+            'Topic :: Software Development :: Testing',
+            'Topic :: Security',
+            'License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)',
+            'Programming Language :: Python :: 2',
+            'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
         ],
         description='Automatic bisection utility for Mozilla Firefox and SpiderMonkey',
         entry_points={
-            "console_scripts": ["autobisect = autobisect.main:main"]
+            'console_scripts': ['autobisect = autobisect.main:main'],
         },
-        install_requires=["configparser", "ffpuppet", "fuzzfetch", "lithium-reducer"],
-        keywords="fuzz fuzzing security test testing bisection",
-        license="MPL 2.0",
-        maintainer="Mozilla Fuzzing Team",
-        maintainer_email="fuzzing@mozilla.com",
-        name="autobisect",
-        url="https://github.com/MozillaSecurity/autobisect",
-        version="0.0.1")
+        extras_require=EXTRAS,
+        install_requires=[
+              'configparser>=3.5.0',
+              'ffpuppet',
+              'fuzzfetch==0.5.7',
+              'lithium-reducer',
+        ],
+        keywords='fuzz fuzzing security test testing bisection',
+        license='MPL 2.0',
+        maintainer='Mozilla Fuzzing Team',
+        maintainer_email='fuzzing@mozilla.com',
+        name='autobisect',
+        packages=['autobisect', 'autobisect.evaluator'],
+        url='https://github.com/MozillaSecurity/autobisect',
+        version='0.0.1')

@@ -4,11 +4,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from __future__ import absolute_import
+
 import logging
 import os
 import tempfile
 
-from ffpuppet import FFPuppet, LaunchError
+from ffpuppet import FFPuppet
+from ffpuppet import LaunchError
 
 from ..bisect import Bisector
 
@@ -84,7 +87,7 @@ class BrowserEvaluator(object):
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
         if self._asserts:
-            ffp.add_abort_token("###!!! ASSERTION:")
+            ffp.add_abort_token('###!!! ASSERTION:')
 
         result = Bisector.BUILD_PASSED
 

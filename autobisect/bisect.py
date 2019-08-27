@@ -100,8 +100,8 @@ class Bisector(object):
         log.info('Reduced build range to:')
         log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
         log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
-        log.info('> Pushlog: https://hg.mozilla.org/integration/autoland/pushloghtml?fromchange=%s&tochange=%s',
-                 self.start.changeset, self.end.changeset)
+        log.info('> Pushlog: https://hg.mozilla.org/mozilla-%s/pushloghtml?fromchange=%s&tochange=%s',
+                 self.branch, self.start.changeset, self.end.changeset)
 
     def update_build_range(self, build, index, status, build_range):
         """

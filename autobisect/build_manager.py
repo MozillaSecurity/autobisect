@@ -103,6 +103,7 @@ class BuildManager(object):
                                           'WHERE in_use.build_path = ? OR download_queue.build_path = ?',
                                           (build.path, build.path))
                 if res.fetchone() is None:
+                    log.debug('Removing build: %s', build.path)
                     shutil.rmtree(build.path)
                 self.db.con.commit()
 

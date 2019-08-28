@@ -120,34 +120,37 @@ class BuildManager(object):
         try:
             # Insert build_path into in_use to prevent deletion
             self.db.cur.execute('INSERT INTO in_use VALUES (?, ?)', (target_path, self.pid))
+            self.db.con.commit()
 
             # Try to insert the build_path into download_queue
             # If the insert fails, another process is already downloading it
             # Poll the database until it complete
             try:
-                self.db.cur.execute('INSERT OR IGNORE INTO download_queue VALUES (?, ?)', (target_path, self.pid))
-                if self.db.cur.rowcount == 1:
-                    # If the build doesn't exist on disk, download it
-                    if not os.path.isdir(target_path):
-                        self.remove_old_builds()
-                        while True:
-                            # Hackish - FuzzFetch can fail when downloading - try until success
-                            try:
-                                build.extract_build(target_path)
-                                break
-                            except Exception:  # ToDo: Add the correct exception to catch
-                                pass
-                else:
+                self.db.cur.execute('INSERT into download_queue VALUES (?, ?)', (target_path, self.pid))
+                self.db.con.commit()
+                # If the build doesn't exist on disk, download it
+                if not os.path.isdir(target_path):
+                    self.remove_old_builds()
                     while True:
-                        res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (target_path,))
-                        if res.fetchone() is None:
+                        # Hackish - FuzzFetch can fail when downloading - try until success
+                        try:
+                            build.extract_build(target_path)
                             break
-                        else:
-                            time.sleep(0.1)
+                        except Exception:  # ToDo: Add the correct exception to catch
+                            pass
+            except sqlite3.OperationalError:
+                while True:
+                    res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (target_path,))
+                    if res.fetchone() is None:
+                        break
+                    else:
+                        time.sleep(0.1)
             finally:
                 self.db.cur.execute('DELETE FROM download_queue WHERE build_path = ? AND pid = ?',
                                     (target_path, self.pid))
+                self.db.con.commit()
 
             yield target_path
         finally:
             self.db.cur.execute('DELETE FROM in_use WHERE build_path = ? AND pid = ?', (target_path, self.pid))
+            self.db.con.commit()

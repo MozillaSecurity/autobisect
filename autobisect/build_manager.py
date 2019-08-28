@@ -99,7 +99,6 @@ class BuildManager(object):
                 if self.current_build_size < self.config.persist_limit:
                     break
 
-                self.db.cur.execute('BEGIN TRANSACTION')
                 res = self.db.cur.execute('SELECT * FROM in_use, download_queue '
                                           'WHERE in_use.build_path = ? OR download_queue.build_path = ?',
                                           (build.path, build.path))

@@ -138,7 +138,7 @@ class BuildManager(object):
                             break
                         except Exception:  # ToDo: Add the correct exception to catch
                             pass
-            except sqlite3.OperationalError:
+            except sqlite3.IntegrityError:
                 while True:
                     res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (target_path,))
                     if res.fetchone() is None:

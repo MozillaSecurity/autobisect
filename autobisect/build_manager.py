@@ -1,7 +1,4 @@
 # coding=utf-8
-
-
-
 import logging
 import os
 import shutil
@@ -9,6 +6,7 @@ import sqlite3
 import time
 from collections import namedtuple
 from contextlib import contextmanager
+from pathlib import Path
 
 log = logging.getLogger('browser-bisect')
 Build = namedtuple('Build', ('path', 'stats'))
@@ -18,6 +16,7 @@ class DatabaseManager(object):
     """
     Sqlite3 wrapper class
     """
+
     def __init__(self, db_path):
         self.con = None
         self.cur = None
@@ -50,12 +49,13 @@ class BuildManager(object):
     """
     A class for managing downloaded builds
     """
+
     def __init__(self, config, build_string):
         self.config = config
         self.build_prefix = build_string
 
-        self.build_dir = os.path.join(self.config.store_path, 'builds')
-        if not os.path.isdir(self.build_dir):
+        self.build_dir = self.config.store_path / 'builds'
+        if not Path.is_dir(self.build_dir):
             os.makedirs(self.build_dir)
 
         self.pid = os.getpid()
@@ -66,28 +66,14 @@ class BuildManager(object):
         """
         Recursively enumerate the size of the supplied build
         """
-        total_size = 0
-        for dirpath, _, filenames in os.walk(self.build_dir):
-            for f in filenames:
-                fp = os.path.join(dirpath, f)
-                try:
-                    total_size += os.path.getsize(fp)
-                except OSError:
-                    log.debug('Directory became inaccessible while iterating: %s', fp)
-
-        return total_size
+        return sum([os.path.getsize(f) for f in self.build_dir.rglob('*') if os.path.isfile(f)])
 
     def enumerate_builds(self):
         """
         Enumerate all available builds including their size and stats
         """
-        builds = []
-        for build in os.listdir(self.build_dir):
-            build_path = os.path.join(self.build_dir, build)
-            build_stats = os.stat(build_path)
-            builds.append(Build(build_path, build_stats))
-
-        return sorted(builds, key=lambda b: b.stats.st_atime)
+        builds = [x for x in self.build_dir.iterdir() if x.is_dir()]
+        return sorted(builds, key=lambda b: os.stat(b).st_atime)
 
     def remove_old_builds(self):
         """
@@ -115,7 +101,7 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
-        target_path = os.path.join(self.build_dir, '%s-%s' % (self.build_prefix, build.changeset))
+        target_path = self.build_dir / '%s-%s' % (self.build_prefix, build.changeset)
 
         try:
             # Insert build_path into in_use to prevent deletion
@@ -129,7 +115,7 @@ class BuildManager(object):
                 self.db.cur.execute('INSERT into download_queue VALUES (?, ?)', (target_path, self.pid))
                 self.db.con.commit()
                 # If the build doesn't exist on disk, download it
-                if not os.path.isdir(target_path):
+                if not Path.is_dir(target_path):
                     self.remove_old_builds()
                     while True:
                         # Hackish - FuzzFetch can fail when downloading - try until success

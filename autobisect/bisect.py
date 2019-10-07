@@ -6,9 +6,10 @@
 
 from __future__ import absolute_import
 
-from datetime import timedelta
 import logging
 import platform
+from datetime import timedelta
+from string import Template
 
 from fuzzfetch import BuildFlags
 from fuzzfetch import Fetcher

@@ -2,13 +2,13 @@
 
 from __future__ import absolute_import
 
-from collections import namedtuple
-from contextlib import contextmanager
 import logging
 import os
 import shutil
 import sqlite3
 import time
+from collections import namedtuple
+from contextlib import contextmanager
 
 log = logging.getLogger('browser-bisect')
 Build = namedtuple('Build', ('path', 'stats'))

@@ -10,12 +10,12 @@ from setuptools import setup
 
 EXTRAS = {
     'test': [
-        'flake8==3.5.0',
-        'flake8-commas==2.0.0',
-        'flake8-isort==2.5',
-        'flake8-quotes==1.0.0',
-        'pytest==3.7.1',
-        'pytest-flake8==1.0.2',
+        'flake8',
+        'flake8-commas',
+        'flake8-isort',
+        'flake8-quotes',
+        'pytest',
+        'pytest-flake8',
     ],
 }
 

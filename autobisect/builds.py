@@ -17,6 +17,7 @@ class BuildRange(object):
     """
     A class for storing a range of builds or build representations
     """
+
     def __init__(self, builds):
         self._builds = builds
 

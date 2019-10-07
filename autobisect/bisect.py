@@ -3,17 +3,12 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
-
-
-
 import logging
 import platform
 from datetime import timedelta
 from string import Template
 
-from fuzzfetch import BuildFlags
-from fuzzfetch import Fetcher
-from fuzzfetch import FetcherException
+from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange

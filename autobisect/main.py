@@ -3,16 +3,12 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
-
-
-
 import argparse
 import logging
 import os
 import re
 import time
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from .bisect import Bisector
 from .evaluator.browser import BrowserEvaluator
@@ -25,6 +21,7 @@ class ExpandPath(argparse.Action):
     """
     Expand user and relative-paths
     """
+
     def __call__(self, parser, namespace, values, option_string=None):
         setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
 
@@ -39,7 +36,7 @@ def _parse_args(argv=None):
     global_args.add_argument('testcase', help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision)')
-    boundary_args.add_argument('--start', default=(datetime.utcnow()-timedelta(days=364)).strftime('%Y-%m-%d'),
+    boundary_args.add_argument('--start', default=(datetime.utcnow() - timedelta(days=364)).strftime('%Y-%m-%d'),
                                help='Start revision (default: earliest available TC build)')
     boundary_args.add_argument('--end', default=datetime.utcnow().strftime('%Y-%m-%d'),
                                help='End revision (default: latest available TC build)')

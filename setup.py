@@ -51,6 +51,6 @@ if __name__ == '__main__':
         maintainer_email='fuzzing@mozilla.com',
         name='autobisect',
         packages=['autobisect', 'autobisect.evaluator'],
-        python_requires=">=3.6",
+        python_requires='>=3.6',
         url='https://github.com/MozillaSecurity/autobisect',
         version='0.0.1')

@@ -19,18 +19,23 @@ class BuildRange(object):
     """
 
     def __init__(self, builds):
+        """
+        Instantiate a new instance
+
+        param builds: A list of Fetcher.BuildTask objects
+        """
         self._builds = builds
 
     def __len__(self):
         return len(self._builds)
 
-    def __getslice__(self, smin, smax):
-        new_range = copy.copy(self)
-        new_range._builds = self._builds[smin:smax]
-        return new_range
-
-    def __getitem__(self, i):
-        return self._builds[i].build_info
+    def __getitem__(self, expr):
+        if type(expr) is slice:
+            new_range = copy.copy(self)
+            new_range._builds = self._builds[expr]
+            return new_range
+        else:
+            return self._builds[expr].build_info
 
     @property
     def builds(self):
@@ -44,7 +49,10 @@ class BuildRange(object):
         """
         Returns the midpoint of the "builds" list
         """
-        return self._builds[len(self) // 2]
+        if len(self) > 0:
+            return self._builds[len(self) // 2]
+
+        return None
 
     def index(self, build):
         """

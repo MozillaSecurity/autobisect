@@ -69,6 +69,8 @@ def _parse_args(argv=None):
                             help='Test 32 bit version of browser on 64 bit system.')
 
     subparsers = parser.add_subparsers(dest='target')
+    subparsers.required = True
+
     firefox_sub = subparsers.add_parser('firefox', parents=[global_args], help='Bisect Firefox testcase')
     ffp_args = firefox_sub.add_argument_group('launcher arguments')
     ffp_args.add_argument('--asserts', action='store_true', help='Detect soft assertions')

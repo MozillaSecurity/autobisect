@@ -161,7 +161,15 @@ def main(argv=None):
 
     bisector = Bisector(evaluator, args)
     start_time = time.time()
-    bisector.bisect()
+    result = bisector.bisect()
     end_time = time.time()
+    if result:
+        log.info('Reduced build range to:')
+        log.info('> Start: %s (%s)', result.start_rev, result.start_id)
+        log.info('> End: %s (%s)', result.end_rev, result.end_id)
+        log.info('> %s', result.pushlog)
+    else:
+        log.error('Bisection failed!')
+
     elapsed = timedelta(seconds=(int(end_time - start_time)))
     log.info('Bisection completed in: %s' % elapsed)

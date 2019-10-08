@@ -22,6 +22,18 @@ class StatusError(Exception):
     pass
 
 
+class BisectionResult(object):
+    BASE_URL = Template('https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end')
+
+    def __init__(self, start, end, branch):
+        self.start_rev = start.changeset
+        self.start_id = start.build_id
+        self.end_rev = end.changeset
+        self.end_id = start.end_id
+        self.branch = branch
+        self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
+
+
 class Bisector(object):
     """
     Taskcluster Bisection Class
@@ -31,6 +43,12 @@ class Bisector(object):
     BUILD_FAILED = 2
 
     def __init__(self, evaluator, args):
+        """
+        Instantiate bisection object
+
+        :param evaluator: Evaluator instance for executing tests
+        :param args:
+        """
         self.evaluator = evaluator
         self.target = args.target
         self.branch = args.branch
@@ -48,6 +66,8 @@ class Bisector(object):
     def bisect(self):
         """
         Main bisection function
+
+        :return: BisectionResult
         """
         log.info('Begin bisection...')
         log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
@@ -55,7 +75,7 @@ class Bisector(object):
 
         if not self.verify_bounds():
             log.critical('Unable to validate boundaries.  Cannot bisect!')
-            return
+            return False
 
         # Initially reduce use 1 build per day for the entire build range
         log.info('Attempting to reduce bisection range using taskcluster binaries')
@@ -91,11 +111,7 @@ class Bisector(object):
             status = self.test_build(next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
-        log.info('Reduced build range to:')
-        log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
-        log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
-        log.info('> Pushlog: https://hg.mozilla.org/mozilla-%s/pushloghtml?fromchange=%s&tochange=%s',
-                 self.branch, self.start.changeset, self.end.changeset)
+        return BisectionResult(self.start, self.end, self.branch)
 
     def update_build_range(self, build, index, status, build_range):
         """

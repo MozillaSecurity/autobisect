@@ -62,8 +62,8 @@ def _parse_args(argv=None):
                                  help='Download from mozilla-release')
     branch_selector.add_argument('--beta', action='store_const', const='beta', dest='branch',
                                  help='Download from mozilla-beta')
-    branch_selector.add_argument('--esr', action='store_const', const='esr52', dest='branch',
-                                 help='Download from mozilla-esr52')
+    branch_selector.add_argument('--esr', action='store_const', const='esr68', dest='branch',
+                                 help='Download from mozilla-esr68')
 
     build_args = global_args.add_argument_group('build arguments')
     build_args.add_argument('--asan', action='store_true', help='Test asan builds')

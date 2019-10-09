@@ -121,13 +121,7 @@ class BuildManager(object):
                 # If the build doesn't exist on disk, download it
                 if not Path.is_dir(target_path):
                     self.remove_old_builds()
-                    while True:
-                        # Hackish - FuzzFetch can fail when downloading - try until success
-                        try:
-                            build.extract_build(target_path)
-                            break
-                        except Exception:  # ToDo: Add the correct exception to catch
-                            pass
+                    build.extract_build(target_path)
             except sqlite3.IntegrityError:
                 while True:
                     res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (path_string,))

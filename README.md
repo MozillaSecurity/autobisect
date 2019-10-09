@@ -28,7 +28,7 @@ optional arguments:
   --central             Download from mozilla-central (default)
   --release             Download from mozilla-release
   --beta                Download from mozilla-beta
-  --esr                 Download from mozilla-esr52
+  --esr                 Download from mozilla-esr
 
 boundary arguments (YYYY-MM-DD or SHA1 revision:
   --start START         Start revision (default: earliest available TC build)

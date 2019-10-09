@@ -22,7 +22,7 @@ class DatabaseManager(object):
     def __init__(self, db_path):
         self.con = None
         self.cur = None
-        self.open(db_path)
+        self.open(str(db_path))
 
     def open(self, db_path):
         """
@@ -74,7 +74,7 @@ class BuildManager(object):
         """
         Enumerate all available builds including their size and stats
         """
-        builds = [x for x in self.build_dir.iterdir() if x.is_dir()]
+        builds = [os.fspath(x) for x in self.build_dir.iterdir() if x.is_dir()]
         return sorted(builds, key=lambda b: os.stat(b).st_atime)
 
     def remove_old_builds(self):
@@ -83,16 +83,16 @@ class BuildManager(object):
         """
         while self.current_build_size > self.config.persist_limit:
             builds = self.enumerate_builds()
-            for build in builds:
+            for build_path in builds:
                 if self.current_build_size < self.config.persist_limit:
                     break
 
                 res = self.db.cur.execute('SELECT * FROM in_use, download_queue '
                                           'WHERE in_use.build_path = ? OR download_queue.build_path = ?',
-                                          (build.path, build.path))
+                                          (build_path, build_path))
                 if res.fetchone() is None:
-                    log.debug('Removing build: %s', build.path)
-                    shutil.rmtree(build.path)
+                    log.debug('Removing build: %s', build_path)
+                    shutil.rmtree(build_path)
                 self.db.con.commit()
 
             time.sleep(0.1)
@@ -103,18 +103,20 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
-        target_path = self.build_dir / '%s-%s' % (self.build_prefix, build.changeset)
+        build_name = '%s-%s'.format(self.build_prefix, build.changeset)
+        target_path = self.build_dir / build_name
+        path_string = os.fspath(target_path)
 
         try:
             # Insert build_path into in_use to prevent deletion
-            self.db.cur.execute('INSERT INTO in_use VALUES (?, ?)', (target_path, self.pid))
+            self.db.cur.execute('INSERT INTO in_use VALUES (?, ?)', (path_string, self.pid))
             self.db.con.commit()
 
             # Try to insert the build_path into download_queue
             # If the insert fails, another process is already downloading it
             # Poll the database until it complete
             try:
-                self.db.cur.execute('INSERT into download_queue VALUES (?, ?)', (target_path, self.pid))
+                self.db.cur.execute('INSERT into download_queue VALUES (?, ?)', (path_string, self.pid))
                 self.db.con.commit()
                 # If the build doesn't exist on disk, download it
                 if not Path.is_dir(target_path):
@@ -128,17 +130,17 @@ class BuildManager(object):
                             pass
             except sqlite3.IntegrityError:
                 while True:
-                    res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (target_path,))
+                    res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (path_string,))
                     if res.fetchone() is None:
                         break
                     else:
                         time.sleep(0.1)
             finally:
                 self.db.cur.execute('DELETE FROM download_queue WHERE build_path = ? AND pid = ?',
-                                    (target_path, self.pid))
+                                    (path_string, self.pid))
                 self.db.con.commit()
 
             yield target_path
         finally:
-            self.db.cur.execute('DELETE FROM in_use WHERE build_path = ? AND pid = ?', (target_path, self.pid))
+            self.db.cur.execute('DELETE FROM in_use WHERE build_path = ? AND pid = ?', (path_string, self.pid))
             self.db.con.commit()

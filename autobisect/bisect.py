@@ -51,11 +51,12 @@ class Bisector(object):
         """
         self.evaluator = evaluator
         self.target = args.target
-        self.branch = args.branch
+        self.branch = Fetcher.resolve_esr(args.branch) if args.branch.startswith('esr') else args.branch
 
         self.find_fix = args.find_fix
 
-        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage)
+        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage,
+                                      valgrind=args.valgrind)
         self.build_string = 'm-%s-%s%s' % (self.branch[0], platform.system().lower(), self.build_flags.build_string())
         self.start = Fetcher(self.target, self.branch, args.start, self.build_flags)
         self.end = Fetcher(self.target, self.branch, args.end, self.build_flags)

@@ -1,3 +1,4 @@
+requests
 lithium
 fuzzfetch
 configparser>=3.5.0

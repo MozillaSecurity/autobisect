@@ -6,7 +6,7 @@ import logging
 import os
 import re
 import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from .bisect import Bisector
 from .evaluator.browser import BrowserEvaluator
@@ -34,10 +34,8 @@ def _parse_args(argv=None):
     global_args.add_argument('testcase', help='Path to testcase')
 
     boundary_args = global_args.add_argument_group('boundary arguments (YYYY-MM-DD or SHA1 revision)')
-    boundary_args.add_argument('--start', default=(datetime.utcnow() - timedelta(days=364)).strftime('%Y-%m-%d'),
-                               help='Start revision (default: earliest available TC build)')
-    boundary_args.add_argument('--end', default=datetime.utcnow().strftime('%Y-%m-%d'),
-                               help='End revision (default: latest available TC build)')
+    boundary_args.add_argument('--start', help='Start revision (default: earliest available TC build)')
+    boundary_args.add_argument('--end', help='End revision (default: latest available TC build)')
 
     bisection_args = global_args.add_argument_group('bisection arguments')
     bisection_args.add_argument('--timeout', type=int, default=60,
@@ -112,9 +110,9 @@ def _parse_args(argv=None):
     if not args.branch:
         args.branch = 'central'
 
-    if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.start):
+    if args.start and not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.start):
         parser.error('Invalid start value supplied')
-    if not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
+    if args.end and not re.match(r'^[0-9[a-f]{12,40}$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$', args.end):
         parser.error('Invalid end value supplied')
     if args.timeout <= 0:
         parser.error('Invalid timeout value supplied')

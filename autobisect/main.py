@@ -57,14 +57,17 @@ def _parse_args(argv=None):
                                  help='Download from mozilla-release')
     branch_selector.add_argument('--beta', action='store_const', const='beta', dest='branch',
                                  help='Download from mozilla-beta')
-    branch_selector.add_argument('--esr', action='store_const', const='esr52', dest='branch',
-                                 help='Download from mozilla-esr52')
+    branch_selector.add_argument('--esr-stable', action='store_const', const='esr-stable', dest='branch',
+                                 help='Download from esr-stable')
+    branch_selector.add_argument('--esr-next', action='store_const', const='esr-next', dest='branch',
+                                 help='Download from esr-next')
 
     build_args = global_args.add_argument_group('build arguments')
     build_args.add_argument('--asan', action='store_true', help='Test asan builds')
     build_args.add_argument('--debug', action='store_true', help='Test debug builds')
     build_args.add_argument('--fuzzing', action='store_true', help='Test --enable-fuzzing builds')
     build_args.add_argument('--coverage', action='store_true', help='Test --coverage builds')
+    build_args.add_argument('--valgrind', action='store_true', help='Download Valgrind builds.')
     build_args.add_argument('--32', dest='arch_32', action='store_true',
                             help='Test 32 bit version of browser on 64 bit system.')
 
@@ -84,7 +87,6 @@ def _parse_args(argv=None):
     ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (default: no limit)')
     ffp_args.add_argument('--log-limit', type=int, help='Log file size limit in MBs (default: no limit)')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
-    ffp_args.add_argument('--valgrind', action='store_true', help='Use valgrind')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
 
     js_sub = subparsers.add_parser('js', parents=[global_args], help='Bisect SpiderMonkey testcase')

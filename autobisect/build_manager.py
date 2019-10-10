@@ -10,7 +10,7 @@ from collections import namedtuple
 from contextlib import contextmanager
 from pathlib import Path
 
-log = logging.getLogger('browser-bisect')
+log = logging.getLogger('build-manager')
 Build = namedtuple('Build', ('path', 'stats'))
 
 

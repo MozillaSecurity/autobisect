@@ -123,6 +123,7 @@ class BuildManager(object):
                     self.remove_old_builds()
                     build.extract_build(target_path)
             except sqlite3.IntegrityError:
+                log.warn('Another process is attempting to download the build. Waiting')
                 while True:
                     res = self.db.cur.execute('SELECT * FROM download_queue WHERE build_path = ?', (path_string,))
                     if res.fetchone() is None:

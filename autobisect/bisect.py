@@ -18,13 +18,13 @@ from .config import BisectionConfig
 log = logging.getLogger('bisect')
 
 
-class BisectionError(Exception):
+class BisectException(Exception):
     """
     Exception raised for any Bisection error
     """
 
 
-class StatusError(BisectionError):
+class StatusException(BisectException):
     """
     Raised when an invalid status is supplied
     """
@@ -240,7 +240,7 @@ class Bisector(object):
             build_range.builds.pop(index)
             return build_range
         else:
-            raise StatusError('Invalid status supplied')
+            raise StatusException('Invalid status supplied')
 
     def test_build(self, build):
         """

@@ -4,6 +4,7 @@
 import logging
 import platform
 from datetime import datetime, timedelta
+from enum import Enum
 from string import Template
 
 import requests
@@ -30,16 +31,55 @@ class StatusError(BisectionError):
     pass
 
 
+class VerificationStatus(Enum):
+    SUCCESS = 0
+    START_BUILD_FAILED = 1
+    END_BUILD_FAILED = 2
+    START_BUILD_CRASHES = 3
+    END_BUILD_PASSES = 4
+    FIND_FIX_START_BUILD_PASSES = 5
+    FIND_FIX_END_BUILD_CRASHES = 6
+
+    @property
+    def message(self):
+        if self == self.SUCCESS:
+            return 'Verified supplied boundaries!'
+        elif self == self.START_BUILD_FAILED:
+            return 'Unable to launch the start build!'
+        elif self == self.END_BUILD_FAILED:
+            return 'Unable to launch the end build!'
+        elif self == self.START_BUILD_CRASHES:
+            return 'Start build crashes!'
+        elif self == self.END_BUILD_PASSES:
+            return 'End build does not crash!'
+        elif self == self.START_BUILD_CRASHES:
+            return 'Start build crashes!'
+        elif self == self.FIND_FIX_START_BUILD_PASSES:
+            return "Start build didn't crash!"
+        elif self == self.FIND_FIX_END_BUILD_CRASHES:
+            return 'End build crashes!'
+
+
 class BisectionResult(object):
     BASE_URL = Template('https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end')
 
-    def __init__(self, start, end, branch):
-        self.start_rev = start.changeset
-        self.start_id = start.build_id
-        self.end_rev = end.changeset
-        self.end_id = start.end_id
-        self.branch = branch
-        self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
+    SUCCESS = 0
+    FAILED = 1
+
+    def __init__(self, status, **kwargs):
+        self.status = status
+
+        if self.status != BisectionResult.SUCCESS:
+            self.message = kwargs.get('message')
+        else:
+            start = kwargs.get('start')
+            end = kwargs.get('end')
+            if isinstance(start, Fetcher) and isinstance(end, Fetcher):
+                self.start = start
+                self.end = end
+                self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
+            else:
+                raise BisectionException('Bisection succeeded but invalid start or end value supplied!')
 
 
 class Bisector(object):
@@ -130,9 +170,12 @@ class Bisector(object):
         log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
         log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
 
-        if not self.verify_bounds():
-            log.critical('Unable to validate boundaries.  Cannot bisect!')
-            return False
+        verification_status = self.verify_bounds()
+        if verification_status == VerificationStatus.SUCCESS:
+            log.info(verification_status.message)
+        else:
+            log.critical(verification_status.message)
+            return BisectionResult(BisectionResult.FAILED, message=verification_status.message)
 
         # Initially reduce use 1 build per day for the entire build range
         log.info('Attempting to reduce bisection range using taskcluster binaries')
@@ -168,7 +211,7 @@ class Bisector(object):
             status = self.test_build(next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
-        return BisectionResult(self.start, self.end, self.branch)
+        return BisectionResult(BisectionResult.SUCCESS, start=self.start, end=self.end, branch=self.branch)
 
     def update_build_range(self, build, index, status, build_range):
         """
@@ -218,25 +261,18 @@ class Bisector(object):
         log.info('Attempting to verify boundaries...')
         status = self.test_build(self.start)
         if status == self.BUILD_FAILED:
-            log.critical('Unable to launch the start build!')
-            return False
+            return VerificationStatus.START_BUILD_FAILED
         elif status == self.BUILD_CRASHED and not self.find_fix:
-            log.critical('Start revision crashes!')
-            return False
+            return VerificationStatus.START_BUILD_CRASHES
         elif status != self.BUILD_CRASHED and self.find_fix:
-            log.critical("Start revision didn't crash!")
-            return False
+            return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
         status = self.test_build(self.end)
         if status == self.BUILD_FAILED:
-            log.critical('Unable to launch the end build!')
-            return False
+            return VerificationStatus.END_BUILD_FAILED
         elif status == self.BUILD_PASSED and not self.find_fix:
-            log.critical('End revision does not crash!')
-            return False
+            return VerificationStatus.END_BUILD_PASSES
         elif status == self.BUILD_CRASHED and self.find_fix:
-            log.critical('End revision crashes!')
-            return False
+            return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
 
-        log.info('Verified supplied boundaries!')
-        return True
+        return VerificationStatus.SUCCESS

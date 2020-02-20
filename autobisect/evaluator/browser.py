@@ -61,7 +61,7 @@ class BrowserEvaluator(object):
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = os.path.join(build_path, 'dist', 'bin', 'firefox')
+        binary = os.path.join(build_path, 'firefox')
         if os.path.isfile(binary) and self.verify_build(binary):
             for _ in range(self.repeat):
                 log.info('> Launching build with testcase...')

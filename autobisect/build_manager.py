@@ -6,12 +6,10 @@ import os
 import shutil
 import sqlite3
 import time
-from collections import namedtuple
 from contextlib import contextmanager
 from pathlib import Path
 
 log = logging.getLogger('build-manager')
-Build = namedtuple('Build', ('path', 'stats'))
 
 
 class DatabaseManager(object):

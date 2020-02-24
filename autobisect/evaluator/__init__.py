@@ -4,5 +4,5 @@
 # coding=utf-8
 # flake8: noqa
 # pylint: disable=missing-docstring
-from . import browser
-from . import js
+from .browser import BrowserEvaluator
+from .js import JSEvaluator

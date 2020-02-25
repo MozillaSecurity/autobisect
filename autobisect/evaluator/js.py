@@ -23,19 +23,25 @@ class JSEvaluator(object):
     Testcase evaluator for SpiderMonkey shells
     """
 
-    def __init__(self, args):
-        self.testcase = os.path.abspath(args.testcase)
-        self.repeat = args.repeat
+    def __init__(self, testcase, **kwargs):
+        self.testcase = testcase
+        self.flags = kwargs.get('flags', None)
+        self.repeat = kwargs.get('repeat', 1)
 
         # JS Shell launch arguments
-        self._detect = args.detect
-        self._flags = args.flags
-        self._timeout = args.timeout
-        self._arg_1 = args.arg_1
-        self._arg_2 = args.arg_2
-        self._hang_time = args.hang_time
-        self._match = args.match
-        self._regex = args.regex
+        self.timeout = kwargs.get('timeout', 60)
+        self.detect = kwargs.get('detect', 'crash')
+
+        if self.detect == 'diff':
+            if not kwargs.get('arg_1') or not kwargs.get('arg_2'):
+                raise JSEvaluatorException('Detect mode is set to diff but not enough args supplied')
+            self._arg_1 = kwargs.get('arg_1')
+            self._arg_2 = kwargs.get('arg_2')
+        elif self.detect == 'match':
+            if not kwargs.get('match'):
+                raise JSEvaluatorException("Detect mode is set to match but a match string wasn't supplied")
+            self._match = kwargs.get('match')
+            self._regex = kwargs.get('regex')
 
     def verify_build(self, binary):
         """
@@ -68,18 +74,18 @@ class JSEvaluator(object):
         if self.verify_build(binary):
             for _ in range(self.repeat):
                 log.info('> Launching build with testcase...')
-                if self._detect == 'diff':
+                if self.detect == 'diff':
                     args = ['-a', self._arg_1, '-b', self._arg_2] + common_args
                     if interestingness.diff_test.interesting(args, None):
                         return Bisector.BUILD_CRASHED
-                elif self._detect == 'output':
+                elif self.detect == 'output':
                     args = [self._match, self.testcase] + common_args
                     if interestingness.outputs.interesting(args, None):
                         return Bisector.BUILD_CRASHED
-                elif self._detect == 'crash':
+                elif self.detect == 'crash':
                     if interestingness.crashes.interesting(common_args, None):
                         return Bisector.BUILD_CRASHED
-                elif self._detect == 'hang':
+                elif self.detect == 'hang':
                     if interestingness.hangs.interesting(common_args, None):
                         return Bisector.BUILD_CRASHED
 

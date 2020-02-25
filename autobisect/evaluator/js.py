@@ -65,10 +65,10 @@ class JSEvaluator(object):
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = os.path.join(build_path, 'js')
-        common_args = ['-t', '%s' % self._timeout, binary]
-        if self._flags is not None:
-            common_args.extend(self._flags.split(' '))
+        binary = os.path.join(build_path, 'dist', 'bin', 'js')
+        common_args = ['-t', '%s' % self.timeout, binary]
+        if self.flags is not None:
+            common_args.extend(self.flags.split(' '))
 
         # These args are global to all detect types
         common_args.append(self.testcase)

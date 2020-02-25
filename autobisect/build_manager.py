@@ -9,6 +9,8 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 
+from .config import BisectionConfig
+
 log = logging.getLogger('build-manager')
 
 
@@ -50,9 +52,8 @@ class BuildManager(object):
     A class for managing downloaded builds
     """
 
-    def __init__(self, config):
-        self.config = config
-
+    def __init__(self, config=None):
+        self.config = config or BisectionConfig()
         self.build_dir = self.config.store_path / 'builds'
         if not Path.is_dir(self.build_dir):
             os.makedirs(self.build_dir)

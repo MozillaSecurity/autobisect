@@ -50,9 +50,8 @@ class BuildManager(object):
     A class for managing downloaded builds
     """
 
-    def __init__(self, config, build_string):
+    def __init__(self, config):
         self.config = config
-        self.build_prefix = build_string
 
         self.build_dir = self.config.store_path / 'builds'
         if not Path.is_dir(self.build_dir):
@@ -101,8 +100,12 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
-        build_name = '%s-%s'.format(self.build_prefix, build.changeset)
-        target_path = self.build_dir / build_name
+        branch = 'm-%s' % build._branch[0]
+        platform = build._platform.system
+        flags = build._flags.build_string()
+        rev = build.changeset[:12]
+        build_name = '%s-%s%s-%s' % (branch, platform, flags, rev)
+        target_path = self.build_dir / build_name.lower()
         path_string = os.fspath(target_path)
 
         try:

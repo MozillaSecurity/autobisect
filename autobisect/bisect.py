@@ -62,21 +62,16 @@ class BisectionResult(object):
     SUCCESS = 0
     FAILED = 1
 
-    def __init__(self, status, **kwargs):
+    def __init__(self, status, start, end, branch, message=None):
         self.status = status
+        self.start = start
+        self.end = end
+        self.branch = branch
+        if status == BisectionResult.SUCCESS:
+            self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
 
-        if self.status != BisectionResult.SUCCESS:
-            self.message = kwargs.get('message')
-        else:
-            start = kwargs.get('start')
-            end = kwargs.get('end')
-            branch = kwargs.get('branch')
-            if isinstance(start, Fetcher) and isinstance(end, Fetcher) and isinstance(branch, str):
-                self.start = start
-                self.end = end
-                self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
-            else:
-                raise BisectException('Bisection succeeded but invalid start or end value supplied!')
+        self.message = message
+
 
 
 class Bisector(object):
@@ -126,12 +121,12 @@ class Bisector(object):
         log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
         log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
 
-        verification_status = self.verify_bounds()
-        if verification_status == VerificationStatus.SUCCESS:
-            log.info(verification_status.message)
+        verified = self.verify_bounds()
+        if verified == VerificationStatus.SUCCESS:
+            log.info(verified.message)
         else:
-            log.critical(verification_status.message)
-            return BisectionResult(BisectionResult.FAILED, message=verification_status.message)
+            log.critical(verified.message)
+            return BisectionResult(BisectionResult.FAILED, self.start, self.end, self.branch, verified.message)
 
         # Initially reduce use 1 build per day for the entire build range
         log.info('Attempting to reduce bisection range using taskcluster binaries')
@@ -167,7 +162,7 @@ class Bisector(object):
             status = self.test_build(next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
-        return BisectionResult(BisectionResult.SUCCESS, start=self.start, end=self.end, branch=self.branch)
+        return BisectionResult(BisectionResult.SUCCESS, self.start, self.end, self.branch)
 
     def update_build_range(self, build, index, status, build_range):
         """

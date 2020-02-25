@@ -17,22 +17,24 @@ class BrowserEvaluator(object):
     Testcase evaluator for Firefox
     """
 
-    def __init__(self, args):
-        self.testcase = args.testcase
-        self.repeat = args.repeat
+# asserts=False, detect=None, gdb=False, valgrind=False, xvfb=True, timeout=60,
+    #                  launch_timeout=300, ext=None, prefs=None, memory=None
+
+    def __init__(self, testcase, **kwargs):
+        self.testcase = testcase
+        self.repeat = kwargs.get('repeat', 1)
 
         # FFPuppet arguments
-        self._asserts = args.asserts
-        self._detect = args.detect
-        self._use_gdb = args.gdb
-        self._use_valgrind = args.valgrind
-        self._use_xvfb = args.xvfb
-        self._timeout = args.timeout
-        self._launch_timeout = args.launch_timeout
-        self._extension = args.ext
-        self._prefs = args.prefs
-        self._profile = os.path.abspath(args.profile) if args.profile is not None else None
-        self._memory = args.memory * 1024 * 1024 if args.memory else 0
+        self._asserts = kwargs.get('asserts', False)
+        self._detect = kwargs.get('detect', 'crash')
+        self._use_gdb = kwargs.get('gdb', False)
+        self._use_valgrind = kwargs.get('valgrind', False)
+        self._use_xvfb = kwargs.get('xvfb', True)
+        self._timeout = kwargs.get('timeout', 60)
+        self._launch_timeout = kwargs.get('launch_timeout', 300)
+        self._extension = kwargs.get('ext', None)
+        self._prefs = kwargs.get('prefs', None)
+        self._memory = kwargs.get('memory', 0) * 1024 * 1024
 
     def verify_build(self, binary):
         """

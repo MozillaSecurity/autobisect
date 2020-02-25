@@ -2,13 +2,18 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import argparse
+import itertools
 import logging
 import os
+import platform as std_platform
 import re
 import time
 from datetime import timedelta
 
-from .bisect import Bisector
+from fuzzfetch import BuildFlags
+from fuzzfetch.fetch import Platform
+
+from .bisect import BisectionResult, Bisector
 from .evaluator.browser import BrowserEvaluator
 from .evaluator.js import JSEvaluator
 
@@ -60,8 +65,17 @@ def _parse_args(argv=None):
     branch_selector.add_argument('--esr-next', action='store_const', const='esr-next', dest='branch',
                                  help='Download from esr-next')
 
+    platform_args = parser.add_argument_group('Target')
+    platform_args.add_argument('--os', choices=sorted(Platform.SUPPORTED),
+                               help=('Specify the target system. (default: ' + std_platform.system() + ')'))
+    cpu_choices = sorted(set(itertools.chain(itertools.chain.from_iterable(Platform.SUPPORTED.values()),
+                                             Platform.CPU_ALIASES)))
+    platform_args.add_argument('--cpu', choices=cpu_choices,
+                               help=('Specify the target CPU. (default: ' + std_platform.machine() + ')'))
+
     build_args = global_args.add_argument_group('build arguments')
-    build_args.add_argument('--asan', action='store_true', help='Test asan builds')
+    build_args.add_argument('--asan', action='store_true', help='Test ASAN builds')
+    build_args.add_argument('--tsan', action='store_true', help='Test TSAN builds')
     build_args.add_argument('--debug', action='store_true', help='Test debug builds')
     build_args.add_argument('--fuzzing', action='store_true', help='Test --enable-fuzzing builds')
     build_args.add_argument('--coverage', action='store_true', help='Test --coverage builds')
@@ -81,8 +95,7 @@ def _parse_args(argv=None):
                           help='Maximum launch time in seconds (default: %(default)s)')
     ffp_args.add_argument('--ext', action=ExpandPath, help='Path to fuzzPriv extension')
     ffp_args.add_argument('--prefs', action=ExpandPath, help='Path to preference file')
-    ffp_args.add_argument('--profile', action=ExpandPath, help='Path to profile directory')
-    ffp_args.add_argument('--memory', type=int, help='Process memory limit in MBs (default: no limit)')
+    ffp_args.add_argument('--memory', type=int, default=0, help='Process memory limit in MBs (default: no limit)')
     ffp_args.add_argument('--log-limit', type=int, help='Log file size limit in MBs (default: no limit)')
     ffp_args.add_argument('--gdb', action='store_true', help='Use GDB')
     ffp_args.add_argument('--xvfb', action='store_true', help='Use xvfb (Linux only)')
@@ -96,10 +109,6 @@ def _parse_args(argv=None):
     js_diff_args = js_sub.add_argument_group('diff arguments')
     js_diff_args.add_argument('--arg_1', help='Set of arguments to supply to the first run')
     js_diff_args.add_argument('--arg_2', help='Set of arguments to supply to the second run')
-
-    js_hang_args = js_sub.add_argument_group('hang arguments')
-    js_hang_args.add_argument('--hang-time', type=int, metavar='TIME',
-                              help='Hang time threshold (must be greater than timeout)')
 
     js_out_args = js_sub.add_argument_group('output arguments')
     js_out_args.add_argument('--match', help='Mark as interesting if string detected in output')
@@ -155,11 +164,14 @@ def main(argv=None):
     args = _parse_args(argv)
 
     if args.target == 'firefox':
-        evaluator = BrowserEvaluator(args)
+        evaluator = BrowserEvaluator(**vars(args))
     else:
-        evaluator = JSEvaluator(args)
+        evaluator = JSEvaluator(**vars(args))
 
-    bisector = Bisector(evaluator, args)
+    flags = BuildFlags(args.asan, args.tsan, args.debug, args.fuzzing, args.coverage, args.valgrind)
+    platform = Platform(args.os, args.cpu)
+    bisector = Bisector(evaluator, args.target, args.branch, args.start, args.end, flags, platform, args.find_fix,
+                        args.config)
     start_time = time.time()
     result = bisector.bisect()
     end_time = time.time()

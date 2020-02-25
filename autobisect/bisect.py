@@ -7,8 +7,6 @@ from datetime import datetime, timedelta
 from enum import Enum
 from string import Template
 
-import requests
-
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from .build_manager import BuildManager
@@ -117,48 +115,11 @@ class Bisector(object):
         self.config = BisectionConfig(args.config)
         self.build_manager = BuildManager(self.config, self.build_string)
 
-    @staticmethod
-    def get_rev_date(rev):
-        try:
-            data = requests.get('https://hg.mozilla.org/mozilla-central/json-rev/%s' % rev)
-            data.raise_for_status()
-        except requests.exceptions.RequestException as exc:
-            raise BisectionError(exc)
-        json = data.json()
-        push_date = json['pushdate'][0]
-        return datetime.fromtimestamp(push_date)
 
-    def get_build(self, start, end, asc=True):
-        """
-        Attempt to fetch the build and, if it fails, try to find the next available
-        """
-        original = start
+        self.start = Fetcher(self.target, self.branch, start_id, self.build_flags, platform, Fetcher.BUILD_ORDER_ASC)
+        self.end = Fetcher(self.target, self.branch, end_id, self.build_flags, platform, Fetcher.BUILD_ORDER_DESC)
 
-        try:
-            build_id = start.strftime('%Y-%m-%d') if isinstance(start, datetime) else start
-            return Fetcher(self.target, self.branch, build_id, self.build_flags)
-        except FetcherException:
-            log.warn('Unable to find build for %s', build_id)
-
-        # If the start is a datetime object, retrieval has already failed so increment the date
-        # If it's not a datetime object, we assume it's a rev and we need to convert it to datetime
-        if isinstance(start, datetime):
-            start = start + timedelta(days=1) if asc else start - timedelta(days=1)
-        else:
-            start = Bisector.get_rev_date(start)
-
-        # In order to compare the two, the end also needs to be a datetime object
-        if not isinstance(end, datetime):
-            end = Bisector.get_rev_date(end)
-
-        while start < end if asc else start > end:
-            try:
-                return Fetcher(self.target, self.branch, start.strftime('%Y-%m-%d'), self.build_flags)
-            except FetcherException:
-                start = start + timedelta(days=1) if asc else start - timedelta(days=1)
-                log.warn('Unable to find build for %s' % start.strftime('%Y-%m-%d'))
-        else:
-            raise BisectionError('Failed to find build near %s' % original)
+        self.build_manager = BuildManager(config)
 
     def bisect(self):
         """

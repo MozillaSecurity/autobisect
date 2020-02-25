@@ -11,9 +11,9 @@ from ..bisect import Bisector
 log = logging.getLogger('js-eval')
 
 
-class LaunchError(Exception):
+class JSEvaluatorException(Exception):
     """
-    Raised when the browser process does not appear to be in a functional state during launch
+    Raised for any JSEvaluator exception
     """
     pass
 

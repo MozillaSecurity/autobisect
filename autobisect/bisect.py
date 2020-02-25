@@ -70,12 +70,13 @@ class BisectionResult(object):
         else:
             start = kwargs.get('start')
             end = kwargs.get('end')
-            if isinstance(start, Fetcher) and isinstance(end, Fetcher):
+            branch = kwargs.get('branch')
+            if isinstance(start, Fetcher) and isinstance(end, Fetcher) and isinstance(branch, str):
                 self.start = start
                 self.end = end
                 self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
             else:
-                raise BisectionException('Bisection succeeded but invalid start or end value supplied!')
+                raise BisectException('Bisection succeeded but invalid start or end value supplied!')
 
 
 class Bisector(object):

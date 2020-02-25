@@ -88,33 +88,29 @@ class Bisector(object):
     BUILD_PASSED = 1
     BUILD_FAILED = 2
 
-    def __init__(self, evaluator, args):
+    def __init__(self, evaluator, target, branch, start, end, flags, platform, find_fix=False, config=None):
         """
         Instantiate bisection object
-
-        :param evaluator: Evaluator instance for executing tests
-        :param args:
+        :param evaluator: Object instance used to evaluate testcase
+        :param target: Type of builds to fetch
+        :param branch: Mozilla branch to use for finding builds
+        :param start: Start revision, date, or buildid
+        :param end: End revision, date, or buildid
+        :param flags: Build flags (asan, tsan, debug, fuzzing, valgrind)
+        :param platform: fuzzfetch.fetch.Platform instance
+        :param find_fix: Boolean identifying whether to find a fix or bisect bug
+        :param config: Path to config file
         """
         self.evaluator = evaluator
-        self.target = args.target
-        self.branch = Fetcher.resolve_esr(args.branch) if args.branch.startswith('esr') else args.branch
+        self.target = target
+        self.branch = Fetcher.resolve_esr(branch) if branch.startswith('esr') else branch
+        self.find_fix = find_fix
 
-        self.find_fix = args.find_fix
-
-        self.build_flags = BuildFlags(asan=args.asan, debug=args.debug, fuzzing=args.fuzzing, coverage=args.coverage,
-                                      valgrind=args.valgrind)
-        self.build_string = 'm-%s-%s%s' % (self.branch[0], platform.system().lower(), self.build_flags.build_string())
+        self.build_flags = BuildFlags(*flags)
 
         # If no start date is supplied, default to oldest available build
-        start_id = args.start if args.start else (datetime.utcnow() - timedelta(days=364))
-        end = args.end if args.end else datetime.utcnow()
-
-        self.start = self.get_build(start_id, end)
-        self.end = self.get_build(end, start_id, False)
-
-        self.config = BisectionConfig(args.config)
-        self.build_manager = BuildManager(self.config, self.build_string)
-
+        start_id = start if start else (datetime.utcnow() - timedelta(days=364)).strftime('%Y-%m-%d')
+        end_id = end if end else 'latest'
 
         self.start = Fetcher(self.target, self.branch, start_id, self.build_flags, platform, Fetcher.BUILD_ORDER_ASC)
         self.end = Fetcher(self.target, self.branch, end_id, self.build_flags, platform, Fetcher.BUILD_ORDER_DESC)

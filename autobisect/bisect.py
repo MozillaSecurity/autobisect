@@ -2,7 +2,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 import logging
-import platform
 from datetime import datetime, timedelta
 from enum import Enum
 from string import Template
@@ -11,7 +10,6 @@ from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange
-from .config import BisectionConfig
 
 log = logging.getLogger('bisect')
 

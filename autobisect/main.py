@@ -166,6 +166,8 @@ def main(argv=None):
     if args.target == 'firefox':
         evaluator = BrowserEvaluator(**vars(args))
     else:
+        if args.flags is not None:
+            args.flags = args.flags.split(' ')
         evaluator = JSEvaluator(**vars(args))
 
     flags = BuildFlags(args.asan, args.tsan, args.debug, args.fuzzing, args.coverage, args.valgrind)

@@ -52,7 +52,7 @@ class JSEvaluator(object):
         log.info('> Verifying build...')
         args = [binary, '-e', '"quit()"']
         if self.flags is not None:
-            args.extend(self.flags.split(' '))
+            args.extend(self.flags)
         run_data = interestingness.timed_run.timed_run(args, self.timeout, None)
         if run_data.sta is not interestingness.timed_run.NORMAL:
             log.error('>> Build crashed!')
@@ -68,7 +68,7 @@ class JSEvaluator(object):
         binary = os.path.join(build_path, 'dist', 'bin', 'js')
         common_args = ['-t', '%s' % self.timeout, binary]
         if self.flags is not None:
-            common_args.extend(self.flags.split(' '))
+            common_args.extend(self.flags)
 
         # These args are global to all detect types
         common_args.append(self.testcase)

@@ -4,8 +4,10 @@
 import logging
 import os
 import tempfile
+from contextlib import contextmanager
 
 from ffpuppet import FFPuppet, LaunchError
+from prefpicker import PrefPicker
 
 from ..bisect import Bisector
 
@@ -35,22 +37,42 @@ class BrowserEvaluator(object):
         self._extension = kwargs.get('ext', None)
         self._prefs = kwargs.get('prefs', None)
         self._memory = kwargs.get('memory', 0) * 1024 * 1024
+        self._env_vars = kwargs.get('env', None)
 
-    def verify_build(self, binary):
+    @contextmanager
+    def prefs(self):
+        """
+        Use prefpicker to generate default prefs file
+        :return: Path
+        """
+        if self._prefs is not None:
+            yield self._prefs
+        else:
+            template_path = None
+            for template in PrefPicker.templates():
+                if template.endswith('browser-fuzzing.yml'):
+                    template_path = template
+
+            if template_path is not None:
+                pick = PrefPicker.load_template(template)
+                with tempfile.NamedTemporaryFile(suffix='.js') as temp:
+                    pick.create_prefsjs(temp.name)
+                    yield temp.name
+            else:
+                yield None
+
+    def verify_build(self, binary, prefs=None):
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
         :return: Boolean
         """
-        _, test_path = tempfile.mkstemp(prefix='autobisect-dummy')
-        try:
-            with open(test_path, 'w') as f:
+        with tempfile.NamedTemporaryFile() as temp:
+            with open(temp.name, 'w') as f:
                 f.write('<html><script>window.close()</script></html>')
 
             log.info('> Verifying build...')
-            status = self.launch(binary, test_path)
-        finally:
-            os.remove(test_path)
+            status = self.launch(binary, temp.name, prefs)
 
         if status != Bisector.BUILD_PASSED:
             log.error('>> Build crashed!')
@@ -64,22 +86,23 @@ class BrowserEvaluator(object):
         :return: Result of evaluation
         """
         binary = os.path.join(build_path, 'firefox')
-        if os.path.isfile(binary) and self.verify_build(binary):
-            for _ in range(self.repeat):
-                log.info('> Launching build with testcase...')
-                result = self.launch(binary, self.testcase)
-                if result == Bisector.BUILD_CRASHED:
-                    break
+        result = Bisector.BUILD_FAILED
+        with self.prefs() as prefs_file:
+            if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
+                for _ in range(self.repeat):
+                    log.info('> Launching build with testcase...')
+                    result = self.launch(binary, self.testcase, prefs_file)
+                    if result == Bisector.BUILD_CRASHED:
+                        break
 
-            return result
+        return result
 
-        return Bisector.BUILD_FAILED
-
-    def launch(self, binary, testcase=None):
+    def launch(self, binary, testcase, prefs=None):
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param testcase: The path to the testcase
+        :param prefs: The path to the prefs file
         :return: The return code or None
         """
         ffp = FFPuppet(use_gdb=self._use_gdb, use_valgrind=self._use_valgrind, use_xvfb=self._use_xvfb)
@@ -91,10 +114,11 @@ class BrowserEvaluator(object):
         try:
             ffp.launch(
                 str(binary),
+                env_mod=self._env_vars,
                 location=testcase,
                 launch_timeout=self._launch_timeout,
                 memory_limit=self._memory,
-                prefs_js=self._prefs,
+                prefs_js=prefs,
                 extension=self._extension)
             ffp.wait(self._timeout)
 

@@ -73,7 +73,6 @@ class BisectionResult(object):
         self.message = message
 
 
-
 class Bisector(object):
     """
     Taskcluster Bisection Class

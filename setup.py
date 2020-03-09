@@ -39,6 +39,7 @@ if __name__ == '__main__':
             'ffpuppet',
             'fuzzfetch',
             'lithium-reducer',
+            'prefpicker',
             'requests',
         ],
         keywords='fuzz fuzzing security test testing bisection',

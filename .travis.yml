@@ -13,17 +13,8 @@ matrix:
   allow_failures:
     - python: "nightly"
 before_install:
-  - git clone https://github.com/MozillaSecurity/ffpuppet.git
-  - git clone https://github.com/MozillaSecurity/lithium.git
+  - travis_retry pip install poetry
 install:
-  # Already in venv, no need for --user
-  - travis_retry python -m pip install --upgrade setuptools pip
-  - travis_retry python -m pip --version
-  - travis_retry python -m pip install --upgrade ffpuppet/  # Needs the trailing slash to refer to the cloned directory
-  - travis_retry python -m pip install --upgrade lithium/  # Needs the trailing slash to refer to the cloned directory
-  - travis_retry python -m pip install --upgrade .[test]  # Installs python testing-related packages
-  # The current working dir has to be the current autobisect/ directory for this "-r" to work
-  - travis_retry python -m pip install --upgrade -r requirements.txt
-  - python -m flake8 --version
+  - travis_retry poetry install
 script:
   - python -m pytest autobisect/

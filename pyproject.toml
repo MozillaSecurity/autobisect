@@ -49,19 +49,3 @@ pytest-flake8 = "^1.0.4"
 
 [tool.poetry.scripts]
 autobisect = "autobisect.main:main"
-
-[tox]
-isolated_build = true
-envlist = py27, py36
-
-[travis]
-python =
-    3.6: lint, mypy, py36
-    3.7: lint, mypy, py37
-    3.8: lint, mypy, py38
-
-[testenv]
-whitelist_externals = poetry
-commands =
-    poetry install -v
-    poetry run pytest tests/

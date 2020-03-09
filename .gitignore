@@ -12,6 +12,11 @@
 .idea/
 
 # Linting via pytest
-/.cache/
-/.pytest_cache/
+.cache/
+.pytest_cache/
 
+# Tox
+.tox/
+
+# Build
+autobisect.egg-info/

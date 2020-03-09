@@ -10,7 +10,7 @@ import copy
 import logging
 from datetime import timedelta
 
-log = logging.getLogger('builds')
+log = logging.getLogger("builds")
 
 
 class BuildRange(object):
@@ -77,6 +77,6 @@ class BuildRange(object):
         end = end.replace(hour=0, minute=0, second=0, microsecond=0)
         delta = end - start
         for offset in range(delta.days + 1):
-            dates.append((start + timedelta(days=offset)).strftime('%Y-%m-%d'))
+            dates.append((start + timedelta(days=offset)).strftime("%Y-%m-%d"))
 
         return cls(dates)

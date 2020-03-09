@@ -11,7 +11,7 @@ from fuzzfetch import BuildFlags, Fetcher, FetcherException
 from .build_manager import BuildManager
 from .builds import BuildRange
 
-log = logging.getLogger('bisect')
+log = logging.getLogger("bisect")
 
 
 class BisectException(Exception):
@@ -24,6 +24,7 @@ class StatusException(BisectException):
     """
     Raised when an invalid status is supplied
     """
+
     pass
 
 
@@ -39,25 +40,27 @@ class VerificationStatus(Enum):
     @property
     def message(self):
         if self == self.SUCCESS:
-            return 'Verified supplied boundaries!'
+            return "Verified supplied boundaries!"
         elif self == self.START_BUILD_FAILED:
-            return 'Unable to launch the start build!'
+            return "Unable to launch the start build!"
         elif self == self.END_BUILD_FAILED:
-            return 'Unable to launch the end build!'
+            return "Unable to launch the end build!"
         elif self == self.START_BUILD_CRASHES:
-            return 'Start build crashes!'
+            return "Start build crashes!"
         elif self == self.END_BUILD_PASSES:
-            return 'End build does not crash!'
+            return "End build does not crash!"
         elif self == self.START_BUILD_CRASHES:
-            return 'Start build crashes!'
+            return "Start build crashes!"
         elif self == self.FIND_FIX_START_BUILD_PASSES:
             return "Start build didn't crash!"
         elif self == self.FIND_FIX_END_BUILD_CRASHES:
-            return 'End build crashes!'
+            return "End build crashes!"
 
 
 class BisectionResult(object):
-    BASE_URL = Template('https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end')
+    BASE_URL = Template(
+        "https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end"
+    )
 
     SUCCESS = 0
     FAILED = 1
@@ -68,7 +71,9 @@ class BisectionResult(object):
         self.end = end
         self.branch = branch
         if status == BisectionResult.SUCCESS:
-            self.pushlog = self.BASE_URL.substitute(branch=branch, start=start.changeset, end=end.changeset)
+            self.pushlog = self.BASE_URL.substitute(
+                branch=branch, start=start.changeset, end=end.changeset
+            )
 
         self.message = message
 
@@ -77,11 +82,23 @@ class Bisector(object):
     """
     Taskcluster Bisection Class
     """
+
     BUILD_CRASHED = 0
     BUILD_PASSED = 1
     BUILD_FAILED = 2
 
-    def __init__(self, evaluator, target, branch, start, end, flags, platform, find_fix=False, config=None):
+    def __init__(
+        self,
+        evaluator,
+        target,
+        branch,
+        start,
+        end,
+        flags,
+        platform,
+        find_fix=False,
+        config=None,
+    ):
         """
         Instantiate bisection object
         :param evaluator: Object instance used to evaluate testcase
@@ -96,17 +113,37 @@ class Bisector(object):
         """
         self.evaluator = evaluator
         self.target = target
-        self.branch = Fetcher.resolve_esr(branch) if branch.startswith('esr') else branch
+        self.branch = (
+            Fetcher.resolve_esr(branch) if branch.startswith("esr") else branch
+        )
         self.find_fix = find_fix
 
         self.build_flags = BuildFlags(*flags)
 
         # If no start date is supplied, default to oldest available build
-        start_id = start if start else (datetime.utcnow() - timedelta(days=364)).strftime('%Y-%m-%d')
-        end_id = end if end else 'latest'
+        start_id = (
+            start
+            if start
+            else (datetime.utcnow() - timedelta(days=364)).strftime("%Y-%m-%d")
+        )
+        end_id = end if end else "latest"
 
-        self.start = Fetcher(self.target, self.branch, start_id, self.build_flags, platform, Fetcher.BUILD_ORDER_ASC)
-        self.end = Fetcher(self.target, self.branch, end_id, self.build_flags, platform, Fetcher.BUILD_ORDER_DESC)
+        self.start = Fetcher(
+            self.target,
+            self.branch,
+            start_id,
+            self.build_flags,
+            platform,
+            Fetcher.BUILD_ORDER_ASC,
+        )
+        self.end = Fetcher(
+            self.target,
+            self.branch,
+            end_id,
+            self.build_flags,
+            platform,
+            Fetcher.BUILD_ORDER_DESC,
+        )
 
         self.build_manager = BuildManager(config)
 
@@ -116,42 +153,59 @@ class Bisector(object):
 
         :return: BisectionResult
         """
-        log.info('Begin bisection...')
-        log.info('> Start: %s (%s)', self.start.changeset, self.start.build_id)
-        log.info('> End: %s (%s)', self.end.changeset, self.end.build_id)
+        log.info("Begin bisection...")
+        log.info("> Start: %s (%s)", self.start.changeset, self.start.build_id)
+        log.info("> End: %s (%s)", self.end.changeset, self.end.build_id)
 
         verified = self.verify_bounds()
         if verified == VerificationStatus.SUCCESS:
             log.info(verified.message)
         else:
             log.critical(verified.message)
-            return BisectionResult(BisectionResult.FAILED, self.start, self.end, self.branch, verified.message)
+            return BisectionResult(
+                BisectionResult.FAILED,
+                self.start,
+                self.end,
+                self.branch,
+                verified.message,
+            )
 
         # Initially reduce use 1 build per day for the entire build range
-        log.info('Attempting to reduce bisection range using taskcluster binaries')
+        log.info("Attempting to reduce bisection range using taskcluster binaries")
         build_range = BuildRange.new(
             self.start.build_datetime + timedelta(days=1),
-            self.end.build_datetime - timedelta(days=1))
+            self.end.build_datetime - timedelta(days=1),
+        )
 
         while build_range:
             next_date = build_range.mid_point
             i = build_range.index(next_date)
 
             try:
-                next_build = Fetcher(self.target, self.branch, next_date, self.build_flags)
+                next_build = Fetcher(
+                    self.target, self.branch, next_date, self.build_flags
+                )
             except FetcherException:
-                log.warning('Unable to find build for %s', next_date)
+                log.warning("Unable to find build for %s", next_date)
                 build_range.builds.pop(i)
             else:
                 status = self.test_build(next_build)
-                build_range = self.update_build_range(next_build, i, status, build_range)
+                build_range = self.update_build_range(
+                    next_build, i, status, build_range
+                )
 
         # Further reduce using all available builds associated with the start and end boundaries
         builds = []
         for dt in [self.start.build_datetime, self.end.build_datetime]:
-            for build in Fetcher.iterall(self.target, self.branch, dt.strftime('%Y-%m-%d'), self.build_flags):
+            for build in Fetcher.iterall(
+                self.target, self.branch, dt.strftime("%Y-%m-%d"), self.build_flags
+            ):
                 # Only keep builds after the start and before the end boundaries
-                if self.end.build_datetime > build.build_datetime > self.start.build_datetime:
+                if (
+                    self.end.build_datetime
+                    > build.build_datetime
+                    > self.start.build_datetime
+                ):
                     builds.append(build)
 
         build_range = BuildRange(sorted(builds, key=lambda x: x.build_datetime))
@@ -161,7 +215,9 @@ class Bisector(object):
             status = self.test_build(next_build)
             build_range = self.update_build_range(next_build, i, status, build_range)
 
-        return BisectionResult(BisectionResult.SUCCESS, self.start, self.end, self.branch)
+        return BisectionResult(
+            BisectionResult.SUCCESS, self.start, self.end, self.branch
+        )
 
     def update_build_range(self, build, index, status, build_range):
         """
@@ -175,7 +231,7 @@ class Bisector(object):
         if status == self.BUILD_PASSED:
             if not self.find_fix:
                 self.start = build
-                return build_range[index + 1:]
+                return build_range[index + 1 :]
 
             self.end = build
             return build_range[:index]
@@ -185,12 +241,12 @@ class Bisector(object):
                 return build_range[:index]
 
             self.start = build
-            return build_range[index + 1:]
+            return build_range[index + 1 :]
         elif status == self.BUILD_FAILED:
             build_range.builds.pop(index)
             return build_range
         else:
-            raise StatusException('Invalid status supplied')
+            raise StatusException("Invalid status supplied")
 
     def test_build(self, build):
         """
@@ -198,7 +254,7 @@ class Bisector(object):
         :param build: An Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
-        log.info('Testing build %s (%s)', build.changeset, build.build_id)
+        log.info("Testing build %s (%s)", build.changeset, build.build_id)
         # If persistence is enabled and a build exists, use it
         with self.build_manager.get_build(build) as build_path:
             return self.evaluator.evaluate_testcase(build_path)
@@ -208,7 +264,7 @@ class Bisector(object):
         Verify that the supplied bounds behave as expected
         :return: Boolean
         """
-        log.info('Attempting to verify boundaries...')
+        log.info("Attempting to verify boundaries...")
         status = self.test_build(self.start)
         if status == self.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED

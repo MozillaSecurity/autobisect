@@ -259,8 +259,7 @@ pyyaml = "*"
 [package.source]
 reference = "423031c070d24180a449967b42e0b6a9fc1ac304"
 type = "git"
-url = "git@github.com:MozillaSecurity/prefpicker.git"
-
+url = "https://github.com/MozillaSecurity/prefpicker.git"
 [[package]]
 category = "main"
 description = "Cross-platform lib for process and system monitoring in Python."
@@ -449,7 +448,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "4cfa572134bab441e21f49b1758dbf8db2328858d0653ba3d62bb261152a8cd8"
+content-hash = "44c01fc7674464b1172b5e4d77e9edd15654d42080dff1a52f13c04169964cec"
 python-versions = "^3.6"
 
 [metadata.files]

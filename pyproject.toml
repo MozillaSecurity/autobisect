@@ -37,7 +37,7 @@ toml = "^0.9"
 ffpuppet = "^0.7.0"
 fuzzfetch = "^0.9.5"
 lithium-reducer = "^0.3.3"
-prefpicker = {git = "git@github.com:MozillaSecurity/prefpicker.git"}
+prefpicker = {git = "https://github.com/MozillaSecurity/prefpicker.git"}
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"

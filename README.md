@@ -84,8 +84,13 @@ persist-limit: 30000
 
 Development
 -----------
-This repository uses [black](https://github.com/psf/black) and [flake8](https://flake8.pycqa.org/en/latest/) pre-commit hooks.  Before committing, make sure you run the following to install the hook.
+Autobisect includes a pre-commit hook for [black](https://github.com/psf/black) and [flake8](https://flake8.pycqa.org/en/latest/).  To install the pre-commit hook, run the following.  
 ```bash
 pre-commit install
+```
+
+Furthermore, all tests should be executed via tox
+```bash
+poetry run tox
 ```
 

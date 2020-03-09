@@ -13,8 +13,8 @@ matrix:
   allow_failures:
     - python: "nightly"
 before_install:
-  - travis_retry pip install poetry
+  - pip install poetry
 install:
-  - travis_retry poetry install
+  - poetry install
 script:
   - python -m pytest autobisect/

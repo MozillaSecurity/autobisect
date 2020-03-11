@@ -113,7 +113,6 @@ class JSEvaluator(object):
         :return: Result of evaluation
         """
         binary = os.path.join(build_path, "dist", "bin", "js")
-        common_args = ["-t", "%s" % self.timeout, binary]
 
         flags = self.flags
         if self.flags is not None:
@@ -122,13 +121,11 @@ class JSEvaluator(object):
             if all_flags:
                 flags = [flag for flag in self.flags if flag in all_flags]
 
-        if flags is not None:
-            common_args.extend(flags)
-
-        # These args are global to all detect types
-        common_args.append(self.testcase)
-
         if self.verify_build(binary, flags):
+            common_args = ["-t", "%s" % self.timeout, binary, self.testcase]
+            if flags is not None:
+                common_args.extend(flags)
+
             for _ in range(self.repeat):
                 log.info("> Launching build with testcase...")
                 if self.detect == "diff":
@@ -136,7 +133,7 @@ class JSEvaluator(object):
                     if interestingness.diff_test.interesting(args, None):
                         return Bisector.BUILD_CRASHED
                 elif self.detect == "output":
-                    args = [self._match, self.testcase] + common_args
+                    args = [self._match] + common_args
                     if interestingness.outputs.interesting(args, None):
                         return Bisector.BUILD_CRASHED
                 elif self.detect == "crash":

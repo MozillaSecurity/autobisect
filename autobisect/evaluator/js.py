@@ -32,26 +32,6 @@ def _get_rev(binary):
                     return line.split("-")[1].strip()
 
 
-def get_valid_flags(rev):
-    """
-    Extract list of runtime flags available to the current build
-    :param rev:
-    """
-    flags = []
-
-    try:
-        data = HTTP_SESSION.get(FLAGS_URL.substitute(rev=rev), stream=True)
-        data.raise_for_status()
-        for line in data.text.split("\n"):
-            flag = line.strip()
-            if flag and not flag.startswith("#"):
-                flags.append(flag)
-    except requests.exceptions.RequestException as e:
-        log.warn("Failed to retrieve build flags", e)
-
-    return flags
-
-
 class JSEvaluatorException(Exception):
     """
     Raised for any JSEvaluator exception
@@ -89,6 +69,26 @@ class JSEvaluator(object):
             self._match = kwargs.get("match")
             self._regex = kwargs.get("regex")
 
+    @staticmethod
+    def get_valid_flags(rev):
+        """
+        Extract list of runtime flags available to the current build
+        :param rev:
+        """
+        flags = []
+
+        try:
+            data = HTTP_SESSION.get(FLAGS_URL.substitute(rev=rev), stream=True)
+            data.raise_for_status()
+            for line in data.text.split("\n"):
+                flag = line.strip()
+                if flag and not flag.startswith("#"):
+                    flags.append(flag)
+        except requests.exceptions.RequestException as e:
+            log.warn("Failed to retrieve build flags", e)
+
+        return flags
+
     def verify_build(self, binary, flags=None):
         """
         Verify that build doesn't crash on start
@@ -118,7 +118,7 @@ class JSEvaluator(object):
         flags = self.flags
         if self.flags is not None:
             rev = _get_rev(binary)
-            all_flags = get_valid_flags(rev)
+            all_flags = JSEvaluator.get_valid_flags(rev)
             if all_flags:
                 flags = [flag for flag in self.flags if flag in all_flags]
 

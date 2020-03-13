@@ -107,11 +107,12 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
+        target = "js" if build._memo._target == "js" else "ff"
         branch = "m-%s" % build._branch[0]
         platform = build._platform.system
         flags = build._flags.build_string()
         rev = build.changeset[:12]
-        build_name = "%s-%s%s-%s" % (branch, platform, flags, rev)
+        build_name = "%s-%s-%s%s-%s" % (target, branch, platform, flags, rev)
         target_path = self.build_dir / build_name.lower()
         path_string = os.fspath(target_path)
 

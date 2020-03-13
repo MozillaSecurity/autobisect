@@ -3,6 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import logging
 import os
+import re
 from string import Template
 
 import requests
@@ -15,7 +16,7 @@ log = logging.getLogger("js-eval")
 HTTP_SESSION = requests.Session()
 
 FLAGS_URL = Template(
-    "https://hg.mozilla.org/mozilla-unified/raw-file/$rev/js/src/shell/fuzz-flags.txt"
+    "https://hg.mozilla.org/mozilla-unified/raw-file/$rev/js/src/shell/js.cpp"
 )
 
 
@@ -75,21 +76,20 @@ class JSEvaluator(object):
         Extract list of runtime flags available to the current build
         :param rev:
         """
+        # Fuzzing safe is always included but not in the same format as the rest
         flags = []
 
         try:
             data = HTTP_SESSION.get(FLAGS_URL.substitute(rev=rev), stream=True)
             data.raise_for_status()
-            for line in data.text.split("\n"):
-                flag = line.strip()
-                if flag and not flag.startswith("#"):
-                    flags.append(flag)
+            matches = re.findall(r"(?:get\w+Option)\(\"(.[^\"]*)", data.text)
+            flags.extend(list(set(matches)))
         except requests.exceptions.RequestException as e:
             log.warn("Failed to retrieve build flags", e)
 
         return flags
 
-    def verify_build(self, binary, flags=None):
+    def verify_build(self, binary, flags):
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
@@ -97,9 +97,7 @@ class JSEvaluator(object):
         :return: Boolean
         """
         log.info("> Verifying build...")
-        args = [binary, "-e", '"quit()"']
-        if flags is not None:
-            args.extend(flags)
+        args = [binary, *flags, "-e", '"quit()"']
         run_data = interestingness.timed_run.timed_run(args, self.timeout, None)
         if run_data.sta is not interestingness.timed_run.NORMAL:
             log.error(">> Build crashed!")
@@ -113,18 +111,15 @@ class JSEvaluator(object):
         :return: Result of evaluation
         """
         binary = os.path.join(build_path, "dist", "bin", "js")
-
-        flags = self.flags
-        if self.flags is not None:
-            rev = _get_rev(binary)
-            all_flags = JSEvaluator.get_valid_flags(rev)
-            if all_flags:
-                flags = [flag for flag in self.flags if flag in all_flags]
+        rev = _get_rev(binary)
+        all_flags = self.get_valid_flags(rev)
+        flags = []
+        for flag in self.flags:
+            if flag.lstrip("--").split("=")[0] in all_flags:
+                flags.append(flag)
 
         if self.verify_build(binary, flags):
-            common_args = ["-t", "%s" % self.timeout, binary, self.testcase]
-            if flags is not None:
-                common_args.extend(flags)
+            common_args = ["-t", "%s" % self.timeout, binary, *flags, self.testcase]
 
             for _ in range(self.repeat):
                 log.info("> Launching build with testcase...")

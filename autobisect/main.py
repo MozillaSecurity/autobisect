@@ -163,32 +163,12 @@ def _parse_args(argv=None):
     )
     ffp_args = firefox_sub.add_argument_group("launcher arguments")
     ffp_args.add_argument(
-        "--asserts", action="store_true", help="Detect soft assertions"
-    )
-    ffp_args.add_argument(
-        "--detect",
-        choices=["crash", "memory", "log", "timeout"],
-        default="crash",
-        help="Type of failure to detect (default: %(default)s)",
-    )
-    ffp_args.add_argument(
         "--launch-timeout",
         type=int,
         default=300,
         help="Maximum launch time in seconds (default: %(default)s)",
     )
-    ffp_args.add_argument("--ext", action=ExpandPath, help="Path to fuzzPriv extension")
     ffp_args.add_argument("--prefs", action=ExpandPath, help="Path to preference file")
-    ffp_args.add_argument(
-        "--memory",
-        type=int,
-        default=0,
-        help="Process memory limit in MBs (default: no limit)",
-    )
-    ffp_args.add_argument(
-        "--log-limit", type=int, help="Log file size limit in MBs (default: no limit)"
-    )
-    ffp_args.add_argument("--gdb", action="store_true", help="Use GDB")
     ffp_args.add_argument("--xvfb", action="store_true", help="Use xvfb (Linux only)")
 
     js_sub = subparsers.add_parser(
@@ -233,12 +213,7 @@ def _parse_args(argv=None):
     if args.timeout <= 0:
         parser.error("Invalid timeout value supplied")
 
-    if args.target == "firefox":
-        if args.detect == "log" and args.log_limit is None:
-            parser.error("Detect mode set to log-limit but no limit set!")
-        if args.detect == "memory" and args.memory is None:
-            parser.error("Detect mode set to log-limit but no limit set!")
-    elif args.target == "js":
+    if args.target == "js":
         if args.detect == "diff":
             if not args.arg_1 or not args.args_2:
                 parser.error("Detect mode set to diff but no arguments supplied!")

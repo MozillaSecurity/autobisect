@@ -25,10 +25,10 @@ def _get_rev(binary):
     Return either the revision specified in the fuzzmanagerconf
     :param binary: Path to build
     """
-    path = f"{os.path.splitext(binary)[0]}.fuzzmanagerconf"
+    path = "%s.fuzzmanagerconf" % (os.path.splitext(binary)[0],)
     if os.path.isfile(path):
-        with open(path) as file:
-            for line in file.readlines():
+        with open(path) as in_fp:
+            for line in in_fp:
                 if line.startswith("product_version"):
                     return line.split("-")[1].strip()
 

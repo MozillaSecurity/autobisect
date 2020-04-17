@@ -3,7 +3,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import configparser
 import logging
-import os
 from pathlib import Path
 
 log = logging.getLogger("browser-bisect")
@@ -37,8 +36,7 @@ class BisectionConfig(object):
 
         if not config_file:
             config_file = self.create_default_config()
-
-        if not Path.is_file(Path(config_file)):
+        elif not Path(config_file).is_file():
             raise IOError("Invalid configuration file specified")
 
         config_obj = configparser.ConfigParser()
@@ -64,10 +62,9 @@ class BisectionConfig(object):
         :return: A path to the newly created configuration file
         :rtype: str
         """
-        if not Path.is_dir(CONFIG_DIR):
-            os.makedirs(CONFIG_DIR)
-        if not Path.is_file(CONFIG_FILE):
-            with open(CONFIG_FILE, "w") as f:
-                f.write(DEFAULT_CONFIG)
+        if not CONFIG_DIR.is_dir():
+            CONFIG_DIR.mkdir(parents=True)
+        if not CONFIG_FILE.is_file():
+            CONFIG_FILE.write_text(DEFAULT_CONFIG)
 
-        return CONFIG_FILE
+        return str(CONFIG_FILE)

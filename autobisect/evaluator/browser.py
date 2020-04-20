@@ -136,8 +136,8 @@ class BrowserEvaluator(object):
 
             if success:
                 return Bisector.BUILD_CRASHED
-            else:
-                return Bisector.BUILD_PASSED
+
+            return Bisector.BUILD_PASSED
 
         except (TargetLaunchError, TargetLaunchTimeout):
             return Bisector.BUILD_FAILED

@@ -69,6 +69,7 @@ class BrowserEvaluator(object):
         """
         with tempfile.NamedTemporaryFile(suffix=".html", mode="w") as temp:
             temp.write("<html><script>window.close()</script></html>")
+            temp.flush()
             log.info("> Verifying build...")
             status = self.launch(binary, temp.name, prefs)
 

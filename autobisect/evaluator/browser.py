@@ -53,7 +53,7 @@ class BrowserEvaluator(object):
                     template_path = template
 
             if template_path is not None:
-                pick = PrefPicker.load_template(template)
+                pick = PrefPicker.load_template(template_path)
                 with tempfile.NamedTemporaryFile(suffix=".js") as temp:
                     pick.create_prefsjs(temp.name)
                     yield temp.name

@@ -77,8 +77,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase) == Bisector.BUILD_CRASHED
-    assert browser.launch(binary, testcase) == Bisector.BUILD_PASSED
+    assert browser.launch(binary, testcase, prefs=None) == Bisector.BUILD_CRASHED
+    assert browser.launch(binary, testcase, prefs=None) == Bisector.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(mocker, tmp_path):
@@ -94,4 +94,4 @@ def test_launch_non_existent_binary(mocker, tmp_path):
     browser = BrowserEvaluator(testcase)
 
     with pytest.raises(AssertionError):
-        browser.launch(binary, testcase)
+        browser.launch(binary, testcase, prefs=None)

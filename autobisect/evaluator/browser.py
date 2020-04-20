@@ -90,21 +90,22 @@ class BrowserEvaluator(object):
         with self.prefs() as prefs_file:
             if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
                 log.info("> Launching build with testcase...")
-                result = self.launch(binary, self.testcase, prefs_file)
+                result = self.launch(binary, self.testcase, prefs_file, scan_dir=True)
 
         return result
 
-    def launch(self, binary, test_path, prefs=None):
+    def launch(self, binary, test_path, prefs, scan_dir=False):
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param test_path: The path to the testcase
         :param prefs: The path to the prefs file
+        :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
         """
         replay = None
         target = None
-        testcase = TestCase.load_path(test_path)
+        testcase = TestCase.load_path(test_path, scan_dir)
         if self._env_vars:
             for key, value in self._env_vars:
                 testcase.add_environ_var(key, value)

@@ -67,10 +67,8 @@ class BrowserEvaluator(object):
         :param prefs: The path to the prefs file
         :return: Boolean
         """
-        with tempfile.NamedTemporaryFile(suffix=".html") as temp:
-            with open(temp.name, "w") as f:
-                f.write("<html><script>window.close()</script></html>")
-
+        with tempfile.NamedTemporaryFile(suffix=".html", mode="w") as temp:
+            temp.write("<html><script>window.close()</script></html>")
             log.info("> Verifying build...")
             status = self.launch(binary, temp.name, prefs)
 

@@ -38,8 +38,6 @@ class JSEvaluatorException(Exception):
     Raised for any JSEvaluator exception
     """
 
-    pass
-
 
 class JSEvaluator(object):
     """

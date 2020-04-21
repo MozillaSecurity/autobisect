@@ -25,8 +25,6 @@ class StatusException(BisectException):
     Raised when an invalid status is supplied
     """
 
-    pass
-
 
 class VerificationStatus(Enum):
     SUCCESS = 0

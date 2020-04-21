@@ -30,7 +30,7 @@ class BuildRange(object):
         return len(self._builds)
 
     def __getitem__(self, expr):
-        if type(expr) is slice:
+        if isinstance(expr, slice):
             new_range = copy.copy(self)
             new_range._builds = self._builds[expr]
             return new_range

@@ -55,14 +55,3 @@ tox = "^3.14.5"
 
 [tool.poetry.scripts]
 autobisect = "autobisect.main:main"
-
-[tool.black]
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.tox
-  | build
-  | dist
-)/
-'''

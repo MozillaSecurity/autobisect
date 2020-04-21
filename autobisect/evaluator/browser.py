@@ -77,7 +77,7 @@ class BrowserEvaluator(object):
             log.error(">> Build crashed!")
             return False
 
-        log.error(">> Build verified!")
+        log.info(">> Build verified!")
         return True
 
     def evaluate_testcase(self, build_path):

@@ -10,7 +10,7 @@ import copy
 import logging
 from datetime import timedelta
 
-log = logging.getLogger("builds")
+LOG = logging.getLogger("builds")
 
 
 class BuildRange(object):

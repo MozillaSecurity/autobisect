@@ -11,7 +11,7 @@ from fuzzfetch import BuildFlags, Fetcher, FetcherException
 from .build_manager import BuildManager
 from .builds import BuildRange
 
-log = logging.getLogger("bisect")
+LOG = logging.getLogger("bisect")
 
 
 class BisectException(Exception):
@@ -153,15 +153,15 @@ class Bisector(object):
 
         :return: BisectionResult
         """
-        log.info("Begin bisection...")
-        log.info("> Start: %s (%s)", self.start.changeset, self.start.build_id)
-        log.info("> End: %s (%s)", self.end.changeset, self.end.build_id)
+        LOG.info("Begin bisection...")
+        LOG.info("> Start: %s (%s)", self.start.changeset, self.start.build_id)
+        LOG.info("> End: %s (%s)", self.end.changeset, self.end.build_id)
 
         verified = self.verify_bounds()
         if verified == VerificationStatus.SUCCESS:
-            log.info(verified.message)
+            LOG.info(verified.message)
         else:
-            log.critical(verified.message)
+            LOG.critical(verified.message)
             return BisectionResult(
                 BisectionResult.FAILED,
                 self.start,
@@ -171,7 +171,7 @@ class Bisector(object):
             )
 
         # Initially reduce use 1 build per day for the entire build range
-        log.info("Attempting to reduce bisection range using taskcluster binaries")
+        LOG.info("Attempting to reduce bisection range using taskcluster binaries")
         build_range = BuildRange.new(
             self.start.build_datetime + timedelta(days=1),
             self.end.build_datetime - timedelta(days=1),
@@ -186,7 +186,7 @@ class Bisector(object):
                     self.target, self.branch, next_date, self.build_flags
                 )
             except FetcherException:
-                log.warning("Unable to find build for %s", next_date)
+                LOG.warning("Unable to find build for %s", next_date)
                 build_range.builds.pop(i)
             else:
                 status = self.test_build(next_build)
@@ -254,7 +254,7 @@ class Bisector(object):
         :param build: An Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
-        log.info("Testing build %s (%s)", build.changeset, build.build_id)
+        LOG.info("Testing build %s (%s)", build.changeset, build.build_id)
         # If persistence is enabled and a build exists, use it
         with self.build_manager.get_build(build) as build_path:
             return self.evaluator.evaluate_testcase(build_path)
@@ -264,7 +264,7 @@ class Bisector(object):
         Verify that the supplied bounds behave as expected
         :return: Boolean
         """
-        log.info("Attempting to verify boundaries...")
+        LOG.info("Attempting to verify boundaries...")
         status = self.test_build(self.start)
         if status == self.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED

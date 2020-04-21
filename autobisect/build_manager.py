@@ -11,7 +11,7 @@ from pathlib import Path
 
 from .config import BisectionConfig
 
-log = logging.getLogger("build-manager")
+LOG = logging.getLogger("build-manager")
 
 
 class DatabaseManager(object):
@@ -95,7 +95,7 @@ class BuildManager(object):
                     (build_path, build_path),
                 )
                 if res.fetchone() is None:
-                    log.debug("Removing build: %s", build_path)
+                    LOG.debug("Removing build: %s", build_path)
                     shutil.rmtree(build_path)
                 self.db.con.commit()
 
@@ -136,7 +136,7 @@ class BuildManager(object):
                     self.remove_old_builds()
                     build.extract_build(target_path)
             except sqlite3.IntegrityError:
-                log.warn("Another process is attempting to download the build. Waiting")
+                LOG.warn("Another process is attempting to download the build. Waiting")
                 while True:
                     res = self.db.cur.execute(
                         "SELECT * FROM download_queue WHERE build_path = ?",

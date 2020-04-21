@@ -14,7 +14,7 @@ from sapphire import Sapphire
 
 from ..bisect import Bisector
 
-log = logging.getLogger("browser-eval")
+LOG = logging.getLogger("browser-eval")
 
 
 class BrowserEvaluator(object):
@@ -70,14 +70,14 @@ class BrowserEvaluator(object):
         with tempfile.NamedTemporaryFile(suffix=".html", mode="w") as temp:
             temp.write("<html><script>window.close()</script></html>")
             temp.flush()
-            log.info("> Verifying build...")
+            LOG.info("> Verifying build...")
             status = self.launch(binary, temp.name, prefs)
 
         if status != Bisector.BUILD_PASSED:
-            log.error(">> Build crashed!")
+            LOG.error(">> Build crashed!")
             return False
 
-        log.info(">> Build verified!")
+        LOG.info(">> Build verified!")
         return True
 
     def evaluate_testcase(self, build_path):
@@ -89,7 +89,7 @@ class BrowserEvaluator(object):
         result = Bisector.BUILD_FAILED
         with self.prefs() as prefs_file:
             if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
-                log.info("> Launching build with testcase...")
+                LOG.info("> Launching build with testcase...")
                 result = self.launch(binary, self.testcase, prefs_file, scan_dir=True)
 
         return result

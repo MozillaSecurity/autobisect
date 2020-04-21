@@ -11,7 +11,7 @@ from lithium import interestingness
 
 from ..bisect import Bisector
 
-log = logging.getLogger("js-eval")
+LOG = logging.getLogger("js-eval")
 
 HTTP_SESSION = requests.Session()
 
@@ -85,7 +85,7 @@ class JSEvaluator(object):
             matches = re.findall(r"(?:get\w+Option)\(\"(.[^\"]*)", data.text)
             flags.extend(list(set(matches)))
         except requests.exceptions.RequestException as e:
-            log.warn("Failed to retrieve build flags", e)
+            LOG.warn("Failed to retrieve build flags", e)
 
         return flags
 
@@ -96,11 +96,11 @@ class JSEvaluator(object):
         :param flags: Runtime flags
         :return: Boolean
         """
-        log.info("> Verifying build...")
+        LOG.info("> Verifying build...")
         args = [binary, *flags, "-e", '"quit()"']
         run_data = interestingness.timed_run.timed_run(args, self.timeout, None)
         if run_data.sta is not interestingness.timed_run.NORMAL:
-            log.error(">> Build crashed!")
+            LOG.error(">> Build crashed!")
             return False
 
         return True
@@ -122,7 +122,7 @@ class JSEvaluator(object):
             common_args = ["-t", "%s" % self.timeout, binary, *flags, self.testcase]
 
             for _ in range(self.repeat):
-                log.info("> Launching build with testcase...")
+                LOG.info("> Launching build with testcase...")
                 if self.detect == "diff":
                     args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
                     if interestingness.diff_test.interesting(args, None):

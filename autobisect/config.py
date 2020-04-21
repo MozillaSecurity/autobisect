@@ -5,7 +5,7 @@ import configparser
 import logging
 from pathlib import Path
 
-log = logging.getLogger("browser-bisect")
+LOG = logging.getLogger("browser-bisect")
 
 CONFIG_DIR = Path.home() / ".autobisect"
 CONFIG_FILE = CONFIG_DIR / "autobisect.ini"
@@ -50,7 +50,7 @@ class BisectionConfig(object):
             self.persist_limit = persist_limit if self.persist else 0
             self.store_path = Path(config_obj.get("autobisect", "storage-path"))
         except (configparser.NoOptionError, configparser.NoSectionError) as e:
-            log.critical("Unable to parse configuration file: %s", e.message)
+            LOG.critical("Unable to parse configuration file: %s", e.message)
             raise
 
         self.db_path = self.store_path / "autobisect.db"

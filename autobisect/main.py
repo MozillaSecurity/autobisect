@@ -17,7 +17,7 @@ from .bisect import BisectionResult, Bisector
 from .evaluator.browser import BrowserEvaluator
 from .evaluator.js import JSEvaluator
 
-log = logging.getLogger("autobisect")
+LOG = logging.getLogger("autobisect")
 
 
 class ExpandPath(argparse.Action):
@@ -271,12 +271,12 @@ def main(argv=None):
     result = bisector.bisect()
     end_time = time.time()
     if result.status == BisectionResult.SUCCESS:
-        log.info("Reduced build range to:")
-        log.info("> Start: %s (%s)", result.start.changeset, result.start.build_id)
-        log.info("> End: %s (%s)", result.end.changeset, result.end.build_id)
-        log.info("> %s", result.pushlog)
+        LOG.info("Reduced build range to:")
+        LOG.info("> Start: %s (%s)", result.start.changeset, result.start.build_id)
+        LOG.info("> End: %s (%s)", result.end.changeset, result.end.build_id)
+        LOG.info("> %s", result.pushlog)
     else:
-        log.error("Bisection failed!")
+        LOG.error("Bisection failed!")
 
     elapsed = timedelta(seconds=(int(end_time - start_time)))
-    log.info("Bisection completed in: %s" % elapsed)
+    LOG.info("Bisection completed in: %s" % elapsed)

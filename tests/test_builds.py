@@ -27,7 +27,7 @@ def test_build_range_build_access_by_index():
     Simple test to ensure build_range's __getitem__ returns the builds build_info property
     """
     info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(lambda k: MockBuild(k), info_keys))
+    builds = list(map(MockBuild, info_keys))
     build_range = BuildRange(builds)
     indices = list(range(len(build_range)))
     for index, key in zip(indices, info_keys):
@@ -39,7 +39,7 @@ def test_build_range_splice():
     Test splicing of BuildRange
     """
     info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(lambda k: MockBuild(k), info_keys))
+    builds = list(map(MockBuild, info_keys))
     build_range = BuildRange(builds)
     copy = build_range[:2]
     assert len(copy) == 2
@@ -61,7 +61,7 @@ def test_build_range_indexing():
     Test to ensure proper index is returned
     """
     info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(lambda k: MockBuild(k), info_keys))
+    builds = list(map(MockBuild, info_keys))
     build_range = BuildRange(builds)
     for k1, k2 in zip(build_range, info_keys):
         assert k1 == k2

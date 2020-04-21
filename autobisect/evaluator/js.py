@@ -83,7 +83,7 @@ class JSEvaluator(object):
             matches = re.findall(r"(?:get\w+Option)\(\"(.[^\"]*)", data.text)
             flags.extend(list(set(matches)))
         except requests.exceptions.RequestException as e:
-            LOG.warn("Failed to retrieve build flags", e)
+            LOG.warning("Failed to retrieve build flags %s", e)
 
         return flags
 

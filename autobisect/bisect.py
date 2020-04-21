@@ -27,6 +27,10 @@ class StatusException(BisectException):
 
 
 class VerificationStatus(Enum):
+    """
+    Class for storing build verification result
+    """
+
     SUCCESS = 0
     START_BUILD_FAILED = 1
     END_BUILD_FAILED = 2
@@ -37,6 +41,9 @@ class VerificationStatus(Enum):
 
     @property
     def message(self):
+        """
+        Return message matching explaining current status
+        """
         if self == self.SUCCESS:
             return "Verified supplied boundaries!"
         elif self == self.START_BUILD_FAILED:
@@ -56,6 +63,10 @@ class VerificationStatus(Enum):
 
 
 class BisectionResult(object):
+    """
+    Class for storing bisection result
+    """
+
     BASE_URL = Template(
         "https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end"
     )

@@ -29,7 +29,8 @@ class BisectionConfig(object):
 
     def __init__(self, config_file=None):
         """
-        Initializes the object using either the specified config_file or creates a new database using default values
+        Initializes the object using either the specified config_file or creates a new
+        database using default values
         :param config_file: A path to custom configuration file
         :type config_file: str
         """

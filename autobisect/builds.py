@@ -34,8 +34,8 @@ class BuildRange(object):
             new_range = copy.copy(self)
             new_range._builds = self._builds[expr]
             return new_range
-        else:
-            return self._builds[expr].build_info
+
+        return self._builds[expr].build_info
 
     @property
     def builds(self):

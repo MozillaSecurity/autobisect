@@ -44,22 +44,25 @@ class VerificationStatus(Enum):
         """
         Return message matching explaining current status
         """
+        result = None
         if self == self.SUCCESS:
-            return "Verified supplied boundaries!"
+            result = "Verified supplied boundaries!"
         elif self == self.START_BUILD_FAILED:
-            return "Unable to launch the start build!"
+            result = "Unable to launch the start build!"
         elif self == self.END_BUILD_FAILED:
-            return "Unable to launch the end build!"
+            result = "Unable to launch the end build!"
         elif self == self.START_BUILD_CRASHES:
-            return "Start build crashes!"
+            result = "Start build crashes!"
         elif self == self.END_BUILD_PASSES:
-            return "End build does not crash!"
+            result = "End build does not crash!"
         elif self == self.START_BUILD_CRASHES:
-            return "Start build crashes!"
+            result = "Start build crashes!"
         elif self == self.FIND_FIX_START_BUILD_PASSES:
-            return "Start build didn't crash!"
+            result = "Start build didn't crash!"
         elif self == self.FIND_FIX_END_BUILD_CRASHES:
-            return "End build crashes!"
+            result = "End build crashes!"
+
+        return result
 
 
 class BisectionResult(object):
@@ -244,18 +247,18 @@ class Bisector(object):
 
             self.end = build
             return build_range[:index]
-        elif status == self.BUILD_CRASHED:
+        if status == self.BUILD_CRASHED:
             if not self.find_fix:
                 self.end = build
                 return build_range[:index]
 
             self.start = build
             return build_range[index + 1 :]
-        elif status == self.BUILD_FAILED:
+        if status == self.BUILD_FAILED:
             build_range.builds.pop(index)
             return build_range
-        else:
-            raise StatusException("Invalid status supplied")
+
+        raise StatusException("Invalid status supplied")
 
     def test_build(self, build):
         """
@@ -277,17 +280,17 @@ class Bisector(object):
         status = self.test_build(self.start)
         if status == self.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED
-        elif status == self.BUILD_CRASHED and not self.find_fix:
+        if status == self.BUILD_CRASHED and not self.find_fix:
             return VerificationStatus.START_BUILD_CRASHES
-        elif status != self.BUILD_CRASHED and self.find_fix:
+        if status != self.BUILD_CRASHED and self.find_fix:
             return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
         status = self.test_build(self.end)
         if status == self.BUILD_FAILED:
             return VerificationStatus.END_BUILD_FAILED
-        elif status == self.BUILD_PASSED and not self.find_fix:
+        if status == self.BUILD_PASSED and not self.find_fix:
             return VerificationStatus.END_BUILD_PASSES
-        elif status == self.BUILD_CRASHED and self.find_fix:
+        if status == self.BUILD_CRASHED and self.find_fix:
             return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
 
         return VerificationStatus.SUCCESS

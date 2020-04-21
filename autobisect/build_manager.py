@@ -144,8 +144,8 @@ class BuildManager(object):
                     )
                     if res.fetchone() is None:
                         break
-                    else:
-                        time.sleep(0.1)
+
+                    time.sleep(0.1)
             finally:
                 self.db.cur.execute(
                     "DELETE FROM download_queue WHERE build_path = ? AND pid = ?",

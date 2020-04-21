@@ -5,6 +5,10 @@ from autobisect.builds import BuildRange
 
 
 class MockBuild(object):
+    """
+    Class used for mocking builds
+    """
+
     def __init__(self, build_info=None):
         self.build_info = build_info
 
@@ -31,6 +35,9 @@ def test_build_range_build_access_by_index():
 
 
 def test_build_range_splice():
+    """
+    Test splicing of BuildRange
+    """
     info_keys = ["abc", "zyx", "foo", "bar"]
     builds = list(map(lambda k: MockBuild(k), info_keys))
     build_range = BuildRange(builds)

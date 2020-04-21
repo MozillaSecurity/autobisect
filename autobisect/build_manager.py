@@ -107,6 +107,7 @@ class BuildManager(object):
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
         """
+        # pylint: disable=protected-access
         target = "js" if build._memo["_target"] == "js" else "ff"
         branch = "m-%s" % build._branch[0]
         platform = build._platform.system

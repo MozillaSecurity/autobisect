@@ -279,4 +279,4 @@ def main(argv=None):
         LOG.error("Bisection failed!")
 
     elapsed = timedelta(seconds=(int(end_time - start_time)))
-    LOG.info("Bisection completed in: %s" % elapsed)
+    LOG.info("Bisection completed in: %s", elapsed)

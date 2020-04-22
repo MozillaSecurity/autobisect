@@ -11,7 +11,7 @@ from fuzzfetch import BuildFlags
 from fuzzfetch.fetch import Platform
 
 from .bisect import BisectionResult, Bisector
-from .evaluator import BrowserArgs, BrowserEvaluator, JSEvaluator, JSArgs
+from .evaluators import BrowserArgs, BrowserEvaluator, JSEvaluator, JSArgs
 
 LOG = logging.getLogger("autobisect")
 

@@ -1,6 +1,6 @@
 import pytest
 
-from autobisect import BrowserEvaluator
+from autobisect.evaluator import BrowserEvaluator
 
 from autobisect.bisect import Bisector
 

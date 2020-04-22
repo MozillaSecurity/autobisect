@@ -12,7 +12,7 @@ from grizzly.target import TargetLaunchError, TargetLaunchTimeout, load as load_
 from prefpicker import PrefPicker
 from sapphire import Sapphire
 
-from ..bisect import Bisector
+from autobisect.bisect import Bisector
 
 LOG = logging.getLogger("browser-eval")
 

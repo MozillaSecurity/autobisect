@@ -25,6 +25,19 @@ class ExpandPath(Action):
         setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
 
 
+def console_init_logging():
+    """
+    Enable logging when called from console
+    """
+    log_level = logging.INFO
+    log_fmt = "[%(asctime)s] %(message)s"
+    if bool(os.getenv("DEBUG")):
+        log_level = logging.DEBUG
+        log_fmt = "%(levelname).1s %(name)s [%(asctime)s] %(message)s"
+    logging.basicConfig(format=log_fmt, datefmt="%Y-%m-%d %H:%M:%S", level=log_level)
+    logging.getLogger("requests").setLevel(logging.WARNING)
+
+
 def parse_args():
     """
     Argument parser
@@ -45,20 +58,10 @@ def parse_args():
     return args
 
 
-def main(argv=None):
+def main(args):
     """
     Autobisect main entry point
     """
-    log_level = logging.INFO
-    log_fmt = "[%(asctime)s] %(message)s"
-    if bool(os.getenv("DEBUG")):
-        log_level = logging.DEBUG
-        log_fmt = "%(levelname).1s %(name)s [%(asctime)s] %(message)s"
-    logging.basicConfig(format=log_fmt, datefmt="%Y-%m-%d %H:%M:%S", level=log_level)
-    logging.getLogger("requests").setLevel(logging.WARNING)
-
-    args = _parse_args(argv)
-
     if args.target == "firefox":
         evaluator = BrowserEvaluator(**vars(args))
     else:

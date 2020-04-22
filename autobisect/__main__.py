@@ -1,6 +1,8 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-from .main import main
+import sys
+from .main import console_init_logging, main, parse_args
 
-main()
+console_init_logging()
+sys.exit(main(parse_args()))

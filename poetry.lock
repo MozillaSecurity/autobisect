@@ -7,7 +7,7 @@ python-versions = "*"
 version = "1.4.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "An abstract syntax tree for Python with inference support."
 name = "astroid"
 optional = false
@@ -24,7 +24,7 @@ python = "<3.8"
 version = ">=1.4.0,<1.5"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Atomic file writes."
 marker = "sys_platform == \"win32\""
 name = "atomicwrites"
@@ -99,7 +99,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "7.1.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Cross-platform colored terminal text."
 marker = "sys_platform == \"win32\" or platform_system == \"Windows\""
 name = "colorama"
@@ -217,7 +217,7 @@ description = "Downloader for firefox/jsshell builds."
 name = "fuzzfetch"
 optional = false
 python-versions = ">=2.7"
-version = "0.9.6"
+version = "0.9.7"
 
 [package.dependencies]
 configparser = ">=3.5.0"
@@ -271,7 +271,6 @@ test = ["pytest-cov", "pytest-mock", "pytest (>=3.9)"]
 reference = "0a709377536ebebce8cea2dd46e2661eb1344953"
 type = "git"
 url = "https://github.com/MozillaSecurity/grizzly.git"
-
 [[package]]
 category = "dev"
 description = "File identification library for Python"
@@ -292,7 +291,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.9"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
 name = "importlib-metadata"
@@ -329,7 +328,7 @@ version = ">=0.4"
 docs = ["sphinx", "rst.linker", "jaraco.packaging"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A Python utility / library to sort Python imports."
 name = "isort"
 optional = false
@@ -343,7 +342,7 @@ requirements = ["pipreqs", "pip-api"]
 xdg_home = ["appdirs (>=1.4.0)"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A fast and thorough lazy object proxy."
 name = "lazy-object-proxy"
 optional = false
@@ -359,7 +358,7 @@ python-versions = "*"
 version = "0.3.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
@@ -375,7 +374,7 @@ python-versions = "*"
 version = "1.5"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "More routines for operating on iterables, beyond itertools"
 name = "more-itertools"
 optional = false
@@ -399,7 +398,7 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 version = "1.16.6"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Core utilities for Python packages"
 name = "packaging"
 optional = false
@@ -419,7 +418,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.8.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "plugin and hook calling mechanisms for python"
 name = "pluggy"
 optional = false
@@ -470,10 +469,9 @@ version = "0.1.0"
 pyyaml = "*"
 
 [package.source]
-reference = "dd6f9d1d0e38829fc1c7224c1747a0bcd21d14c6"
+reference = "ff1a58847d824b2a8616005d9067b3116a15a8c2"
 type = "git"
 url = "https://github.com/MozillaSecurity/prefpicker.git"
-
 [[package]]
 category = "main"
 description = "Cross-platform lib for process and system monitoring in Python."
@@ -486,7 +484,7 @@ version = "5.7.0"
 enum = ["enum34"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 name = "py"
 optional = false
@@ -510,7 +508,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.1.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "python code static checker"
 name = "pylint"
 optional = false
@@ -524,7 +522,7 @@ isort = ">=4.2.5,<5"
 mccabe = ">=0.6,<0.7"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python parsing module"
 name = "pyparsing"
 optional = false
@@ -532,7 +530,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "2.4.7"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
@@ -600,7 +598,7 @@ pytest = ">=2.7"
 dev = ["pre-commit", "tox", "pytest-asyncio"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "pytest plugin to check source code with pylint"
 name = "pytest-pylint"
 optional = false
@@ -756,7 +754,7 @@ docs = ["sphinx (>=2.0.0,<3)", "sphinx-argparse (>=0.2.5,<1)", "sphinx-rtd-theme
 testing = ["pytest (>=4.0.0,<6)", "coverage (>=4.5.1,<6)", "pytest-mock (>=2.0.0,<3)", "pytest-env (>=0.6.2,<1)", "pytest-timeout (>=1.3.4,<2)", "packaging (>=20.0)", "xonsh (>=0.9.16,<1)"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Measures number of Terminal column cells of wide-character codes"
 name = "wcwidth"
 optional = false
@@ -764,7 +762,7 @@ python-versions = "*"
 version = "0.1.9"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Module for decorators, wrappers and monkey patching."
 name = "wrapt"
 optional = false
@@ -781,7 +779,7 @@ python-versions = "*"
 version = "0.2.9"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
@@ -794,7 +792,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "040d38f0888430fd27ce786c6577ce60b875f9c0efa0a00f8c20fa2fcf287456"
+content-hash = "e3fa7b746a600ded0a15ff16863325f44937da499ea2da26c5840e8af57a2e64"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -873,8 +871,8 @@ flake8-quotes = [
     {file = "flake8-quotes-2.1.2.tar.gz", hash = "sha256:c844c9592940c8926c60f00bc620808912ff2acd34923ab5338f3a5ca618a331"},
 ]
 fuzzfetch = [
-    {file = "fuzzfetch-0.9.6-py2.py3-none-any.whl", hash = "sha256:aa68cdb5837350d65ad58651779d13be3b2b51e0fb044602b3389a9f8c8d9e15"},
-    {file = "fuzzfetch-0.9.6.tar.gz", hash = "sha256:c58896d610b6a1c67b5ac9cc638bc964968a03ccf42359471c6cb80c97670ec8"},
+    {file = "fuzzfetch-0.9.7-py2.py3-none-any.whl", hash = "sha256:47c7494b7e8e40fa9b4577ea8b215aa8d674033660de7f6af7f06cac0e9eda3c"},
+    {file = "fuzzfetch-0.9.7.tar.gz", hash = "sha256:63b7790d74a03f65bab0460efa8d876152faade379a21241ef43f1aa14768f51"},
 ]
 fuzzmanager = [
     {file = "FuzzManager-0.3.3-py2.py3-none-any.whl", hash = "sha256:20b8cb52851d4b621c70d112a15e0f0d3c3850c809038e9320c650728cb0843c"},

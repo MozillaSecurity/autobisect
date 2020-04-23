@@ -18,4 +18,4 @@ before_install:
 install:
   - poetry install -vvv
 script:
-  - python -m pytest autobisect/
+  - python -m pytest

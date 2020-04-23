@@ -88,6 +88,7 @@ class BisectCommonArgs(FetcherArgs):
 
     IGNORED_DEFAULTS = [
         "build",
+        "target",
     ]
 
     def __init__(self):
@@ -129,12 +130,11 @@ class BisectCommonArgs(FetcherArgs):
             "--find-fix", action="store_true", help="Identify fix date"
         )
 
-        # Remove conflicting args
-        for arg in self.CONFLICTING_ARGS:
-            _remove_arg(self.parser, arg)
-
         for arg in self.IGNORED_DEFAULTS:
             _remove_default(self.parser, arg)
+
+        for arg in self.CONFLICTING_ARGS:
+            _remove_arg(self.parser, arg)
 
     def sanity_check(self, args):
         """

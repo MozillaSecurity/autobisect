@@ -26,45 +26,100 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+
+Launcher Arguments:
+  -e EXTENSION, --extension EXTENSION
+                        Install an extension. Specify the path to the xpi or
+                        the directory containing the unpacked extension. To
+                        install multiple extensions specify multiple times
+  --launch-timeout LAUNCH_TIMEOUT
+                        Number of seconds to wait before LaunchError is raised
+                        (default: 300)
+  --log-limit LOG_LIMIT
+                        Log file size limit in MBs (default: 'no limit')
+  -m MEMORY, --memory MEMORY
+                        Browser process memory limit in MBs (default: 'no
+                        limit')
+  -p PREFS, --prefs PREFS
+                        prefs.js file to use
+  --soft-asserts        Detect soft assertions
+  --xvfb                Use Xvfb (Linux only)
+
+Reporter Arguments:
+  --ignore IGNORE [IGNORE ...]
+                        Space separated ignore list. ie: log-limit memory
+                        timeout (default: nothing)
+
+Replay Arguments:
+  --any-crash           Any crash is interesting, not only crashes which match
+                        the original signature.
+  --idle-timeout IDLE_TIMEOUT
+                        Number of seconds to wait before polling testcase for
+                        idle (default: 60)
+  --idle-threshold IDLE_THRESHOLD
+                        CPU usage threshold to mark the process as idle
+                        (default: 25)
+
+Target:
+  --target {firefox,js}
+                        Specify the build target. (default: firefox)
+  --os {Android,Darwin,Linux,Windows}
+                        Specify the target system. (default: Linux)
+  --cpu {AMD64,ARM64,aarch64,arm,arm64,i686,x64,x86,x86_64}
+                        Specify the target CPU. (default: x86_64)
+
+Build:
+  --build DATE|REV|NS   Specify the build to download, (default: latest)
+                        Accepts values in format YYYY-MM-DD (2017-01-01)
+                        revision (57b37213d81150642f5139764e7044b07b9dccc3) or
+                        TaskCluster namespace (gecko.v2....)
+
+Branch:
   --inbound             Download from mozilla-inbound
   --central             Download from mozilla-central (default)
   --release             Download from mozilla-release
   --beta                Download from mozilla-beta
   --esr-stable          Download from esr-stable
   --esr-next            Download from esr-next
+  --try                 Download from try
 
-boundary arguments (YYYY-MM-DD or SHA1 revision):
-  --start START         Start revision (default: earliest available TC build)
-  --end END             End revision (default: latest available TC build)
+Build Arguments:
+  -d, --debug           Get debug builds w/ symbols (default=optimized).
+  -a, --asan            Download AddressSanitizer builds.
+  -t, --tsan            Download ThreadSanitizer builds.
+  --fuzzing             Download --enable-fuzzing builds.
+  --coverage            Download --coverage builds. This also pulls down the
+                        *.gcno files
+  --valgrind            Download Valgrind builds.
 
-bisection arguments:
+Test Arguments:
+  --tests  [ ...]       Download tests associated with this build. Acceptable
+                        values are: gtest, common, reftests
+  --full-symbols        Download the full crashreport-symbols.zip archive.
+
+Misc. Arguments:
+  -n NAME, --name NAME  Specify a name (default=auto)
+  -o OUT, --out OUT     Specify output directory (default=.)
+  --dry-run             Search for build and output metadata only, don't
+                        download anything.
+
+Near Arguments:
+  If the specified build isn't found, iterate over builds in the specified
+  direction
+
+  --nearest-newer       Search from specified build in ascending order
+  --nearest-older       Search from the specified build in descending order
+
+Boundary Arguments (YYYY-MM-DD or SHA1 revision):
+  --start START         Start build id (default: earliest available build)
+  --end END             End build id (default: latest available build)
+
+Bisection Arguments:
   --timeout TIMEOUT     Maximum iteration time in seconds (default: 60)
   --repeat REPEAT       Number of times to evaluate testcase (per build)
   --config CONFIG       Path to optional config file
   --find-fix            Identify fix date
 
-build arguments:
-  --asan                Test ASAN builds
-  --tsan                Test TSAN builds
-  --debug               Test debug builds
-  --fuzzing             Test --enable-fuzzing builds
-  --coverage            Test --coverage builds
-  --valgrind            Download Valgrind builds.
-  --32                  Test 32 bit version of browser on 64 bit system.
-
-launcher arguments:
-  --asserts             Detect soft assertions
-  --detect {crash,memory,log,timeout}
-                        Type of failure to detect (default: crash)
-  --launch-timeout LAUNCH_TIMEOUT
-                        Maximum launch time in seconds (default: 300)
-  --ext EXT             Path to fuzzPriv extension
-  --prefs PREFS         Path to preference file
-  --memory MEMORY       Process memory limit in MBs (default: no limit)
-  --log-limit LOG_LIMIT
-                        Log file size limit in MBs (default: no limit)
-  --gdb                 Use GDB
-  --xvfb                Use xvfb (Linux only)
 ```
 
 Simple Bisection

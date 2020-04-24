@@ -131,7 +131,7 @@ class BisectCommonArgs(FetcherArgs):
         super().sanity_check(args)
 
         # Default branch to central if none specified
-        if not FetcherArgs.is_build_ns(args.build) and args.branch is None:
+        if not self.is_build_ns(args.build) and args.branch is None:
             args.branch = "central"
 
     def parse_args(self, argv=None):

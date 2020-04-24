@@ -35,12 +35,12 @@ class BrowserArgs(BisectCommonArgs, ReplayArgs):
         super().__init__()
 
         # Remove conflicting args
-        for arg in self.CONFLICTING_ARGS:
+        for arg in BrowserArgs.CONFLICTING_ARGS:
             self._sanity_skip.add(arg)
             _remove_arg(self.parser, arg)
 
         # Suppress help output for unused args
-        for arg in self.IGNORED_ARGS:
+        for arg in BrowserArgs.IGNORED_ARGS:
             self._sanity_skip.add(arg)
             _suppress_arg(self.parser, arg)
 

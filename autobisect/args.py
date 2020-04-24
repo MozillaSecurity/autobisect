@@ -14,6 +14,10 @@ def _remove_arg(parser, arg):
     :param parser: Target parser
     :param arg: Dest of arg to remove
     """
+    # Remove defaults
+    if arg in parser._defaults:
+        del parser._defaults[arg]
+
     # Identify actions to be removed
     action_queue = []
     for a in parser._actions:
@@ -39,15 +43,6 @@ def _remove_arg(parser, arg):
     # Remove now emptied groups
     for group in empty_groups:
         parser._action_groups.remove(group)
-
-
-def _remove_default(parser, key):
-    """
-    Remove argument defined by default
-    :param parser: Target parser
-    :param key: Name of arg to remove
-    """
-    del parser._defaults[key]
 
 
 def _suppress_arg(parser, dest):
@@ -84,11 +79,6 @@ class BisectCommonArgs(FetcherArgs):
         "target",
         "tests",
         "full_symbols",
-    ]
-
-    IGNORED_DEFAULTS = [
-        "build",
-        "target",
     ]
 
     def __init__(self):
@@ -130,10 +120,7 @@ class BisectCommonArgs(FetcherArgs):
             "--find-fix", action="store_true", help="Identify fix date"
         )
 
-        for arg in self.IGNORED_DEFAULTS:
-            _remove_default(self.parser, arg)
-
-        for arg in self.CONFLICTING_ARGS:
+        for arg in BisectCommonArgs.CONFLICTING_ARGS:
             _remove_arg(self.parser, arg)
 
     def sanity_check(self, args):

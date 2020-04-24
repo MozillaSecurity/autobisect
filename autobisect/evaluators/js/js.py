@@ -9,7 +9,7 @@ from string import Template
 import requests
 from lithium import interestingness
 
-from autobisect.bisect import Bisector
+from ...bisect import Bisector
 
 LOG = logging.getLogger("js-eval")
 

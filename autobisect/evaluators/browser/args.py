@@ -3,7 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from grizzly.replay import ReplayArgs
 
-from autobisect.args import BisectCommonArgs, _remove_arg, _suppress_arg
+from ...args import BisectCommonArgs, _remove_arg, _suppress_arg
 
 
 class BrowserArgs(BisectCommonArgs, ReplayArgs):

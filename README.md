@@ -144,7 +144,7 @@ Autobisect includes a pre-commit hook for [black](https://github.com/psf/black) 
 pre-commit install
 ```
 
-Furthermore, all tests should be executed via tox
+Furthermore, all tests should be executed via tox.
 ```bash
 poetry run tox
 ```

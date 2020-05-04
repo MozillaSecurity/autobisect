@@ -130,21 +130,18 @@ class Bisector(object):
         )
         self.find_fix = find_fix
 
-        self.build_flags = BuildFlags(*flags)
+        self.flags = BuildFlags(*flags)
 
         # If no start date is supplied, default to oldest available build
-        start_id = (
-            start
-            if start
-            else (datetime.utcnow() - timedelta(days=364)).strftime("%Y-%m-%d")
-        )
+        earliest = (datetime.utcnow() - timedelta(days=364)).strftime("%Y-%m-%d")
+        start_id = start if start else earliest
         end_id = end if end else "latest"
 
         self.start = Fetcher(
             self.target,
             self.branch,
             start_id,
-            self.build_flags,
+            self.flags,
             platform,
             Fetcher.BUILD_ORDER_ASC,
         )
@@ -152,7 +149,7 @@ class Bisector(object):
             self.target,
             self.branch,
             end_id,
-            self.build_flags,
+            self.flags,
             platform,
             Fetcher.BUILD_ORDER_DESC,
         )
@@ -166,8 +163,8 @@ class Bisector(object):
         :return: BisectionResult
         """
         LOG.info("Begin bisection...")
-        LOG.info("> Start: %s (%s)", self.start.changeset, self.start.build_id)
-        LOG.info("> End: %s (%s)", self.end.changeset, self.end.build_id)
+        LOG.info("> Start: %s (%s)", self.start.changeset, self.start.id)
+        LOG.info("> End: %s (%s)", self.end.changeset, self.end.id)
 
         verified = self.verify_bounds()
         if verified == VerificationStatus.SUCCESS:
@@ -185,53 +182,44 @@ class Bisector(object):
         # Initially reduce use 1 build per day for the entire build range
         LOG.info("Attempting to reduce bisection range using taskcluster binaries")
         build_range = BuildRange.new(
-            self.start.build_datetime + timedelta(days=1),
-            self.end.build_datetime - timedelta(days=1),
+            self.start.datetime + timedelta(days=1),
+            self.end.datetime - timedelta(days=1),
         )
 
         while build_range:
             next_date = build_range.mid_point
-            i = build_range.index(next_date)
+            index = build_range.index(next_date)
 
             try:
-                next_build = Fetcher(
-                    self.target, self.branch, next_date, self.build_flags
-                )
+                build = Fetcher(self.target, self.branch, next_date, self.flags)
             except FetcherException:
                 LOG.warning("Unable to find build for %s", next_date)
-                build_range.builds.pop(i)
+                build_range.builds.pop(index)
             else:
-                status = self.test_build(next_build)
-                build_range = self.update_build_range(
-                    next_build, i, status, build_range
-                )
+                status = self.test_build(build)
+                build_range = self.update_range(build, index, status, build_range)
 
         # Further reduce using all available builds associated with the start and end boundaries
         builds = []
-        for dt in [self.start.build_datetime, self.end.build_datetime]:
-            for build in Fetcher.iterall(
-                self.target, self.branch, dt.strftime("%Y-%m-%d"), self.build_flags
-            ):
+        for dt in [self.start.datetime, self.end.datetime]:
+            date = dt.strftime("%Y-%m-%d")
+            for build in Fetcher.iterall(self.target, self.branch, date, self.flags):
                 # Only keep builds after the start and before the end boundaries
-                if (
-                    self.end.build_datetime
-                    > build.build_datetime
-                    > self.start.build_datetime
-                ):
+                if self.end.datetime > build.datetime > self.start.datetime:
                     builds.append(build)
 
-        build_range = BuildRange(sorted(builds, key=lambda x: x.build_datetime))
+        build_range = BuildRange(sorted(builds, key=lambda x: x.datetime))
         while build_range:
-            next_build = build_range.mid_point
-            i = build_range.index(next_build)
-            status = self.test_build(next_build)
-            build_range = self.update_build_range(next_build, i, status, build_range)
+            build = build_range.mid_point
+            index = build_range.index(build)
+            status = self.test_build(build)
+            build_range = self.update_range(build, index, status, build_range)
 
         return BisectionResult(
             BisectionResult.SUCCESS, self.start, self.end, self.branch
         )
 
-    def update_build_range(self, build, index, status, build_range):
+    def update_range(self, build, index, status, build_range):
         """
         Returns a new build range based on the status of the previously evaluated test
         :param build: A fuzzfetch.Fetcher object
@@ -266,7 +254,7 @@ class Bisector(object):
         :param build: An Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
-        LOG.info("Testing build %s (%s)", build.changeset, build.build_id)
+        LOG.info("Testing build %s (%s)", build.changeset, build.id)
         # If persistence is enabled and a build exists, use it
         with self.build_manager.get_build(build) as build_path:
             return self.evaluator.evaluate_testcase(build_path)

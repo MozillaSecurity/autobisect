@@ -217,7 +217,7 @@ description = "Downloader for firefox/jsshell builds."
 name = "fuzzfetch"
 optional = false
 python-versions = ">=2.7"
-version = "0.9.7"
+version = "0.9.9"
 
 [package.dependencies]
 configparser = ">=3.5.0"
@@ -271,6 +271,7 @@ test = ["pytest-cov", "pytest-mock", "pytest (>=3.9)"]
 reference = "0a709377536ebebce8cea2dd46e2661eb1344953"
 type = "git"
 url = "https://github.com/MozillaSecurity/grizzly.git"
+
 [[package]]
 category = "dev"
 description = "File identification library for Python"
@@ -472,6 +473,7 @@ pyyaml = "*"
 reference = "ff1a58847d824b2a8616005d9067b3116a15a8c2"
 type = "git"
 url = "https://github.com/MozillaSecurity/prefpicker.git"
+
 [[package]]
 category = "main"
 description = "Cross-platform lib for process and system monitoring in Python."
@@ -792,7 +794,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "e3fa7b746a600ded0a15ff16863325f44937da499ea2da26c5840e8af57a2e64"
+content-hash = "1a9e699bac885706cfeda930471c3fabada3a9db41ff141c9a92a9d002ebcebb"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -871,8 +873,8 @@ flake8-quotes = [
     {file = "flake8-quotes-2.1.2.tar.gz", hash = "sha256:c844c9592940c8926c60f00bc620808912ff2acd34923ab5338f3a5ca618a331"},
 ]
 fuzzfetch = [
-    {file = "fuzzfetch-0.9.7-py2.py3-none-any.whl", hash = "sha256:47c7494b7e8e40fa9b4577ea8b215aa8d674033660de7f6af7f06cac0e9eda3c"},
-    {file = "fuzzfetch-0.9.7.tar.gz", hash = "sha256:63b7790d74a03f65bab0460efa8d876152faade379a21241ef43f1aa14768f51"},
+    {file = "fuzzfetch-0.9.9-py2.py3-none-any.whl", hash = "sha256:a73c60cb8db82d349b33c78e1145533e2b634df78c7ba20cfb1a710ca913ab7a"},
+    {file = "fuzzfetch-0.9.9.tar.gz", hash = "sha256:ac3596e1a506283890ad8d7588c3df9ed421874961bd2d7590e08d431901a78d"},
 ]
 fuzzmanager = [
     {file = "FuzzManager-0.3.3-py2.py3-none-any.whl", hash = "sha256:20b8cb52851d4b621c70d112a15e0f0d3c3850c809038e9320c650728cb0843c"},

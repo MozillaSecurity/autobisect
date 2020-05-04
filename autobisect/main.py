@@ -89,8 +89,8 @@ def main(args):
     end_time = time.time()
     if result.status == BisectionResult.SUCCESS:
         LOG.info("Reduced build range to:")
-        LOG.info("> Start: %s (%s)", result.start.changeset, result.start.build_id)
-        LOG.info("> End: %s (%s)", result.end.changeset, result.end.build_id)
+        LOG.info("> Start: %s (%s)", result.start.changeset, result.start.id)
+        LOG.info("> End: %s (%s)", result.end.changeset, result.end.id)
         LOG.info("> %s", result.pushlog)
     else:
         LOG.error("Bisection failed!")

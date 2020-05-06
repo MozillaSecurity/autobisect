@@ -37,8 +37,8 @@ toml = "^0.9"
 grizzly-framework = {git = "https://github.com/MozillaSecurity/grizzly.git"}
 fuzzfetch = "^0.9.9"
 lithium-reducer = "^0.3.3"
-prefpicker = {git = "https://github.com/MozillaSecurity/prefpicker.git"}
 black = "^19.10b0"
+prefpicker = "^1.0.4"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"

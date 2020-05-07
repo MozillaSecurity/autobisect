@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 from string import Template
 
+import requests
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from .build_manager import BuildManager
@@ -13,6 +14,32 @@ from .builds import BuildRange
 from .evaluators import EvaluatorResult
 
 LOG = logging.getLogger("bisect")
+
+
+def get_autoland_range(start, end):
+    """
+    Retrieve changeset from autoland within supplied boundary
+
+    :param start: Starting revision
+    :param end: Ending revision
+    """
+    url = (
+        "https://hg.mozilla.org/mozilla-central/json-pushes"
+        f"?fromchange={start}&tochange={end}"
+    )
+    try:
+        data = requests.get(url)
+        data.raise_for_status()
+    except requests.exceptions.RequestException as exc:
+        LOG.error("Failed to retrieve autoland changeset %s", exc)
+        return None
+
+    json = data.json()
+    if len(json.keys()) == 1:
+        push_id = list(json.keys())[0]
+        return json[push_id]["changesets"]
+
+    return None
 
 
 class StatusException(Exception):

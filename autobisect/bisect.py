@@ -181,6 +181,82 @@ class Bisector(object):
 
         self.build_manager = BuildManager(config)
 
+    def _get_daily_builds(self):
+        """
+        Create build range containing one build per day
+        """
+        start = self.start.datetime + timedelta(days=1)
+        end = self.end.datetime - timedelta(days=1)
+        LOG.info(f"Enumerating daily builds: {start} - {end}")
+
+        return BuildRange.new(start, end)
+
+    def _get_pushdate_builds(self):
+        """
+        Create build range containing all builds per pushdate
+        """
+        start = self.start.datetime
+        end = self.end.datetime
+        LOG.info(f"Enumerating pushdate builds: {start} - {end}")
+
+        builds = []
+        for dt in [start, end]:
+            date = dt.strftime("%Y-%m-%d")
+            for build in Fetcher.iterall(self.target, self.branch, date, self.flags):
+                # Only keep builds after the start and before the end boundaries
+                if self.end.datetime > build.datetime > self.start.datetime:
+                    builds.append(build)
+
+        return BuildRange(builds)
+
+    def _get_autoland_builds(self):
+        """
+        Create build range containing all autoland builds per pushdate
+        """
+        if self.branch != "central":
+            return []
+
+        start = self.start.datetime
+        end = self.end.datetime
+
+        LOG.info(f"Enumerating autoland builds: {start} - {end}")
+        changesets = get_autoland_range(self.start.changeset, self.end.changeset)
+        if changesets is None:
+            return []
+
+        builds = []
+        for changeset in changesets:
+            try:
+                build = Fetcher(
+                    self.target, "autoland", changeset, self.flags, self.platform
+                )
+                builds.append(build)
+            except FetcherException:
+                LOG.warning("Unable to find build for %s", changeset)
+
+        return BuildRange(builds)
+
+    def build_iterator(self, build_range):
+        """
+        Yields next build to be evaluated until all possibilities consumed
+        """
+        while build_range:
+            build = build_range.mid_point
+            if not isinstance(build, Fetcher):
+                try:
+                    build = Fetcher(
+                        self.target, self.branch, build, self.flags, self.platform
+                    )
+                except FetcherException:
+                    LOG.warning("Unable to find build for %s", build)
+                    build_range.builds.remove(build)
+                    continue
+
+            status = yield build
+            build_range = self.update_range(status, build, build_range)
+
+        yield None
+
     def bisect(self):
         """
         Main bisection function
@@ -204,53 +280,31 @@ class Bisector(object):
                 verified.message,
             )
 
-        # Initially reduce use 1 build per day for the entire build range
         LOG.info("Attempting to reduce bisection range using taskcluster binaries")
-        build_range = BuildRange.new(
-            self.start.datetime + timedelta(days=1),
-            self.end.datetime - timedelta(days=1),
-        )
-
-        while build_range:
-            next_date = build_range.mid_point
-            index = build_range.index(next_date)
-
-            try:
-                build = Fetcher(self.target, self.branch, next_date, self.flags)
-            except FetcherException:
-                LOG.warning("Unable to find build for %s", next_date)
-                build_range.builds.pop(index)
-            else:
-                status = self.test_build(build)
-                build_range = self.update_range(build, index, status, build_range)
-
-        # Further reduce using all available builds associated with the start and end boundaries
-        builds = []
-        for dt in [self.start.datetime, self.end.datetime]:
-            date = dt.strftime("%Y-%m-%d")
-            for build in Fetcher.iterall(self.target, self.branch, date, self.flags):
-                # Only keep builds after the start and before the end boundaries
-                if self.end.datetime > build.datetime > self.start.datetime:
-                    builds.append(build)
-
-        build_range = BuildRange(sorted(builds, key=lambda x: x.datetime))
-        while build_range:
-            build = build_range.mid_point
-            index = build_range.index(build)
-            status = self.test_build(build)
-            build_range = self.update_range(build, index, status, build_range)
+        strategies = [
+            self._get_daily_builds,
+            self._get_pushdate_builds,
+            self._get_autoland_builds,
+        ]
+        for strategy in strategies:
+            build_range = strategy()
+            generator = self.build_iterator(build_range)
+            next_build = next(generator)
+            while next_build is not None:
+                status = self.test_build(next_build)
+                next_build = generator.send(status)
 
         return BisectionResult(
             BisectionResult.SUCCESS, self.start, self.end, self.branch
         )
 
-    def update_range(self, build, index, status, build_range):
+    def update_range(self, status, build, build_range):
         """
         Returns a new build range based on the status of the previously evaluated test
-        :param build: A fuzzfetch.Fetcher object
-        :param index: The index of build in build_range
+
         :param status: The status of the evaluated testcase
-        :param build_range: The current BuildRange object
+        :param build: The evaluated build
+        :param build_range: The build_range to update
         :return: The adjusted BuildRange object
         """
         index = build_range.index(build)

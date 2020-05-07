@@ -128,10 +128,7 @@ class BisectCommonArgs(FetcherArgs):
         Validate supplied args
         :param args: Arguments
         """
-        super().sanity_check(args)
-
-        # Default branch to central if none specified
-        if not self.is_build_ns(args.build) and args.branch is None:
+        if args.branch is None:
             args.branch = "central"
 
     def parse_args(self, argv=None):

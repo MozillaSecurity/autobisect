@@ -71,7 +71,11 @@ class BrowserEvaluator(Evaluator):
             temp.write("<html><script>window.close()</script></html>")
             temp.flush()
             LOG.info("> Verifying build...")
+
+            # Ignore replay logging when verifying build
+            logging.getLogger("replay").disabled = True
             status = self.launch(binary, temp.name, prefs)
+            logging.getLogger("replay").disabled = False
 
         if status != EvaluatorResult.BUILD_PASSED:
             LOG.error(">> Build crashed!")

@@ -1,8 +1,7 @@
 import pytest
 
 from autobisect.evaluators import BrowserEvaluator
-
-from autobisect.bisect import Bisector
+from autobisect.evaluators import EvaluatorResult
 
 
 def test_prefs_arg():
@@ -34,9 +33,9 @@ def test_verify_build_status(mocker):
     mocker.patch(
         "autobisect.BrowserEvaluator.launch",
         side_effect=(
-            Bisector.BUILD_CRASHED,
-            Bisector.BUILD_PASSED,
-            Bisector.BUILD_FAILED,
+            EvaluatorResult.BUILD_CRASHED,
+            EvaluatorResult.BUILD_PASSED,
+            EvaluatorResult.BUILD_FAILED,
         ),
     )
     browser = BrowserEvaluator("testcase.html")
@@ -49,10 +48,14 @@ def test_evaluate_testcase_simple(mocker, tmp_path):
     """
     Simple test of BrowserEvaluator.evaluate_testcase()
     """
-    mocker.patch("autobisect.BrowserEvaluator.launch", autospec=True, return_value=True)
+    mocker.patch(
+        "autobisect.BrowserEvaluator.launch",
+        autospec=True,
+        return_value=EvaluatorResult.BUILD_PASSED,
+    )
     browser = BrowserEvaluator("testcase.html")
     (tmp_path / "firefox").touch()
-    assert browser.evaluate_testcase(str(tmp_path)) == Bisector.BUILD_PASSED
+    assert browser.evaluate_testcase(str(tmp_path)) == EvaluatorResult.BUILD_PASSED
 
 
 def test_evaluate_testcase_non_existent_binary(tmp_path):
@@ -60,7 +63,7 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
     Test that BrowserEvaluator.evaluate_testcase fails when using a non-existent build path
     """
     browser = BrowserEvaluator("testcase.html")
-    assert browser.evaluate_testcase(str(tmp_path)) == Bisector.BUILD_FAILED
+    assert browser.evaluate_testcase(str(tmp_path)) == EvaluatorResult.BUILD_FAILED
 
 
 def test_launch_simple(mocker, tmp_path):
@@ -77,8 +80,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase, prefs=None) == Bisector.BUILD_CRASHED
-    assert browser.launch(binary, testcase, prefs=None) == Bisector.BUILD_PASSED
+    assert browser.launch(binary, testcase, prefs=None) == EvaluatorResult.BUILD_CRASHED
+    assert browser.launch(binary, testcase, prefs=None) == EvaluatorResult.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(mocker, tmp_path):

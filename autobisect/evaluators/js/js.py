@@ -9,7 +9,7 @@ from string import Template
 import requests
 from lithium import interestingness
 
-from ...bisect import Bisector
+from ..base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("js-eval")
 
@@ -42,7 +42,7 @@ class JSEvaluatorException(Exception):
     """
 
 
-class JSEvaluator(object):
+class JSEvaluator(Evaluator):
     """
     Testcase evaluator for SpiderMonkey shells
     """
@@ -127,18 +127,18 @@ class JSEvaluator(object):
                 if self.detect == "diff":
                     args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
                     if interestingness.diff_test.interesting(args, None):
-                        return Bisector.BUILD_CRASHED
+                        return EvaluatorResult.BUILD_CRASHED
                 elif self.detect == "output":
                     args = [self._match] + common_args
                     if interestingness.outputs.interesting(args, None):
-                        return Bisector.BUILD_CRASHED
+                        return EvaluatorResult.BUILD_CRASHED
                 elif self.detect == "crash":
                     if interestingness.crashes.interesting(common_args, None):
-                        return Bisector.BUILD_CRASHED
+                        return EvaluatorResult.BUILD_CRASHED
                 elif self.detect == "hang":
                     if interestingness.hangs.interesting(common_args, None):
-                        return Bisector.BUILD_CRASHED
+                        return EvaluatorResult.BUILD_CRASHED
 
-            return Bisector.BUILD_PASSED
+            return EvaluatorResult.BUILD_PASSED
 
-        return Bisector.BUILD_FAILED
+        return EvaluatorResult.BUILD_FAILED

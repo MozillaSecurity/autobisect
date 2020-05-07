@@ -12,12 +12,12 @@ from grizzly.target import TargetLaunchError, TargetLaunchTimeout, load as load_
 from prefpicker import PrefPicker
 from sapphire import Sapphire
 
-from autobisect.bisect import Bisector
+from ..base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("browser-eval")
 
 
-class BrowserEvaluator(object):
+class BrowserEvaluator(Evaluator):
     """
     Testcase evaluator for Firefox
     """
@@ -73,7 +73,7 @@ class BrowserEvaluator(object):
             LOG.info("> Verifying build...")
             status = self.launch(binary, temp.name, prefs)
 
-        if status != Bisector.BUILD_PASSED:
+        if status != EvaluatorResult.BUILD_PASSED:
             LOG.error(">> Build crashed!")
             return False
 
@@ -86,7 +86,7 @@ class BrowserEvaluator(object):
         :return: Result of evaluation
         """
         binary = os.path.join(build_path, "firefox")
-        result = Bisector.BUILD_FAILED
+        result = EvaluatorResult.BUILD_FAILED
         with self.prefs() as prefs_file:
             if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
                 LOG.info("> Launching build with testcase...")
@@ -137,12 +137,12 @@ class BrowserEvaluator(object):
                 success = replay.run(repeat=self._repeat)
 
             if success:
-                return Bisector.BUILD_CRASHED
+                return EvaluatorResult.BUILD_CRASHED
 
-            return Bisector.BUILD_PASSED
+            return EvaluatorResult.BUILD_PASSED
 
         except (TargetLaunchError, TargetLaunchTimeout):
-            return Bisector.BUILD_FAILED
+            return EvaluatorResult.BUILD_FAILED
 
         finally:
             if replay is not None:

@@ -52,6 +52,8 @@ pytest-mock = "^3.0.0"
 pytest-pylint = "^0.15.1"
 pre-commit = "^2.1.1"
 tox = "^3.14.5"
+requests_mock = "^1.8.0"
+freezegun = "^0.3.15"
 
 [tool.poetry.scripts]
 autobisect = "autobisect.main:main"

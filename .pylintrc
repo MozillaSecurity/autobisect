@@ -3,6 +3,8 @@ disable =
     bad-continuation,
     fixme,
     invalid-name,
+    logging-format-interpolation,
+    logging-fstring-interpolation,
     missing-module-docstring,
     too-few-public-methods,
     too-many-arguments,

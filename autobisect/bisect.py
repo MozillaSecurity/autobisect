@@ -10,6 +10,7 @@ from fuzzfetch import BuildFlags, Fetcher, FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange
+from .evaluators import EvaluatorResult
 
 LOG = logging.getLogger("bisect")
 
@@ -231,23 +232,25 @@ class Bisector(object):
         :param build_range: The current BuildRange object
         :return: The adjusted BuildRange object
         """
-        if status == self.BUILD_PASSED:
+        index = build_range.index(build)
+        if status == EvaluatorResult.BUILD_PASSED:
             if not self.find_fix:
                 self.start = build
                 return build_range[index + 1 :]
 
             self.end = build
             return build_range[:index]
-        if status == self.BUILD_CRASHED:
+        if status == EvaluatorResult.BUILD_CRASHED:
             if not self.find_fix:
                 self.end = build
                 return build_range[:index]
 
             self.start = build
             return build_range[index + 1 :]
-        if status == self.BUILD_FAILED:
-            build_range.builds.pop(index)
-            return build_range
+        if status == EvaluatorResult.BUILD_FAILED:
+            range_copy = build_range[:]
+            range_copy.builds.pop(index)
+            return range_copy
 
         raise StatusException("Invalid status supplied")
 

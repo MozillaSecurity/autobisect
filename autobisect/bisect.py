@@ -15,13 +15,7 @@ from .evaluators import EvaluatorResult
 LOG = logging.getLogger("bisect")
 
 
-class BisectException(Exception):
-    """
-    Exception raised for any Bisection error
-    """
-
-
-class StatusException(BisectException):
+class StatusException(Exception):
     """
     Raised when an invalid status is supplied
     """

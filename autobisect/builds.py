@@ -35,7 +35,7 @@ class BuildRange(object):
             new_range._builds = self._builds[expr]
             return new_range
 
-        return self._builds[expr].build_info
+        return self._builds[expr]
 
     @property
     def builds(self):

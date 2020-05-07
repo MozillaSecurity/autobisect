@@ -4,15 +4,6 @@ from datetime import datetime, timedelta
 from autobisect.builds import BuildRange
 
 
-class MockBuild(object):
-    """
-    Class used for mocking builds
-    """
-
-    def __init__(self, build_info=None):
-        self.build_info = build_info
-
-
 def test_build_range_basic_operation():
     """
     Simple test
@@ -26,11 +17,9 @@ def test_build_range_build_access_by_index():
     """
     Simple test to ensure build_range's __getitem__ returns the builds build_info property
     """
-    info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(MockBuild, info_keys))
+    builds = ["abc", "zyx", "foo", "bar"]
     build_range = BuildRange(builds)
-    indices = list(range(len(build_range)))
-    for index, key in zip(indices, info_keys):
+    for index, key in enumerate(builds, start=0):
         assert build_range[index] == key
 
 
@@ -38,8 +27,7 @@ def test_build_range_splice():
     """
     Test splicing of BuildRange
     """
-    info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(MockBuild, info_keys))
+    builds = ["abc", "zyx", "foo", "bar"]
     build_range = BuildRange(builds)
     copy = build_range[:2]
     assert len(copy) == 2
@@ -60,12 +48,11 @@ def test_build_range_indexing():
     """
     Test to ensure proper index is returned
     """
-    info_keys = ["abc", "zyx", "foo", "bar"]
-    builds = list(map(MockBuild, info_keys))
+    builds = ["abc", "zyx", "foo", "bar"]
     build_range = BuildRange(builds)
-    for k1, k2 in zip(build_range, info_keys):
+    for k1, k2 in zip(build_range, builds):
         assert k1 == k2
-    for index, build in zip(range(len(build_range)), builds):
+    for index, build in enumerate(builds, start=0):
         assert build_range.index(build) == index
 
 

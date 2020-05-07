@@ -131,9 +131,9 @@ class Bisector(object):
         self.branch = (
             Fetcher.resolve_esr(branch) if branch.startswith("esr") else branch
         )
-        self.find_fix = find_fix
-
+        self.platform = platform
         self.flags = BuildFlags(*flags)
+        self.find_fix = find_fix
 
         # If no start date is supplied, default to oldest available build
         earliest = (datetime.utcnow() - timedelta(days=364)).strftime("%Y-%m-%d")
@@ -145,7 +145,7 @@ class Bisector(object):
             self.branch,
             start_id,
             self.flags,
-            platform,
+            self.platform,
             Fetcher.BUILD_ORDER_ASC,
         )
         self.end = Fetcher(
@@ -153,7 +153,7 @@ class Bisector(object):
             self.branch,
             end_id,
             self.flags,
-            platform,
+            self.platform,
             Fetcher.BUILD_ORDER_DESC,
         )
 

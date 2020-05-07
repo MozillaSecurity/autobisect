@@ -1,0 +1,16 @@
+{
+"node": "a1266665b89b04eaa8c146d0bc91b512945423cb",
+"date": [1577746175.0, 0],
+"desc": "Bug 1604435 - Include effectful offsets preceding the script's main offset, r=jimb.\n\nDifferential Revision: https://phabricator.services.mozilla.com/D57975",
+"backedoutby": "",
+"branch": "default",
+"bookmarks": [],
+"tags": [],
+"user": "Brian Hackett \u003cbhackett1024@gmail.com\u003e",
+"parents": ["f6cf3ca2de50275ee4c885d85ae49a5e82419370"],
+"phase": "public",
+"pushid": 36967,
+"pushdate": [1577785429, 0],
+"pushuser": "rgurzau@mozilla.com",
+"landingsystem": "lando"
+}

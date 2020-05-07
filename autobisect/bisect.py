@@ -70,9 +70,7 @@ class BisectionResult(object):
     Class for storing bisection result
     """
 
-    BASE_URL = Template(
-        "https://hg.mozilla.org/mozilla-$branch/pushloghtml?fromchange=$start&tochange=$end"
-    )
+    URL_TEMPLATE = Template("$base/pushloghtml?fromchange=$start&tochange=$end")
 
     SUCCESS = 0
     FAILED = 1
@@ -83,8 +81,13 @@ class BisectionResult(object):
         self.end = end
         self.branch = branch
         if status == BisectionResult.SUCCESS:
-            self.pushlog = self.BASE_URL.substitute(
-                branch=branch, start=start.changeset, end=end.changeset
+            if start.build_info["moz_source_repo"] == end.build_info["moz_source_repo"]:
+                base = start.build_info["moz_source_repo"]
+            else:
+                base = "https://hg.mozilla.org/mozilla-unified"
+            self.pushlog = (
+                f"{base}/pushloghtml?fromchange="
+                f"{start.changeset}&tochange={end.changeset}"
             )
 
         self.message = message

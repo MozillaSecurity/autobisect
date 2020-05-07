@@ -3,10 +3,13 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from .browser import BrowserArgs, BrowserEvaluator
 from .js import JSArgs, JSEvaluator
+from .base import Evaluator, EvaluatorResult
 
 __all__ = [
     "BrowserArgs",
     "BrowserEvaluator",
+    "Evaluator",
+    "EvaluatorResult",
     "JSArgs",
     "JSEvaluator",
 ]

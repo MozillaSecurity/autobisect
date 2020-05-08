@@ -38,6 +38,7 @@ def get_autoland_range(start, end):
         push_id = list(json.keys())[0]
         return json[push_id]["changesets"]
 
+    LOG.warning("Multiple top-level changsets detected.  Cannot bisect into autoland.")
     return None
 
 

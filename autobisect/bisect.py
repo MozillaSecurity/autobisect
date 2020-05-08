@@ -34,11 +34,12 @@ def get_autoland_range(start, end):
         return None
 
     json = data.json()
-    if len(json.keys()) == 1:
+    key_len = len(json.keys())
+    if key_len == 1:
         push_id = list(json.keys())[0]
         return json[push_id]["changesets"]
 
-    LOG.warning("Multiple top-level changsets detected.  Cannot bisect into autoland.")
+    LOG.warning(f"Detected {key_len} top-level changes.  Cannot bisect into autoland.")
     return None
 
 

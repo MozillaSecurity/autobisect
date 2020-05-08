@@ -4,7 +4,6 @@
 import logging
 from datetime import datetime, timedelta
 from enum import Enum
-from string import Template
 
 import requests
 from fuzzfetch import BuildFlags, Fetcher, FetcherException
@@ -92,8 +91,6 @@ class BisectionResult(object):
     Class for storing bisection result
     """
 
-    URL_TEMPLATE = Template("$base/pushloghtml?fromchange=$start&tochange=$end")
-
     SUCCESS = 0
     FAILED = 1
 
@@ -107,6 +104,7 @@ class BisectionResult(object):
                 base = start.build_info["moz_source_repo"]
             else:
                 base = "https://hg.mozilla.org/mozilla-unified"
+
             self.pushlog = (
                 f"{base}/pushloghtml?fromchange="
                 f"{start.changeset}&tochange={end.changeset}"

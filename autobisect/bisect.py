@@ -242,6 +242,7 @@ class Bisector(object):
         """
         while build_range:
             build = build_range.mid_point
+            index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
                     build = Fetcher(
@@ -253,7 +254,7 @@ class Bisector(object):
                     continue
 
             status = yield build
-            build_range = self.update_range(status, build, build_range)
+            build_range = self.update_range(status, build, index, build_range)
 
         yield None
 
@@ -298,16 +299,16 @@ class Bisector(object):
             BisectionResult.SUCCESS, self.start, self.end, self.branch
         )
 
-    def update_range(self, status, build, build_range):
+    def update_range(self, status, build, index, build_range):
         """
         Returns a new build range based on the status of the previously evaluated test
 
         :param status: The status of the evaluated testcase
         :param build: The evaluated build
+        :param build: Index of the build
         :param build_range: The build_range to update
         :return: The adjusted BuildRange object
         """
-        index = build_range.index(build)
         if status == EvaluatorResult.BUILD_PASSED:
             if not self.find_fix:
                 self.start = build

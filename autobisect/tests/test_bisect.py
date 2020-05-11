@@ -160,11 +160,11 @@ def test_update_range_simple(status, find_fix):
         next_date = datetime(2020, 1, 1, 0, 0) + timedelta(days=1)
         builds.append(MockFetcher(dt=next_date))
 
-    for build in builds:
+    for index, build in enumerate(builds):
         bisector = MockBisector(builds[0], builds[-1])
         bisector.find_fix = find_fix
         build_range = BuildRange(builds)
-        bisector.update_range(status, build, build_range)
+        bisector.update_range(status, build, index, build_range)
         if status == EvaluatorResult.BUILD_PASSED:
             if find_fix:
                 assert bisector.end == build

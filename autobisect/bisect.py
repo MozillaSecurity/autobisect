@@ -305,7 +305,7 @@ class Bisector(object):
 
         :param status: The status of the evaluated testcase
         :param build: The evaluated build
-        :param build: Index of the build
+        :param index: Index of the build
         :param build_range: The build_range to update
         :return: The adjusted BuildRange object
         """

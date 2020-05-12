@@ -22,7 +22,7 @@ install:
 script:
   - python -m pytest
 before_deploy:
-- poetry config http-basic.pypi mozillasecurity $PYPI_PASSWORD
+- poetry config http-basic.pypi mozillasecurity $PYPI_PASS
 - poetry build
 deploy:
   - provider: script

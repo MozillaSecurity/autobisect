@@ -21,10 +21,12 @@ install:
   - poetry install -vvv
 script:
   - python -m pytest
+before_deploy:
+- poetry config http-basic.pypi mozillasecurity $PYPI_PASSWORD
+- poetry build
 deploy:
   - provider: script
-    script: poetry publish --username mozillasecurity --password $PYPI_PASS --build
-    skip_cleanup: true
+    script: poetry publish
     on:
       branch: master
       tags: true

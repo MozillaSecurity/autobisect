@@ -6,29 +6,30 @@ cache: pip
 jobs:
   fast_finish: true
   include:
-    - python: "3.6"
-    - python: "3.7"
-    - python: "3.8"
-    - python: "nightly"
+  - python: '3.6'
+  - python: '3.7'
+  - python: '3.8'
+  - python: nightly
   allow_failures:
-    - python: "nightly"
-env:
-  global:
-    secure: "JrXLZAIkW2O2rUtUm5aZeIWTYXk6KX42aKb53NzJn2OGG/UVG7+Z+VxO8tYSPlfpH3svDyBoUM2+XuCjMSV8Qxhod3NXiunzf+f45kQEbAEn2MbKP8sb5PqYegg9CqFzzxogBcS/r0Bdrg1347V71qd5Wm3RwZSiBsoDT5StrfDR+7vJUvRouKXVcYz3ktYHPD1nChoug2/PqydCUpeAlQS6b33ttFmSYuDtOgJPNIq9rcchfJKp38/7n7bSA9weWODBv1b7+TTF3tN5++Kr0Lg6v4DdvwWGtu1wFmDXnrFnlseubW+bfxzzcvq7DWPHYBepwGHoBmEaimsBRcxGzLcTiAV7NPMfGWbI3jRfl+cevvBVNlfIEXsuOsVQcAD/UO6XSFvN4VgUnAkDCj/Y2/XJedJYouUOhj6ZYAw23Ia7wP4Ad5Z/F9A4S6uoTYc0yC9roonXB62DXwb7D/4s4ZmNwXmwFlB7hxKkpqw5CNp6G9mCv2Wqvq4SjhDFbFP1mv9cvoF1gaaF/0H76RNOFUOTosOO7C6Ts1obyJynn5gKiRcQkK6dPfX02LLFsfz/qsKjZKC4dbUwpfAYuixYclt6WmH4zoaJTVW+pG+yF1ya7NEnB5f3c6qXLmWwd+Jc3Li7shaYMnXz3p2A6ZMzCN7yy2TSGOc4s4MvzBtl5oQ="
+  - python: nightly
 before_install:
-  - pip install poetry
+- pip install poetry
 install:
-  - poetry install -vvv
+- poetry install -vvv
 script:
-  - python -m pytest
+- python -m pytest
 before_deploy:
-- poetry config http-basic.pypi mozillasecurity $PYPI_PASS
+- poetry config http-basic.pypi $PYPI_USER $PYPI_PASS
 - poetry build
 deploy:
-  - provider: script
-    script: poetry publish
-    on:
-      branch: master
-      tags: true
-      os: linux
-      python: 3.8
+- provider: script
+  script: poetry publish
+  on:
+    branch: master
+    tags: true
+    os: linux
+    python: 3.8
+env:
+  global:
+  - secure: KHj7OUyrDtyISg/OyypIdrB5ea1ndw7FFFR51pKJHQGidfJOSFlVFgMnqeuH6B6YeA1nW2c4dgUt5GQjAE+gWw8gpq8igaGL+dNzWUuypT9wH507t29mVBOTQHjNp6R0KcIYtL92XRMw11j6BRiqI4ZmC+LseD8nN7b3NEyxpPgglwjHJREfTVA08vEqEBUmj9cE7OHzA6kNJ2uKZsPorPwOmv9hFEvXsCeVG1rhTt/IDfx34GbYSf0BfeZ9eRt1Hn6rRb2hwAyDoF2mINtAkozmQelRDGW2N4nAl6zgBwvsZDZH0VebXtH7tUJpO+0Hhm0HdJABh1c3HpxRiIIOkerhVMZxGLix6cGW3XqOM5t989gYxgyWSeBcEkPazvoA5H2spQHLG3eBdF938p5HtztBgUq5m7/GQMft2TWBRsCqZm9FqAYTYZo6BQpDw6KKPHFHpzYGYGBqc3Rc+T32V453UnAA+f7C1BfAkjg7f5wYbfOPGHVdIFSoymh2mGBxFeWFufUdHBT/Gc7rjBvTkULmt9OnhK42g/8o/r/hQPH1UL7H5lZUu3R6z80eRujM/fhsxHwYfefcgLun/iYqPs2WwaITqF4hS8bQGLfo3d+d7M9kiX5Ds6eQnJmUwj8NU92dYssD2TyiCtw4GIgS088p/5IVTEak4BDil3iBggE=
+  - secure: Ziu7vlYOLpsaPT3lcc5kn0TgVoXMBDWb7oBHkuKg29KLVVvb/3UShOa6nWkONI7YcbDy/GVZ+kwZrN5JCnQeAEBjwZQF/X5qllqxoTIpuRi1+tK49MVThRFT6Ni+E9Euf9SS+lAIQrOwwNIk8MEMm1zWUxRIPbztgAVtmqvoWo+8SbMNYfJeA/pDYS/ZbuGcIutnNV8W446IZI6io1N3hiCviMmtp6jBMQTVUzuVlbKom9ZghTFpC+94lGFEdz9vXObpi1jv6Pdg8dvcnd8lAqYcDWlq6fWvN4JJpowW1orHUimj1Xbr0elQz97eYfrESeFropt0wAywHtwxfyw7kFAmjG8quFyJ4EIFN6sISNnC2tWKHaFJiRUsQW5qSvMJA7IUrGHkgH8p1OzCMW+cywel8+pk3z8E8aaLBdvXFomy1XWTNDpncUY2Ej7cJsFlB8A4rVUtg9dpMhrZKgKx87i7JkKWScNbSL4B+pLkAggw9XnTUWykSnf3sBS2/GdVG1KEqyj9bF5p35wUr5D2EIKnDZz6S5rBgMAhlJES8SL+rLwDavxlS5HZTrJPIfHh8q9nUFfhVpE+aoIB5gpAaFIqvQMx+/EsEbT0gCzAH6Tazp9dt6WNM5YGFeWN+dM/SOtOp1OeFNHpIlX22yyAocRmLUtNm2ecc+HQcr1ISaA=

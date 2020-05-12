@@ -24,6 +24,7 @@ script:
 deploy:
   - provider: script
     script: poetry publish --username mozillasecurity --password $PYPI_PASS --build
+    skip_cleanup: true
     on:
       branch: master
       tags: true

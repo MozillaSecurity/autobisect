@@ -55,7 +55,17 @@ pre-commit = "^2.1.1"
 tox = "^3.14.5"
 requests_mock = "^1.8.0"
 freezegun = "^0.3.15"
+coverage = {extras = ["toml"], version = "^5.1"}
 
 
 [tool.poetry.scripts]
 autobisect = "autobisect.main:main"
+
+[tool.coverage.paths]
+source = ["autobisect"]
+
+[tool.coverage.run]
+omit = [
+    "autobisect/__main__.py",
+    "autobisect/tests/fetcher_callback.py"
+]

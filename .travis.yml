@@ -13,7 +13,7 @@ jobs:
   allow_failures:
   - python: nightly
 before_install:
-- pip install poetry
+- pip install poetry codecov
 install:
 - poetry install -vvv
 script:

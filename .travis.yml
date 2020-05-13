@@ -17,7 +17,9 @@ before_install:
 install:
 - poetry install -vvv
 script:
-- python -m pytest
+- poetry run pytest
+after_success:
+- codecov
 before_deploy:
 - poetry config http-basic.pypi $PYPI_USER $PYPI_PASS
 - poetry build

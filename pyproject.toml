@@ -34,7 +34,7 @@ homepage = "https://github.com/MozillaSecurity/autobisect"
 [tool.poetry.dependencies]
 python = "^3.6"
 toml = "^0.9"
-grizzly-framework = {git = "https://github.com/MozillaSecurity/grizzly.git"}
+grizzly-framework = "^0.9.3"
 fuzzfetch = "^0.9.9"
 lithium-reducer = "^0.3.3"
 black = "^19.10b0"

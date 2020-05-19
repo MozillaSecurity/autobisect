@@ -120,10 +120,6 @@ class Bisector(object):
     Taskcluster Bisection Class
     """
 
-    BUILD_CRASHED = 0
-    BUILD_PASSED = 1
-    BUILD_FAILED = 2
-
     def __init__(
         self,
         evaluator,
@@ -348,19 +344,19 @@ class Bisector(object):
         """
         LOG.info("Attempting to verify boundaries...")
         status = self.test_build(self.start)
-        if status == self.BUILD_FAILED:
+        if status == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED
-        if status == self.BUILD_CRASHED and not self.find_fix:
+        if status == EvaluatorResult.BUILD_CRASHED and not self.find_fix:
             return VerificationStatus.START_BUILD_CRASHES
-        if status != self.BUILD_CRASHED and self.find_fix:
+        if status != EvaluatorResult.BUILD_CRASHED and self.find_fix:
             return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
         status = self.test_build(self.end)
-        if status == self.BUILD_FAILED:
+        if status == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.END_BUILD_FAILED
-        if status == self.BUILD_PASSED and not self.find_fix:
+        if status == EvaluatorResult.BUILD_PASSED and not self.find_fix:
             return VerificationStatus.END_BUILD_PASSES
-        if status == self.BUILD_CRASHED and self.find_fix:
+        if status == EvaluatorResult.BUILD_CRASHED and self.find_fix:
             return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
 
         return VerificationStatus.SUCCESS

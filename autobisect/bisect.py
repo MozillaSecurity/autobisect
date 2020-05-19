@@ -344,6 +344,9 @@ class Bisector(object):
         """
         LOG.info("Attempting to verify boundaries...")
         start_result = self.test_build(self.start)
+        if start_result not in EvaluatorResult:
+            raise StatusException("Invalid status supplied")
+
         if start_result == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED
         if start_result == EvaluatorResult.BUILD_CRASHED and not self.find_fix:
@@ -352,6 +355,9 @@ class Bisector(object):
             return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
         end_result = self.test_build(self.end)
+        if end_result not in EvaluatorResult:
+            raise StatusException("Invalid status supplied")
+
         if end_result == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.END_BUILD_FAILED
         if end_result == EvaluatorResult.BUILD_PASSED and not self.find_fix:

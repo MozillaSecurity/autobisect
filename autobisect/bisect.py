@@ -348,7 +348,7 @@ class Bisector(object):
             return VerificationStatus.START_BUILD_FAILED
         if status == EvaluatorResult.BUILD_CRASHED and not self.find_fix:
             return VerificationStatus.START_BUILD_CRASHES
-        if status != EvaluatorResult.BUILD_CRASHED and self.find_fix:
+        if status == EvaluatorResult.BUILD_PASSED and self.find_fix:
             return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
         status = self.test_build(self.end)

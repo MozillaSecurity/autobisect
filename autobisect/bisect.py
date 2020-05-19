@@ -343,20 +343,20 @@ class Bisector(object):
         :return: Boolean
         """
         LOG.info("Attempting to verify boundaries...")
-        status = self.test_build(self.start)
-        if status == EvaluatorResult.BUILD_FAILED:
+        start_result = self.test_build(self.start)
+        if start_result == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.START_BUILD_FAILED
-        if status == EvaluatorResult.BUILD_CRASHED and not self.find_fix:
+        if start_result == EvaluatorResult.BUILD_CRASHED and not self.find_fix:
             return VerificationStatus.START_BUILD_CRASHES
-        if status == EvaluatorResult.BUILD_PASSED and self.find_fix:
+        if start_result == EvaluatorResult.BUILD_PASSED and self.find_fix:
             return VerificationStatus.FIND_FIX_START_BUILD_PASSES
 
-        status = self.test_build(self.end)
-        if status == EvaluatorResult.BUILD_FAILED:
+        end_result = self.test_build(self.end)
+        if end_result == EvaluatorResult.BUILD_FAILED:
             return VerificationStatus.END_BUILD_FAILED
-        if status == EvaluatorResult.BUILD_PASSED and not self.find_fix:
+        if end_result == EvaluatorResult.BUILD_PASSED and not self.find_fix:
             return VerificationStatus.END_BUILD_PASSES
-        if status == EvaluatorResult.BUILD_CRASHED and self.find_fix:
+        if end_result == EvaluatorResult.BUILD_CRASHED and self.find_fix:
             return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
 
         return VerificationStatus.SUCCESS

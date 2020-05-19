@@ -8,8 +8,9 @@ from fuzzfetch import BuildFlags, Platform
 
 from .fetcher_callback import fetcher_mock
 from .. import EvaluatorResult
-from ..bisect import Bisector, get_autoland_range
+from ..bisect import Bisector, StatusException, VerificationStatus, get_autoland_range
 from ..builds import BuildRange
+
 
 # pylint: disable=protected-access
 
@@ -35,6 +36,7 @@ class MockBisector(Bisector):
         self.end = MockFetcher(dt=end)
         self.target = "firefox"
         self.branch = "central"
+        self.find_fix = False
         self.flags = BuildFlags(
             asan=False,
             tsan=False,
@@ -175,3 +177,49 @@ def test_update_range_simple(status, find_fix):
                 assert bisector.start == build
             else:
                 assert bisector.end == build
+
+
+@pytest.mark.parametrize("find_fix", [True, False])
+@pytest.mark.parametrize("end_result", EvaluatorResult)
+@pytest.mark.parametrize("start_result", EvaluatorResult)
+# pylint: disable=inconsistent-return-statements
+def test_verify_bounds_simple(mocker, start_result, end_result, find_fix):
+    """
+    Verify expected verify bounds status
+    """
+    bisector = MockBisector(None, None)
+    bisector.find_fix = find_fix
+
+    mocker.patch(
+        "autobisect.bisect.Bisector.test_build", side_effect=[start_result, end_result]
+    )
+    result = bisector.verify_bounds()
+
+    if start_result == EvaluatorResult.BUILD_FAILED:
+        assert result == VerificationStatus.START_BUILD_FAILED
+    elif start_result == EvaluatorResult.BUILD_CRASHED and not find_fix:
+        assert result == VerificationStatus.START_BUILD_CRASHES
+    elif start_result == EvaluatorResult.BUILD_PASSED and find_fix:
+        assert result == VerificationStatus.FIND_FIX_START_BUILD_PASSES
+    elif end_result == EvaluatorResult.BUILD_FAILED:
+        assert result == VerificationStatus.END_BUILD_FAILED
+    elif end_result == EvaluatorResult.BUILD_PASSED and not find_fix:
+        return VerificationStatus.END_BUILD_PASSES
+    elif end_result == EvaluatorResult.BUILD_CRASHED and find_fix:
+        return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
+    else:
+        assert result == VerificationStatus.SUCCESS
+
+
+@pytest.mark.parametrize(
+    "test_results",
+    [[EvaluatorResult.BUILD_PASSED, None], [None, EvaluatorResult.BUILD_CRASHED]],
+)
+def test_verify_bounds_invalid_status(mocker, test_results):
+    """
+    Verify that invalid test results throw a StatusException
+    """
+    bisector = MockBisector(None, None)
+    mocker.patch("autobisect.bisect.Bisector.test_build", side_effect=test_results)
+    with pytest.raises(StatusException):
+        bisector.verify_bounds()

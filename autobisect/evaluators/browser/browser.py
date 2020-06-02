@@ -111,7 +111,7 @@ class BrowserEvaluator(Evaluator):
         target = None
         testcase = TestCase.load_path(test_path, scan_dir)
         if self._env_vars:
-            for key, value in self._env_vars:
+            for key, value in self._env_vars.items():
                 testcase.add_environ_var(key, value)
 
         try:

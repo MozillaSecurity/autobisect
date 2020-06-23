@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 name = "autobisect"
 description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
-version = "0.7.3"
+version = "0.7.4"
 
 classifiers=[
     "Intended Audience :: Developers",
@@ -34,7 +34,7 @@ homepage = "https://github.com/MozillaSecurity/autobisect"
 [tool.poetry.dependencies]
 black = "^19.10b0"
 fuzzfetch = "^0.9.9"
-grizzly-framework = "^0.9.3"
+grizzly-framework = "^0.9.5"
 lithium-reducer = "^0.3.3"
 prefpicker = "^1.0.4"
 python = "^3.6"

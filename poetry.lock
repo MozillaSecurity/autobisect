@@ -274,7 +274,7 @@ description = "A framework for developing and running browser fuzzers"
 name = "grizzly-framework"
 optional = false
 python-versions = "*"
-version = "0.9.4"
+version = "0.9.5"
 
 [package.dependencies]
 FuzzManager = "*"
@@ -282,10 +282,9 @@ fasteners = "*"
 ffpuppet = "*"
 prefpicker = "*"
 psutil = "*"
-six = "*"
 
 [package.extras]
-all = ["lithium-reducer", "boto3", "jsbeautifier"]
+all = ["jsbeautifier", "boto3", "lithium-reducer"]
 reduce = ["lithium-reducer", "jsbeautifier"]
 s3 = ["boto3"]
 test = ["pytest (>=3.9)", "pytest-cov", "pytest-mock"]
@@ -962,8 +961,8 @@ fuzzmanager = [
     {file = "FuzzManager-0.4.0.tar.gz", hash = "sha256:d9a3742e278b4ae4d9f9ce0ae046d139e2b77d6a744a103776bbeee5c270678d"},
 ]
 grizzly-framework = [
-    {file = "grizzly-framework-0.9.4.tar.gz", hash = "sha256:708f62cc8b1dbe09588809aaa13f3952a8c2e2ba232a06f9bd54790bde085c5f"},
-    {file = "grizzly_framework-0.9.4-py2.py3-none-any.whl", hash = "sha256:e9905fd06b7e7c961f433e4070a12befbf440a39819c84f424608e5352cdc3cf"},
+    {file = "grizzly-framework-0.9.5.tar.gz", hash = "sha256:8b3aa629de175b7377055b8f13fa20570afd1d5fe10af6f332ffeb11aaa27228"},
+    {file = "grizzly_framework-0.9.5-py2.py3-none-any.whl", hash = "sha256:e206df682665ab6b0356a896c8a45fb97c745246da969fb59d58398a2713b1a3"},
 ]
 identify = [
     {file = "identify-1.4.20-py2.py3-none-any.whl", hash = "sha256:acf0712ab4042642e8f44e9532d95c26fbe60c0ab8b6e5b654dd1bc6512810e0"},

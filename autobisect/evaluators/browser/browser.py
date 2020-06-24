@@ -118,8 +118,8 @@ class BrowserEvaluator(Evaluator):
             target = load_target("ffpuppet")(
                 binary,
                 extension=None,
-                log_limit=None,
-                memory_limit=None,
+                log_limit=0,
+                memory_limit=0,
                 relaunch=1,
                 launch_timeout=self._launch_timeout,
                 prefs=prefs,

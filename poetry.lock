@@ -101,7 +101,7 @@ version = "7.1.2"
 [[package]]
 category = "dev"
 description = "Cross-platform colored terminal text."
-marker = "platform_system == \"Windows\" or sys_platform == \"win32\""
+marker = "sys_platform == \"win32\" or platform_system == \"Windows\""
 name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -161,7 +161,7 @@ description = "A python module that aids in the automation of Firefox at the pro
 name = "ffpuppet"
 optional = false
 python-versions = "*"
-version = "0.7.2"
+version = "0.7.3"
 
 [package.dependencies]
 psutil = ">=4.4.0"
@@ -782,7 +782,7 @@ description = "Virtual Python Environment builder"
 name = "virtualenv"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
-version = "20.0.24"
+version = "20.0.25"
 
 [package.dependencies]
 appdirs = ">=1.4.3,<2"
@@ -841,7 +841,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "2172b9b5f075592b009e0394d792221f52ac10da92f35d9f394704579399e374"
+content-hash = "c744f01d423f5e4133ca3a4e01f7b8b6e4fd4a2058472dd33156dfd12d99d1d5"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -930,8 +930,8 @@ fasteners = [
     {file = "fasteners-0.15.tar.gz", hash = "sha256:3a176da6b70df9bb88498e1a18a9e4a8579ed5b9141207762368a1017bf8f5ef"},
 ]
 ffpuppet = [
-    {file = "ffpuppet-0.7.2-py2.py3-none-any.whl", hash = "sha256:76207dc06395989cef434d352c14b05cd9aafb76143a84883bf671adc4530b7a"},
-    {file = "ffpuppet-0.7.2.tar.gz", hash = "sha256:4c713d65e55337528a0b5da3532d00610db61a3187eab6c8878dfd1f7ee2dd98"},
+    {file = "ffpuppet-0.7.3-py2.py3-none-any.whl", hash = "sha256:e05f585c04d8d60da7e92f5ebe7a1c11b2b40083fb6b16facd58fc1598ccdbad"},
+    {file = "ffpuppet-0.7.3.tar.gz", hash = "sha256:714dd59e4369bf155d01be982da9100d851c00a6ddede9baf96a57e45e68981d"},
 ]
 filelock = [
     {file = "filelock-3.0.12-py3-none-any.whl", hash = "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"},
@@ -1198,8 +1198,8 @@ urllib3 = [
     {file = "urllib3-1.25.9.tar.gz", hash = "sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.0.24-py2.py3-none-any.whl", hash = "sha256:1b253c5d0e76afe24c76ce288cdd5dd01ac7deaa55f644998c74e5a799349522"},
-    {file = "virtualenv-20.0.24.tar.gz", hash = "sha256:680011aa2995fb8b7c2bbea7da7afd8dcaf382def7a3e02a1b1fba4b402aa8cf"},
+    {file = "virtualenv-20.0.25-py2.py3-none-any.whl", hash = "sha256:ffffcb3c78a671bb3d590ac3bc67c081ea2188befeeb058870cba13e7f82911b"},
+    {file = "virtualenv-20.0.25.tar.gz", hash = "sha256:f332ba0b2dfbac9f6b1da9f11224f0036b05cdb4df23b228527c2a2d5504aeed"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

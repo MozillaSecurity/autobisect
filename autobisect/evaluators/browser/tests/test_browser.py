@@ -80,8 +80,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase, prefs=None) == EvaluatorResult.BUILD_CRASHED
-    assert browser.launch(binary, testcase, prefs=None) == EvaluatorResult.BUILD_PASSED
+    assert browser.launch(binary, testcase, None, 1) == EvaluatorResult.BUILD_CRASHED
+    assert browser.launch(binary, testcase, None, 1) == EvaluatorResult.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(mocker, tmp_path):
@@ -97,4 +97,4 @@ def test_launch_non_existent_binary(mocker, tmp_path):
     browser = BrowserEvaluator(testcase)
 
     with pytest.raises(AssertionError):
-        browser.launch(binary, testcase, prefs=None)
+        browser.launch(binary, testcase, None, 1)

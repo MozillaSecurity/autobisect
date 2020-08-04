@@ -36,7 +36,6 @@ black = "^19.10b0"
 fuzzfetch = "^1.0.1"
 grizzly-framework = "^0.9.5"
 lithium-reducer = "^0.3.3"
-prefpicker = "^1.0.4"
 python = "^3.6"
 toml = "^0.9"
 

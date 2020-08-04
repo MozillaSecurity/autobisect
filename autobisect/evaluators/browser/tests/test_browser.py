@@ -4,28 +4,6 @@ from autobisect.evaluators import BrowserEvaluator
 from autobisect.evaluators import EvaluatorResult
 
 
-def test_prefs_arg():
-    """
-    Test that BrowserEvaluator.prefs() returns the path supplied during init
-    """
-    browser = BrowserEvaluator("testcase.html", prefs="~/foo/bar")
-    with browser.prefs() as prefs_file:
-        assert prefs_file == "~/foo/bar"
-
-
-def test_prefs_none():
-    """
-    Test that BrowserEvaluator.prefs() returns a new prefs file
-    """
-    browser = BrowserEvaluator("testcase.html")
-    with browser.prefs() as prefs_file:
-        assert prefs_file is not None
-        assert prefs_file.endswith(".js")
-        with open(prefs_file) as f:
-            data = f.read()
-            assert data.startswith("// Generated with PrefPicker")
-
-
 def test_verify_build_status(mocker):
     """
     Test that BrowserEvaluator.verify_build() returns the correct status

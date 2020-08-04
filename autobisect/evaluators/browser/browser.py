@@ -4,12 +4,10 @@
 import logging
 import os
 import tempfile
-from contextlib import contextmanager
 
 from grizzly.common import TestCase
 from grizzly.replay import ReplayManager
 from grizzly.target import TargetLaunchError, TargetLaunchTimeout, load as load_target
-from prefpicker import PrefPicker
 from sapphire import Sapphire
 
 from ..base import Evaluator, EvaluatorResult
@@ -38,33 +36,10 @@ class BrowserEvaluator(Evaluator):
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
 
-    @contextmanager
-    def prefs(self):
-        """
-        Use prefpicker to generate default prefs file
-        :return: Path
-        """
-        if self._prefs is not None:
-            yield self._prefs
-        else:
-            template_path = None
-            for template in PrefPicker.templates():
-                if template.endswith("browser-fuzzing.yml"):
-                    template_path = template
-
-            if template_path is not None:
-                pick = PrefPicker.load_template(template_path)
-                with tempfile.NamedTemporaryFile(suffix=".js") as temp:
-                    pick.create_prefsjs(temp.name)
-                    yield temp.name
-            else:
-                yield None
-
-    def verify_build(self, binary, prefs=None):
+    def verify_build(self, binary):
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
-        :param prefs: The path to the prefs file
         :return: Boolean
         """
         with tempfile.NamedTemporaryFile(suffix=".html", mode="w") as temp:
@@ -74,7 +49,7 @@ class BrowserEvaluator(Evaluator):
 
             # Ignore replay logging when verifying build
             logging.getLogger("replay").disabled = True
-            status = self.launch(binary, temp.name, prefs, 1)
+            status = self.launch(binary, temp.name, 1)
             logging.getLogger("replay").disabled = False
 
         if status != EvaluatorResult.BUILD_PASSED:
@@ -91,21 +66,17 @@ class BrowserEvaluator(Evaluator):
         """
         binary = os.path.join(build_path, "firefox")
         result = EvaluatorResult.BUILD_FAILED
-        with self.prefs() as prefs_file:
-            if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
-                LOG.info("> Launching build with testcase...")
-                result = self.launch(
-                    binary, self.testcase, prefs_file, self._repeat, scan_dir=True
-                )
+        if os.path.isfile(binary) and self.verify_build(binary):
+            LOG.info("> Launching build with testcase...")
+            result = self.launch(binary, self.testcase, self._repeat, scan_dir=True)
 
         return result
 
-    def launch(self, binary, test_path, prefs, repeat, scan_dir=False):
+    def launch(self, binary, test_path, repeat, scan_dir=False):
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param test_path: The path to the testcase
-        :param prefs: The path to the prefs file
         :param repeat: The number of times to launch the browser
         :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
@@ -125,7 +96,7 @@ class BrowserEvaluator(Evaluator):
                 memory_limit=0,
                 relaunch=1,
                 launch_timeout=self._launch_timeout,
-                prefs=prefs,
+                prefs=self._prefs,
                 valgrind=self._use_valgrind,
                 xvfb=self._use_xvfb,
             )

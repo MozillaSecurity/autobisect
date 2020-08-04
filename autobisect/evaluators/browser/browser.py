@@ -74,7 +74,7 @@ class BrowserEvaluator(Evaluator):
 
             # Ignore replay logging when verifying build
             logging.getLogger("replay").disabled = True
-            status = self.launch(binary, temp.name, prefs)
+            status = self.launch(binary, temp.name, prefs, 1)
             logging.getLogger("replay").disabled = False
 
         if status != EvaluatorResult.BUILD_PASSED:
@@ -94,16 +94,19 @@ class BrowserEvaluator(Evaluator):
         with self.prefs() as prefs_file:
             if os.path.isfile(binary) and self.verify_build(binary, prefs=prefs_file):
                 LOG.info("> Launching build with testcase...")
-                result = self.launch(binary, self.testcase, prefs_file, scan_dir=True)
+                result = self.launch(
+                    binary, self.testcase, prefs_file, self._repeat, scan_dir=True
+                )
 
         return result
 
-    def launch(self, binary, test_path, prefs, scan_dir=False):
+    def launch(self, binary, test_path, prefs, repeat, scan_dir=False):
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param test_path: The path to the testcase
         :param prefs: The path to the prefs file
+        :param repeat: The number of times to launch the browser
         :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
         """
@@ -138,7 +141,7 @@ class BrowserEvaluator(Evaluator):
                     signature=None,
                     use_harness=False,
                 )
-                success = replay.run(repeat=self._repeat)
+                success = replay.run(repeat=repeat)
 
             if success:
                 return EvaluatorResult.BUILD_CRASHED

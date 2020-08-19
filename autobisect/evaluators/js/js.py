@@ -118,22 +118,30 @@ class JSEvaluator(Evaluator):
         if self.verify_build(binary, flags):
             common_args = ["-t", "%s" % self.timeout, binary, *flags, self.testcase]
 
-            for _ in range(self.repeat):
-                LOG.info("> Launching build with testcase...")
-                if self.detect == "diff":
-                    args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
-                    if interestingness.diff_test.interesting(args, None):
-                        return EvaluatorResult.BUILD_CRASHED
-                elif self.detect == "output":
-                    args = [self._match] + common_args
-                    if interestingness.outputs.interesting(args, None):
-                        return EvaluatorResult.BUILD_CRASHED
-                elif self.detect == "crash":
-                    if interestingness.crashes.interesting(common_args, None):
-                        return EvaluatorResult.BUILD_CRASHED
-                elif self.detect == "hang":
-                    if interestingness.hangs.interesting(common_args, None):
-                        return EvaluatorResult.BUILD_CRASHED
+            try:
+                # Some testcases require setting the cwd to the parent dir
+                previous_path = os.getcwd()
+                os.chdir(os.path.dirname(self.testcase))
+
+                for _ in range(self.repeat):
+                    LOG.info("> Launching build with testcase...")
+                    if self.detect == "diff":
+                        args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
+                        if interestingness.diff_test.interesting(args, None):
+                            return EvaluatorResult.BUILD_CRASHED
+                    elif self.detect == "output":
+                        args = [self._match] + common_args
+                        if interestingness.outputs.interesting(args, None):
+                            return EvaluatorResult.BUILD_CRASHED
+                    elif self.detect == "crash":
+                        if interestingness.crashes.interesting(common_args, None):
+                            return EvaluatorResult.BUILD_CRASHED
+                    elif self.detect == "hang":
+                        if interestingness.hangs.interesting(common_args, None):
+                            return EvaluatorResult.BUILD_CRASHED
+            finally:
+                # Reset cwd
+                os.chdir(previous_path)
 
             return EvaluatorResult.BUILD_PASSED
 

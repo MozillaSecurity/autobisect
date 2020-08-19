@@ -58,16 +58,12 @@ class JSEvaluator(Evaluator):
 
         if self.detect == "diff":
             if not kwargs.get("arg_1") or not kwargs.get("arg_2"):
-                raise JSEvaluatorException(
-                    "Detect mode is set to diff but not enough args supplied"
-                )
+                raise JSEvaluatorException("Diff mode requires 'arg_1' and 'arg_2'")
             self._arg_1 = kwargs.get("arg_1")
             self._arg_2 = kwargs.get("arg_2")
         elif self.detect == "match":
             if not kwargs.get("match"):
-                raise JSEvaluatorException(
-                    "Detect mode is set to match but a match string wasn't supplied"
-                )
+                raise JSEvaluatorException("Match mode requires a match string")
             self._match = kwargs.get("match")
             self._regex = kwargs.get("regex")
 

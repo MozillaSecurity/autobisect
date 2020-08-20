@@ -115,7 +115,7 @@ class JSEvaluator(Evaluator):
             if flag.lstrip("--").split("=")[0] in all_flags:
                 flags.append(flag)
 
-        if self.verify_build(binary, flags):
+        if os.path.isfile(binary) and self.verify_build(binary, flags):
             common_args = ["-t", "%s" % self.timeout, binary, *flags, self.testcase]
 
             try:

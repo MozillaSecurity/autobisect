@@ -33,7 +33,7 @@ homepage = "https://github.com/MozillaSecurity/autobisect"
 
 [tool.poetry.dependencies]
 black = "^19.10b0"
-fuzzfetch = "^1.0.3"
+fuzzfetch = "^1.0.4"
 grizzly-framework = "^0.9.5"
 lithium-reducer = "^0.3.3"
 python = "^3.6"

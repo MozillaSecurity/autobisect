@@ -117,6 +117,8 @@ class BrowserEvaluator(Evaluator):
                 self._launch_timeout,
                 "--repeat",
                 repeat,
+                "--relaunch",
+                1,
                 "--no-harness",
                 "--ignore",
                 *self._ignore,

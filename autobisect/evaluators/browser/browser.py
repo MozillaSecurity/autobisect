@@ -1,18 +1,36 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
+import argparse
 import logging
 import os
 import tempfile
 
 from grizzly.common import TestCase
-from grizzly.replay import ReplayManager
-from grizzly.target import TargetLaunchError, TargetLaunchTimeout, load as load_target
-from sapphire import Sapphire
+from grizzly.replay import ReplayArgs, ReplayManager
 
 from ..base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("browser-eval")
+
+
+class ArgParserNoExit(argparse.ArgumentParser):
+    def exit(self, *args, **kwds):
+        pass
+
+
+class ReplayArgsNoExit(ReplayArgs):
+    """ Override default ArgParser SystemExit Behavior """
+
+    def __init__(self, *args, **kwds):
+        self.parser = ArgParserNoExit()
+        super().__init__(*args, **kwds)
+
+
+class BrowserEvaluatorException(Exception):
+    """ Simple exception handler for BrowserEvaluator """
+
+    pass
 
 
 class BrowserEvaluator(Evaluator):
@@ -81,51 +99,45 @@ class BrowserEvaluator(Evaluator):
         :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
         """
-        replay = None
-        target = None
+        # Create testcase
         testcase = TestCase.load_path(test_path, scan_dir)
         if self._env_vars:
             for key, value in self._env_vars.items():
                 testcase.add_environ_var(key, value)
 
-        try:
-            target = load_target("ffpuppet")(
+        with tempfile.TemporaryDirectory() as test_dir:
+            testcase.dump(test_dir, include_details=True)
+
+            raw_args = [
                 binary,
-                extension=None,
-                log_limit=0,
-                memory_limit=0,
-                relaunch=1,
-                launch_timeout=self._launch_timeout,
-                prefs=self._prefs,
-                valgrind=self._use_valgrind,
-                xvfb=self._use_xvfb,
-            )
+                test_dir,
+                "--timeout",
+                self._timeout,
+                "--launch-timeout",
+                self._launch_timeout,
+                "--repeat",
+                repeat,
+                "--no-harness",
+                "--ignore",
+                *self._ignore,
+            ]
 
-            with Sapphire(auto_close=1, timeout=self._timeout) as server:
-                target.reverse(server.port, server.port)
-                replay = ReplayManager(
-                    self._ignore,
-                    server,
-                    target,
-                    testcase,
-                    any_crash=False,
-                    signature=None,
-                    use_harness=False,
-                )
-                success = replay.run(repeat=repeat)
+            if self._prefs:
+                raw_args.extend("--prefs", self._prefs)
+            if self._use_valgrind:
+                raw_args.append("--valgrind")
+            if self._use_xvfb:
+                raw_args.append("--xvfb")
 
-            if success:
+            # Convert all args to string
+            try:
+                args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
+            except Exception as e:
+                raise BrowserEvaluator(e)
+
+            success = ReplayManager.main(args)
+
+            if not success:
                 return EvaluatorResult.BUILD_CRASHED
 
             return EvaluatorResult.BUILD_PASSED
-
-        except (TargetLaunchError, TargetLaunchTimeout):
-            return EvaluatorResult.BUILD_FAILED
-
-        finally:
-            if replay is not None:
-                replay.cleanup()
-            if target is not None:
-                target.cleanup()
-            if testcase is not None:
-                testcase.cleanup()

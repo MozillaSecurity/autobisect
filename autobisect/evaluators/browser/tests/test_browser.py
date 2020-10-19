@@ -33,7 +33,7 @@ def test_evaluate_testcase_simple(mocker, tmp_path):
     )
     browser = BrowserEvaluator("testcase.html")
     (tmp_path / "firefox").touch()
-    assert browser.evaluate_testcase(str(tmp_path)) == EvaluatorResult.BUILD_PASSED
+    assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_PASSED
 
 
 def test_evaluate_testcase_non_existent_binary(tmp_path):
@@ -41,7 +41,7 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
     Test that BrowserEvaluator.evaluate_testcase fails when using a non-existent build path
     """
     browser = BrowserEvaluator("testcase.html")
-    assert browser.evaluate_testcase(str(tmp_path)) == EvaluatorResult.BUILD_FAILED
+    assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_FAILED
 
 
 def test_launch_simple(mocker, tmp_path):
@@ -58,8 +58,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase, None, 1) == EvaluatorResult.BUILD_CRASHED
-    assert browser.launch(binary, testcase, None, 1) == EvaluatorResult.BUILD_PASSED
+    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_CRASHED
+    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(mocker, tmp_path):
@@ -75,4 +75,4 @@ def test_launch_non_existent_binary(mocker, tmp_path):
     browser = BrowserEvaluator(testcase)
 
     with pytest.raises(AssertionError):
-        browser.launch(binary, testcase, None, 1)
+        browser.launch(binary, testcase, 1)

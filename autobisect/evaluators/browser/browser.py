@@ -136,7 +136,7 @@ class BrowserEvaluator(Evaluator):
             try:
                 args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
             except Exception as e:
-                raise BrowserEvaluatorException(e)
+                raise BrowserEvaluatorException from e
 
             success = ReplayManager.main(args)
 

@@ -1,17 +1,17 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-from argparse import ArgumentParser, Action
 import logging
 import os
 import time
+from argparse import Action, ArgumentParser
 from datetime import timedelta
 
 from fuzzfetch import BuildFlags
 from fuzzfetch.fetch import Platform
 
 from .bisect import BisectionResult, Bisector
-from .evaluators import BrowserArgs, BrowserEvaluator, JSEvaluator, JSArgs
+from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 
 LOG = logging.getLogger("autobisect")
 

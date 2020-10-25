@@ -585,15 +585,16 @@ dev = ["pre-commit", "tox", "pytest-asyncio"]
 
 [[package]]
 name = "pytest-pylint"
-version = "0.15.1"
+version = "0.17.0"
 description = "pytest plugin to check source code with pylint"
 category = "dev"
 optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
-pytest = ">=5.0"
-pylint = ">=2.0.0"
+toml = ">=0.7.1"
+pytest = ">=5.4"
+pylint = ">=2.3.0"
 
 [[package]]
 name = "python-dateutil"
@@ -796,7 +797,7 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "a457edeaf794e97c57f3899ae8190ab1e432b089f1def58b3f8c01f5b7097597"
+content-hash = "f623250500ca2a8336861c59bd52f5be191500f6b8831f2b8154817430854ab2"
 
 [metadata.files]
 appdirs = [
@@ -1058,8 +1059,8 @@ pytest-mock = [
     {file = "pytest_mock-3.3.1-py3-none-any.whl", hash = "sha256:024e405ad382646318c4281948aadf6fe1135632bea9cc67366ea0c4098ef5f2"},
 ]
 pytest-pylint = [
-    {file = "pytest-pylint-0.15.1.tar.gz", hash = "sha256:dd3e232da5703e7fd14c610247dbe25dfd8e3278069b4b8bcf9778ba06b77569"},
-    {file = "pytest_pylint-0.15.1-py3-none-any.whl", hash = "sha256:cac5d565182f39fbb7fa7f4ef1bbcc979e8f5cc260450ec72dc5aafeb782531f"},
+    {file = "pytest-pylint-0.17.0.tar.gz", hash = "sha256:b0c177d63f6e3f5b82fa2720a6570dd2ecff1616c26ed6d02d0cbf75fd98ddf9"},
+    {file = "pytest_pylint-0.17.0-py3-none-any.whl", hash = "sha256:c6a1b9ad7dc819ea56ebd45fc1f5a611f0848b9a5b85fdcd8deafd07b22e7f2e"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},

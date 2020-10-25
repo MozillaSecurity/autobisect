@@ -42,7 +42,7 @@ def parse_args():
     """
     Argument parser
     """
-    parser = ArgumentParser(description="Firefox and Spidermonkey Bisection Tool",)
+    parser = ArgumentParser(description="Firefox and Spidermonkey Bisection Tool")
     subparsers = parser.add_subparsers(dest="target")
     subparsers.required = True
 

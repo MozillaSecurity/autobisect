@@ -1,18 +1,22 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at http://mozilla.org/MPL/2.0/.
+# pylint: disable=protected-access
 import re
 from datetime import datetime, timedelta
 
 import pytest
-import requests_mock
 from freezegun import freeze_time
 from fuzzfetch import BuildFlags, Platform
 
-from .fetcher_callback import fetcher_mock
-from .. import EvaluatorResult
-from ..bisect import Bisector, StatusException, VerificationStatus, get_autoland_range
-from ..builds import BuildRange
-
-
-# pylint: disable=protected-access
+from autobisect import EvaluatorResult
+from autobisect.bisect import (
+    Bisector,
+    StatusException,
+    VerificationStatus,
+    get_autoland_range,
+)
+from autobisect.builds import BuildRange
 
 
 class MockFetcher:
@@ -102,6 +106,7 @@ def test_bisect_get_pushdate_builds_simple(mocker):
     assert len(builds) == 9
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_bisect_get_autoland_builds_simple():
     """
     Simple test of Bisector._get_autoland_builds
@@ -109,23 +114,20 @@ def test_bisect_get_autoland_builds_simple():
     bisector = MockBisector(None, None)
     bisector.start = MockFetcher(dt=datetime(2019, 12, 30), changeset="03ed5ed6cba7")
     bisector.end = MockFetcher(dt=datetime(2019, 12, 31), changeset="a1266665b89b")
+    builds = bisector._get_autoland_builds()
+    repo_url = "https://hg.mozilla.org/integration/autoland"
 
-    with requests_mock.Mocker() as req:
-        req.register_uri(requests_mock.ANY, requests_mock.ANY, content=fetcher_mock)
-        builds = bisector._get_autoland_builds()
-        repo_url = "https://hg.mozilla.org/integration/autoland"
-
-        assert isinstance(builds, BuildRange)
-        assert len(builds) > 1
-        assert all(b.build_info["moz_source_repo"] == repo_url for b in builds)
+    assert isinstance(builds, BuildRange)
+    assert len(builds) > 1
+    assert all(b.build_info["moz_source_repo"] == repo_url for b in builds)
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_get_autoland_range_simple():
     """
     Simple test of get_autoland_range()
     """
-    with freeze_time("2020-01-01"), requests_mock.Mocker() as req:
-        req.register_uri(requests_mock.ANY, requests_mock.ANY, content=fetcher_mock)
+    with freeze_time("2020-01-01"):
         changesets = get_autoland_range("03ed5ed6cba7", "a1266665b89b")
 
         assert len(changesets) == 28
@@ -133,22 +135,20 @@ def test_get_autoland_range_simple():
             assert isinstance(changeset, str) and len(changeset) == 40
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_get_autoland_range_invalid_revs():
     """
     Test get_autoland_range using invalid revisions
     """
-    with requests_mock.Mocker() as req:
-        req.register_uri(requests_mock.ANY, requests_mock.ANY, content=fetcher_mock)
-        assert get_autoland_range("foo", "bar") is None
+    assert get_autoland_range("foo", "bar") is None
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_get_autoland_range_multiple_revs():
     """
     Test that get_autoland_range returns None when multiple changsets identified
     """
-    with requests_mock.Mocker() as req:
-        req.register_uri(requests_mock.ANY, requests_mock.ANY, content=fetcher_mock)
-        assert get_autoland_range("385f49adaf00", "590613078c74") is None
+    assert get_autoland_range("385f49adaf00", "590613078c74") is None
 
 
 @pytest.mark.parametrize("status", EvaluatorResult)

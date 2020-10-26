@@ -17,9 +17,11 @@ LOG = logging.getLogger("browser-eval")
 class ArgParserNoExit(argparse.ArgumentParser):
     """ Override default ArgParser SystemExit Behavior """
 
-    # pylint: disable=signature-differs
-    def exit(self, *args, **kwds):
+    def exit(self, status=0, message=None):
         pass
+
+    def error(self, message):
+        raise BrowserEvaluatorException(message)
 
 
 class ReplayArgsNoExit(ReplayArgs):
@@ -132,12 +134,7 @@ class BrowserEvaluator(Evaluator):
             if self._use_xvfb:
                 raw_args.append("--xvfb")
 
-            # Convert all args to string
-            try:
-                args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
-            except Exception as e:
-                raise BrowserEvaluatorException from e
-
+            args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
             success = ReplayManager.main(args)
 
             if not success:

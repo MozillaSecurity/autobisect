@@ -2,6 +2,7 @@ import pytest
 
 from autobisect.evaluators import BrowserEvaluator
 from autobisect.evaluators import EvaluatorResult
+from autobisect.evaluators.browser.browser import BrowserEvaluatorException
 
 
 def test_verify_build_status(mocker):
@@ -48,9 +49,7 @@ def test_launch_simple(mocker, tmp_path):
     """
     Simple test of BrowserEvaluator.launch()
     """
-    mocker.patch(
-        "grizzly.replay.ReplayManager.main", autospec=True, side_effect=(False, True)
-    )
+    mocker.patch("grizzly.replay.ReplayManager.main", side_effect=(False, True))
 
     binary = tmp_path / "firefox"
     binary.touch()
@@ -62,17 +61,15 @@ def test_launch_simple(mocker, tmp_path):
     assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_PASSED
 
 
-def test_launch_non_existent_binary(mocker, tmp_path):
+def test_launch_non_existent_binary(tmp_path):
     """
     Simple test of BrowserEvaluator.launch()
     """
-    mocker.patch("grizzly.replay.ReplayManager.run", side_effect=(True, False))
-
     binary = tmp_path / "firefox"
     testcase = tmp_path / "testcase.html"
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(BrowserEvaluatorException):
         browser.launch(binary, testcase, 1)

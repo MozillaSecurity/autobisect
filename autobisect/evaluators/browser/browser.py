@@ -128,7 +128,7 @@ class BrowserEvaluator(Evaluator):
             ]
 
             if self._prefs:
-                raw_args.extend("--prefs", self._prefs)
+                raw_args.extend(["--prefs", self._prefs])
             if self._use_valgrind:
                 raw_args.append("--valgrind")
             if self._use_xvfb:

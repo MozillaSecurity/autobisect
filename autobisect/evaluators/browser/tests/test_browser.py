@@ -49,7 +49,7 @@ def test_launch_simple(mocker, tmp_path):
     """
     Simple test of BrowserEvaluator.launch()
     """
-    mocker.patch("grizzly.replay.ReplayManager.main", side_effect=(False, True))
+    mocker.patch("grizzly.replay.ReplayManager.main", side_effect=(0, 1))
 
     binary = tmp_path / "firefox"
     binary.touch()
@@ -57,8 +57,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_CRASHED
     assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_PASSED
+    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_CRASHED
 
 
 def test_launch_non_existent_binary(tmp_path):

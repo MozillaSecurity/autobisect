@@ -137,7 +137,7 @@ class BrowserEvaluator(Evaluator):
             args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
             success = ReplayManager.main(args)
 
-            if not success:
+            if success:
                 return EvaluatorResult.BUILD_CRASHED
 
             return EvaluatorResult.BUILD_PASSED

@@ -75,9 +75,9 @@ class VerificationStatus(Enum):
         elif self == self.END_BUILD_FAILED:
             result = "Unable to launch the end build!"
         elif self == self.START_BUILD_CRASHES:
-            result = "Start build crashes!"
+            result = "Testcase reproduces on start build!"
         elif self == self.END_BUILD_PASSES:
-            result = "End build does not crash!"
+            result = "Testcase does not reproduce on end build!"
         elif self == self.FIND_FIX_START_BUILD_PASSES:
             result = "Start build didn't crash!"
         elif self == self.FIND_FIX_END_BUILD_CRASHES:

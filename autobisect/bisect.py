@@ -2,6 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 import logging
+import random
 from datetime import datetime, timedelta
 from enum import Enum
 
@@ -230,12 +231,16 @@ class Bisector(object):
 
         return BuildRange(builds)
 
-    def build_iterator(self, build_range):
+    def build_iterator(self, build_range, random_choice):
         """
         Yields next build to be evaluated until all possibilities consumed
         """
         while build_range:
-            build = build_range.mid_point
+            if random_choice:
+                build = random.choice(build_range)
+            else:
+                build = build_range.mid_point
+
             index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
@@ -252,9 +257,11 @@ class Bisector(object):
 
         yield None
 
-    def bisect(self):
+    def bisect(self, random_choice=False):
         """
         Main bisection function
+
+        :param random_choice: Select builds at random during bisection (QuickSort)
 
         :return: BisectionResult
         """
@@ -283,7 +290,7 @@ class Bisector(object):
         ]
         for strategy in strategies:
             build_range = strategy()
-            generator = self.build_iterator(build_range)
+            generator = self.build_iterator(build_range, random_choice)
             next_build = next(generator)
             while next_build is not None:
                 status = self.test_build(next_build)

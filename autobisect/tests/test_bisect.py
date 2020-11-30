@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 import pytest
 from freezegun import freeze_time
-from fuzzfetch import BuildFlags, Platform
+from fuzzfetch import BuildFlags, Fetcher, Platform
 
 from autobisect import EvaluatorResult
 from autobisect.bisect import (
@@ -223,3 +223,21 @@ def test_verify_bounds_invalid_status(mocker, test_results):
     mocker.patch("autobisect.bisect.Bisector.test_build", side_effect=test_results)
     with pytest.raises(StatusException):
         bisector.verify_bounds()
+
+
+def test_build_iterator_random(mocker):
+    """
+    Verify that random.choice called when random_choice arg set to True
+    """
+    builds = []
+    for _ in range(1, 4):
+        builds.append(mocker.Mock(spec=Fetcher))
+    spy = mocker.patch("autobisect.bisect.random.choice", side_effect=builds)
+
+    bisector = MockBisector(None, None)
+    generator = bisector.build_iterator(builds, True)
+    next_build = next(generator)
+    while next_build is not None:
+        next_build = generator.send(EvaluatorResult.BUILD_PASSED)
+
+    assert spy.call_count == 3

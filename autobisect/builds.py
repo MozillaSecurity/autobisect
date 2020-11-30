@@ -8,6 +8,7 @@
 
 import copy
 import logging
+import random
 from datetime import timedelta
 
 LOG = logging.getLogger("builds")
@@ -51,6 +52,16 @@ class BuildRange(object):
         """
         if len(self) > 0:
             return self._builds[len(self) // 2]
+
+        return None
+
+    @property
+    def random(self):
+        """
+        Select a random index
+        """
+        if len(self) > 0:
+            return random.choice(self._builds)
 
         return None
 

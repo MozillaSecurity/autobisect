@@ -44,6 +44,21 @@ def test_build_range_mid_point():
         assert BuildRange(list(range(i))).mid_point == mid_point
 
 
+def test_build_range_random():
+    """
+    Test to ensure random returns element in list
+    """
+    builds = list(range(10))
+    assert BuildRange(builds).random in builds
+
+
+def test_build_range_random_empty_list():
+    """
+    Test BuildRange.random with an empty list
+    """
+    assert BuildRange([]).random is None
+
+
 def test_build_range_indexing():
     """
     Test to ensure proper index is returned

@@ -10,6 +10,7 @@
 .vscode/
 *.swp
 .idea/
+.coverage
 
 # Linting via pytest
 .cache/

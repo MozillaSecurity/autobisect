@@ -49,7 +49,7 @@ class JSEvaluator(Evaluator):
 
     def __init__(self, testcase, **kwargs):
         self.testcase = testcase
-        self.flags = kwargs.get("flags", None)
+        self.flags = kwargs.get("flags", [])
         self.repeat = kwargs.get("repeat", 1)
 
         # JS Shell launch arguments

@@ -13,6 +13,9 @@ from ..base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("browser-eval")
 
+# Disable sub loggers
+logging.getLogger("grizzly.replay").setLevel(logging.WARNING)
+
 
 class ArgParserNoExit(argparse.ArgumentParser):
     """ Override default ArgParser SystemExit Behavior """
@@ -68,10 +71,7 @@ class BrowserEvaluator(Evaluator):
             temp.flush()
             LOG.info("> Verifying build...")
 
-            # Ignore replay logging when verifying build
-            logging.getLogger("replay").disabled = True
             status = self.launch(binary, temp.name, 1)
-            logging.getLogger("replay").disabled = False
 
         if status != EvaluatorResult.BUILD_PASSED:
             LOG.error(">> Build crashed!")
@@ -90,6 +90,11 @@ class BrowserEvaluator(Evaluator):
         if os.path.isfile(binary) and self.verify_build(binary):
             LOG.info("> Launching build with testcase...")
             result = self.launch(binary, self.testcase, self._repeat, scan_dir=True)
+
+        if result == EvaluatorResult.BUILD_CRASHED:
+            LOG.info(">> Build crashed!")
+        else:
+            LOG.info(">> Build did not crash!")
 
         return result
 

@@ -121,7 +121,7 @@ class JSEvaluator(Evaluator):
             try:
                 # Some testcases require setting the cwd to the parent dir
                 previous_path = os.getcwd()
-                os.chdir(os.path.dirname(self.testcase))
+                os.chdir(os.path.dirname(os.path.abspath(self.testcase)))
 
                 for _ in range(self.repeat):
                     LOG.info("> Launching build with testcase...")

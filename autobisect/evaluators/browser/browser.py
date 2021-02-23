@@ -8,6 +8,7 @@ import tempfile
 
 from grizzly.common import TestCase
 from grizzly.replay import ReplayArgs, ReplayManager
+from grizzly.session import Session
 
 from ..base import Evaluator, EvaluatorResult
 
@@ -142,7 +143,9 @@ class BrowserEvaluator(Evaluator):
             args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
             success = ReplayManager.main(args)
 
-            if not success:
+            if success == Session.EXIT_SUCCESS:
                 return EvaluatorResult.BUILD_CRASHED
+            if success == Session.EXIT_FAILURE:
+                return EvaluatorResult.BUILD_PASSED
 
-            return EvaluatorResult.BUILD_PASSED
+            return EvaluatorResult.BUILD_FAILED

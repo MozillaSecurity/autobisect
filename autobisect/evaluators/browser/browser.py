@@ -75,7 +75,7 @@ class BrowserEvaluator(Evaluator):
             status = self.launch(binary, temp.name, 1)
 
         if status != EvaluatorResult.BUILD_PASSED:
-            LOG.error(">> Build crashed!")
+            LOG.error(">> Failed to validate build!")
             return False
 
         LOG.info(">> Build verified!")
@@ -92,10 +92,10 @@ class BrowserEvaluator(Evaluator):
             LOG.info("> Launching build with testcase...")
             result = self.launch(binary, self.testcase, self._repeat, scan_dir=True)
 
-        if result == EvaluatorResult.BUILD_CRASHED:
-            LOG.info(">> Build crashed!")
-        else:
-            LOG.info(">> Build did not crash!")
+            if result == EvaluatorResult.BUILD_CRASHED:
+                LOG.info(">> Build crashed!")
+            else:
+                LOG.info(">> Build did not crash!")
 
         return result
 

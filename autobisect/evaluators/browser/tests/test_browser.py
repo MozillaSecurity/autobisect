@@ -1,4 +1,5 @@
 import pytest
+from grizzly.session import Session
 
 from autobisect.evaluators import BrowserEvaluator
 from autobisect.evaluators import EvaluatorResult
@@ -49,7 +50,10 @@ def test_launch_simple(mocker, tmp_path):
     """
     Simple test of BrowserEvaluator.launch()
     """
-    mocker.patch("grizzly.replay.ReplayManager.main", side_effect=(False, True))
+    mocker.patch(
+        "grizzly.replay.ReplayManager.main",
+        side_effect=(Session.EXIT_SUCCESS, Session.EXIT_FAILURE),
+    )
 
     binary = tmp_path / "firefox"
     binary.touch()

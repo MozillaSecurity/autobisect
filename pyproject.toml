@@ -32,7 +32,6 @@ homepage = "https://github.com/MozillaSecurity/autobisect"
 
 
 [tool.poetry.dependencies]
-black = "^19.10b0"
 fuzzfetch = "^1.0.4"
 grizzly-framework = "^0.11.1"
 lithium-reducer = "^0.3.3"
@@ -40,6 +39,7 @@ python = "^3.6"
 toml = "^0.9"
 
 [tool.poetry.dev-dependencies]
+black = "^19.10b0"
 codecov = "^2.1.11"
 coverage = { extras = ["toml"], version = "^5.1" }
 flake8 = "^3.7.9"

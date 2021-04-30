@@ -1,6 +1,6 @@
 Autobisect
 ==========
-[![Build Status](https://travis-ci.com/MozillaSecurity/autobisect.svg?branch=master)](https://travis-ci.org/MozillaSecurity/autobisect)
+[![Task Status](https://community-tc.services.mozilla.com/api/github/v1/repository/MozillaSecurity/autobisect/main/badge.svg)](https://community-tc.services.mozilla.com/api/github/v1/repository/MozillaSecurity/autobisect/main/latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![codecov](https://codecov.io/gh/MozillaSecurity/autobisect/branch/master/graph/badge.svg)](https://codecov.io/gh/MozillaSecurity/autobisect)
 

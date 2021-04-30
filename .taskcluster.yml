@@ -54,10 +54,6 @@ tasks:
             secrets:
               - type: env
                 secret: project/fuzzing/pypi-autobisect
-                name: TWINE_USERNAME
-                key: username
-              - type: env
-                secret: project/fuzzing/pypi-autobisect
                 name: TWINE_PASSWORD
                 key: password
 

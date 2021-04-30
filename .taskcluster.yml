@@ -57,7 +57,6 @@ tasks:
                 name: TWINE_PASSWORD
                 key: password
 
-
   in:
     $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'
     then:
@@ -91,5 +90,5 @@ tasks:
         metadata:
           name: ${project_name} CI decision
           description: Schedule CI tasks for ${project_name}
-          owner: truber@mozilla.com
+          owner: jkratzer@mozilla.com
           source: https://github.com/MozillaSecurity/orion

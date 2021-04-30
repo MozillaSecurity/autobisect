@@ -1,8 +1,7 @@
 import pytest
 from grizzly.session import Session
 
-from autobisect.evaluators import BrowserEvaluator
-from autobisect.evaluators import EvaluatorResult
+from autobisect.evaluators import BrowserEvaluator, EvaluatorResult
 from autobisect.evaluators.browser.browser import BrowserEvaluatorException
 
 

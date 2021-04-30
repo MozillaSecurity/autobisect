@@ -38,7 +38,6 @@ fuzzfetch = "^1.2.1"
 grizzly-framework = "^0.11.1"
 lithium-reducer = "^0.3.3"
 python = "^3.6"
-toml = "^0.9"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

@@ -2,31 +2,18 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import logging
-import os
 import time
 from argparse import ArgumentParser
 from datetime import timedelta
 
 from fuzzfetch import BuildFlags
 from fuzzfetch.fetch import Platform
+from grizzly.main import configure_logging
 
 from .bisect import BisectionResult, Bisector
 from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 
 LOG = logging.getLogger("autobisect")
-
-
-def console_init_logging():
-    """
-    Enable logging when called from console
-    """
-    log_level = logging.INFO
-    log_fmt = "[%(asctime)s] %(message)s"
-    if bool(os.getenv("DEBUG")):
-        log_level = logging.DEBUG
-        log_fmt = "%(levelname).1s %(name)s [%(asctime)s] %(message)s"
-    logging.basicConfig(format=log_fmt, datefmt="%Y-%m-%d %H:%M:%S", level=log_level)
-    logging.getLogger("requests").setLevel(logging.WARNING)
 
 
 def parse_args():
@@ -53,6 +40,7 @@ def main(args):
     Args:
         args: Parsed arguments
     """
+    configure_logging(args.log_level)
     if args.target == "firefox":
         evaluator = BrowserEvaluator(**vars(args))
     else:

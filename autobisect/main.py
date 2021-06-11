@@ -4,7 +4,7 @@
 import logging
 import os
 import time
-from argparse import Action, ArgumentParser
+from argparse import ArgumentParser
 from datetime import timedelta
 
 from fuzzfetch import BuildFlags
@@ -14,15 +14,6 @@ from .bisect import BisectionResult, Bisector
 from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 
 LOG = logging.getLogger("autobisect")
-
-
-class ExpandPath(Action):
-    """
-    Expand user and relative-paths
-    """
-
-    def __call__(self, parser, namespace, values, option_string=None):
-        setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
 
 
 def console_init_logging():
@@ -43,24 +34,24 @@ def parse_args():
     Argument parser
     """
     parser = ArgumentParser(description="Firefox and Spidermonkey Bisection Tool")
-    subparsers = parser.add_subparsers(dest="target")
-    subparsers.required = True
-
-    ff_sub = BrowserArgs(subparsers.add_parser("firefox", conflict_handler="resolve"))
-    js_sub = JSArgs(subparsers.add_parser("js", conflict_handler="resolve"))
+    subparsers = parser.add_subparsers(dest="target", required=True)
+    firefox_parser = BrowserArgs(subparsers.add_parser("firefox"))
+    js_parser = JSArgs(subparsers.add_parser("js"))
 
     args = parser.parse_args()
     if args.target == "firefox":
-        ff_sub.sanity_check(args)
+        firefox_parser.sanity_check(args)
     elif args.target == "js":
-        js_sub.sanity_check(args)
+        js_parser.sanity_check(args)
 
     return args
 
 
 def main(args):
-    """
-    Autobisect main entry point
+    """Autobisect main entry point
+
+    Args:
+        args: Parsed arguments
     """
     if args.target == "firefox":
         evaluator = BrowserEvaluator(**vars(args))

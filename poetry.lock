@@ -224,11 +224,11 @@ six = "*"
 
 [[package]]
 name = "fuzzfetch"
-version = "1.2.1"
+version = "1.3.0"
 description = "Downloader for firefox/jsshell builds."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
@@ -801,7 +801,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "c16cb5586224c2d58157e60314e0626edb9d9b429633bf5418e0fa7da3e01552"
+content-hash = "af27ac19b01311a61f44ab727b39e95b4ce799c9d3a8847f53d2a292934923d9"
 
 [metadata.files]
 appdirs = [
@@ -935,8 +935,8 @@ freezegun = [
     {file = "freezegun-0.3.15.tar.gz", hash = "sha256:e2062f2c7f95cc276a834c22f1a17179467176b624cc6f936e8bc3be5535ad1b"},
 ]
 fuzzfetch = [
-    {file = "fuzzfetch-1.2.1-py3-none-any.whl", hash = "sha256:4d4f85292e883e5a1500219ce9dd590bd14b132f982a532a4a1a2630cb688cac"},
-    {file = "fuzzfetch-1.2.1.tar.gz", hash = "sha256:eb4303014dfe1ae2e82d07536fc461d9765a09d68e0e0c353e554546fc5957a0"},
+    {file = "fuzzfetch-1.3.0-py3-none-any.whl", hash = "sha256:eeb96cda41143693644df168646c68709a79a7a18e2af7e3b2004e4c8bf709f5"},
+    {file = "fuzzfetch-1.3.0.tar.gz", hash = "sha256:d3a5f316a00acd305b3190e2064d0f7b1983da40235dcb37bd361593c77e31ff"},
 ]
 fuzzmanager = [
     {file = "FuzzManager-0.4.1-py2.py3-none-any.whl", hash = "sha256:2bb17b5a725d8d6f03eb9979a75416a1137b7456c95a581a50c7b542fbf3d174"},

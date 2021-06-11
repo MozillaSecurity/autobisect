@@ -52,7 +52,14 @@ def main(args):
         evaluator = JSEvaluator(**vars(args))
 
     flags = BuildFlags(
-        args.asan, args.tsan, args.debug, args.fuzzing, args.coverage, args.valgrind
+        args.asan,
+        args.tsan,
+        args.debug,
+        args.fuzzing,
+        args.coverage,
+        args.valgrind,
+        args.no_opt,
+        args.fuzzilli,
     )
     platform = Platform(args.os, args.cpu)
     bisector = Bisector(

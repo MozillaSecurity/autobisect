@@ -3,7 +3,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import sys
 
-from .main import console_init_logging, main, parse_args
+from .main import main, parse_args
 
-console_init_logging()
 sys.exit(main(parse_args()))

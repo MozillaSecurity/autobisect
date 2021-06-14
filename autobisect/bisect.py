@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 
 import requests
-from fuzzfetch import BuildFlags, Fetcher, FetcherException
+from fuzzfetch import BuildFlags, BuildSearchOrder, BuildTask, Fetcher, FetcherException
 
 from .build_manager import BuildManager
 from .builds import BuildRange
@@ -145,9 +145,7 @@ class Bisector(object):
         """
         self.evaluator = evaluator
         self.target = target
-        self.branch = (
-            Fetcher.resolve_esr(branch) if branch.startswith("esr") else branch
-        )
+        self.branch = branch
         self.platform = platform
         self.flags = BuildFlags(*flags)
         self.find_fix = find_fix
@@ -158,20 +156,18 @@ class Bisector(object):
         end_id = end if end else "latest"
 
         self.start = Fetcher(
-            self.target,
             self.branch,
             start_id,
             self.flags,
             self.platform,
-            Fetcher.BUILD_ORDER_ASC,
+            BuildSearchOrder.ASC,
         )
         self.end = Fetcher(
-            self.target,
             self.branch,
             end_id,
             self.flags,
             self.platform,
-            Fetcher.BUILD_ORDER_DESC,
+            BuildSearchOrder.DESC,
         )
 
         self.build_manager = BuildManager(config)
@@ -197,8 +193,9 @@ class Bisector(object):
         builds = []
         for dt in [start, end]:
             date = dt.strftime("%Y-%m-%d")
-            for build in Fetcher.iterall(self.target, self.branch, date, self.flags):
+            for task in BuildTask.iterall(date, self.branch, self.flags, self.platform):
                 # Only keep builds after the start and before the end boundaries
+                build = Fetcher(self.branch, task, self.flags, self.platform)
                 if self.end.datetime > build.datetime > self.start.datetime:
                     builds.append(build)
 
@@ -222,9 +219,7 @@ class Bisector(object):
         builds = []
         for changeset in changesets:
             try:
-                build = Fetcher(
-                    self.target, "autoland", changeset, self.flags, self.platform
-                )
+                build = Fetcher("autoland", changeset, self.flags, self.platform)
                 builds.append(build)
             except FetcherException:
                 LOG.warning("Unable to find build for %s", changeset)

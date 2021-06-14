@@ -1,50 +1,58 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-from grizzly.replay import ReplayArgs
+import os
+from pathlib import Path
 
-from ...args import BisectCommonArgs, _remove_arg, _suppress_arg
+from ...args import BisectCommonArgs
 
 
-class BrowserArgs(BisectCommonArgs, ReplayArgs):
-    """
-    Argparser for BrowserEvaluator
-    """
+class BrowserArgs(BisectCommonArgs):
+    """Arguments for the BrowserEvaluator"""
 
-    CONFLICTING_ARGS = [
-        "binary",
-        "fuzzmanager",
-        "include_test",
-        "input",
-        "logs",
-        "no_harness",
-        "relaunch",
-        "rr",
-        "tool",
-    ]
-
-    IGNORED_ARGS = [
-        "min_crashes",
-        "platform",
-        "sig",
-        "working_path",
-    ]
+    IGNORABLE = ("log-limit", "memory", "timeout")
 
     def __init__(self, parser):
+        super().__init__(parser)
         self.parser = parser
-        super().__init__()
+        launcher_grp = self.parser.add_argument_group("Launcher Arguments")
+        launcher_grp.add_argument(
+            "--launch-timeout",
+            type=int,
+            default=300,
+            help="Number of seconds to wait before LaunchError is raised"
+            " (default: %(default)s)",
+        )
+        launcher_grp.add_argument(
+            "-p",
+            "--prefs",
+            type=Path,
+            help="Optional prefs.js file to use",
+        )
+        launcher_grp.add_argument(
+            "--xvfb",
+            action="store_true",
+            help="Use Xvfb (Linux only)",
+        )
 
-        # Remove conflicting args
-        for arg in BrowserArgs.CONFLICTING_ARGS:
-            self._sanity_skip.add(arg)
-            _remove_arg(self.parser, arg)
+        reporter_grp = self.parser.add_argument_group("Reporter Arguments")
+        reporter_grp.add_argument(
+            "--ignore",
+            nargs="*",
+            default=list(BrowserArgs.IGNORABLE),
+            help="Space separated list of issue types to ignore. Valid options: %s"
+            " (default: %s)"
+            % (" ".join(BrowserArgs.IGNORABLE), " ".join(BrowserArgs.IGNORABLE)),
+        )
 
-        # Suppress help output for unused args
-        for arg in BrowserArgs.IGNORED_ARGS:
-            self._sanity_skip.add(arg)
-            _suppress_arg(self.parser, arg)
+    def sanity_check(self, args):
+        """Perform Sanity Checks
 
-    def parse_args(self, argv=None):
-        args = self.parser.parse_args(argv)
-        self.sanity_check(args)
-        return args
+        Args:
+            args: Parsed arguments
+        """
+        super().sanity_check(args)
+        if args.prefs:
+            args.prefs = args.prefs.expanduser()
+            if not args.prefs.is_file() or os.access(args.prefs, os.R_OK):
+                self.parser.error("Cannot read the prefs.js file!")

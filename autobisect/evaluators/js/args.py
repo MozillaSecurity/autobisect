@@ -5,15 +5,13 @@ from ...args import BisectCommonArgs
 
 
 class JSArgs(BisectCommonArgs):
-    """
-    Argparser for JSEvaluator
-    """
+    """Arguments for the JSEvaluator"""
 
     def __init__(self, parser):
         self.parser = parser
-        super().__init__()
+        super().__init__(parser)
 
-        launcher = self.parser.add_argument_group("launcher arguments")
+        launcher = self.parser.add_argument_group("Launcher Arguments")
         launcher.add_argument("--flags", help="Runtime flags to pass to the binary")
         launcher.add_argument(
             "--detect",
@@ -22,10 +20,10 @@ class JSArgs(BisectCommonArgs):
             help="Type of failure to detect (default: %(default)s)",
         )
 
-        diff = self.parser.add_argument_group("diff arguments")
+        diff = self.parser.add_argument_group("Diff Arguments")
         diff.add_argument("--arg_1", help="Arguments to supply to the first run")
         diff.add_argument("--arg_2", help="Arguments to supply to the second run")
 
-        output = self.parser.add_argument_group("output arguments")
+        output = self.parser.add_argument_group("Output Arguments")
         output.add_argument("--match", help="String to detect in output")
         output.add_argument("--regex", help="Treat match as a regex")

@@ -58,10 +58,6 @@ tasks:
                 secret: project/fuzzing/pypi-autobisect
                 name: POETRY_PYPI_TOKEN_PYPI
                 key: password
-              - type: env
-                secret: project/fuzzing/ci-git-token
-                name: GH_TOKEN
-                key: key
               - type: key
                 secret: project/fuzzing/deploy-autobisect
 

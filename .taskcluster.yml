@@ -60,6 +60,7 @@ tasks:
                 key: password
               - type: key
                 secret: project/fuzzing/deploy-autobisect
+                key: key
 
   in:
     $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'

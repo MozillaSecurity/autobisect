@@ -47,10 +47,10 @@ tasks:
               TOXENV: lint
             script:
               - tox
-          - name: PyPI upload
+          - name: semantic-release
             version: "3.8"
             env:
-              TOXENV: pypi
+              TOXENV: release
             script:
               - tox
             when:
@@ -59,8 +59,12 @@ tasks:
             secrets:
               - type: env
                 secret: project/fuzzing/pypi-autobisect
-                name: TWINE_PASSWORD
+                name: POETRY_PYPI_TOKEN_PYPI
                 key: password
+              - type: env
+                secret: project/fuzzing/ci-git-token
+                name: GH_TOKEN
+                key: key
 
   in:
     $if: '(tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]) && !("[skip ci]" in commit_msg)'
@@ -90,6 +94,7 @@ tasks:
           - queue:create-task:highest:proj-fuzzing/ci
           - queue:create-task:highest:proj-fuzzing/ci-*
           - queue:scheduler-id:taskcluster-github
+          - secrets:get:project/fuzzing/ci-git-token
           - secrets:get:project/fuzzing/codecov-autobisect
           - secrets:get:project/fuzzing/pypi-autobisect
         metadata:

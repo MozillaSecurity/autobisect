@@ -16,4 +16,15 @@ repos:
     rev: v0.0.2
     hooks:
       - id: orion_ci
-
+  - repo: https://github.com/jorisroovers/gitlint
+    rev:  v0.15.1
+    hooks:
+      - id: gitlint
+        args: [--contrib=contrib-title-conventional-commits, --ignore=body-is-missing, --msg-filename]
+  - repo: local
+    hooks:
+      - id: system
+        name: pylint
+        entry: poetry run pylint -j 0 autobisect
+        pass_filenames: false
+        language: system

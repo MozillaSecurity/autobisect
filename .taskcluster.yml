@@ -93,8 +93,8 @@ tasks:
           - queue:create-task:highest:proj-fuzzing/ci
           - queue:create-task:highest:proj-fuzzing/ci-*
           - queue:scheduler-id:taskcluster-github
-          - secrets:get:project/fuzzing/ci-git-token
           - secrets:get:project/fuzzing/codecov-autobisect
+          - secrets:get:project/fuzzing/deploy-autobisect
           - secrets:get:project/fuzzing/pypi-autobisect
         metadata:
           name: ${project_name} CI decision

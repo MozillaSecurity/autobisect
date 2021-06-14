@@ -47,7 +47,9 @@ tasks:
             env:
               TOXENV: release
             script:
-              - tox
+              - >-
+                git checkout -b master HEAD &&
+                tox
             when:
               branch: master
               all_passed: true
@@ -60,6 +62,8 @@ tasks:
                 secret: project/fuzzing/ci-git-token
                 name: GH_TOKEN
                 key: key
+              - type: key
+                secret: project/fuzzing/deploy-autobisect
 
   in:
     $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'

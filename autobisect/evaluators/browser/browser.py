@@ -19,7 +19,7 @@ logging.getLogger("grizzly.replay").setLevel(logging.WARNING)
 
 
 class ArgParserNoExit(argparse.ArgumentParser):
-    """ Override default ArgParser SystemExit Behavior """
+    """Override default ArgParser SystemExit Behavior"""
 
     def exit(self, status=0, message=None):
         pass
@@ -29,7 +29,7 @@ class ArgParserNoExit(argparse.ArgumentParser):
 
 
 class ReplayArgsNoExit(ReplayArgs):
-    """ Set parser to ArgParserNoExit instance """
+    """Set parser to ArgParserNoExit instance"""
 
     def __init__(self, *args, **kwds):
         self.parser = ArgParserNoExit()
@@ -37,7 +37,7 @@ class ReplayArgsNoExit(ReplayArgs):
 
 
 class BrowserEvaluatorException(Exception):
-    """ Simple exception handler for BrowserEvaluator """
+    """Simple exception handler for BrowserEvaluator"""
 
 
 class BrowserEvaluator(Evaluator):

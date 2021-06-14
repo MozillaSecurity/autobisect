@@ -7,6 +7,11 @@ tasks:
     project_name:
       autobisect
 
+    commit_msg:
+      $if: 'tasks_for == "github-push" && len(event.commits) == 1'
+      then: ${event.commits[0].message}
+      else: ''
+
     matrix:
       language: python
       secrets:
@@ -58,7 +63,7 @@ tasks:
                 key: password
 
   in:
-    $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'
+    $if: '(tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]) && !("[skip ci]" in commit_msg)'
     then:
       - created: {$fromNow: ''}
         deadline: {$fromNow: '1 hour'}

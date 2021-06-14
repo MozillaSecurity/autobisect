@@ -7,7 +7,8 @@ from datetime import datetime, timedelta
 
 import pytest
 from freezegun import freeze_time
-from fuzzfetch import BuildFlags, Fetcher, Platform
+from fuzzfetch import BuildFlags, BuildTask, Fetcher, Platform
+from pytz import timezone
 
 from autobisect import EvaluatorResult
 from autobisect.bisect import (
@@ -48,6 +49,8 @@ class MockBisector(Bisector):
             fuzzing=False,
             coverage=False,
             valgrind=False,
+            no_opt=False,
+            fuzzilli=False,
         )
         self.platform = Platform("Linux", "x86_64")
 
@@ -83,23 +86,29 @@ def test_bisect_get_pushdate_builds_simple(mocker):
     """
     Simple test of Bisector._get_pushdate_builds
     """
-    end_date = datetime(2020, 1, 1, 0, 0)
+    end_date = timezone("UTC").localize(datetime(2020, 1, 1, 0, 0))
     start_date = end_date - timedelta(days=1)
     bisector = MockBisector(start_date, end_date)
 
-    # Generate fake pushdates
-    pushdates = []
+    # Generate fake tasks
+    tasks = []
+    fetchers = []
     for dt in [start_date, end_date]:
         group = []
         end_of_day = dt.replace(hour=23, minute=59, second=59)
         delta = (end_of_day - dt) / 10
         current = dt
         while current < end_of_day:
-            group.append(MockFetcher(dt=current))
+            task = mocker.MagicMock(spec=BuildTask)
+            fetchers.append(mocker.MagicMock(spec=Fetcher, datetime=current))
+            group.append(task)
             current = current + delta
-        pushdates.append(group)
 
-    mocker.patch("autobisect.bisect.Fetcher.iterall", side_effect=pushdates)
+        tasks.append(group)
+
+    mocker.patch("autobisect.bisect.BuildTask.iterall", side_effect=tasks)
+    mocker.patch("autobisect.bisect.Fetcher.id", return_value="1")
+    mocker.patch("autobisect.bisect.Fetcher", side_effect=fetchers)
     builds = bisector._get_pushdate_builds()
 
     assert isinstance(builds, BuildRange)

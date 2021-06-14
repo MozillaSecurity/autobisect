@@ -49,7 +49,7 @@ tasks:
             script:
               - tox
             when:
-              release: true
+              branch: master
               all_passed: true
             secrets:
               - type: env

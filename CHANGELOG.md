@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.14.1 (2021-06-15)
+### Fix
+* Update grizzly-framework to 1.13.2 ([`bcdcf15`](https://github.com/MozillaSecurity/autobisect/commit/bcdcf1563301e3716bf165556b6ae3b6aa0c8461))
+
 ## v0.14.0 (2021-06-15)
 
 

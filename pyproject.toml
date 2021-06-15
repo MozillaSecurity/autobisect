@@ -112,7 +112,6 @@ log_level = "DEBUG"
 [tool.semantic_release]
 version_toml = "pyproject.toml:tool.poetry.version"
 build_command = "pip install poetry && poetry build"
-commit_author = "semantic-release <autobisect@mozilla.com>"
 commit_subject = "chore(release): {version} [skip ci]"
 upload_to_pypi = true
 upload_to_release = false

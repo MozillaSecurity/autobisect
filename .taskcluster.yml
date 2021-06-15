@@ -50,7 +50,7 @@ tasks:
               - >-
                 git config --global user.email "autobisect@mozilla.com";
                 git config --global user.name "semantic-release";
-                git fetch origin master --all --tags;
+                git fetch origin master --tags;
                 tox -e release
             when:
               branch: master

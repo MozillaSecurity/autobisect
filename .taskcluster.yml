@@ -52,7 +52,7 @@ tasks:
                 git config --global user.name "semantic-release";
                 git checkout -b master HEAD;
                 pip install python-semantic-release;
-                semantic-release --post publish
+                python -m semantic_release --post publish
             when:
               branch: master
               all_passed: true

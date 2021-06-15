@@ -49,9 +49,11 @@ tasks:
             script:
               - bash
               - '-xec'
-              - git config --global user.email "autobisect@mozilla.com";
-              - git config --global user.name "semantic-release";
-              - git checkout -b master HEAD && tox
+              - >-
+                git config --global user.email "autobisect@mozilla.com";
+                git config --global user.name "semantic-release";
+                git checkout -b master HEAD;
+                tox
             when:
               branch: master
               all_passed: true

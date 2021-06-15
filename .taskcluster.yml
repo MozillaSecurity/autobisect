@@ -59,7 +59,7 @@ tasks:
             secrets:
               - type: env
                 secret: project/fuzzing/pypi-autobisect
-                name: POETRY_PYPI_TOKEN_PYPI
+                name: PYPI_TOKEN
                 key: password
               - type: key
                 secret: project/fuzzing/deploy-autobisect

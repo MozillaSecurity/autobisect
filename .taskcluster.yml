@@ -51,8 +51,7 @@ tasks:
                 git config --global user.email "autobisect@mozilla.com";
                 git config --global user.name "semantic-release";
                 git checkout -b master HEAD;
-                pip install python-semantic-release;
-                python -m semantic_release --post publish
+                tox
             when:
               branch: master
               all_passed: true

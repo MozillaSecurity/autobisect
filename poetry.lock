@@ -181,7 +181,7 @@ six = "*"
 
 [[package]]
 name = "ffpuppet"
-version = "0.7.7"
+version = "0.8.1"
 description = "A Python module that aids in the automation of Firefox at the process level"
 category = "main"
 optional = false
@@ -303,7 +303,7 @@ sh = {version = "1.14.1", markers = "sys_platform != \"win32\""}
 
 [[package]]
 name = "grizzly-framework"
-version = "0.13.1"
+version = "0.13.2"
 description = "A framework for developing and running browser fuzzers"
 category = "main"
 optional = false
@@ -312,7 +312,7 @@ python-versions = ">=3.6"
 [package.dependencies]
 cssbeautifier = "*"
 fasteners = "*"
-ffpuppet = "*"
+ffpuppet = ">=0.8.1"
 FuzzManager = "*"
 jsbeautifier = "*"
 lithium-reducer = ">=0.5"
@@ -872,7 +872,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.1"
-content-hash = "42eac06c3bf1b611289b25d76f2d6ce4a08b02bbd7feed7921b5ae982dc214e5"
+content-hash = "84a4b58269b7c4294bd333c0cd5847723c369ae2dde2b69a797b1ea3ba35e311"
 
 [metadata.files]
 appdirs = [
@@ -994,8 +994,8 @@ fasteners = [
     {file = "fasteners-0.16.3.tar.gz", hash = "sha256:b1ab4e5adfbc28681ce44b3024421c4f567e705cc3963c732bf1cba3348307de"},
 ]
 ffpuppet = [
-    {file = "ffpuppet-0.7.7-py3-none-any.whl", hash = "sha256:76fc8abdfcdd2b6bc3686f4b0d5c392c75d930d0c3a17d7f6446b7a867440110"},
-    {file = "ffpuppet-0.7.7.tar.gz", hash = "sha256:298590f5b86c681955844ba597d2adfec204ac9962c235b7677d93c2eba6a5b0"},
+    {file = "ffpuppet-0.8.1-py3-none-any.whl", hash = "sha256:7dc096e7130e293e2858154ae5954d78b407e1a0f7b26323f46de85188025073"},
+    {file = "ffpuppet-0.8.1.tar.gz", hash = "sha256:a47f3b299d637ce877d5ab387e71cb42abf0293c2540b1419b6efd16688abc88"},
 ]
 filelock = [
     {file = "filelock-3.0.12-py3-none-any.whl", hash = "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"},
@@ -1029,8 +1029,8 @@ gitlint = [
     {file = "gitlint-0.15.1.tar.gz", hash = "sha256:4b22916dcbdca381244aee6cb8d8743756cfd98f27e7d1f02e78733f07c3c21c"},
 ]
 grizzly-framework = [
-    {file = "grizzly-framework-0.13.1.tar.gz", hash = "sha256:c0ab415cf1712c46ac22a5ec0db22e7d3d83e16cb879f3be10cabe760919e128"},
-    {file = "grizzly_framework-0.13.1-py3-none-any.whl", hash = "sha256:9ddb4f737940dad5531e7ad27ae8aceec6ba75d825513285dc642af26f3cce92"},
+    {file = "grizzly-framework-0.13.2.tar.gz", hash = "sha256:8dd109116e72b5d95962c388263ae3d9a6de2104427422ed4bdfa34f898f4294"},
+    {file = "grizzly_framework-0.13.2-py3-none-any.whl", hash = "sha256:4353d9bc07b7bd42ab5a74526f668cd5ce60f8fa5204cd8ed8065daf56c7d070"},
 ]
 identify = [
     {file = "identify-2.2.10-py2.py3-none-any.whl", hash = "sha256:18d0c531ee3dbc112fa6181f34faa179de3f57ea57ae2899754f16a7e0ff6421"},

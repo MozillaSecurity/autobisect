@@ -52,6 +52,7 @@ tasks:
               - >-
                 git config --global user.email "autobisect@mozilla.com";
                 git config --global user.name "semantic-release";
+                git config -l;
                 git checkout -b master HEAD;
                 tox
             when:

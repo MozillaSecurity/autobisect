@@ -44,6 +44,8 @@ tasks:
               - tox
           - name: semantic-release
             version: "3.8"
+            env:
+              TOXENV: release
             script:
               - bash
               - '-xec'

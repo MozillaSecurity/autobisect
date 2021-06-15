@@ -47,9 +47,9 @@ tasks:
             env:
               TOXENV: release
             script:
-              - >-
-                git checkout -b master HEAD &&
-                tox
+              - bash
+              - '-xec'
+              - git checkout -b master HEAD && tox
             when:
               branch: master
               all_passed: true

@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.11.0 (2021-06-15)
+
+
 ## v0.10.0 (2021-06-15)
 ### Fix
 * **ci:** Multi-command requires bash to be called first ([`acf9e5f`](https://github.com/MozillaSecurity/autobisect/commit/acf9e5fc57b1d2b497d465583c7df085240b6bf7))

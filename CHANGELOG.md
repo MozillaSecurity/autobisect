@@ -6,18 +6,6 @@
 ### Fix
 * Update grizzly-framework to 1.13.2 ([`bcdcf15`](https://github.com/MozillaSecurity/autobisect/commit/bcdcf1563301e3716bf165556b6ae3b6aa0c8461))
 
-## v0.14.0 (2021-06-15)
-
-
-## v0.13.0 (2021-06-15)
-
-
-## v0.12.0 (2021-06-15)
-
-
-## v0.11.0 (2021-06-15)
-
-
 ## v0.10.0 (2021-06-15)
 ### Fix
 * **ci:** Multi-command requires bash to be called first ([`acf9e5f`](https://github.com/MozillaSecurity/autobisect/commit/acf9e5fc57b1d2b497d465583c7df085240b6bf7))

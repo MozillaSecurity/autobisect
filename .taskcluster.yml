@@ -44,17 +44,15 @@ tasks:
               - tox
           - name: semantic-release
             version: "3.8"
-            env:
-              TOXENV: release
             script:
               - bash
               - '-xec'
               - >-
                 git config --global user.email "autobisect@mozilla.com";
                 git config --global user.name "semantic-release";
-                git config -l;
                 git checkout -b master HEAD;
-                tox
+                pip install python-semantic-release;
+                semantic-release --post publish
             when:
               branch: master
               all_passed: true

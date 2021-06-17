@@ -2,6 +2,19 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2021-06-17)
+### Feature
+* Add type annotations throughout ([`23b5d9a`](https://github.com/MozillaSecurity/autobisect/commit/23b5d9a3ac3ff7b15dfacbfdcfed8f174e649772))
+
+### Fix
+* Additional fixes required by fuzzfetch update ([`3fd730a`](https://github.com/MozillaSecurity/autobisect/commit/3fd730add36abcaaacc5cdf5d79a9d778121530f))
+
+### Breaking
+* Adds target arg to BuildManager init  ([`3fd730a`](https://github.com/MozillaSecurity/autobisect/commit/3fd730add36abcaaacc5cdf5d79a9d778121530f))
+
+### Documentation
+* Remove entries caused by semantic-release error ([`0412bf5`](https://github.com/MozillaSecurity/autobisect/commit/0412bf5a723034039ec2416f3d602381fc6901fe))
+
 ## v0.14.1 (2021-06-15)
 ### Fix
 * Update grizzly-framework to 1.13.2 ([`bcdcf15`](https://github.com/MozillaSecurity/autobisect/commit/bcdcf1563301e3716bf165556b6ae3b6aa0c8461))

@@ -96,7 +96,7 @@ class JSEvaluator(Evaluator):
         """
         LOG.info("> Verifying build...")
         args = [binary, *flags, "-e", '"quit()"']
-        run_data = interestingness.timed_run.timed_run(args, self.timeout, None)
+        run_data = interestingness.timed_run.timed_run(args, self.timeout)
         if run_data.sta is not interestingness.timed_run.NORMAL:
             LOG.error(">> Build crashed!")
             return False

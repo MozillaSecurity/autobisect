@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from grizzly.session import Session
 
@@ -17,10 +19,10 @@ def test_verify_build_status(mocker):
             EvaluatorResult.BUILD_FAILED,
         ),
     )
-    browser = BrowserEvaluator("testcase.html")
-    assert browser.verify_build(None) is False
-    assert browser.verify_build(None) is True
-    assert browser.verify_build(None) is False
+    browser = BrowserEvaluator(Path("testcase.html"))
+    assert browser.verify_build(Path("firefox")) is False
+    assert browser.verify_build(Path("firefox")) is True
+    assert browser.verify_build(Path("firefox")) is False
 
 
 def test_evaluate_testcase_simple(mocker, tmp_path):
@@ -32,7 +34,7 @@ def test_evaluate_testcase_simple(mocker, tmp_path):
         autospec=True,
         return_value=EvaluatorResult.BUILD_PASSED,
     )
-    browser = BrowserEvaluator("testcase.html")
+    browser = BrowserEvaluator(Path("testcase.html"))
     (tmp_path / "firefox").touch()
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_PASSED
 
@@ -41,7 +43,7 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
     """
     Test that BrowserEvaluator.evaluate_testcase fails when using a non-existent build path
     """
-    browser = BrowserEvaluator("testcase.html")
+    browser = BrowserEvaluator(Path("testcase.html"))
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_FAILED
 
 

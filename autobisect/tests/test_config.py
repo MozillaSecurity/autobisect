@@ -49,7 +49,7 @@ def test_config_init_with_invalid_configuration(tmp_path):
     invalid = tmp_path / "invalid"
     invalid.touch()
     with pytest.raises((NoOptionError, NoSectionError)):
-        config.BisectionConfig(str(invalid))
+        config.BisectionConfig(invalid)
 
 
 def test_config_init_with_non_existent_dir(tmp_path):

@@ -36,7 +36,7 @@ class MockBisector(Bisector):
     """
 
     # pylint: disable=super-init-not-called
-    def __init__(self, start, end):
+    def __init__(self, start: datetime, end: datetime):
         self.start = MockFetcher(dt=start)
         self.end = MockFetcher(dt=end)
         self.target = "firefox"
@@ -120,9 +120,9 @@ def test_bisect_get_autoland_builds_simple():
     """
     Simple test of Bisector._get_autoland_builds
     """
-    bisector = MockBisector(None, None)
-    bisector.start = MockFetcher(dt=datetime(2019, 12, 30), changeset="03ed5ed6cba7")
-    bisector.end = MockFetcher(dt=datetime(2019, 12, 31), changeset="a1266665b89b")
+    bisector = MockBisector(datetime(2019, 12, 30), datetime(2019, 12, 31))
+    bisector.start.changeset = "03ed5ed6cba7"
+    bisector.end.changeset = "a1266665b89b"
     builds = bisector._get_autoland_builds()
     repo_url = "https://hg.mozilla.org/integration/autoland"
 
@@ -172,7 +172,7 @@ def test_update_range_simple(status, find_fix):
         builds.append(MockFetcher(dt=next_date))
 
     for index, build in enumerate(builds):
-        bisector = MockBisector(builds[0], builds[-1])
+        bisector = MockBisector(builds[0].datetime, builds[-1].datetime)
         bisector.find_fix = find_fix
         build_range = BuildRange(builds)
         bisector.update_range(status, build, index, build_range)
@@ -196,7 +196,7 @@ def test_verify_bounds_simple(mocker, start_result, end_result, find_fix):
     """
     Verify expected verify bounds status
     """
-    bisector = MockBisector(None, None)
+    bisector = MockBisector(datetime.now(), datetime.now())
     bisector.find_fix = find_fix
 
     mocker.patch(
@@ -228,7 +228,7 @@ def test_verify_bounds_invalid_status(mocker, test_results):
     """
     Verify that invalid test results throw a StatusException
     """
-    bisector = MockBisector(None, None)
+    bisector = MockBisector(datetime.now(), datetime.now())
     mocker.patch("autobisect.bisect.Bisector.test_build", side_effect=test_results)
     with pytest.raises(StatusException):
         bisector.verify_bounds()
@@ -238,12 +238,12 @@ def test_build_iterator_random(mocker):
     """
     Verify that random.choice called when random_choice arg set to True
     """
-    builds = []
+    builds = BuildRange([])
     for _ in range(1, 4):
         builds.append(mocker.Mock(spec=Fetcher))
     spy = mocker.patch("autobisect.bisect.random.choice", side_effect=builds)
 
-    bisector = MockBisector(None, None)
+    bisector = MockBisector(datetime.now(), datetime.now())
     generator = bisector.build_iterator(builds, True)
     next_build = next(generator)
     while next_build is not None:

@@ -72,7 +72,7 @@ class BrowserEvaluator(Evaluator):
             temp.flush()
             LOG.info("> Verifying build...")
 
-            status = self.launch(binary, temp.name, 1)
+            status = self.launch(binary, Path(temp.name), 1)
 
         if status != EvaluatorResult.BUILD_PASSED:
             LOG.error(">> Failed to validate build!")

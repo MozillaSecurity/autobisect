@@ -3,8 +3,8 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import argparse
 import logging
-import os
 import tempfile
+from pathlib import Path
 
 from grizzly.common import TestCase
 from grizzly.replay import ReplayArgs, ReplayManager
@@ -24,7 +24,7 @@ class ArgParserNoExit(argparse.ArgumentParser):
     def exit(self, status=0, message=None):
         pass
 
-    def error(self, message):
+    def error(self, message: str):
         raise BrowserEvaluatorException(message)
 
 
@@ -45,7 +45,7 @@ class BrowserEvaluator(Evaluator):
     Testcase evaluator for Firefox
     """
 
-    def __init__(self, testcase, **kwargs):
+    def __init__(self, testcase: Path, **kwargs):
         self.testcase = testcase
 
         # FFPuppet arguments
@@ -61,7 +61,7 @@ class BrowserEvaluator(Evaluator):
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
 
-    def verify_build(self, binary):
+    def verify_build(self, binary: Path):
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
@@ -81,14 +81,14 @@ class BrowserEvaluator(Evaluator):
         LOG.info(">> Build verified!")
         return True
 
-    def evaluate_testcase(self, build_path):
+    def evaluate_testcase(self, build_path: Path):
         """
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = os.path.join(build_path, "firefox")
+        binary = build_path / "firefox"
         result = EvaluatorResult.BUILD_FAILED
-        if os.path.isfile(binary) and self.verify_build(binary):
+        if binary.is_file() and self.verify_build(binary):
             LOG.info("> Launching build with testcase...")
             result = self.launch(binary, self.testcase, self._repeat, scan_dir=True)
 
@@ -99,7 +99,7 @@ class BrowserEvaluator(Evaluator):
 
         return result
 
-    def launch(self, binary, test_path, repeat, scan_dir=False):
+    def launch(self, binary: Path, test_path: Path, repeat: int, scan_dir=False):
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
@@ -109,7 +109,8 @@ class BrowserEvaluator(Evaluator):
         :return: The return code or None
         """
         # Create testcase
-        testcase = TestCase.load_single(test_path, load_prefs=True, adjacent=scan_dir)
+        test_str = str(test_path)
+        testcase = TestCase.load_single(test_str, load_prefs=True, adjacent=scan_dir)
         if self._env_vars:
             for key, value in self._env_vars.items():
                 testcase.add_environ_var(key, value)

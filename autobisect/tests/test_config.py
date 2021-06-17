@@ -30,7 +30,7 @@ def test_config_init_with_predefined_config(tmp_path):
     """
     conf = tmp_path / "autobisect.ini"
     conf.write_text(re.sub(r"(?<=persist-limit: )(\d+)", "1000", config.DEFAULT_CONFIG))
-    result = config.BisectionConfig(str(conf))
+    result = config.BisectionConfig(conf)
     assert result.persist_limit == 1048576000
 
 
@@ -39,7 +39,7 @@ def test_config_invalid_config_path(tmp_path):
     Attempts to initialize a config object with a non-existent path
     """
     with pytest.raises(IOError, match="Invalid configuration file specified"):
-        config.BisectionConfig(str(tmp_path / "foobar"))
+        config.BisectionConfig(tmp_path / "foobar")
 
 
 def test_config_init_with_invalid_configuration(tmp_path):

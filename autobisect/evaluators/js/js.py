@@ -4,7 +4,9 @@
 import logging
 import os
 import re
+from pathlib import Path
 from string import Template
+from typing import List
 
 import requests
 from lithium import interestingness
@@ -20,18 +22,17 @@ FLAGS_URL = Template(
 )
 
 
-def _get_rev(binary):
+def _get_rev(binary: Path):
     """
-    Return either the revision specified in the fuzzmanagerconf
+    Return either the revision specified in the fuzzmanagerconf or tip
     :param binary: Path to build
     """
     rev = "tip"
-    path = "%s.fuzzmanagerconf" % (os.path.splitext(binary)[0],)
-    if os.path.isfile(path):
-        with open(path) as in_fp:
-            for line in in_fp:
-                if line.startswith("product_version"):
-                    rev = line.split("-")[1].strip()
+    path = binary.with_suffix(".fuzzmanagerconf")
+    if path.is_file():
+        for line in path.read_text().splitlines():
+            if line.startswith("product_version"):
+                rev = line.split("-")[1].strip()
 
     return rev
 
@@ -47,7 +48,7 @@ class JSEvaluator(Evaluator):
     Testcase evaluator for SpiderMonkey shells
     """
 
-    def __init__(self, testcase, **kwargs):
+    def __init__(self, testcase: Path, **kwargs):
         self.testcase = testcase
         self.flags = kwargs.get("flags", [])
         self.repeat = kwargs.get("repeat", 1)
@@ -68,7 +69,7 @@ class JSEvaluator(Evaluator):
             self._regex = kwargs.get("regex")
 
     @staticmethod
-    def get_valid_flags(rev):
+    def get_valid_flags(rev: str):
         """
         Extract list of runtime flags available to the current build
         :param rev:
@@ -86,7 +87,7 @@ class JSEvaluator(Evaluator):
 
         return flags
 
-    def verify_build(self, binary, flags):
+    def verify_build(self, binary: Path, flags: List[str]):
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
@@ -102,12 +103,14 @@ class JSEvaluator(Evaluator):
 
         return True
 
-    def evaluate_testcase(self, build_path):
+    def evaluate_testcase(self, build_path: Path):
         """
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = os.path.join(build_path, "dist", "bin", "js")
+        binary = build_path / "dist" / "bin" / "js"
+        if not binary.is_file():
+            return EvaluatorResult.BUILD_FAILED
         rev = _get_rev(binary)
         all_flags = self.get_valid_flags(rev)
         flags = []
@@ -115,7 +118,7 @@ class JSEvaluator(Evaluator):
             if flag.lstrip("--").split("=")[0] in all_flags:
                 flags.append(flag)
 
-        if os.path.isfile(binary) and self.verify_build(binary, flags):
+        if self.verify_build(binary, flags):
             common_args = ["-t", "%s" % self.timeout, binary, *flags, self.testcase]
 
             try:

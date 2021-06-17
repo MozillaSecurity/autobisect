@@ -2,6 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
 from ...args import BisectCommonArgs
@@ -12,7 +13,7 @@ class BrowserArgs(BisectCommonArgs):
 
     IGNORABLE = ("log-limit", "memory", "timeout")
 
-    def __init__(self, parser):
+    def __init__(self, parser: ArgumentParser):
         super().__init__(parser)
         self.parser = parser
         launcher_grp = self.parser.add_argument_group("Launcher Arguments")
@@ -45,7 +46,7 @@ class BrowserArgs(BisectCommonArgs):
             % (" ".join(BrowserArgs.IGNORABLE), " ".join(BrowserArgs.IGNORABLE)),
         )
 
-    def sanity_check(self, args):
+    def sanity_check(self, args: Namespace):
         """Perform Sanity Checks
 
         Args:
@@ -54,5 +55,5 @@ class BrowserArgs(BisectCommonArgs):
         super().sanity_check(args)
         if args.prefs:
             args.prefs = args.prefs.expanduser()
-            if not args.prefs.is_file() or os.access(args.prefs, os.R_OK):
+            if not (args.prefs.is_file() and os.access(args.prefs, os.R_OK)):
                 self.parser.error("Cannot read the prefs.js file!")

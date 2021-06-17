@@ -5,6 +5,7 @@
 import itertools
 import os
 import platform as std_platform
+from argparse import ArgumentParser, Namespace
 from logging import CRITICAL, DEBUG, ERROR, INFO, WARNING
 from pathlib import Path
 
@@ -31,7 +32,7 @@ LOG_LEVELS = {
 class BisectCommonArgs:
     """Arguments common to all bisection targets"""
 
-    def __init__(self, parser):
+    def __init__(self, parser: ArgumentParser):
         """Add common args to parser
 
         Args:
@@ -199,7 +200,7 @@ class BisectCommonArgs:
 
         self.parser.set_defaults(branch="central")
 
-    def sanity_check(self, args):
+    def sanity_check(self, args: Namespace):
         """Perform Sanity Checks
 
         Args:

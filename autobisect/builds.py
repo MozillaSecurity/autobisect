@@ -9,7 +9,8 @@
 import copy
 import logging
 import random
-from datetime import timedelta
+from datetime import timedelta, datetime
+from typing import List, Any, Union
 
 LOG = logging.getLogger("builds")
 
@@ -19,7 +20,7 @@ class BuildRange(object):
     A class for storing a range of builds or build representations
     """
 
-    def __init__(self, builds):
+    def __init__(self, builds: List[Any]):
         """
         Instantiate a new instance
 
@@ -27,10 +28,10 @@ class BuildRange(object):
         """
         self._builds = builds
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self._builds)
 
-    def __getitem__(self, expr):
+    def __getitem__(self, expr: int) -> "BuildRange":
         if isinstance(expr, slice):
             new_range = copy.copy(self)
             new_range._builds = self._builds[expr]
@@ -39,14 +40,14 @@ class BuildRange(object):
         return self._builds[expr]
 
     @property
-    def builds(self):
+    def builds(self) -> List[Any]:
         """
         Returns the "builds" list
         """
         return self._builds
 
     @property
-    def mid_point(self):
+    def mid_point(self) -> Union[Any, None]:
         """
         Returns the midpoint of the "builds" list
         """
@@ -56,7 +57,7 @@ class BuildRange(object):
         return None
 
     @property
-    def random(self):
+    def random(self) -> Union[Any, None]:
         """
         Select a random index
         """
@@ -65,7 +66,7 @@ class BuildRange(object):
 
         return None
 
-    def index(self, build):
+    def index(self, build: Any) -> Union[int, None]:
         """
         Returns the index of the provided build
         :param build: An object within the "builds" list
@@ -73,7 +74,7 @@ class BuildRange(object):
         return self.builds.index(build)
 
     @classmethod
-    def new(cls, start, end):
+    def new(cls, start: datetime, end: datetime) -> "BuildRange":
         """
         Creates a list of builds between two ranges
         :param start: A starting datetime object

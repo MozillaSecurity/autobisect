@@ -3,6 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from abc import ABC, abstractmethod
 from enum import Enum
+from pathlib import Path
 
 
 class EvaluatorResult(Enum):
@@ -21,7 +22,7 @@ class Evaluator(ABC):
     """
 
     @abstractmethod
-    def evaluate_testcase(self, build_path):
+    def evaluate_testcase(self, build_path: Path):
         """
         Method for evaluating testcase
 

@@ -5,13 +5,22 @@ import logging
 import random
 from datetime import datetime, timedelta
 from enum import Enum
+from pathlib import Path
+from typing import Union, Generator
 
 import requests
-from fuzzfetch import BuildFlags, BuildSearchOrder, BuildTask, Fetcher, FetcherException
+from fuzzfetch import (
+    BuildFlags,
+    BuildSearchOrder,
+    BuildTask,
+    Fetcher,
+    FetcherException,
+    Platform,
+)
 
 from .build_manager import BuildManager
 from .builds import BuildRange
-from .evaluators import EvaluatorResult
+from .evaluators import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("bisect")
 
@@ -95,7 +104,14 @@ class BisectionResult(object):
     SUCCESS = 0
     FAILED = 1
 
-    def __init__(self, status, start, end, branch, message=None):
+    def __init__(
+        self,
+        status: int,
+        start: Fetcher,
+        end: Fetcher,
+        branch: str,
+        message: str = None,
+    ):
         self.status = status
         self.start = start
         self.end = end
@@ -121,15 +137,15 @@ class Bisector(object):
 
     def __init__(
         self,
-        evaluator,
-        target,
-        branch,
-        start,
-        end,
-        flags,
-        platform,
-        find_fix=False,
-        config=None,
+        evaluator: Evaluator,
+        target: str,
+        branch: str,
+        start: str,
+        end: str,
+        flags: BuildFlags,
+        platform: Platform,
+        find_fix: bool = False,
+        config: Union[Path, None] = None,
     ):
         """
         Instantiate bisection object
@@ -143,11 +159,11 @@ class Bisector(object):
         :param find_fix: Boolean identifying whether to find a fix or bisect bug
         :param config: Path to config file
         """
-        self.evaluator = evaluator
-        self.target = target
-        self.branch = branch
-        self.platform = platform
-        self.flags = BuildFlags(*flags)
+        self.evaluator: Evaluator = evaluator
+        self.target: str = target
+        self.branch: str = branch
+        self.platform: Platform = platform
+        self.flags = flags
         self.find_fix = find_fix
 
         # If no start date is supplied, default to oldest available build
@@ -172,7 +188,7 @@ class Bisector(object):
 
         self.build_manager = BuildManager(self.target, config)
 
-    def _get_daily_builds(self):
+    def _get_daily_builds(self) -> BuildRange:
         """
         Create build range containing one build per day
         """
@@ -182,7 +198,7 @@ class Bisector(object):
 
         return BuildRange.new(start, end)
 
-    def _get_pushdate_builds(self):
+    def _get_pushdate_builds(self) -> BuildRange:
         """
         Create build range containing all builds per pushdate
         """
@@ -201,12 +217,12 @@ class Bisector(object):
 
         return BuildRange(builds)
 
-    def _get_autoland_builds(self):
+    def _get_autoland_builds(self) -> BuildRange:
         """
         Create build range containing all autoland builds per pushdate
         """
         if self.branch != "central":
-            return []
+            return BuildRange([])
 
         start = self.start.datetime
         end = self.end.datetime
@@ -214,7 +230,7 @@ class Bisector(object):
         LOG.info(f"Enumerating autoland builds: {start} - {end}")
         changesets = get_autoland_range(self.start.changeset, self.end.changeset)
         if changesets is None:
-            return []
+            return BuildRange([])
 
         builds = []
         for changeset in changesets:
@@ -226,7 +242,9 @@ class Bisector(object):
 
         return BuildRange(builds)
 
-    def build_iterator(self, build_range, random_choice):
+    def build_iterator(
+        self, build_range: BuildRange, random_choice: bool
+    ) -> Generator[Fetcher, EvaluatorResult, None]:
         """
         Yields next build to be evaluated until all possibilities consumed
         """

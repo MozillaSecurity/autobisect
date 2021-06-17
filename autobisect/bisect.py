@@ -170,7 +170,7 @@ class Bisector(object):
             BuildSearchOrder.DESC,
         )
 
-        self.build_manager = BuildManager(config)
+        self.build_manager = BuildManager(self.target, config)
 
     def _get_daily_builds(self):
         """
@@ -239,9 +239,7 @@ class Bisector(object):
             index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
-                    build = Fetcher(
-                        self.target, self.branch, build, self.flags, self.platform
-                    )
+                    build = Fetcher(self.branch, build, self.flags, self.platform)
                 except FetcherException:
                     LOG.warning("Unable to find build for %s", build)
                     build_range.builds.remove(build)

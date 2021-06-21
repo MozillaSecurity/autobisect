@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2021-06-21)
+### Fix
+* Correct type hint issues ([`a0026a8`](https://github.com/MozillaSecurity/autobisect/commit/a0026a8545d7d0d65b469610845f388d2d907b05))
+
 ## v1.0.0 (2021-06-17)
 ### Feature
 * Add type annotations throughout ([`23b5d9a`](https://github.com/MozillaSecurity/autobisect/commit/23b5d9a3ac3ff7b15dfacbfdcfed8f174e649772))

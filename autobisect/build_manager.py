@@ -57,8 +57,7 @@ class BuildManager(object):
     A class for managing downloaded builds
     """
 
-    def __init__(self, target: str, config: Union[Path, None] = None) -> None:
-        self.target = target
+    def __init__(self, config: Union[Path, None] = None) -> None:
         self.config = config or BisectionConfig()
         self.build_dir = self.config.store_path / "builds"
         if not Path.is_dir(self.build_dir):
@@ -106,17 +105,18 @@ class BuildManager(object):
             time.sleep(0.1)
 
     @contextmanager
-    def get_build(self, build: Fetcher) -> Path:
+    def get_build(self, build: Fetcher, target: str) -> Path:
         """
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
+        :param target: The target to retrieve (i.e. firefox, js, gtest, etc)
         """
         # pylint: disable=protected-access
         branch = "m-%s" % build._branch[0]
         platform = build._platform.system
         flags = build._flags.build_string()
         rev = build.changeset[:12]
-        build_name = "%s-%s-%s%s-%s" % (self.target, branch, platform, flags, rev)
+        build_name = "%s-%s-%s%s-%s" % (target, branch, platform, flags, rev)
         target_path = self.build_dir / build_name.lower()
         path_string = os.fspath(target_path)
 
@@ -138,7 +138,7 @@ class BuildManager(object):
                 # If the build doesn't exist on disk, download it
                 if not Path.is_dir(target_path):
                     self.remove_old_builds()
-                    build.extract_build([self.target], target_path)
+                    build.extract_build([target], target_path)
             except sqlite3.IntegrityError:
                 LOG.warning(
                     "Another process is attempting to download the build. Waiting"

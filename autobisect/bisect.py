@@ -186,7 +186,7 @@ class Bisector(object):
             BuildSearchOrder.DESC,
         )
 
-        self.build_manager = BuildManager(self.target, config)
+        self.build_manager = BuildManager(config)
 
     def _get_daily_builds(self) -> BuildRange:
         """
@@ -350,7 +350,7 @@ class Bisector(object):
         """
         LOG.info("Testing build %s (%s)", build.changeset, build.id)
         # If persistence is enabled and a build exists, use it
-        with self.build_manager.get_build(build) as build_path:
+        with self.build_manager.get_build(build, self.target) as build_path:
             return self.evaluator.evaluate_testcase(build_path)
 
     def verify_bounds(self):

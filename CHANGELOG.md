@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v2.0.0 (2021-06-21)
+
+
 ## v1.0.1 (2021-06-21)
 ### Fix
 * Correct type hint issues ([`a0026a8`](https://github.com/MozillaSecurity/autobisect/commit/a0026a8545d7d0d65b469610845f388d2d907b05))

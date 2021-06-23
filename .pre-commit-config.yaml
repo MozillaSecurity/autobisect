@@ -28,3 +28,10 @@ repos:
         entry: poetry run pylint -j 0 autobisect
         pass_filenames: false
         language: system
+  - repo: local
+    hooks:
+      - id: system
+        name: mypy
+        entry: poetry run mypy autobisect
+        pass_filenames: false
+        language: system

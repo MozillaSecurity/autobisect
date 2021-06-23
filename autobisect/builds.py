@@ -10,17 +10,19 @@ import copy
 import logging
 import random
 from datetime import timedelta, datetime
-from typing import List, Any, Union
+from typing import List, Union, TypeVar, Generic
 
 LOG = logging.getLogger("builds")
 
+T = TypeVar("T")
 
-class BuildRange(object):
+
+class BuildRange(Generic[T]):
     """
     A class for storing a range of builds or build representations
     """
 
-    def __init__(self, builds: List[Any]):
+    def __init__(self, builds: List[T]):
         """
         Instantiate a new instance
 
@@ -31,7 +33,7 @@ class BuildRange(object):
     def __len__(self) -> int:
         return len(self._builds)
 
-    def __getitem__(self, expr: int) -> "BuildRange":
+    def __getitem__(self, expr: int) -> T:
         if isinstance(expr, slice):
             new_range = copy.copy(self)
             new_range._builds = self._builds[expr]
@@ -40,14 +42,14 @@ class BuildRange(object):
         return self._builds[expr]
 
     @property
-    def builds(self) -> List[Any]:
+    def builds(self) -> List[T]:
         """
         Returns the "builds" list
         """
         return self._builds
 
     @property
-    def mid_point(self) -> Union[Any, None]:
+    def mid_point(self) -> Union[T, None]:
         """
         Returns the midpoint of the "builds" list
         """
@@ -57,7 +59,7 @@ class BuildRange(object):
         return None
 
     @property
-    def random(self) -> Union[Any, None]:
+    def random(self) -> Union[T, None]:
         """
         Select a random index
         """
@@ -66,7 +68,7 @@ class BuildRange(object):
 
         return None
 
-    def index(self, build: Any) -> Union[int, None]:
+    def index(self, build: T) -> Union[int, None]:
         """
         Returns the index of the provided build
         :param build: An object within the "builds" list
@@ -91,4 +93,4 @@ class BuildRange(object):
         for offset in range(delta.days + 1):
             dates.append((start + timedelta(days=offset)).strftime("%Y-%m-%d"))
 
-        return cls(dates)
+        return cls(dates)  # type: ignore

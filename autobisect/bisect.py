@@ -2,11 +2,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 import logging
-import random
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Union, Generator
+from typing import Generator, Optional
 
 import requests
 from fuzzfetch import (
@@ -145,7 +144,7 @@ class Bisector(object):
         flags: BuildFlags,
         platform: Platform,
         find_fix: bool = False,
-        config: Union[Path, None] = None,
+        config: Optional[Path] = None,
     ):
         """
         Instantiate bisection object
@@ -250,7 +249,7 @@ class Bisector(object):
         """
         while build_range:
             if random_choice:
-                build = random.choice(build_range)
+                build = build_range.random
             else:
                 build = build_range.mid_point
 

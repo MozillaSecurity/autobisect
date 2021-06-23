@@ -241,7 +241,7 @@ def test_build_iterator_random(mocker):
     builds = BuildRange([])
     for _ in range(1, 4):
         builds._builds.append(mocker.Mock(spec=Fetcher))
-    spy = mocker.patch("autobisect.bisect.random.choice", side_effect=builds)
+    spy = mocker.patch("autobisect.builds.random.choice", side_effect=builds)
 
     bisector = MockBisector(datetime.now(), datetime.now())
     generator = bisector.build_iterator(builds, True)

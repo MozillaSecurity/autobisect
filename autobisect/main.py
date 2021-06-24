@@ -3,8 +3,9 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import logging
 import time
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from datetime import timedelta
+from typing import Union
 
 from fuzzfetch import BuildFlags
 from fuzzfetch.fetch import Platform
@@ -16,7 +17,7 @@ from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 LOG = logging.getLogger("autobisect")
 
 
-def parse_args():
+def parse_args() -> Namespace:
     """
     Argument parser
     """
@@ -34,13 +35,15 @@ def parse_args():
     return args
 
 
-def main(args):
+def main(args: Namespace) -> int:
     """Autobisect main entry point
 
     Args:
         args: Parsed arguments
     """
     configure_logging(args.log_level)
+
+    evaluator: Union[BrowserEvaluator, JSEvaluator]
     if args.target == "firefox":
         evaluator = BrowserEvaluator(**vars(args))
     else:
@@ -86,3 +89,5 @@ def main(args):
 
     elapsed = timedelta(seconds=(int(end_time - start_time)))
     LOG.info("Bisection completed in: %s", elapsed)
+
+    return 0

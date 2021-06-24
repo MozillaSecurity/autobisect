@@ -4,6 +4,7 @@
 import configparser
 import logging
 from pathlib import Path
+from typing import Optional
 
 LOG = logging.getLogger("browser-bisect")
 
@@ -27,7 +28,7 @@ class BisectionConfig(object):
     Class for accessing configuration data and 'skip' revs
     """
 
-    def __init__(self, config_file: Path = None):
+    def __init__(self, config_file: Optional[Path] = None):
         """
         Initializes the object using either the specified config_file or creates a new
         database using default values

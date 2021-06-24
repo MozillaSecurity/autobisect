@@ -5,6 +5,7 @@ import argparse
 import logging
 import tempfile
 from pathlib import Path
+from typing import Optional, NoReturn, Any
 
 from grizzly.common import TestCase
 from grizzly.replay import ReplayArgs, ReplayManager
@@ -21,19 +22,19 @@ logging.getLogger("grizzly.replay").setLevel(logging.WARNING)
 class ArgParserNoExit(argparse.ArgumentParser):
     """Override default ArgParser SystemExit Behavior"""
 
-    def exit(self, status=0, message=None):
+    def exit(self, status: int = 0, message: Optional[str] = None) -> NoReturn:
         pass
 
-    def error(self, message: str):
+    def error(self, message: str) -> NoReturn:
         raise BrowserEvaluatorException(message)
 
 
-class ReplayArgsNoExit(ReplayArgs):
+class ReplayArgsNoExit(ReplayArgs):  # type: ignore
     """Set parser to ArgParserNoExit instance"""
 
-    def __init__(self, *args, **kwds):
+    def __init__(self) -> None:
         self.parser = ArgParserNoExit()
-        super().__init__(*args, **kwds)
+        super().__init__()
 
 
 class BrowserEvaluatorException(Exception):
@@ -45,7 +46,7 @@ class BrowserEvaluator(Evaluator):
     Testcase evaluator for Firefox
     """
 
-    def __init__(self, testcase: Path, **kwargs):
+    def __init__(self, testcase: Path, **kwargs: Any) -> None:
         self.testcase = testcase
 
         # FFPuppet arguments
@@ -61,7 +62,7 @@ class BrowserEvaluator(Evaluator):
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
 
-    def verify_build(self, binary: Path):
+    def verify_build(self, binary: Path) -> bool:
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
@@ -81,7 +82,7 @@ class BrowserEvaluator(Evaluator):
         LOG.info(">> Build verified!")
         return True
 
-    def evaluate_testcase(self, build_path: Path):
+    def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
         """
         Validate build and launch with supplied testcase
         :return: Result of evaluation
@@ -99,7 +100,13 @@ class BrowserEvaluator(Evaluator):
 
         return result
 
-    def launch(self, binary: Path, test_path: Path, repeat: int, scan_dir=False):
+    def launch(
+        self,
+        binary: Path,
+        test_path: Path,
+        repeat: int,
+        scan_dir: Optional[bool] = False,
+    ) -> EvaluatorResult:
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary

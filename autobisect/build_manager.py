@@ -38,7 +38,7 @@ class DatabaseManager(object):
             self.con.commit()
             self.con.close()
 
-    def __del__(self):
+    def __del__(self) -> None:
         self.close()
 
 

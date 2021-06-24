@@ -22,7 +22,7 @@ class Evaluator(ABC):
     """
 
     @abstractmethod
-    def evaluate_testcase(self, build_path: Path):
+    def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
         """
         Method for evaluating testcase
 

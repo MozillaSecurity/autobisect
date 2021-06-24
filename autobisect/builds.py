@@ -6,11 +6,16 @@
 # Code originally taken from mozregression
 # https://github.com/mozilla/mozregression/blob/5b986a3165a5208dd0722d6fc882b47e7fc1b627/mozregression/build_range.py
 
+# The following pylint disable is needed until https://github.com/PyCQA/pylint/issues/1063 is released
+# autobisect/builds.py:15:0: W0611: Unused Type imported from typing (unused-import)
+# autobisect/builds.py:15:0: W0611: Unused Any imported from typing (unused-import)
+# pylint: disable=unused-import
+
 import copy
 import logging
 import random
 from datetime import timedelta, datetime
-from typing import List, Union, TypeVar, Generic
+from typing import List, Union, TypeVar, Generic, Type, Any, overload
 
 LOG = logging.getLogger("builds")
 
@@ -18,9 +23,7 @@ T = TypeVar("T")
 
 
 class BuildRange(Generic[T]):
-    """
-    A class for storing a range of builds or build representations
-    """
+    """A class for storing a range of builds or build representations"""
 
     def __init__(self, builds: List[T]):
         """
@@ -28,12 +31,20 @@ class BuildRange(Generic[T]):
 
         param builds: A list of Fetcher.BuildTask objects
         """
-        self._builds = builds
+        self._builds: List[T] = builds
 
     def __len__(self) -> int:
         return len(self._builds)
 
+    @overload
     def __getitem__(self, expr: int) -> T:
+        ...
+
+    @overload
+    def __getitem__(self, expr: slice) -> "BuildRange[T]":
+        ...
+
+    def __getitem__(self, expr: Union[int, slice]) -> Union[T, "BuildRange[T]"]:
         if isinstance(expr, slice):
             new_range = copy.copy(self)
             new_range._builds = self._builds[expr]
@@ -76,7 +87,9 @@ class BuildRange(Generic[T]):
         return self.builds.index(build)
 
     @classmethod
-    def new(cls, start: datetime, end: datetime) -> "BuildRange":
+    def new(
+        cls: "Type[BuildRange[Any]]", start: datetime, end: datetime
+    ) -> "BuildRange[str]":
         """
         Creates a list of builds between two ranges
         :param start: A starting datetime object
@@ -93,4 +106,4 @@ class BuildRange(Generic[T]):
         for offset in range(delta.days + 1):
             dates.append((start + timedelta(days=offset)).strftime("%Y-%m-%d"))
 
-        return cls(dates)  # type: ignore
+        return cls(dates)

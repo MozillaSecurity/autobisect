@@ -13,7 +13,7 @@ class BrowserArgs(BisectCommonArgs):
 
     IGNORABLE = ("log-limit", "memory", "timeout")
 
-    def __init__(self, parser: ArgumentParser):
+    def __init__(self, parser: ArgumentParser) -> None:
         super().__init__(parser)
         self.parser = parser
         launcher_grp = self.parser.add_argument_group("Launcher Arguments")
@@ -46,7 +46,7 @@ class BrowserArgs(BisectCommonArgs):
             % (" ".join(BrowserArgs.IGNORABLE), " ".join(BrowserArgs.IGNORABLE)),
         )
 
-    def sanity_check(self, args: Namespace):
+    def sanity_check(self, args: Namespace) -> None:
         """Perform Sanity Checks
 
         Args:

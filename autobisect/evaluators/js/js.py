@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 from string import Template
-from typing import List
+from typing import List, Any
 
 import requests
 from lithium import interestingness
@@ -22,7 +22,7 @@ FLAGS_URL = Template(
 )
 
 
-def _get_rev(binary: Path):
+def _get_rev(binary: Path) -> str:
     """
     Return either the revision specified in the fuzzmanagerconf or tip
     :param binary: Path to build
@@ -48,7 +48,7 @@ class JSEvaluator(Evaluator):
     Testcase evaluator for SpiderMonkey shells
     """
 
-    def __init__(self, testcase: Path, **kwargs):
+    def __init__(self, testcase: Path, **kwargs: Any) -> None:
         self.testcase = testcase
         self.flags = kwargs.get("flags", [])
         self.repeat = kwargs.get("repeat", 1)
@@ -69,7 +69,7 @@ class JSEvaluator(Evaluator):
             self._regex = kwargs.get("regex")
 
     @staticmethod
-    def get_valid_flags(rev: str):
+    def get_valid_flags(rev: str) -> List[str]:
         """
         Extract list of runtime flags available to the current build
         :param rev:
@@ -87,7 +87,7 @@ class JSEvaluator(Evaluator):
 
         return flags
 
-    def verify_build(self, binary: Path, flags: List[str]):
+    def verify_build(self, binary: Path, flags: List[str]) -> bool:
         """
         Verify that build doesn't crash on start
         :param binary: The path to the target binary
@@ -103,7 +103,7 @@ class JSEvaluator(Evaluator):
 
         return True
 
-    def evaluate_testcase(self, build_path: Path):
+    def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
         """
         Validate build and launch with supplied testcase
         :return: Result of evaluation

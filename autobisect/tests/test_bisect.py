@@ -241,12 +241,15 @@ def test_build_iterator_random(mocker):
     builds = BuildRange([])
     for _ in range(1, 4):
         builds._builds.append(mocker.Mock(spec=Fetcher))
-    spy = mocker.patch("autobisect.bisect.random.choice", side_effect=builds)
+    spy = mocker.patch("autobisect.builds.random.choice", side_effect=builds)
 
     bisector = MockBisector(datetime.now(), datetime.now())
     generator = bisector.build_iterator(builds, True)
-    next_build = next(generator)
-    while next_build is not None:
-        next_build = generator.send(EvaluatorResult.BUILD_PASSED)
+    try:
+        next(generator)
+        while True:
+            generator.send(EvaluatorResult.BUILD_PASSED)
+    except StopIteration:
+        pass
 
     assert spy.call_count == 3

@@ -200,7 +200,7 @@ class BisectCommonArgs:
 
         self.parser.set_defaults(branch="central")
 
-    def sanity_check(self, args: Namespace):
+    def sanity_check(self, args: Namespace) -> None:
         """Perform Sanity Checks
 
         Args:

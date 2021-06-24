@@ -8,7 +8,7 @@ import sqlite3
 import time
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Union, List
+from typing import List, Optional, Iterator
 
 from fuzzfetch import Fetcher
 
@@ -23,16 +23,6 @@ class DatabaseManager(object):
     """
 
     def __init__(self, db_path: Path) -> None:
-        self.con = None
-        self.cur = None
-        self.open(str(db_path))
-
-    def open(self, db_path: str) -> None:
-        """
-        Opens and initializes the sqlite3 database
-        :param db_path: Path to the sqlite3 database
-        :type db_path: str
-        """
         self.con = sqlite3.connect(db_path)
         self.cur = self.con.cursor()
         self.cur.execute("CREATE TABLE IF NOT EXISTS in_use (build_path, pid INT)")
@@ -48,7 +38,7 @@ class DatabaseManager(object):
             self.con.commit()
             self.con.close()
 
-    def __del__(self):
+    def __del__(self) -> None:
         self.close()
 
 
@@ -57,8 +47,8 @@ class BuildManager(object):
     A class for managing downloaded builds
     """
 
-    def __init__(self, config: Union[Path, None] = None) -> None:
-        self.config = config or BisectionConfig()
+    def __init__(self, config: Optional[Path] = None) -> None:
+        self.config = BisectionConfig(config)
         self.build_dir = self.config.store_path / "builds"
         if not Path.is_dir(self.build_dir):
             self.build_dir.mkdir(parents=True)
@@ -71,15 +61,13 @@ class BuildManager(object):
         """
         Recursively enumerate the size of the supplied build
         """
-        return sum(
-            [os.path.getsize(f) for f in self.build_dir.rglob("*") if os.path.isfile(f)]
-        )
+        return sum([os.path.getsize(f) for f in self.build_dir.rglob("*")])
 
     def enumerate_builds(self) -> List[Path]:
         """
         Enumerate all available builds including their size and stats
         """
-        builds = [os.fspath(x) for x in self.build_dir.iterdir() if x.is_dir()]
+        builds = [x for x in self.build_dir.iterdir() if x.is_dir()]
         return sorted(builds, key=lambda b: os.stat(b).st_atime)
 
     def remove_old_builds(self) -> None:
@@ -105,7 +93,7 @@ class BuildManager(object):
             time.sleep(0.1)
 
     @contextmanager
-    def get_build(self, build: Fetcher, target: str) -> Path:
+    def get_build(self, build: Fetcher, target: str) -> Iterator[Path]:
         """
         Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object

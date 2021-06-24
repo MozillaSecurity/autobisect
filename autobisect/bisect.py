@@ -2,11 +2,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 import logging
-import random
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Union, Generator
+from typing import Generator, Optional, List, cast, Union, TypeVar, Callable
 
 import requests
 from fuzzfetch import (
@@ -22,10 +21,12 @@ from .build_manager import BuildManager
 from .builds import BuildRange
 from .evaluators import Evaluator, EvaluatorResult
 
+T = TypeVar("T")
+
 LOG = logging.getLogger("bisect")
 
 
-def get_autoland_range(start, end):
+def get_autoland_range(start: str, end: str) -> Optional[List[str]]:
     """
     Retrieve changeset from autoland within supplied boundary
 
@@ -47,7 +48,7 @@ def get_autoland_range(start, end):
     key_len = len(json.keys())
     if key_len == 1:
         push_id = list(json.keys())[0]
-        return json[push_id]["changesets"]
+        return cast(List[str], json[push_id]["changesets"])
 
     LOG.warning(f"Detected {key_len} top-level changes.  Cannot bisect into autoland.")
     return None
@@ -73,24 +74,26 @@ class VerificationStatus(Enum):
     FIND_FIX_END_BUILD_CRASHES = 6
 
     @property
-    def message(self):
+    def message(self) -> Optional[str]:
         """
         Return message matching explaining current status
         """
         result = None
-        if self == self.SUCCESS:
+        # Needed until https://github.com/PyCQA/pylint/issues/2306 is released
+        value = int(self.value)
+        if value == self.SUCCESS:
             result = "Verified supplied boundaries!"
-        elif self == self.START_BUILD_FAILED:
+        elif value == self.START_BUILD_FAILED:
             result = "Unable to launch the start build!"
-        elif self == self.END_BUILD_FAILED:
+        elif value == self.END_BUILD_FAILED:
             result = "Unable to launch the end build!"
-        elif self == self.START_BUILD_CRASHES:
+        elif value == self.START_BUILD_CRASHES:
             result = "Testcase reproduces on start build!"
-        elif self == self.END_BUILD_PASSES:
+        elif value == self.END_BUILD_PASSES:
             result = "Testcase does not reproduce on end build!"
-        elif self == self.FIND_FIX_START_BUILD_PASSES:
+        elif value == self.FIND_FIX_START_BUILD_PASSES:
             result = "Start build didn't crash!"
-        elif self == self.FIND_FIX_END_BUILD_CRASHES:
+        elif value == self.FIND_FIX_END_BUILD_CRASHES:
             result = "End build crashes!"
 
         return result
@@ -110,7 +113,7 @@ class BisectionResult(object):
         start: Fetcher,
         end: Fetcher,
         branch: str,
-        message: str = None,
+        message: Optional[str] = None,
     ):
         self.status = status
         self.start = start
@@ -145,7 +148,7 @@ class Bisector(object):
         flags: BuildFlags,
         platform: Platform,
         find_fix: bool = False,
-        config: Union[Path, None] = None,
+        config: Optional[Path] = None,
     ):
         """
         Instantiate bisection object
@@ -188,7 +191,7 @@ class Bisector(object):
 
         self.build_manager = BuildManager(config)
 
-    def _get_daily_builds(self) -> BuildRange:
+    def _get_daily_builds(self) -> BuildRange[str]:
         """
         Create build range containing one build per day
         """
@@ -198,7 +201,7 @@ class Bisector(object):
 
         return BuildRange.new(start, end)
 
-    def _get_pushdate_builds(self) -> BuildRange:
+    def _get_pushdate_builds(self) -> BuildRange[Fetcher]:
         """
         Create build range containing all builds per pushdate
         """
@@ -217,7 +220,7 @@ class Bisector(object):
 
         return BuildRange(builds)
 
-    def _get_autoland_builds(self) -> BuildRange:
+    def _get_autoland_builds(self) -> BuildRange[Fetcher]:
         """
         Create build range containing all autoland builds per pushdate
         """
@@ -243,17 +246,18 @@ class Bisector(object):
         return BuildRange(builds)
 
     def build_iterator(
-        self, build_range: BuildRange, random_choice: bool
+        self, build_range: BuildRange[Union[str, Fetcher]], random_choice: bool
     ) -> Generator[Fetcher, EvaluatorResult, None]:
         """
         Yields next build to be evaluated until all possibilities consumed
         """
         while build_range:
             if random_choice:
-                build = random.choice(build_range)
+                build = build_range.random
             else:
                 build = build_range.mid_point
 
+            assert build is not None
             index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
@@ -264,11 +268,11 @@ class Bisector(object):
                     continue
 
             status = yield build
+
+            assert isinstance(index, int)
             build_range = self.update_range(status, build, index, build_range)
 
-        yield None
-
-    def bisect(self, random_choice=False):
+    def bisect(self, random_choice: bool = False) -> BisectionResult:
         """
         Main bisection function
 
@@ -294,24 +298,33 @@ class Bisector(object):
             )
 
         LOG.info("Attempting to reduce bisection range using taskcluster binaries")
-        strategies = [
+        strategies: List[Callable[[], Union[BuildRange[str], BuildRange[Fetcher]]]] = [
             self._get_daily_builds,
             self._get_pushdate_builds,
             self._get_autoland_builds,
         ]
         for strategy in strategies:
             build_range = strategy()
-            generator = self.build_iterator(build_range, random_choice)
-            next_build = next(generator)
-            while next_build is not None:
-                status = self.test_build(next_build)
-                next_build = generator.send(status)
+            generator = self.build_iterator(build_range, random_choice)  # type: ignore
+            try:
+                next_build = next(generator)
+                while True:
+                    status = self.test_build(next_build)
+                    next_build = generator.send(status)
+            except StopIteration:
+                pass
 
         return BisectionResult(
             BisectionResult.SUCCESS, self.start, self.end, self.branch
         )
 
-    def update_range(self, status, build, index, build_range):
+    def update_range(
+        self,
+        status: EvaluatorResult,
+        build: Fetcher,
+        index: int,
+        build_range: BuildRange[T],
+    ) -> BuildRange[T]:
         """
         Returns a new build range based on the status of the previously evaluated test
 
@@ -342,7 +355,7 @@ class Bisector(object):
 
         raise StatusException("Invalid status supplied")
 
-    def test_build(self, build):
+    def test_build(self, build: Fetcher) -> EvaluatorResult:
         """
         Prepare the build directory and launch the supplied build
         :param build: An Fetcher object to prevent duplicate fetching
@@ -353,11 +366,8 @@ class Bisector(object):
         with self.build_manager.get_build(build, self.target) as build_path:
             return self.evaluator.evaluate_testcase(build_path)
 
-    def verify_bounds(self):
-        """
-        Verify that the supplied bounds behave as expected
-        :return: Boolean
-        """
+    def verify_bounds(self) -> VerificationStatus:
+        """Verify that the supplied bounds behave as expected"""
         LOG.info("Attempting to verify boundaries...")
         start_result = self.test_build(self.start)
         if start_result not in set(EvaluatorResult):

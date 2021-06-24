@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v2.1.0 (2021-06-24)
+### Feature
+* Enable mypy type checking ([#44](https://github.com/MozillaSecurity/autobisect/issues/44)) ([`bb3ed92`](https://github.com/MozillaSecurity/autobisect/commit/bb3ed92d54ae46467a6e7285b9358f9143a47c92))
+
 ## v2.0.0 (2021-06-21)
 
 

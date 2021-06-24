@@ -6,6 +6,7 @@ build-backend = "poetry.masonry.api"
 name = "autobisect"
 description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
 version = "2.1.0"
+include = ["tests/**"]
 
 classifiers = [
     "Intended Audience :: Developers",

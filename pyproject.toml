@@ -90,6 +90,7 @@ profile = "black"
 [tool.mypy]
 exclude = "^.*tests.*$"
 ignore_missing_imports = "True"
+implicit_reexport = "True"
 strict = "True"
 
 [tool.pylint.format]

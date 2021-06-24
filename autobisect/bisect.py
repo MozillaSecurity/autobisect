@@ -306,10 +306,13 @@ class Bisector(object):
         for strategy in strategies:
             build_range = strategy()
             generator = self.build_iterator(build_range, random_choice)  # type: ignore
-            next_build = next(generator)
-            while next_build is not None:
-                status = self.test_build(next_build)
-                next_build = generator.send(status)
+            try:
+                next_build = next(generator)
+                while True:
+                    status = self.test_build(next_build)
+                    next_build = generator.send(status)
+            except StopIteration:
+                pass
 
         return BisectionResult(
             BisectionResult.SUCCESS, self.start, self.end, self.branch

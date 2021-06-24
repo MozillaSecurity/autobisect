@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Generator, Optional, List, cast, Union, TypeVar
+from typing import Generator, Optional, List, cast, Union, TypeVar, Callable
 
 import requests
 from fuzzfetch import (
@@ -257,6 +257,7 @@ class Bisector(object):
             else:
                 build = build_range.mid_point
 
+            assert build is not None
             index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
@@ -270,8 +271,6 @@ class Bisector(object):
 
             assert isinstance(index, int)
             build_range = self.update_range(status, build, index, build_range)
-
-        yield None
 
     def bisect(self, random_choice: bool = False) -> BisectionResult:
         """
@@ -299,14 +298,14 @@ class Bisector(object):
             )
 
         LOG.info("Attempting to reduce bisection range using taskcluster binaries")
-        strategies = [
+        strategies: List[Callable[[], Union[BuildRange[str], BuildRange[Fetcher]]]] = [
             self._get_daily_builds,
             self._get_pushdate_builds,
             self._get_autoland_builds,
         ]
         for strategy in strategies:
             build_range = strategy()
-            generator = self.build_iterator(build_range, random_choice)
+            generator = self.build_iterator(build_range, random_choice)  # type: ignore
             next_build = next(generator)
             while next_build is not None:
                 status = self.test_build(next_build)

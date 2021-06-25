@@ -47,11 +47,7 @@ def main(args: Namespace) -> int:
     if args.target == "firefox":
         evaluator = BrowserEvaluator(**vars(args))
     else:
-        if args.flags is None:
-            args.flags = []
-        else:
-            args.flags = args.flags.split(" ")
-
+        args.flags = [] if args.flags is None else args.flags.split(" ")
         evaluator = JSEvaluator(**vars(args))
 
     flags = BuildFlags(
@@ -67,7 +63,6 @@ def main(args: Namespace) -> int:
     platform = Platform(args.os, args.cpu)
     bisector = Bisector(
         evaluator,
-        args.target,
         args.branch,
         args.start,
         args.end,

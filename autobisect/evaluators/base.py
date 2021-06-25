@@ -21,6 +21,11 @@ class Evaluator(ABC):
     Base evaluator class
     """
 
+    @property
+    @abstractmethod
+    def target(self) -> str:
+        """The corresponding Fetcher target"""
+
     @abstractmethod
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
         """

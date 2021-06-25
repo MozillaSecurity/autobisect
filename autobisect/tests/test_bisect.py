@@ -39,7 +39,6 @@ class MockBisector(Bisector):
     def __init__(self, start: datetime, end: datetime):
         self.start = MockFetcher(dt=start)
         self.end = MockFetcher(dt=end)
-        self.target = "firefox"
         self.branch = "central"
         self.find_fix = False
         self.flags = BuildFlags(

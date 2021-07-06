@@ -121,7 +121,13 @@ class JSEvaluator(Evaluator):
                 flags.append(flag)
 
         if self.verify_build(binary, flags):
-            common_args = ["-t", f"{self.timeout}", str(binary), *flags, str(self.testcase)]
+            common_args = [
+                "-t",
+                f"{self.timeout}",
+                str(binary),
+                *flags,
+                str(self.testcase),
+            ]
 
             try:
                 # Some testcases require setting the cwd to the parent dir

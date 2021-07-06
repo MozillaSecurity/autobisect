@@ -141,7 +141,6 @@ class Bisector(object):
     def __init__(
         self,
         evaluator: Evaluator,
-        target: str,
         branch: str,
         start: str,
         end: str,
@@ -153,7 +152,6 @@ class Bisector(object):
         """
         Instantiate bisection object
         :param evaluator: Object instance used to evaluate testcase
-        :param target: Type of builds to fetch
         :param branch: Mozilla branch to use for finding builds
         :param start: Start revision, date, or buildid
         :param end: End revision, date, or buildid
@@ -163,7 +161,6 @@ class Bisector(object):
         :param config: Path to config file
         """
         self.evaluator: Evaluator = evaluator
-        self.target: str = target
         self.branch: str = branch
         self.platform: Platform = platform
         self.flags = flags
@@ -363,7 +360,7 @@ class Bisector(object):
         """
         LOG.info("Testing build %s (%s)", build.changeset, build.id)
         # If persistence is enabled and a build exists, use it
-        with self.build_manager.get_build(build, self.target) as build_path:
+        with self.build_manager.get_build(build, self.evaluator.target) as build_path:
             return self.evaluator.evaluate_testcase(build_path)
 
     def verify_bounds(self) -> VerificationStatus:

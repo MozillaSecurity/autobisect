@@ -46,6 +46,8 @@ class BrowserEvaluator(Evaluator):
     Testcase evaluator for Firefox
     """
 
+    target = "firefox"
+
     def __init__(self, testcase: Path, **kwargs: Any) -> None:
         self.testcase = testcase
 

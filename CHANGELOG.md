@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.1 (2021-07-06)
+### Fix
+* Apply black formatting: ([`5339e24`](https://github.com/MozillaSecurity/autobisect/commit/5339e24a4faeb48e38da4819c4fa2c43361e45fa))
+* Convert path args to str before passing to lithium ([`ca8ec8a`](https://github.com/MozillaSecurity/autobisect/commit/ca8ec8a5545be0ba4b5d89997d10c8b6e55f73af))
+
 ## v3.0.0 (2021-07-06)
 ### Feature
 * Explicitly link evaluators to a fuzzfetch target ([`c341e33`](https://github.com/MozillaSecurity/autobisect/commit/c341e334eaa4d0303e431a36a345e4ea58f1143f))

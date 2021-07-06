@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.0 (2021-07-06)
+### Feature
+* Explicitly link evaluators to a fuzzfetch target ([`c341e33`](https://github.com/MozillaSecurity/autobisect/commit/c341e334eaa4d0303e431a36a345e4ea58f1143f))
+
+### Breaking
+* Modifies the bisector constructor args  ([`c341e33`](https://github.com/MozillaSecurity/autobisect/commit/c341e334eaa4d0303e431a36a345e4ea58f1143f))
+
 ## v2.1.0 (2021-06-24)
 ### Feature
 * Enable mypy type checking ([#44](https://github.com/MozillaSecurity/autobisect/issues/44)) ([`bb3ed92`](https://github.com/MozillaSecurity/autobisect/commit/bb3ed92d54ae46467a6e7285b9358f9143a47c92))

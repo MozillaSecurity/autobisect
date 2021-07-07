@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.2 (2021-07-07)
+### Fix
+* Set JSEvaluator target to 'js' ([`a870af3`](https://github.com/MozillaSecurity/autobisect/commit/a870af34d6ded412fa89838ce083d03cf49bfb26))
+
 ## v3.0.1 (2021-07-06)
 ### Fix
 * Apply black formatting: ([`5339e24`](https://github.com/MozillaSecurity/autobisect/commit/5339e24a4faeb48e38da4819c4fa2c43361e45fa))

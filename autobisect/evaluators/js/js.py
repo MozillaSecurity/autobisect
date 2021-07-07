@@ -48,7 +48,7 @@ class JSEvaluator(Evaluator):
     Testcase evaluator for SpiderMonkey shells
     """
 
-    target = "firefox"
+    target = "js"
 
     def __init__(self, testcase: Path, **kwargs: Any) -> None:
         self.testcase = testcase

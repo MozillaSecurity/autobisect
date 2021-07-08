@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.0.3 (2021-07-08)
+### Fix
+* Properly check enum value when generating message ([`c8b157d`](https://github.com/MozillaSecurity/autobisect/commit/c8b157d52b17dcf9fcaa09e9aee0abe2d43f7863))
+
 ## v3.0.2 (2021-07-07)
 ### Fix
 * Set JSEvaluator target to 'js' ([`a870af3`](https://github.com/MozillaSecurity/autobisect/commit/a870af34d6ded412fa89838ce083d03cf49bfb26))

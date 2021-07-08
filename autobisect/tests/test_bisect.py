@@ -252,3 +252,10 @@ def test_build_iterator_random(mocker):
         pass
 
     assert spy.call_count == 3
+
+
+def test_verification_status_message():
+    """Verify that VerificationStatus always returns a message"""
+    assert len(VerificationStatus) == 7
+    for entry in VerificationStatus:
+        assert isinstance(VerificationStatus[entry.name].message, str)

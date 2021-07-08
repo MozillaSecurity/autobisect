@@ -79,21 +79,19 @@ class VerificationStatus(Enum):
         Return message matching explaining current status
         """
         result = None
-        # Needed until https://github.com/PyCQA/pylint/issues/2306 is released
-        value = int(self.value)
-        if value == self.SUCCESS:
+        if self == VerificationStatus.SUCCESS:
             result = "Verified supplied boundaries!"
-        elif value == self.START_BUILD_FAILED:
+        elif self == VerificationStatus.START_BUILD_FAILED:
             result = "Unable to launch the start build!"
-        elif value == self.END_BUILD_FAILED:
+        elif self == VerificationStatus.END_BUILD_FAILED:
             result = "Unable to launch the end build!"
-        elif value == self.START_BUILD_CRASHES:
+        elif self == VerificationStatus.START_BUILD_CRASHES:
             result = "Testcase reproduces on start build!"
-        elif value == self.END_BUILD_PASSES:
+        elif self == VerificationStatus.END_BUILD_PASSES:
             result = "Testcase does not reproduce on end build!"
-        elif value == self.FIND_FIX_START_BUILD_PASSES:
+        elif self == VerificationStatus.FIND_FIX_START_BUILD_PASSES:
             result = "Start build didn't crash!"
-        elif value == self.FIND_FIX_END_BUILD_CRASHES:
+        elif self == VerificationStatus.FIND_FIX_END_BUILD_CRASHES:
             result = "End build crashes!"
 
         return result

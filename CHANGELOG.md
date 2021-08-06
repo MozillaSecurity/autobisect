@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.0 (2021-08-06)
+### Feature
+* Add --no-harness argument to disable harness ([`20a6aba`](https://github.com/MozillaSecurity/autobisect/commit/20a6aba7f9dd4933a0c1b8e1aab7d6c0ce08c232))
+
 ## v3.0.3 (2021-07-08)
 ### Fix
 * Properly check enum value when generating message ([`c8b157d`](https://github.com/MozillaSecurity/autobisect/commit/c8b157d52b17dcf9fcaa09e9aee0abe2d43f7863))

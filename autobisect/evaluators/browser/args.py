@@ -35,6 +35,11 @@ class BrowserArgs(BisectCommonArgs):
             action="store_true",
             help="Use Xvfb (Linux only)",
         )
+        launcher_grp.add_argument(
+            "--no-harness",
+            action="store_true",
+            help="Don't use the harness for redirection.  Browser will relaunch on every attempt.",
+        )
 
         reporter_grp = self.parser.add_argument_group("Reporter Arguments")
         reporter_grp.add_argument(

@@ -60,6 +60,7 @@ class BrowserEvaluator(Evaluator):
         self._launch_timeout = kwargs.get("launch_timeout", 300)
         self._prefs = kwargs.get("prefs", None)
         self._env_vars = kwargs.get("env", None)
+        self._use_harness = kwargs.get("use_harness", False)
 
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
@@ -136,15 +137,14 @@ class BrowserEvaluator(Evaluator):
                 self._launch_timeout,
                 "--repeat",
                 repeat,
-                "--relaunch",
-                1,
-                "--no-harness",
                 "--ignore",
                 *self._ignore,
             ]
 
             if self._prefs:
                 raw_args.extend(["--prefs", self._prefs])
+            if not self._use_harness:
+                raw_args.append("--no-harness")
             if self._use_valgrind:
                 raw_args.append("--valgrind")
             if self._use_xvfb:

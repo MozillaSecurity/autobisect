@@ -68,7 +68,7 @@ class BuildManager(object):
         Enumerate all available builds including their size and stats
         """
         builds = [x for x in self.build_dir.iterdir() if x.is_dir()]
-        return sorted(builds, key=lambda b: os.stat(b).st_atime)
+        return sorted(builds, key=lambda b: b.stat().st_atime_ns)
 
     def remove_old_builds(self) -> None:
         """

@@ -79,11 +79,12 @@ class BuildManager(object):
             for build_path in builds:
                 if self.current_build_size < self.config.persist_limit:
                     break
-
                 res = self.db.cur.execute(
-                    "SELECT * FROM in_use, download_queue "
-                    "WHERE in_use.build_path = ? OR download_queue.build_path = ?",
-                    (str(build_path), str(build_path)),
+                    "SELECT 1 FROM ("
+                    "SELECT build_path FROM in_use UNION ALL "
+                    "SELECT build_path FROM download_queue"
+                    ") WHERE build_path == ?",
+                    (str(build_path),),
                 )
                 if res.fetchone() is None:
                     LOG.debug("Removing build: %s", build_path)

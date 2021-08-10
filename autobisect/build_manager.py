@@ -25,7 +25,7 @@ class DatabaseManager(object):
     def __init__(self, db_path: Path) -> None:
         self.con = sqlite3.connect(str(db_path))
         self.cur = self.con.cursor()
-        self.cur.execute("CREATE TABLE IF NOT EXISTS in_use (build_path, pid INT)")
+        self.cur.execute("CREATE TABLE IF NOT EXISTS in_use (build_path TEXT, pid INT)")
         self.cur.execute(
             "CREATE TABLE IF NOT EXISTS download_queue (build_path TEXT primary key, pid INT)"
         )

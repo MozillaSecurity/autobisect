@@ -6,12 +6,15 @@
 import gzip
 import logging
 import os
+import re
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import pytest
 import requests_mock
+
+from autobisect.config import DEFAULT_CONFIG
 
 BUILD_CACHE = os.getenv("BUILD_CACHE") == "1"  # set BUILD_CACHE=1 to populate cache
 CACHE_PATH = Path(__file__).resolve().parent  # store cache alongside this file
@@ -106,3 +109,13 @@ def requests_mock_cache():
             requests_mock.ANY, requests_mock.ANY, content=_cache_requests
         )
         yield req_mock
+
+
+@pytest.fixture
+def config_fixture(tmp_path):
+    config_data = re.sub(r"(?<=storage-path: )(.+)", str(tmp_path), DEFAULT_CONFIG)
+    config_data = re.sub(r"(?<=persist-limit: )(.+)", "5", config_data)
+    config_path = tmp_path / "autobisect.ini"
+    config_path.write_text(config_data)
+
+    return config_path

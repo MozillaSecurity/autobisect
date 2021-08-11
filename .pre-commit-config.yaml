@@ -21,6 +21,11 @@ repos:
     hooks:
       - id: gitlint
         args: [--contrib=contrib-title-conventional-commits, --ignore=body-is-missing, --msg-filename]
+  - repo: https://github.com/pappasam/toml-sort
+    rev: v0.19.0
+    hooks:
+      - id: toml-sort
+        args: [--check, -a]
   - repo: local
     hooks:
       - id: pylint

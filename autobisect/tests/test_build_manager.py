@@ -57,7 +57,7 @@ def test_build_manager_build_size(config_fixture):
     """Simple test of BuildManager.build_size"""
     manager = BuildManager(config_fixture)
     total = 10
-    for i in range(0, total):
+    for i in range(total):
         build_dir = Path(manager.build_dir / str(i))
         build_dir.mkdir()
         with Path(build_dir / "firefox").open("w+") as handler:
@@ -71,7 +71,7 @@ def test_build_manager_enumerate_builds(config_fixture):
     manager = BuildManager(config_fixture)
     builds = []
     total = 10
-    for i in range(0, total):
+    for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         sleep(0.1)
         build_dir.mkdir()
@@ -87,7 +87,7 @@ def test_build_manager_remove_old_builds(config_fixture):
     """Simple test of BuildManager.remove_old_builds"""
     manager = BuildManager(config_fixture)
     total = 10
-    for i in range(0, total):
+    for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         build_dir.mkdir()
         with Path(build_dir / "firefox").open("w+") as handler:
@@ -106,7 +106,7 @@ def test_build_manager_remove_old_builds_in_use(config_fixture):
     """Test that in_use builds are not removed"""
     manager = BuildManager(config_fixture)
     total = 5
-    for i in range(0, total):
+    for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         build_dir.mkdir()
         build_path = build_dir / "firefox"
@@ -128,7 +128,7 @@ def test_build_manager_remove_old_builds_in_use(config_fixture):
 def test_build_manager_get_build(mocker, config_fixture):
     """Simple test of BuildManager.get_build"""
     manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(0, 8)])
+    flags = BuildFlags(*[False for _ in range(8)])
     fetcher = Fetcher("central", "latest", flags)
     extract_build = mocker.patch.object(Fetcher, "extract_build")
 

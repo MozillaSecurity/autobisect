@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.1 (2021-08-11)
+### Fix
+* Manually bump project version ([`3bcb59b`](https://github.com/MozillaSecurity/autobisect/commit/3bcb59b375d703b0f34b7b80cd05c36a653e92cd))
+* Correct the broken query used to detect in_use builds ([`2324e6f`](https://github.com/MozillaSecurity/autobisect/commit/2324e6fcb698f2aca0e0ed8217a87effbc461d31))
+* Sort builds by st_atime_ns for increased precision ([`cf4ea25`](https://github.com/MozillaSecurity/autobisect/commit/cf4ea255175634f1b4b418a404fd71dedd2faa91))
+* Set build_path column type to TEXT ([`060d26b`](https://github.com/MozillaSecurity/autobisect/commit/060d26b473ef8ccaa5c0effa1115d27cb27052ed))
+
 ## v3.1.0 (2021-08-06)
 ### Feature
 * Add --no-harness argument to disable harness ([`20a6aba`](https://github.com/MozillaSecurity/autobisect/commit/20a6aba7f9dd4933a0c1b8e1aab7d6c0ce08c232))

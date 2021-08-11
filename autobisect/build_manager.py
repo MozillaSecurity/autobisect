@@ -80,13 +80,16 @@ class BuildManager(object):
                 if self.current_build_size < self.config.persist_limit:
                     break
                 res = self.db.cur.execute(
-                    "SELECT 1 FROM ("
+                    "SELECT COUNT(1) FROM ("
                     "SELECT build_path FROM in_use UNION ALL "
                     "SELECT build_path FROM download_queue"
                     ") WHERE build_path == ?",
                     (str(build_path),),
                 )
-                if res.fetchone() is None:
+                result = res.fetchone()
+                assert result is not None
+                build_in_use = result[0]
+                if not build_in_use:
                     LOG.debug("Removing build: %s", build_path)
                     shutil.rmtree(build_path)
                 self.db.con.commit()

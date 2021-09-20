@@ -145,8 +145,10 @@ class JSEvaluator(Evaluator):
                         if interestingness.outputs.interesting(args, None):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
-                        if interestingness.crashes.interesting(common_args, None):
-                            return EvaluatorResult.BUILD_CRASHED
+                        result = interestingness.timed_run.timed_run(common_args, None)
+                        if result.sta == interestingness.timed_run.CRASHED:
+                            if "[unhandleable oom]" not in result.err:
+                                return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "hang":
                         if interestingness.hangs.interesting(common_args, None):
                             return EvaluatorResult.BUILD_CRASHED

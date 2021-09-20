@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.2 (2021-09-20)
+### Fix
+* Ignore js runs that report unhandleable oom ([`22bed58`](https://github.com/MozillaSecurity/autobisect/commit/22bed58b065340f16473cf052bcac68d9f6bb4cb))
+
 ## v3.1.1 (2021-08-11)
 ### Fix
 * Manually bump project version ([`3bcb59b`](https://github.com/MozillaSecurity/autobisect/commit/3bcb59b375d703b0f34b7b80cd05c36a653e92cd))

@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.3 (2021-09-21)
+### Fix
+* Update args to timed_run ([`d8ef7a2`](https://github.com/MozillaSecurity/autobisect/commit/d8ef7a2d560a05384054158bcbf605b94678a006))
+
 ## v3.1.2 (2021-09-20)
 ### Fix
 * Ignore js runs that report unhandleable oom ([`22bed58`](https://github.com/MozillaSecurity/autobisect/commit/22bed58b065340f16473cf052bcac68d9f6bb4cb))

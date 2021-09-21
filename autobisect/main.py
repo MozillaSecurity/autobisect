@@ -7,8 +7,7 @@ from argparse import ArgumentParser, Namespace
 from datetime import timedelta
 from typing import Union
 
-from fuzzfetch import BuildFlags
-from fuzzfetch.fetch import Platform
+from fuzzfetch import BuildFlags, Platform
 from grizzly.main import configure_logging
 
 from .bisect import BisectionResult, Bisector

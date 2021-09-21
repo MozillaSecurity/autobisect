@@ -122,8 +122,6 @@ class JSEvaluator(Evaluator):
 
         if self.verify_build(binary, flags):
             common_args = [
-                "-t",
-                f"{self.timeout}",
                 str(binary),
                 *flags,
                 str(self.testcase),
@@ -145,9 +143,10 @@ class JSEvaluator(Evaluator):
                         if interestingness.outputs.interesting(args, None):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
-                        result = interestingness.timed_run.timed_run(common_args, None)
+                        args = [str(binary), *flags, str(self.testcase)]
+                        result = interestingness.timed_run.timed_run(args, self.timeout)
                         if result.sta == interestingness.timed_run.CRASHED:
-                            if "[unhandleable oom]" not in result.err:
+                            if b"[unhandlable oom]" not in result.err:
                                 return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "hang":
                         if interestingness.hangs.interesting(common_args, None):
@@ -156,6 +155,7 @@ class JSEvaluator(Evaluator):
                 # Reset cwd
                 os.chdir(previous_path)
 
+            LOG.info("> Failed to reproduce issue!")
             return EvaluatorResult.BUILD_PASSED
 
         return EvaluatorResult.BUILD_FAILED

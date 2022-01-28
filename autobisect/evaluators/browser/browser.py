@@ -119,7 +119,7 @@ class BrowserEvaluator(Evaluator):
         :return: The return code or None
         """
         # Create testcase
-        testcase = TestCase.load_single(test_path, True, scan_dir)
+        testcase = TestCase.load_single(test_path, scan_dir)
         if self._env_vars:
             for key, value in self._env_vars.items():
                 testcase.env_vars[key] = value

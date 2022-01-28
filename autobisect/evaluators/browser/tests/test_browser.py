@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from grizzly.session import Session
+from grizzly.common.utils import Exit
 
 from autobisect.evaluators import BrowserEvaluator, EvaluatorResult
 from autobisect.evaluators.browser.browser import BrowserEvaluatorException
@@ -53,7 +53,7 @@ def test_launch_simple(mocker, tmp_path):
     """
     mocker.patch(
         "grizzly.replay.ReplayManager.main",
-        side_effect=(Session.EXIT_SUCCESS, Session.EXIT_FAILURE),
+        side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
 
     binary = tmp_path / "firefox"

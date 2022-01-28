@@ -7,9 +7,9 @@ import tempfile
 from pathlib import Path
 from typing import Optional, NoReturn, Any
 
-from grizzly.common import TestCase
+from grizzly.common.storage import TestCase
+from grizzly.common.utils import Exit
 from grizzly.replay import ReplayArgs, ReplayManager
-from grizzly.session import Session
 
 from ..base import Evaluator, EvaluatorResult
 
@@ -119,11 +119,10 @@ class BrowserEvaluator(Evaluator):
         :return: The return code or None
         """
         # Create testcase
-        test_str = str(test_path)
-        testcase = TestCase.load_single(test_str, load_prefs=True, adjacent=scan_dir)
+        testcase = TestCase.load_single(test_path, True, scan_dir)
         if self._env_vars:
             for key, value in self._env_vars.items():
-                testcase.add_environ_var(key, value)
+                testcase.env_vars[key] = value
 
         with tempfile.TemporaryDirectory() as test_dir:
             testcase.dump(test_dir, include_details=True)
@@ -153,9 +152,9 @@ class BrowserEvaluator(Evaluator):
             args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
             success = ReplayManager.main(args)
 
-            if success == Session.EXIT_SUCCESS:
+            if success == Exit.SUCCESS:
                 return EvaluatorResult.BUILD_CRASHED
-            if success == Session.EXIT_FAILURE:
+            if success == Exit.FAILURE:
                 return EvaluatorResult.BUILD_PASSED
 
             return EvaluatorResult.BUILD_FAILED

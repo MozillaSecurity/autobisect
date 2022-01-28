@@ -113,6 +113,7 @@ def requests_mock_cache():
 
 @pytest.fixture
 def config_fixture(tmp_path):
+    """A mock configuration file"""
     config_data = re.sub(r"(?<=storage-path: )(.+)", str(tmp_path), DEFAULT_CONFIG)
     config_data = re.sub(r"(?<=persist-limit: )(.+)", "5", config_data)
     config_path = tmp_path / "autobisect.ini"

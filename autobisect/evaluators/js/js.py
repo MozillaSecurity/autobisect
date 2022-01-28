@@ -62,13 +62,12 @@ class JSEvaluator(Evaluator):
         if self.detect == "diff":
             if not kwargs.get("arg_1") or not kwargs.get("arg_2"):
                 raise JSEvaluatorException("Diff mode requires 'arg_1' and 'arg_2'")
-            self._arg_1 = kwargs.get("arg_1")
-            self._arg_2 = kwargs.get("arg_2")
-        elif self.detect == "match":
+            self._arg_1 = str(kwargs["arg_1"])
+            self._arg_2 = str(kwargs["arg_2"])
+        elif self.detect == "output":
             if not kwargs.get("match"):
                 raise JSEvaluatorException("Match mode requires a match string")
-            self._match = kwargs.get("match")
-            self._regex = kwargs.get("regex")
+            self._match = str(kwargs["match"])
 
     @staticmethod
     def get_valid_flags(rev: str) -> List[str]:
@@ -97,7 +96,7 @@ class JSEvaluator(Evaluator):
         :return: Boolean
         """
         LOG.info("> Verifying build...")
-        args = [binary, *flags, "-e", '"quit()"']
+        args = [str(binary), *flags, "-e", '"quit()"']
         run_data = interestingness.timed_run.timed_run(args, self.timeout)
         if run_data.sta is not interestingness.timed_run.NORMAL:
             LOG.error(">> Build crashed!")
@@ -136,11 +135,11 @@ class JSEvaluator(Evaluator):
                     LOG.info("> Launching build with testcase...")
                     if self.detect == "diff":
                         args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
-                        if interestingness.diff_test.interesting(args, None):
+                        if interestingness.diff_test.interesting(args, ""):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "output":
                         args = [self._match] + common_args
-                        if interestingness.outputs.interesting(args, None):
+                        if interestingness.outputs.interesting(args, ""):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
                         args = [str(binary), *flags, str(self.testcase)]
@@ -149,7 +148,7 @@ class JSEvaluator(Evaluator):
                             if b"[unhandlable oom]" not in result.err:
                                 return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "hang":
-                        if interestingness.hangs.interesting(common_args, None):
+                        if interestingness.hangs.interesting(common_args, ""):
                             return EvaluatorResult.BUILD_CRASHED
             finally:
                 # Reset cwd

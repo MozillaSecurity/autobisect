@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.5 (2022-01-28)
+### Fix
+* Add correct Testcase.load_single parameters ([`47b202e`](https://github.com/MozillaSecurity/autobisect/commit/47b202ef0aff037f1715b535e571f55456a03a86))
+
 ## v3.1.4 (2022-01-28)
 ### Fix
 * Ignore pylint unsubscriptable-object false positive ([`c4cd456`](https://github.com/MozillaSecurity/autobisect/commit/c4cd456ce1035bcafadb191a70d3b27c4a413302))

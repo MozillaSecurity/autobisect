@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.4 (2022-01-28)
+### Fix
+* Ignore pylint unsubscriptable-object false positive ([`c4cd456`](https://github.com/MozillaSecurity/autobisect/commit/c4cd456ce1035bcafadb191a70d3b27c4a413302))
+* Update grizzly to v0.14.0 ([`2264a4d`](https://github.com/MozillaSecurity/autobisect/commit/2264a4d436b31660472c0bec75546ae7d5fb1a1d))
+* Address lithium mypy type violations ([`6dd9ef8`](https://github.com/MozillaSecurity/autobisect/commit/6dd9ef8ce06e5f82534b5f238cb5d013793ef9c8))
+* Use correct dep name for requests-mock ([`e0481a5`](https://github.com/MozillaSecurity/autobisect/commit/e0481a5621b84a3960d5ee46fcb49cf3821981f5))
+* Use corrected types in fuzzfetch==^2.0.0 ([`0fe7f63`](https://github.com/MozillaSecurity/autobisect/commit/0fe7f638e63f072870ec72292ede89d19e925462))
+
 ## v3.1.3 (2021-09-21)
 ### Fix
 * Update args to timed_run ([`d8ef7a2`](https://github.com/MozillaSecurity/autobisect/commit/d8ef7a2d560a05384054158bcbf605b94678a006))

@@ -31,8 +31,8 @@ def test_build_range_splice():
     build_range = BuildRange(builds)
     copy = build_range[:2]
     assert len(copy) == 2
-    assert copy[0] == "abc"
-    assert copy[1] == "zyx"
+    assert copy[0] == "abc"  # pylint: disable=unsubscriptable-object
+    assert copy[1] == "zyx"  # pylint: disable=unsubscriptable-object
 
 
 def test_build_range_mid_point():

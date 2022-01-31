@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.6 (2022-01-31)
+### Fix
+* Autoland ranges may include multiple pushes ([`00821ea`](https://github.com/MozillaSecurity/autobisect/commit/00821ea7de71342cea96235128c99a25585164de))
+
 ## v3.1.5 (2022-01-28)
 ### Fix
 * Add correct Testcase.load_single parameters ([`47b202e`](https://github.com/MozillaSecurity/autobisect/commit/47b202ef0aff037f1715b535e571f55456a03a86))

@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Generator, Optional, List, cast, Union, TypeVar, Callable
+from typing import Generator, Optional, List, Union, TypeVar, Callable
 
 import requests
 from fuzzfetch import (
@@ -26,7 +26,7 @@ T = TypeVar("T")
 LOG = logging.getLogger("bisect")
 
 
-def get_autoland_range(start: str, end: str) -> Optional[List[str]]:
+def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
     """
     Retrieve changeset from autoland within supplied boundary
 
@@ -45,13 +45,12 @@ def get_autoland_range(start: str, end: str) -> Optional[List[str]]:
         return None
 
     json = data.json()
-    key_len = len(json.keys())
-    if key_len == 1:
-        push_id = list(json.keys())[0]
-        return cast(List[str], json[push_id]["changesets"])
 
-    LOG.warning(f"Detected {key_len} top-level changes.  Cannot bisect into autoland.")
-    return None
+    changesets = []
+    for push_id in json.keys():
+        changesets.extend(json[push_id]["changesets"])
+
+    return changesets
 
 
 class StatusException(Exception):

@@ -156,7 +156,8 @@ def test_get_autoland_range_multiple_revs():
     """
     Test that get_autoland_range returns None when multiple changsets identified
     """
-    assert get_autoland_range("385f49adaf00", "590613078c74") is None
+    builds = get_autoland_range("385f49adaf00", "590613078c74")
+    assert len(builds) == 209
 
 
 @pytest.mark.parametrize("status", EvaluatorResult)

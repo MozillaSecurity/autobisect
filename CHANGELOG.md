@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.7 (2022-02-01)
+### Fix
+* Update lithium ([`4d04887`](https://github.com/MozillaSecurity/autobisect/commit/4d04887b199a941f596bf4853b8cb15ad737f620))
+
 ## v3.1.6 (2022-01-31)
 ### Fix
 * Autoland ranges may include multiple pushes ([`00821ea`](https://github.com/MozillaSecurity/autobisect/commit/00821ea7de71342cea96235128c99a25585164de))

@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.8 (2022-02-17)
+### Fix
+* Remove explicit type cast for branch ([`6660448`](https://github.com/MozillaSecurity/autobisect/commit/66604480b20cb1299652f2c68fb49361a3652bce))
+* Update type to allow None for start and end values ([`0028e88`](https://github.com/MozillaSecurity/autobisect/commit/0028e884347c43ee959a6d8f9b2fb5a9eb7c97cb))
+
 ## v3.1.7 (2022-02-01)
 ### Fix
 * Update lithium ([`4d04887`](https://github.com/MozillaSecurity/autobisect/commit/4d04887b199a941f596bf4853b8cb15ad737f620))

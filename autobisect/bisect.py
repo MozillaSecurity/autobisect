@@ -158,7 +158,7 @@ class Bisector(object):
         :param config: Path to config file
         """
         self.evaluator: Evaluator = evaluator
-        self.branch: str = branch
+        self.branch = branch
         self.platform: Platform = platform
         self.flags = flags
         self.find_fix = find_fix

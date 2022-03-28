@@ -10,11 +10,17 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import List, Optional, Iterator
 
-from fuzzfetch import Fetcher
+from fuzzfetch import Fetcher, FetcherException
 
 from .config import BisectionConfig
 
 LOG = logging.getLogger("build-manager")
+
+
+class BuildManagerException(Exception):
+    """
+    Raised when a build cannot be retrieved
+    """
 
 
 class DatabaseManager(object):
@@ -130,7 +136,10 @@ class BuildManager(object):
                 # If the build doesn't exist on disk, download it
                 if not Path.is_dir(target_path):
                     self.remove_old_builds()
-                    build.extract_build([target], target_path)
+                    try:
+                        build.extract_build([target], target_path)
+                    except FetcherException as e:
+                        raise BuildManagerException("Failed to extract build") from e
             except sqlite3.IntegrityError:
                 LOG.warning(
                     "Another process is attempting to download the build. Waiting"

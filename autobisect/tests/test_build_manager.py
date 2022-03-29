@@ -5,7 +5,11 @@ from time import sleep
 import pytest
 from fuzzfetch import Fetcher, BuildFlags
 
-from autobisect.build_manager import BuildManager, DatabaseManager
+from autobisect.build_manager import (
+    BuildManager,
+    DatabaseManager,
+    BuildManagerException,
+)
 
 
 def test_database_manager_init_new_db(tmp_path):
@@ -143,3 +147,16 @@ def test_build_manager_get_build(mocker, config_fixture):
     # The build should no longer be marked as in_use
     res = execute("SELECT * FROM in_use WHERE build_path == ?", (str(build),))
     assert res.fetchone() is None
+
+
+def test_database_manager_fails_to_extract(config_fixture):
+    """Test that the build manager raised the proper exception when failing to extract target"""
+    manager = BuildManager(config_fixture)
+    flags = BuildFlags(*[False for _ in range(8)])
+    build = "gecko.v2.mozilla-central.latest.firefox.sm-linux64-asan-opt"
+    fetcher = Fetcher("central", build, flags)
+    with pytest.raises(BuildManagerException) as e:
+        with manager.get_build(fetcher, "firefox") as build:
+            pass
+
+    assert str(e.value) == "Failed to extract build."

@@ -139,7 +139,7 @@ class BuildManager(object):
                     try:
                         build.extract_build([target], target_path)
                     except FetcherException as e:
-                        raise BuildManagerException("Failed to extract build") from e
+                        raise BuildManagerException("Failed to extract build.") from e
             except sqlite3.IntegrityError:
                 LOG.warning(
                     "Another process is attempting to download the build. Waiting"

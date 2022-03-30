@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v3.1.9 (2022-03-30)
+### Fix
+* Catch and raise when build fails to extract ([`9a5eed7`](https://github.com/MozillaSecurity/autobisect/commit/9a5eed7ef89ea2e0845e0034c2873ab7bc1bb372))
+
 ## v3.1.8 (2022-02-17)
 ### Fix
 * Remove explicit type cast for branch ([`6660448`](https://github.com/MozillaSecurity/autobisect/commit/66604480b20cb1299652f2c68fb49361a3652bce))

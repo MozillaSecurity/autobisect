@@ -311,8 +311,10 @@ class Bisector(object):
         strategies: List[Callable[[], Union[BuildRange[str], BuildRange[Fetcher]]]] = [
             self._get_daily_builds,
             self._get_pushdate_builds,
-            self._get_autoland_builds,
         ]
+        if self.branch == "central":
+            strategies.append(self._get_autoland_builds)
+
         for strategy in strategies:
             build_range = strategy()
             generator = self.build_iterator(build_range, random_choice)  # type: ignore

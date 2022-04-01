@@ -17,7 +17,7 @@ from fuzzfetch import (
     Platform,
 )
 
-from .build_manager import BuildManager
+from .build_manager import BuildManager, BuildManagerException
 from .builds import BuildRange
 from .evaluators import Evaluator, EvaluatorResult
 
@@ -357,8 +357,11 @@ class Bisector(object):
         """
         LOG.info("Testing build %s (%s)", build.changeset, build.id)
         # If persistence is enabled and a build exists, use it
-        with self.build_manager.get_build(build, self.evaluator.target) as build_path:
-            return self.evaluator.evaluate_testcase(build_path)
+        try:
+            with self.build_manager.get_build(build, self.evaluator.target) as path:
+                return self.evaluator.evaluate_testcase(path)
+        except BuildManagerException:
+            return EvaluatorResult.BUILD_FAILED
 
     def verify_bounds(self) -> VerificationStatus:
         """Verify that the supplied bounds behave as expected"""

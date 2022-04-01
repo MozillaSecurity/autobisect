@@ -222,7 +222,11 @@ class Bisector(object):
                 # Only keep builds after the start and before the end boundaries
                 build = Fetcher(self.branch, task, self.flags, self.platform)
                 if self.end.datetime > build.datetime > self.start.datetime:
-                    builds.append(build)
+                    if build.changeset not in (
+                        self.start.changeset,
+                        self.end.changeset,
+                    ):
+                        builds.append(build)
 
         return BuildRange(builds)
 

@@ -119,6 +119,14 @@ class BisectionResult(object):
         if status == BisectionResult.SUCCESS:
             if start.build_info["moz_source_repo"] == end.build_info["moz_source_repo"]:
                 base = start.build_info["moz_source_repo"]
+            elif self.branch == "central" and "autoland" in (
+                start._branch,
+                end._branch,
+            ):
+                for build in (start, end):
+                    if build._branch == "central":
+                        base = build.build_info["moz_source_repo"]
+                        break
             else:
                 base = "https://hg.mozilla.org/mozilla-unified"
 

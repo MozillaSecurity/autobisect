@@ -215,6 +215,10 @@ class Bisector(object):
         for dt in [start, end]:
             date = dt.strftime("%Y-%m-%d")
             for task in BuildTask.iterall(date, self.branch, self.flags, self.platform):
+                # Ignore "latest" as these are aliases for the most recent build
+                if task.url and ".latest." in task.url:
+                    continue
+
                 # Only keep builds after the start and before the end boundaries
                 build = Fetcher(self.branch, task, self.flags, self.platform)
                 if self.end.datetime > build.datetime > self.start.datetime:

@@ -216,7 +216,7 @@ class Bisector(object):
             date = dt.strftime("%Y-%m-%d")
             for task in BuildTask.iterall(date, self.branch, self.flags, self.platform):
                 # Ignore "latest" as these are aliases for the most recent build
-                if task.url and ".latest." in task.url:
+                if hasattr(task, "url") and ".latest." in str(task.url):
                     continue
 
                 # Only keep builds after the start and before the end boundaries

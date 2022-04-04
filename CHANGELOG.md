@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.0 (2022-04-04)
+### Breaking
+* Sets minimum version to 3.7  ([`3a3092e`](https://github.com/MozillaSecurity/autobisect/commit/3a3092eaa4ebdb4af2647f5253020c6610419c53))
+
 ## v4.0.0 (2022-04-04)
 ### Feature
 * Add --no-harness argument to disable harness ([`20a6aba`](https://github.com/MozillaSecurity/autobisect/commit/20a6aba7f9dd4933a0c1b8e1aab7d6c0ce08c232))

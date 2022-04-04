@@ -64,7 +64,7 @@ def test_build_manager_build_size(config_fixture):
     for i in range(total):
         build_dir = Path(manager.build_dir / str(i))
         build_dir.mkdir()
-        with Path(build_dir / "firefox").open("w+") as handler:
+        with Path(build_dir / "firefox").open("w+", encoding="utf-8") as handler:
             handler.seek(1024 - 1)
             handler.write("x")
     assert manager.current_build_size == (4096 * total) + (1024 * total)
@@ -94,7 +94,7 @@ def test_build_manager_remove_old_builds(config_fixture):
     for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         build_dir.mkdir()
-        with Path(build_dir / "firefox").open("w+") as handler:
+        with Path(build_dir / "firefox").open("w+", encoding="utf-8") as handler:
             handler.seek(1024 * 1024 - 1)
             handler.write("x")
 

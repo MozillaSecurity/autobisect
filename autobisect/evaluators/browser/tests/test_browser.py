@@ -52,8 +52,7 @@ def test_launch_simple(mocker, tmp_path):
     Simple test of BrowserEvaluator.launch()
     """
     mocker.patch(
-        "grizzly.replay.ReplayManager.main",
-        side_effect=(Exit.SUCCESS, Exit.FAILURE),
+        "grizzly.replay.ReplayManager.main", side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
 
     binary = tmp_path / "firefox"

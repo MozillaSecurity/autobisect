@@ -25,15 +25,10 @@ class BrowserArgs(BisectCommonArgs):
             " (default: %(default)s)",
         )
         launcher_grp.add_argument(
-            "-p",
-            "--prefs",
-            type=Path,
-            help="Optional prefs.js file to use",
+            "-p", "--prefs", type=Path, help="Optional prefs.js file to use",
         )
         launcher_grp.add_argument(
-            "--xvfb",
-            action="store_true",
-            help="Use Xvfb (Linux only)",
+            "--xvfb", action="store_true", help="Use Xvfb (Linux only)",
         )
         launcher_grp.add_argument(
             "--no-harness",
@@ -46,9 +41,8 @@ class BrowserArgs(BisectCommonArgs):
             "--ignore",
             nargs="*",
             default=list(BrowserArgs.IGNORABLE),
-            help="Space separated list of issue types to ignore. Valid options: %s"
-            " (default: %s)"
-            % (" ".join(BrowserArgs.IGNORABLE), " ".join(BrowserArgs.IGNORABLE)),
+            help="Space separated list of issue types to ignore. Valid options: "
+            f"{' '.join(BrowserArgs.IGNORABLE)} (default: {' '.join(BrowserArgs.IGNORABLE)})",
         )
 
     def sanity_check(self, args: Namespace) -> None:

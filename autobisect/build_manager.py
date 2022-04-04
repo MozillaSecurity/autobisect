@@ -110,11 +110,11 @@ class BuildManager(object):
         :param target: The target to retrieve (i.e. firefox, js, gtest, etc)
         """
         # pylint: disable=protected-access
-        branch = "m-%s" % build._branch[0]
+        branch = f"m-{build._branch[0]}"
         platform = build._platform.system
         flags = build._flags.build_string()
         rev = build.changeset[:12]
-        build_name = "%s-%s-%s%s-%s" % (target, branch, platform, flags, rev)
+        build_name = f"{target}-{branch}-{platform}{flags}-{rev}"
         target_path = self.build_dir / build_name.lower()
         path_string = os.fspath(target_path)
 

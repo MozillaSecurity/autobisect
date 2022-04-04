@@ -177,18 +177,10 @@ class Bisector(object):
         end_id = end if end else "latest"
 
         self.start = Fetcher(
-            self.branch,
-            start_id,
-            self.flags,
-            self.platform,
-            BuildSearchOrder.ASC,
+            self.branch, start_id, self.flags, self.platform, BuildSearchOrder.ASC,
         )
         self.end = Fetcher(
-            self.branch,
-            end_id,
-            self.flags,
-            self.platform,
-            BuildSearchOrder.DESC,
+            self.branch, end_id, self.flags, self.platform, BuildSearchOrder.DESC,
         )
 
         self.build_manager = BuildManager(config)

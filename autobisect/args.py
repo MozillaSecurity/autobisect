@@ -40,16 +40,14 @@ class BisectCommonArgs:
         """
         self.parser = parser
         self.parser.add_argument(
-            "testcase",
-            type=Path,
-            help="Path to testcase",
+            "testcase", type=Path, help="Path to testcase",
         )
 
         self.parser.add_argument(
             "--log-level",
             default="INFO",
-            help="Configure console logging. Options: %s (default: %%(default)s)"
-            % ", ".join(k for k, v in sorted(LOG_LEVELS.items(), key=lambda x: x[1])),
+            help=f"Configure console logging. Options: "
+            f"{', '.join(k for k, v in sorted(LOG_LEVELS.items(), key=lambda x: x[1]))} (default: %(default)s)",
         )
 
         boundary_args = self.parser.add_argument_group(
@@ -57,12 +55,10 @@ class BisectCommonArgs:
             description="Accepts revision or build date in YYYY-MM-DD format)",
         )
         boundary_args.add_argument(
-            "--start",
-            help="Start build id (default: earliest available build)",
+            "--start", help="Start build id (default: earliest available build)",
         )
         boundary_args.add_argument(
-            "--end",
-            help="End build id (default: latest available build)",
+            "--end", help="End build id (default: latest available build)",
         )
 
         bisection_args = self.parser.add_argument_group(title="Bisection Arguments")
@@ -79,14 +75,10 @@ class BisectCommonArgs:
             help="Number of times to evaluate testcase (per build)",
         )
         bisection_args.add_argument(
-            "--config",
-            type=Path,
-            help="Path to optional config file",
+            "--config", type=Path, help="Path to optional config file",
         )
         bisection_args.add_argument(
-            "--find-fix",
-            action="store_true",
-            help="Identify fix date",
+            "--find-fix", action="store_true", help="Identify fix date",
         )
 
         target_group = self.parser.add_argument_group("Target Arguments")
@@ -173,9 +165,7 @@ class BisectCommonArgs:
             help="Download ThreadSanitizer builds.",
         )
         build_group.add_argument(
-            "--fuzzing",
-            action="store_true",
-            help="Download --enable-fuzzing builds.",
+            "--fuzzing", action="store_true", help="Download --enable-fuzzing builds.",
         )
         build_group.add_argument(
             "--fuzzilli",
@@ -183,19 +173,13 @@ class BisectCommonArgs:
             help="Download --enable-js-fuzzilli builds.",
         )
         build_group.add_argument(
-            "--coverage",
-            action="store_true",
-            help="Download --coverage builds.",
+            "--coverage", action="store_true", help="Download --coverage builds.",
         )
         build_group.add_argument(
-            "--valgrind",
-            action="store_true",
-            help="Download Valgrind builds.",
+            "--valgrind", action="store_true", help="Download Valgrind builds.",
         )
         build_group.add_argument(
-            "--no-opt",
-            action="store_true",
-            help="Download non-optimized builds.",
+            "--no-opt", action="store_true", help="Download non-optimized builds.",
         )
 
         self.parser.set_defaults(branch="central")
@@ -212,7 +196,7 @@ class BisectCommonArgs:
 
         log_level = LOG_LEVELS.get(args.log_level.upper(), None)
         if log_level is None:
-            self.parser.error("Invalid log-level %r" % (args.log_level,))
+            self.parser.error(f"Invalid log-level {args.log_level!r}")
         args.log_level = log_level
 
         if args.config is not None:

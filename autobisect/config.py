@@ -11,16 +11,13 @@ LOG = logging.getLogger("browser-bisect")
 CONFIG_DIR = Path.home() / ".autobisect"
 CONFIG_FILE = CONFIG_DIR / "autobisect.ini"
 
-DEFAULT_CONFIG = (
-    """
+DEFAULT_CONFIG = f"""
 [autobisect]
-storage-path: %s
+storage-path: {CONFIG_DIR}
 persist: true
 ; size in MBs
 persist-limit: 30000
 """
-    % CONFIG_DIR
-)
 
 
 class BisectionConfig(object):

@@ -59,7 +59,7 @@ version = "4.0.0"
 fuzzfetch = "^2.0.0"
 grizzly-framework = "^0.14.0"
 lithium-reducer = "^0.6.2"
-python = "^3.6.1"
+python = "^3.7"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"

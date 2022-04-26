@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.1 (2022-04-26)
+### Fix
+* Update ffpuppet to v0.9.0 ([`322046c`](https://github.com/MozillaSecurity/autobisect/commit/322046ce7e58acdf4d48b31c532622d27fa74cdb))
+
 ## v5.0.0 (2022-04-04)
 ### Breaking
 * Sets minimum version to 3.7  ([`3a3092e`](https://github.com/MozillaSecurity/autobisect/commit/3a3092eaa4ebdb4af2647f5253020c6610419c53))

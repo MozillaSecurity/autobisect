@@ -132,7 +132,7 @@ def test_build_manager_remove_old_builds_in_use(config_fixture):
 def test_build_manager_get_build(mocker, config_fixture):
     """Simple test of BuildManager.get_build"""
     manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(8)])
+    flags = BuildFlags(*[False for _ in range(9)])
     fetcher = Fetcher("central", "latest", flags)
     extract_build = mocker.patch.object(Fetcher, "extract_build")
 
@@ -152,7 +152,7 @@ def test_build_manager_get_build(mocker, config_fixture):
 def test_database_manager_fails_to_extract(config_fixture):
     """Test that the build manager raised the proper exception when failing to extract target"""
     manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(8)])
+    flags = BuildFlags(*[False for _ in range(9)])
     build = "gecko.v2.mozilla-central.latest.firefox.sm-linux64-asan-opt"
     fetcher = Fetcher("central", build, flags)
     with pytest.raises(BuildManagerException) as e:

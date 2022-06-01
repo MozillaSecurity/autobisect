@@ -58,6 +58,7 @@ def main(args: Namespace) -> int:
         args.valgrind,
         args.no_opt,
         args.fuzzilli,
+        nyx=False,
     )
     platform = Platform(args.os, args.cpu)
     bisector = Bisector(

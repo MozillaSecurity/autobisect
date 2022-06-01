@@ -50,6 +50,7 @@ class MockBisector(Bisector):
             valgrind=False,
             no_opt=False,
             fuzzilli=False,
+            nyx=False,
         )
         self.platform = Platform("Linux", "x86_64")
 

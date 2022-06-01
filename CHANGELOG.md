@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.2 (2022-06-01)
+### Fix
+* Simpify success check ([`518cba3`](https://github.com/MozillaSecurity/autobisect/commit/518cba3c2451f1307e4919d3d91cba85f7fcd0e9))
+* Update fuzzfetch ([`ec3861f`](https://github.com/MozillaSecurity/autobisect/commit/ec3861f4809e47f49939f6090bfb80b7d3ad7191))
+
 ## v5.0.1 (2022-04-26)
 ### Fix
 * Update ffpuppet to v0.9.0 ([`322046c`](https://github.com/MozillaSecurity/autobisect/commit/322046ce7e58acdf4d48b31c532622d27fa74cdb))

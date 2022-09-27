@@ -53,7 +53,7 @@ class BrowserEvaluator(Evaluator):
 
         # FFPuppet arguments
         self._repeat = kwargs.get("repeat", 1)
-        self._ignore = kwargs.get("ignore", ["log-limit", "memory", "timeout"])
+        self._ignore = kwargs.get("ignore", None)
         self._use_valgrind = kwargs.get("valgrind", False)
         self._use_xvfb = kwargs.get("xvfb", True)
         self._timeout = kwargs.get("timeout", 60)
@@ -138,10 +138,10 @@ class BrowserEvaluator(Evaluator):
                 1,
                 "--repeat",
                 repeat,
-                "--ignore",
-                *self._ignore,
             ]
 
+            if self._ignore:
+                raw_args.extend(["--ignore"] + self._ignore)
             if self._prefs:
                 raw_args.extend(["--prefs", self._prefs])
             if not self._use_harness:

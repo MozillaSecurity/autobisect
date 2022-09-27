@@ -61,7 +61,7 @@ grizzly-framework = "^0.15.0"
 lithium-reducer = "^0.6.2"
 python = "^3.7"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^19.10b0"
 codecov = "^2.1.11"
 coverage = { extras = ["toml"], version = "^5.1" }

@@ -134,6 +134,8 @@ class BrowserEvaluator(Evaluator):
                 self._timeout,
                 "--launch-timeout",
                 self._launch_timeout,
+                "--relaunch",
+                1,
                 "--repeat",
                 repeat,
                 "--ignore",

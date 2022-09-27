@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.4 (2022-09-27)
+### Fix
+* Only explicitly set ignore if options were provided ([`c1b49b9`](https://github.com/MozillaSecurity/autobisect/commit/c1b49b9a7b84055f1dc5525defd46dee59d1dae4))
+* Always set relaunch to 1 ([`f9c17fe`](https://github.com/MozillaSecurity/autobisect/commit/f9c17fe96441568e4e058c1c23aa558edd40baaf))
+
 ## v5.0.3 (2022-09-27)
 ### Fix
 * Ignore warnings when trying to close an inactive db ([`83530b2`](https://github.com/MozillaSecurity/autobisect/commit/83530b26c67a2dcb7a2f731bbf657e11bea52a25))

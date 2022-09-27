@@ -45,7 +45,10 @@ class DatabaseManager(object):
             self.con.close()
 
     def __del__(self) -> None:
-        self.close()
+        try:
+            self.close()
+        except sqlite3.ProgrammingError:
+            pass
 
 
 class BuildManager(object):

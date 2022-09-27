@@ -48,9 +48,7 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
 
 
 def test_launch_simple(mocker, tmp_path):
-    """
-    Simple test of BrowserEvaluator.launch()
-    """
+    """Simple test of BrowserEvaluator.launch()"""
     mocker.patch(
         "grizzly.replay.ReplayManager.main", side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
@@ -66,9 +64,7 @@ def test_launch_simple(mocker, tmp_path):
 
 
 def test_launch_non_existent_binary(tmp_path):
-    """
-    Simple test of BrowserEvaluator.launch()
-    """
+    """Simple test of BrowserEvaluator.launch()"""
     binary = tmp_path / "firefox"
     testcase = tmp_path / "testcase.html"
     testcase.touch()
@@ -77,3 +73,29 @@ def test_launch_non_existent_binary(tmp_path):
 
     with pytest.raises(BrowserEvaluatorException):
         browser.launch(binary, testcase, 1)
+
+
+@pytest.mark.parametrize("ignore", ("log-limit", "memory", "timeout"))
+@pytest.mark.parametrize("valgrind", (True, False))
+@pytest.mark.parametrize("xvfb", (True, False))
+@pytest.mark.parametrize("harness", (True, False))
+def test_grizzly_arg_parsing(
+    mocker, tmp_path: Path, ignore: str, valgrind: bool, xvfb: bool, harness: bool,
+):
+    """Ensure that args are accepted by grizzly"""
+    binary = tmp_path / "firefox"
+    binary.touch()
+    testcase = tmp_path / "testcase.html"
+    testcase.touch()
+    evaluator = BrowserEvaluator(
+        testcase,
+        ignore=[ignore],
+        use_valgrind=valgrind,
+        use_xvfb=xvfb,
+        use_harness=harness,
+    )
+    mocker.patch("grizzly.replay.ReplayManager.main", return_value=1)
+    try:
+        evaluator.launch(binary, testcase, 1)
+    except BrowserEvaluatorException:
+        raise "Failed to parse arguments"

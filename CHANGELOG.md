@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v5.0.3 (2022-09-27)
+### Fix
+* Ignore warnings when trying to close an inactive db ([`83530b2`](https://github.com/MozillaSecurity/autobisect/commit/83530b26c67a2dcb7a2f731bbf657e11bea52a25))
+* Update poetry dev dependencies to use new toml key ([`f9be7d8`](https://github.com/MozillaSecurity/autobisect/commit/f9be7d8b883ad92b75b5e479bf52ea9eccd52663))
+
 ## v5.0.2 (2022-06-01)
 ### Fix
 * Simpify success check ([`518cba3`](https://github.com/MozillaSecurity/autobisect/commit/518cba3c2451f1307e4919d3d91cba85f7fcd0e9))

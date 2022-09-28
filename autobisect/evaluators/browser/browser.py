@@ -5,7 +5,7 @@ import argparse
 import logging
 import tempfile
 from pathlib import Path
-from typing import Optional, NoReturn, Any
+from typing import Optional, NoReturn, Any, List, cast
 
 from grizzly.common.storage import TestCase
 from grizzly.common.utils import Exit
@@ -51,19 +51,65 @@ class BrowserEvaluator(Evaluator):
     def __init__(self, testcase: Path, **kwargs: Any) -> None:
         self.testcase = testcase
 
-        # FFPuppet arguments
-        self._repeat = kwargs.get("repeat", 1)
-        self._ignore = kwargs.get("ignore", None)
-        self._use_valgrind = kwargs.get("valgrind", False)
-        self._use_xvfb = kwargs.get("xvfb", True)
-        self._timeout = kwargs.get("timeout", 60)
-        self._launch_timeout = kwargs.get("launch_timeout", 300)
-        self._prefs = kwargs.get("prefs", None)
-        self._env_vars = kwargs.get("env", None)
-        self._use_harness = kwargs.get("use_harness", False)
+        # Grizzly arguments
+        self.env_vars = kwargs.get("env", None)
+        self.ignore = kwargs.get("ignore", None)
+        self.launch_timeout = kwargs.get("launch_timeout", None)
+        self.logs = kwargs.get("logs", None)
+        self.pernosco = kwargs.get("pernosco", None)
+        self.prefs = kwargs.get("prefs", None)
+        self.relaunch = kwargs.get("relaunch", None)
+        self.repeat = kwargs.get("repeat", None)
+        self.timeout = kwargs.get("timeout", None)
+        self.use_harness = kwargs.get("use_harness", None)
+        self.use_valgrind = kwargs.get("valgrind", None)
+        self.use_xvfb = kwargs.get("xvfb", True)
 
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
+
+    def parse_args(
+        self,
+        binary: Path,
+        test_dir: Path,
+        verify: Optional[bool] = False,
+    ) -> argparse.Namespace:
+        """
+        Parse arguments destined for grizzly.
+        :param binary: The path to the firefox binary
+        :param test_dir: The path to the testcase
+        :param verify: Indicates if we're running a testcase or verifying the browser stability
+        :return: The return code or None
+        """
+        raw_args: List[Any] = [binary, test_dir]
+
+        if self.ignore:
+            raw_args.extend(["--ignore"] + self.ignore)
+        if self.launch_timeout:
+            raw_args.extend(["--launch-timeout", self.launch_timeout])
+        if self.prefs:
+            raw_args.extend(["--prefs", self.prefs])
+        if self.relaunch:
+            raw_args.extend(["--relaunch", self.relaunch])
+        if self.timeout:
+            raw_args.extend(["--timeout", self.timeout])
+        if not self.use_harness:
+            raw_args.append("--no-harness")
+        if self.use_valgrind:
+            raw_args.append("--valgrind")
+        if self.use_xvfb:
+            raw_args.append("--xvfb")
+
+        if not verify:
+            if self.logs is not None:
+                raw_args.extend(["--logs", self.logs])
+            if self.pernosco is not None:
+                raw_args.extend(["--pernosco"])
+            if self.repeat is not None:
+                raw_args.extend(["--repeat", self.repeat])
+
+        args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
+        return cast(argparse.Namespace, args)
 
     def verify_build(self, binary: Path) -> bool:
         """
@@ -76,7 +122,7 @@ class BrowserEvaluator(Evaluator):
             temp.flush()
             LOG.info("> Verifying build...")
 
-            status = self.launch(binary, Path(temp.name), 1)
+            status = self.launch(binary, Path(temp.name), verify=True)
 
         if status != EvaluatorResult.BUILD_PASSED:
             LOG.error(">> Failed to validate build!")
@@ -94,7 +140,7 @@ class BrowserEvaluator(Evaluator):
         result = EvaluatorResult.BUILD_FAILED
         if binary.is_file() and self.verify_build(binary):
             LOG.info("> Launching build with testcase...")
-            result = self.launch(binary, self.testcase, self._repeat, scan_dir=True)
+            result = self.launch(binary, self.testcase, self.repeat, scan_dir=True)
 
             if result == EvaluatorResult.BUILD_CRASHED:
                 LOG.info(">> Build crashed!")
@@ -107,51 +153,26 @@ class BrowserEvaluator(Evaluator):
         self,
         binary: Path,
         test_path: Path,
-        repeat: int,
+        verify: Optional[bool] = False,
         scan_dir: Optional[bool] = False,
     ) -> EvaluatorResult:
         """
         Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param test_path: The path to the testcase
-        :param repeat: The number of times to launch the browser
+        :param verify: Indicates if we're running a testcase or verifying the browser stability
         :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
         """
         # Create testcase
         testcase = TestCase.load_single(test_path, scan_dir)
-        if self._env_vars:
-            for key, value in self._env_vars.items():
+        if self.env_vars:
+            for key, value in self.env_vars.items():
                 testcase.env_vars[key] = value
 
         with tempfile.TemporaryDirectory() as test_dir:
             testcase.dump(test_dir, include_details=True)
-
-            raw_args = [
-                binary,
-                test_dir,
-                "--timeout",
-                self._timeout,
-                "--launch-timeout",
-                self._launch_timeout,
-                "--relaunch",
-                1,
-                "--repeat",
-                repeat,
-            ]
-
-            if self._ignore:
-                raw_args.extend(["--ignore"] + self._ignore)
-            if self._prefs:
-                raw_args.extend(["--prefs", self._prefs])
-            if not self._use_harness:
-                raw_args.append("--no-harness")
-            if self._use_valgrind:
-                raw_args.append("--valgrind")
-            if self._use_xvfb:
-                raw_args.append("--xvfb")
-
-            args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
+            args = self.parse_args(binary, Path(test_dir), verify)
             success = ReplayManager.main(args)
 
             if success in (Exit.SUCCESS, Exit.LAUNCH_FAILURE):

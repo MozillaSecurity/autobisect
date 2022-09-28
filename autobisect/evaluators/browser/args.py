@@ -25,10 +25,15 @@ class BrowserArgs(BisectCommonArgs):
             " (default: %(default)s)",
         )
         launcher_grp.add_argument(
-            "-p", "--prefs", type=Path, help="Optional prefs.js file to use",
+            "-p",
+            "--prefs",
+            type=Path,
+            help="Optional prefs.js file to use",
         )
         launcher_grp.add_argument(
-            "--xvfb", action="store_true", help="Use Xvfb (Linux only)",
+            "--xvfb",
+            action="store_true",
+            help="Use Xvfb (Linux only)",
         )
         launcher_grp.add_argument(
             "--no-harness",

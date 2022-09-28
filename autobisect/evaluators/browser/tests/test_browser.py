@@ -50,7 +50,8 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
 def test_launch_simple(mocker, tmp_path):
     """Simple test of BrowserEvaluator.launch()"""
     mocker.patch(
-        "grizzly.replay.ReplayManager.main", side_effect=(Exit.SUCCESS, Exit.FAILURE),
+        "grizzly.replay.ReplayManager.main",
+        side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
 
     binary = tmp_path / "firefox"
@@ -80,7 +81,12 @@ def test_launch_non_existent_binary(tmp_path):
 @pytest.mark.parametrize("xvfb", (True, False))
 @pytest.mark.parametrize("harness", (True, False))
 def test_grizzly_arg_parsing(
-    mocker, tmp_path: Path, ignore: str, valgrind: bool, xvfb: bool, harness: bool,
+    mocker,
+    tmp_path: Path,
+    ignore: str,
+    valgrind: bool,
+    xvfb: bool,
+    harness: bool,
 ):
     """Ensure that args are accepted by grizzly"""
     binary = tmp_path / "firefox"

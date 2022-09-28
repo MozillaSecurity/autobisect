@@ -60,8 +60,8 @@ def test_launch_simple(mocker, tmp_path):
     testcase.touch()
 
     browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_CRASHED
-    assert browser.launch(binary, testcase, 1) == EvaluatorResult.BUILD_PASSED
+    assert browser.launch(binary, testcase) == EvaluatorResult.BUILD_CRASHED
+    assert browser.launch(binary, testcase) == EvaluatorResult.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(tmp_path):
@@ -73,7 +73,7 @@ def test_launch_non_existent_binary(tmp_path):
     browser = BrowserEvaluator(testcase)
 
     with pytest.raises(BrowserEvaluatorException):
-        browser.launch(binary, testcase, 1)
+        browser.launch(binary, testcase)
 
 
 @pytest.mark.parametrize("ignore", ("log-limit", "memory", "timeout"))
@@ -93,15 +93,41 @@ def test_grizzly_arg_parsing(
     binary.touch()
     testcase = tmp_path / "testcase.html"
     testcase.touch()
+    prefs = tmp_path / "prefs.js"
+    prefs.touch()
+
+    # 'rr needs /proc/sys/kernel/perf_event_paranoid <= 1, but it is 2'
+    mocker.patch.object(Path, "read_text", return_value=1)
+
     evaluator = BrowserEvaluator(
         testcase,
         ignore=[ignore],
+        launch_timeout=300,
+        prefs=prefs,
+        relaunch=1,
+        use_harness=harness,
         use_valgrind=valgrind,
         use_xvfb=xvfb,
-        use_harness=harness,
+        logs=tmp_path,
+        pernosco=True,
+        repeat=10,
     )
-    mocker.patch("grizzly.replay.ReplayManager.main", return_value=1)
-    try:
-        evaluator.launch(binary, testcase, 1)
-    except BrowserEvaluatorException:
-        raise "Failed to parse arguments"
+    evaluator.parse_args(binary, tmp_path, verify=False)
+
+
+def test_grizzly_arg_parsing_no_pernosco_on_verify(tmp_path: Path):
+    """Ensure that args are accepted by grizzly"""
+    binary = tmp_path / "firefox"
+    binary.touch()
+    testcase = tmp_path / "testcase.html"
+    testcase.touch()
+    kwargs = {
+        "pernosco": True,
+        "logs": "/foo/bar",
+        "repeat": 100,
+    }
+    evaluator = BrowserEvaluator(testcase, **kwargs)
+    args = evaluator.parse_args(binary, tmp_path, verify=True)
+
+    for k, v in kwargs.items():
+        assert args.__dict__[k] != kwargs[k]

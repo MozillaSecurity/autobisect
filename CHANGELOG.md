@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v6.0.0 (2022-09-29)
+### Feature
+* Add support for passing --pernosco to grizzly ([`6e2be3c`](https://github.com/MozillaSecurity/autobisect/commit/6e2be3c2d6e4693d06b58c1b2588d77374f99f32))
+
+### Breaking
+* Modifies the BrowserEvaluator.launch method parameters.  ([`6e2be3c`](https://github.com/MozillaSecurity/autobisect/commit/6e2be3c2d6e4693d06b58c1b2588d77374f99f32))
+
 ## v5.0.4 (2022-09-27)
 ### Fix
 * Only explicitly set ignore if options were provided ([`c1b49b9`](https://github.com/MozillaSecurity/autobisect/commit/c1b49b9a7b84055f1dc5525defd46dee59d1dae4))

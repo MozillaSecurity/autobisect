@@ -140,7 +140,7 @@ class BrowserEvaluator(Evaluator):
         result = EvaluatorResult.BUILD_FAILED
         if binary.is_file() and self.verify_build(binary):
             LOG.info("> Launching build with testcase...")
-            result = self.launch(binary, self.testcase, self.repeat, scan_dir=True)
+            result = self.launch(binary, self.testcase, scan_dir=True)
 
             if result == EvaluatorResult.BUILD_CRASHED:
                 LOG.info(">> Build crashed!")

@@ -175,7 +175,7 @@ class BrowserEvaluator(Evaluator):
             args = self.parse_args(binary, Path(test_dir), verify)
             success = ReplayManager.main(args)
 
-            if success in (Exit.SUCCESS, Exit.LAUNCH_FAILURE):
+            if success == Exit.SUCCESS:
                 return EvaluatorResult.BUILD_CRASHED
             if success == Exit.FAILURE:
                 return EvaluatorResult.BUILD_PASSED

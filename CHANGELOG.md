@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v6.0.1 (2022-10-20)
+### Fix
+* Launch method no longer accepts a repeat argument ([`8fc21e0`](https://github.com/MozillaSecurity/autobisect/commit/8fc21e0f9fdd6a472f16cb601b75dd7606886c1b))
+
 ## v6.0.0 (2022-09-29)
 ### Feature
 * Add support for passing --pernosco to grizzly ([`6e2be3c`](https://github.com/MozillaSecurity/autobisect/commit/6e2be3c2d6e4693d06b58c1b2588d77374f99f32))

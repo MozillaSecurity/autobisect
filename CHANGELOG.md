@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v6.0.2 (2022-10-20)
+### Fix
+* Don't treat launch failures as crashes ([`a5911ab`](https://github.com/MozillaSecurity/autobisect/commit/a5911ab9970f5e6c1b5899937dd4cff39e729b9f))
+
 ## v6.0.1 (2022-10-20)
 ### Fix
 * Launch method no longer accepts a repeat argument ([`8fc21e0`](https://github.com/MozillaSecurity/autobisect/commit/8fc21e0f9fdd6a472f16cb601b75dd7606886c1b))

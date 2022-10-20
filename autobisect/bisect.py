@@ -117,6 +117,7 @@ class BisectionResult(object):
         self.end = end
         self.branch = branch
         if status == BisectionResult.SUCCESS:
+            base = "https://hg.mozilla.org/mozilla-unified"
             if start.build_info["moz_source_repo"] == end.build_info["moz_source_repo"]:
                 base = start.build_info["moz_source_repo"]
             elif self.branch == "central" and "autoland" in (
@@ -127,8 +128,6 @@ class BisectionResult(object):
                     if build._branch == "central":
                         base = build.build_info["moz_source_repo"]
                         break
-            else:
-                base = "https://hg.mozilla.org/mozilla-unified"
 
             self.pushlog = (
                 f"{base}/pushloghtml?fromchange="

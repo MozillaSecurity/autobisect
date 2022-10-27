@@ -61,6 +61,7 @@ class BrowserEvaluator(Evaluator):
         self.relaunch = kwargs.get("relaunch", None)
         self.repeat = kwargs.get("repeat", None)
         self.timeout = kwargs.get("timeout", None)
+        self.time_limit = kwargs.get("time_limit", None)
         self.use_harness = kwargs.get("use_harness", None)
         self.use_valgrind = kwargs.get("valgrind", None)
         self.use_xvfb = kwargs.get("xvfb", True)
@@ -93,6 +94,8 @@ class BrowserEvaluator(Evaluator):
             raw_args.extend(["--relaunch", self.relaunch])
         if self.timeout:
             raw_args.extend(["--timeout", self.timeout])
+        if self.time_limit:
+            raw_args.extend(["--time-limit", self.time_limit])
         if not self.use_harness:
             raw_args.append("--no-harness")
         if self.use_valgrind:

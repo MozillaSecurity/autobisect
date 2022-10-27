@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v6.1.0 (2022-10-27)
+### Feature
+* Add support for grizzly --time-limit ([`9487282`](https://github.com/MozillaSecurity/autobisect/commit/94872824a09c9ed907c28d6f5ce8adf8ec3b5049))
+
 ## v6.0.2 (2022-10-20)
 ### Fix
 * Don't treat launch failures as crashes ([`a5911ab`](https://github.com/MozillaSecurity/autobisect/commit/a5911ab9970f5e6c1b5899937dd4cff39e729b9f))

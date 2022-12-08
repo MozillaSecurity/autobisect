@@ -57,7 +57,7 @@ version = "6.1.0"
 
 [tool.poetry.dependencies]
 fuzzfetch = "^2.0.0"
-grizzly-framework = "^0.15.0"
+grizzly-framework = "^0.16.3"
 lithium-reducer = "^0.6.2"
 python = "^3.7"
 

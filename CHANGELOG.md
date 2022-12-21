@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v6.1.1 (2022-12-21)
+### Fix
+* Raise if supplied binary doesn't exist ([`661fc2e`](https://github.com/MozillaSecurity/autobisect/commit/661fc2e68e8088fade38225b632c8c2b2130a6c1))
+* Update grizzly-framework ([`6a5e55d`](https://github.com/MozillaSecurity/autobisect/commit/6a5e55d5cc441bbe314c8cb7384ad8d1b30ed257))
+
 ## v6.1.0 (2022-10-27)
 ### Feature
 * Add support for grizzly --time-limit ([`9487282`](https://github.com/MozillaSecurity/autobisect/commit/94872824a09c9ed907c28d6f5ce8adf8ec3b5049))

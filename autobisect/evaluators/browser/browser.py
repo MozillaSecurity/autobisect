@@ -167,6 +167,9 @@ class BrowserEvaluator(Evaluator):
         :param scan_dir: Scan subdirectory for additional files to serve
         :return: The return code or None
         """
+        if not binary.is_file():
+            raise BrowserEvaluatorException(f"Binary path does not exist ({binary})!")
+
         # Create testcase
         testcase = TestCase.load_single(test_path, scan_dir)
         if self.env_vars:

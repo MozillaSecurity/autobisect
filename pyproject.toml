@@ -37,10 +37,10 @@ classifiers = [
     "Topic :: Software Development :: Testing",
     "Topic :: Security",
     "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
 homepage = "https://github.com/MozillaSecurity/autobisect"
@@ -59,7 +59,7 @@ version = "6.1.1"
 fuzzfetch = "^2.0.0"
 grizzly-framework = "^0.16.3"
 lithium-reducer = "^0.6.2"
-python = "^3.7"
+python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.8.0"

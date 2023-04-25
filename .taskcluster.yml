@@ -37,7 +37,7 @@ tasks:
             env:
               TOXENV: py311
           - name: lint
-            version: "3.11"
+            version: "3.10"
             env:
               TOXENV: lint
             script:

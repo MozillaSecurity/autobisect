@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.0 (2023-04-25)
+### Feature
+* Update grizzly-framework to 0.16.5 ([`4d9a39c`](https://github.com/MozillaSecurity/autobisect/commit/4d9a39cf0aee31493c7d61fba7c8d05c59c5d834))
+
+### Fix
+* Newer versions of tox use allowlist_externals ([`8ede068`](https://github.com/MozillaSecurity/autobisect/commit/8ede068630b7a4cd3c954f6d17a7aeae36b33c32))
+
+### Breaking
+* drops support for python 3.7 ([`d43020c`](https://github.com/MozillaSecurity/autobisect/commit/d43020cf551ed77e45cd7a274e38b465976f42dc))
+
 ## v6.1.1 (2022-12-21)
 ### Fix
 * Raise if supplied binary doesn't exist ([`661fc2e`](https://github.com/MozillaSecurity/autobisect/commit/661fc2e68e8088fade38225b632c8c2b2130a6c1))

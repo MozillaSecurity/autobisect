@@ -557,11 +557,11 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "prefpicker"
-version = "1.7.0"
+version = "1.10.0"
 description = "PrefPicker - Manage & generate prefs.js files"
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [package.dependencies]
 PyYAML = "*"
@@ -1299,8 +1299,8 @@ pre-commit = [
     {file = "pre_commit-2.21.0.tar.gz", hash = "sha256:31ef31af7e474a8d8995027fefdfcf509b5c913ff31f2015b4ec4beb26a6f658"},
 ]
 prefpicker = [
-    {file = "prefpicker-1.7.0-py3-none-any.whl", hash = "sha256:15a90ea6cc94c7aff41c5cbb975c77ae4956b5f2f10c5448f7e7fc3839910a76"},
-    {file = "prefpicker-1.7.0.tar.gz", hash = "sha256:400147a81c8fc065ade216c8b8e5e172de4494f54f1a4e776b9e66d9bda11512"},
+    {file = "prefpicker-1.10.0-py3-none-any.whl", hash = "sha256:9acbbeb53e6867497d26f9d9137aa516c2740c767a849f5a84bcfac363cb0497"},
+    {file = "prefpicker-1.10.0.tar.gz", hash = "sha256:b453fb1e1162a4dcadfd546c424f2d6c7bb4807fd32692e252d4c7b6562a2e20"},
 ]
 psutil = [
     {file = "psutil-5.9.4-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:c1ca331af862803a42677c120aff8a814a804e09832f166f226bfd22b56feee8"},

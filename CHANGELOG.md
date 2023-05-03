@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.1 (2023-05-03)
+### Fix
+* Set minimum prefpicker version to 1.10.0 ([`7c7c895`](https://github.com/MozillaSecurity/autobisect/commit/7c7c895ca26fcd505135e07f318c888a5606e92c))
+
 ## v7.0.0 (2023-04-25)
 ### Feature
 * Update grizzly-framework to 0.16.5 ([`4d9a39c`](https://github.com/MozillaSecurity/autobisect/commit/4d9a39cf0aee31493c7d61fba7c8d05c59c5d834))

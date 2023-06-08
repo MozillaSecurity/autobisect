@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.2 (2023-06-08)
+
+### Fix
+
+* Fuzzfetch update includes fix for recent taskcluster build changes ([`329af45`](https://github.com/MozillaSecurity/autobisect/commit/329af45747ddf02c0db934e3a6f8c925357f7a6f))
+
 ## v7.0.1 (2023-05-03)
 ### Fix
 * Set minimum prefpicker version to 1.10.0 ([`7c7c895`](https://github.com/MozillaSecurity/autobisect/commit/7c7c895ca26fcd505135e07f318c888a5606e92c))

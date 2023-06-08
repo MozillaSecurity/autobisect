@@ -259,7 +259,7 @@ six = "*"
 
 [[package]]
 name = "fuzzfetch"
-version = "2.2.2"
+version = "2.3.0"
 description = "Downloader for firefox/jsshell builds."
 category = "main"
 optional = false
@@ -1003,7 +1003,7 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "be935371b111923206fd847bfd19791ec1bf0a463f80631cee1e6ae944fa4f63"
+content-hash = "edfc4ebd689dedc1e6bdc91d597b3762df34932f76eda9c8c54f59253d7ad545"
 
 [metadata.files]
 arrow = [
@@ -1152,8 +1152,8 @@ freezegun = [
     {file = "freezegun-0.3.15.tar.gz", hash = "sha256:e2062f2c7f95cc276a834c22f1a17179467176b624cc6f936e8bc3be5535ad1b"},
 ]
 fuzzfetch = [
-    {file = "fuzzfetch-2.2.2-py3-none-any.whl", hash = "sha256:dda943517352a1d1324cd37660b5ad4095c8d7353387b3aa5b0aadcbebaeb0a8"},
-    {file = "fuzzfetch-2.2.2.tar.gz", hash = "sha256:63d64de507a118af8f9faf8983a8c0588077d01ba9f0cb7d5cb1e042064f8397"},
+    {file = "fuzzfetch-2.3.0-py3-none-any.whl", hash = "sha256:56b4528e98d1351c323fc20cfb9f02774a8f87a2d7c04e2b050362d25be38229"},
+    {file = "fuzzfetch-2.3.0.tar.gz", hash = "sha256:94c6ee8b3345797bba5bcefd178ad859c5f5093d6a9e568896ea6365429add60"},
 ]
 fuzzmanager = [
     {file = "FuzzManager-0.5.1-py3-none-any.whl", hash = "sha256:d78956d8b0a51c8066359508d6079cb5be9ca5626f49382f27a694026bee272c"},

@@ -130,6 +130,10 @@ class JSEvaluator(Evaluator):
             previous_path = os.getcwd()
             os.chdir(os.path.dirname(os.path.abspath(self.testcase)))
 
+            # Set LD_LIBRARY_PATH to the build directory
+            previous_ld_path = os.environ["LD_LIBRARY_PATH"]
+            os.environ["LD_LIBRARY_PATH"] = str(binary.parent)
+
             try:
                 for _ in range(self.repeat):
                     LOG.info("> Launching build with testcase...")
@@ -151,8 +155,9 @@ class JSEvaluator(Evaluator):
                         if interestingness.hangs.interesting(common_args, ""):
                             return EvaluatorResult.BUILD_CRASHED
             finally:
-                # Reset cwd
+                # Reset cwd and LD_LIBRARY_PATH
                 os.chdir(previous_path)
+                os.environ["LD_LIBRARY_PATH"] = previous_ld_path
 
             LOG.info("> Failed to reproduce issue!")
             return EvaluatorResult.BUILD_PASSED

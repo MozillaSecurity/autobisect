@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.3 (2023-08-15)
+
+### Fix
+
+* Set LD_LIBRARY_PATH to build dir for js shell ([`19773df`](https://github.com/MozillaSecurity/autobisect/commit/19773df96056ea14dd316e1312d94724d40cda6b))
+
 ## v7.0.2 (2023-06-08)
 
 ### Fix

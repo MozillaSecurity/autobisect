@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.4 (2023-08-16)
+
+### Fix
+
+* Return empty string if LD_LIBRARY_PATH doesn't exist ([`2b4b294`](https://github.com/MozillaSecurity/autobisect/commit/2b4b294c9bc7c723c373bc934e6168c62d43b25c))
+
 ## v7.0.3 (2023-08-15)
 
 ### Fix

@@ -131,7 +131,7 @@ class JSEvaluator(Evaluator):
             os.chdir(os.path.dirname(os.path.abspath(self.testcase)))
 
             # Set LD_LIBRARY_PATH to the build directory
-            previous_ld_path = os.environ["LD_LIBRARY_PATH"]
+            previous_ld_path = os.environ.get("LD_LIBRARY_PATH", "")
             os.environ["LD_LIBRARY_PATH"] = str(binary.parent)
 
             try:

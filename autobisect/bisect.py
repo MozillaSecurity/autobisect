@@ -38,7 +38,7 @@ def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
         f"?fromchange={start}&tochange={end}"
     )
     try:
-        data = requests.get(url)
+        data = requests.get(url, timeout=30)
         data.raise_for_status()
     except requests.exceptions.RequestException as exc:
         LOG.error("Failed to retrieve autoland changeset %s", exc)

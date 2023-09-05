@@ -70,7 +70,7 @@ class BuildManager(object):
         """
         Recursively enumerate the size of the supplied build
         """
-        return sum([os.path.getsize(f) for f in self.build_dir.rglob("*")])
+        return sum(os.path.getsize(f) for f in self.build_dir.rglob("*"))
 
     def enumerate_builds(self) -> List[Path]:
         """

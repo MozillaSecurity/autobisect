@@ -82,7 +82,7 @@ def main(args: Namespace) -> int:
     else:
         LOG.error("Bisection failed!")
 
-    elapsed = timedelta(seconds=(int(end_time - start_time)))
+    elapsed = timedelta(seconds=int(end_time - start_time))
     LOG.info("Bisection completed in: %s", elapsed)
 
     return 0

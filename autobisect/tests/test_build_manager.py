@@ -57,17 +57,17 @@ def test_build_manager_init_with_config(config_fixture):
     assert manager.build_dir.is_dir()
 
 
-def test_build_manager_build_size(config_fixture):
+def test_build_manager_build_size(mocker, config_fixture):
     """Simple test of BuildManager.build_size"""
+    # Patch getsize to return a static value of 1MB
+    mocker.patch("os.path.getsize", return_value=1024 * 1024)
+
     manager = BuildManager(config_fixture)
     total = 10
     for i in range(total):
         build_dir = Path(manager.build_dir / str(i))
         build_dir.mkdir()
-        with Path(build_dir / "firefox").open("w+", encoding="utf-8") as handler:
-            handler.seek(1024 - 1)
-            handler.write("x")
-    assert manager.current_build_size == (4096 * total) + (1024 * total)
+    assert manager.current_build_size == 1024 * 1024 * total
 
 
 def test_build_manager_enumerate_builds(config_fixture):
@@ -87,23 +87,24 @@ def test_build_manager_enumerate_builds(config_fixture):
         assert x == y
 
 
-def test_build_manager_remove_old_builds(config_fixture):
+def test_build_manager_remove_old_builds(mocker, config_fixture):
     """Simple test of BuildManager.remove_old_builds"""
+    # Patch getsize to return a static value of 1MB
+    mocker.patch("os.path.getsize", return_value=1024 * 1024)
+
+    # Create 10 mock builds for a total of 10MBs
     manager = BuildManager(config_fixture)
     total = 10
     for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         build_dir.mkdir()
-        with Path(build_dir / "firefox").open("w+", encoding="utf-8") as handler:
-            handler.seek(1024 * 1024 - 1)
-            handler.write("x")
 
     manager.remove_old_builds()
-    # With the total file size and directory size,
+    # With a storage limit of 5MBs,
     # the result should be one less than half
     expected = total / 2 - 1
     assert len(manager.enumerate_builds()) == expected
-    assert manager.current_build_size == (4096 * expected) + (1024 * 1024 * expected)
+    assert manager.current_build_size == 1024 * 1024 * expected
 
 
 def test_build_manager_remove_old_builds_in_use(config_fixture):

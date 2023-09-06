@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v7.0.5 (2023-09-06)
+
+### Fix
+
+* Update black in an attempt to fix ci intermittent failure ([`f96c15e`](https://github.com/MozillaSecurity/autobisect/commit/f96c15ef78e64f1e068fa8879949f66a877fa628))
+* Add required pylint fixes ([`d2d1f3e`](https://github.com/MozillaSecurity/autobisect/commit/d2d1f3e63b69a92725674636aa568c5428428ef4))
+
 ## v7.0.4 (2023-08-16)
 
 ### Fix

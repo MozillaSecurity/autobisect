@@ -10,18 +10,18 @@ def test_config_init_no_config_file(tmp_path):
     """
     Initialize a config object with default settings
     """
-    dir_path = tmp_path
-    config.CONFIG_DIR = dir_path
-    config.CONFIG_FILE = dir_path / "autobisect.ini"
+    config.APP_CONFIG_DIR = tmp_path
+    config.APP_CONFIG_FILE = tmp_path / "autobisect.ini"
+    config.APP_DATA_DIR = tmp_path
 
     config.DEFAULT_CONFIG = re.sub(
-        r"(?<=storage-path: )(.+)", str(dir_path), config.DEFAULT_CONFIG
+        r"(?<=storage-path: )(.+)", str(tmp_path), config.DEFAULT_CONFIG
     )
     result = config.BisectionConfig()
-    assert str(result.db_path) == str(dir_path / "autobisect.db")
+    assert str(result.db_path) == str(tmp_path / "autobisect.db")
     assert result.persist is True
     assert result.persist_limit == 31457280000
-    assert str(result.store_path) == str(dir_path)
+    assert str(result.store_path) == str(tmp_path)
 
 
 def test_config_init_with_predefined_config(tmp_path):
@@ -57,7 +57,8 @@ def test_config_init_with_non_existent_dir(tmp_path):
     Attempt to initialize a config object with an invalid configuration
     """
     dir_path = tmp_path / "non-existent"
-    config.CONFIG_DIR = dir_path
-    config.CONFIG_FILE = dir_path / "autobisect.ini"
+    config.APP_CONFIG_DIR = dir_path
+    config.APP_CONFIG_FILE = dir_path / "autobisect.ini"
+    config.APP_DATA_DIR = dir_path
     config.BisectionConfig()
     assert dir_path.is_dir()

@@ -12,7 +12,7 @@ def test_config_init_no_config_file(tmp_path):
     """
     config.APP_CONFIG_DIR = tmp_path
     config.APP_CONFIG_FILE = tmp_path / "autobisect.ini"
-    config.APP_DATA_DIR = tmp_path
+    config.APP_CACHE_DIR = tmp_path
 
     config.DEFAULT_CONFIG = re.sub(
         r"(?<=storage-path: )(.+)", str(tmp_path), config.DEFAULT_CONFIG
@@ -59,6 +59,6 @@ def test_config_init_with_non_existent_dir(tmp_path):
     dir_path = tmp_path / "non-existent"
     config.APP_CONFIG_DIR = dir_path
     config.APP_CONFIG_FILE = dir_path / "autobisect.ini"
-    config.APP_DATA_DIR = dir_path
+    config.APP_CACHE_DIR = dir_path
     config.BisectionConfig()
     assert dir_path.is_dir()

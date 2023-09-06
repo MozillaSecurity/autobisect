@@ -6,17 +6,17 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from platformdirs import user_config_dir, user_data_dir
+from platformdirs import user_config_dir, user_cache_dir
 
 LOG = logging.getLogger("browser-bisect")
 
 APP_CONFIG_DIR = Path(user_config_dir("autobisect"))
 APP_CONFIG_FILE = APP_CONFIG_DIR / "autobisect.ini"
-APP_DATA_DIR = Path(user_data_dir("autobisect"))
+APP_CACHE_DIR = Path(user_cache_dir("autobisect"))
 
 DEFAULT_CONFIG = f"""
 [autobisect]
-storage-path: {APP_DATA_DIR}
+storage-path: {APP_CACHE_DIR}
 persist: true
 ; size in MBs
 persist-limit: 30000

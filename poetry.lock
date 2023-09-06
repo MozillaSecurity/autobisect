@@ -2127,7 +2127,11 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 lock-version = "2.0"
 python-versions = "^3.8"
 <<<<<<< HEAD
+<<<<<<< HEAD
 content-hash = "6fcabba09f0368e8399bce3a750d75304b066ea33f22f004f23e84c5d966bae0"
 =======
 content-hash = "c94cc7e951c88593c51302a8ed7fb8f8b6f817c3a35a403c64281992aa752bef"
 >>>>>>> b709df6 (feat: use platformdirs for configuration and downloaded builds)
+=======
+content-hash = "e44847d68ae6aceb1b4b414955889793a9ab369fd71c3cc1e8b0c45bf82579d7"
+>>>>>>> e9dd36a (fix: update black in an attempt to fix ci intermittent failure)

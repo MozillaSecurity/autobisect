@@ -6,14 +6,17 @@ import logging
 from pathlib import Path
 from typing import Optional
 
+from platformdirs import user_config_dir, user_data_dir
+
 LOG = logging.getLogger("browser-bisect")
 
-CONFIG_DIR = Path.home() / ".autobisect"
-CONFIG_FILE = CONFIG_DIR / "autobisect.ini"
+APP_CONFIG_DIR = Path(user_config_dir("autobisect"))
+APP_CONFIG_FILE = APP_CONFIG_DIR / "autobisect.ini"
+APP_DATA_DIR = Path(user_data_dir("autobisect"))
 
 DEFAULT_CONFIG = f"""
 [autobisect]
-storage-path: {CONFIG_DIR}
+storage-path: {APP_DATA_DIR}
 persist: true
 ; size in MBs
 persist-limit: 30000
@@ -60,9 +63,9 @@ class BisectionConfig(object):
         :return: A path to the newly created configuration file
         :rtype: str
         """
-        if not CONFIG_DIR.is_dir():
-            CONFIG_DIR.mkdir(parents=True)
-        if not CONFIG_FILE.is_file():
-            CONFIG_FILE.write_text(DEFAULT_CONFIG)
+        if not APP_CONFIG_DIR.is_dir():
+            APP_CONFIG_DIR.mkdir(parents=True)
+        if not APP_CONFIG_FILE.is_file():
+            APP_CONFIG_FILE.write_text(DEFAULT_CONFIG)
 
-        return CONFIG_FILE
+        return APP_CONFIG_FILE

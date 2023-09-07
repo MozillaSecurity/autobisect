@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v7.1.0 (2023-09-07)
+
+### Feature
+
+* Use platformdirs for configuration and downloaded builds ([`d82ebfc`](https://github.com/MozillaSecurity/autobisect/commit/d82ebfca0d2844732c90ee88e991e1d44ebe8b52))
+
+### Fix
+
+* Use user_cache_dir instead of user_data_dir ([`3c271ba`](https://github.com/MozillaSecurity/autobisect/commit/3c271baadadfa9fd84fd5e0a21f5f02473ec6cb3))
+* Update black in an attempt to fix ci intermittent failure ([`eeceded`](https://github.com/MozillaSecurity/autobisect/commit/eecededfe62a34abaec561ad43cbf68a9a46a2a7))
+
 ## v7.0.5 (2023-09-06)
 
 ### Fix

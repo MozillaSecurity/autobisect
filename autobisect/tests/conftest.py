@@ -9,6 +9,7 @@ import os
 import re
 from pathlib import Path
 from urllib.error import HTTPError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 import pytest
@@ -37,7 +38,7 @@ def _translate_to_path(url):
     for mock, host in MOCK_HOSTS.items():
         url = url.replace(host, f"mock-{mock}")
     assert url.startswith("mock-"), f"unmocked URL: {url}"
-    return CACHE_PATH / url.replace("/", os.sep)
+    return CACHE_PATH / quote(url.replace("/", os.sep))
 
 
 def _cache_requests(request, context):

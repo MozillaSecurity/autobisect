@@ -23,12 +23,12 @@ tasks:
           - name: tests python 3.8 (linux)
             version: "3.8"
             env:
-              TOXENV: py38,lint (linux)
-          - name: tests python 3.9
+              TOXENV: py38,lint
+          - name: tests python 3.9 (linux)
             version: "3.9"
             env:
-              TOXENV: py39,lint (linux)
-          - name: tests python 3.10
+              TOXENV: py39,lint
+          - name: tests python 3.10 (linux)
             version: "3.10"
             env:
               TOXENV: py310,lint
@@ -41,11 +41,11 @@ tasks:
             version: "3.10"
             platform: windows
             env:
-              TOXENV: py310 (linux)
-          - name: tests python 3.11
+              TOXENV: py310
+          - name: tests python 3.11 (linux)
             version: "3.11"
             env:
-              TOXENV: py311,lint (linux)
+              TOXENV: py311,lint
           - name: semantic-release
             version: "3.10"
             script:

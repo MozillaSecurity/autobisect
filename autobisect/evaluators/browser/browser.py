@@ -22,7 +22,7 @@ logging.getLogger("grizzly.replay").setLevel(logging.WARNING)
 class ArgParserNoExit(argparse.ArgumentParser):
     """Override default ArgParser SystemExit Behavior"""
 
-    def exit(self, status: int = 0, message: Optional[str] = None) -> NoReturn:
+    def exit(self, status: int = 0, message: Optional[str] = None) -> NoReturn:  # type: ignore
         pass
 
     def error(self, message: str) -> NoReturn:

@@ -4,17 +4,17 @@ requires = ["poetry>=1.0.5"]
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
+  "pragma: no cover"
 ]
 
 [tool.coverage.run]
 omit = [
-    "*/setup.py",
-    "*/tests/*",
-    "*/build/*",
-    "*/dist/*",
-    "*/.tox/*",
-    "*/.egg/*",
+  "*/.egg/*",
+  "*/.tox/*",
+  "*/build/*",
+  "*/dist/*",
+  "*/setup.py",
+  "*/tests/*"
 ]
 
 [tool.isort]
@@ -30,25 +30,25 @@ strict = "True"
 
 [tool.poetry]
 authors = [
-    "Jason Kratzer <jkratzer@mozilla.com>"
+  "Jason Kratzer <jkratzer@mozilla.com>"
 ]
 classifiers = [
-    "Intended Audience :: Developers",
-    "Topic :: Software Development :: Testing",
-    "Topic :: Security",
-    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Topic :: Security",
+  "Topic :: Software Development :: Testing"
 ]
 description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
 homepage = "https://github.com/MozillaSecurity/autobisect"
 include = ["tests/**"]
-keywords = ["fuzz", "fuzzing", "security", "test", "testing", "bisection"]
+keywords = ["bisection", "fuzz", "fuzzing", "security", "test", "testing"]
 license = "MPL-2.0"
 maintainers = [
-    "Mozilla Fuzzing Team <fuzzing@mozilla.com>"
+  "Mozilla Fuzzing Team <fuzzing@mozilla.com>"
 ]
 name = "autobisect"
 readme = "README.md"
@@ -97,22 +97,22 @@ max-line-length = 88
 
 [tool.pylint.messages_control]
 disable = [
-    "fixme",
-    "invalid-name",
-    "line-too-long",
-    "logging-format-interpolation",
-    "logging-fstring-interpolation",
-    "missing-module-docstring",
-    "too-few-public-methods",
-    "too-many-arguments",
-    "too-many-branches",
-    "too-many-instance-attributes",
-    "too-many-lines",
-    "too-many-locals",
-    "too-many-nested-blocks",
-    "too-many-return-statements",
-    "too-many-statements",
-    "useless-object-inheritance"
+  "fixme",
+  "invalid-name",
+  "line-too-long",
+  "logging-format-interpolation",
+  "logging-fstring-interpolation",
+  "missing-module-docstring",
+  "too-few-public-methods",
+  "too-many-arguments",
+  "too-many-branches",
+  "too-many-instance-attributes",
+  "too-many-lines",
+  "too-many-locals",
+  "too-many-nested-blocks",
+  "too-many-return-statements",
+  "too-many-statements",
+  "useless-object-inheritance"
 ]
 
 [tool.pytest.ini_options]

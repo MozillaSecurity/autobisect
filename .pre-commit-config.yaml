@@ -1,4 +1,5 @@
 fail_fast: true
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
 repos:
   - repo: https://github.com/MozillaSecurity/orion
     rev: v0.0.6

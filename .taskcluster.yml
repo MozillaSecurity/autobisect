@@ -20,14 +20,14 @@ tasks:
         - tox; tox -e codecov
       jobs:
         include:
-          - name: tests python 3.8
+          - name: tests python 3.8 (linux)
             version: "3.8"
             env:
-              TOXENV: py38,lint
+              TOXENV: py38,lint (linux)
           - name: tests python 3.9
             version: "3.9"
             env:
-              TOXENV: py39,lint
+              TOXENV: py39,lint (linux)
           - name: tests python 3.10
             version: "3.10"
             env:
@@ -41,13 +41,13 @@ tasks:
             version: "3.10"
             platform: windows
             env:
-              TOXENV: py310
+              TOXENV: py310 (linux)
           - name: tests python 3.11
             version: "3.11"
             env:
-              TOXENV: py311,lint
+              TOXENV: py311,lint (linux)
           - name: semantic-release
-            version: "3.8"
+            version: "3.10"
             script:
               - bash
               - '-xec'
@@ -69,7 +69,7 @@ tasks:
                 key: key
 
   in:
-    $if: 'tasks_for != "github-pull-request" || event["action"] in ["opened", "reopened", "synchronize"]'
+    $if: 'tasks_for in ["github-push", "github-release"] || (tasks_for == "github-pull-request" && event["action"] in ["opened", "reopened", "synchronize"])'
     then:
       - created: {$fromNow: ''}
         deadline: {$fromNow: '1 hour'}

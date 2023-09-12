@@ -53,18 +53,18 @@ class BrowserEvaluator(Evaluator):
 
         # Grizzly arguments
         self.env_vars = kwargs.get("env", None)
+        self.headless = kwargs.get("headless", None)
         self.ignore = kwargs.get("ignore", None)
         self.launch_timeout = kwargs.get("launch_timeout", None)
         self.logs = kwargs.get("logs", None)
-        self.pernosco = kwargs.get("pernosco", None)
+        self.pernosco = kwargs.get("pernosco", False)
         self.prefs = kwargs.get("prefs", None)
         self.relaunch = kwargs.get("relaunch", None)
         self.repeat = kwargs.get("repeat", None)
         self.timeout = kwargs.get("timeout", None)
         self.time_limit = kwargs.get("time_limit", None)
         self.use_harness = kwargs.get("use_harness", None)
-        self.use_valgrind = kwargs.get("valgrind", None)
-        self.use_xvfb = kwargs.get("xvfb", True)
+        self.valgrind = kwargs.get("valgrind", False)
 
         if logging.getLogger().level != logging.DEBUG:
             logging.getLogger("grizzly").setLevel(logging.WARNING)
@@ -98,15 +98,15 @@ class BrowserEvaluator(Evaluator):
             raw_args.extend(["--time-limit", self.time_limit])
         if not self.use_harness:
             raw_args.append("--no-harness")
-        if self.use_valgrind:
+        if self.valgrind:
             raw_args.append("--valgrind")
-        if self.use_xvfb:
-            raw_args.append("--xvfb")
+        if self.headless:
+            raw_args.extend(["--headless", self.headless])
 
         if not verify:
             if self.logs is not None:
                 raw_args.extend(["--logs", self.logs])
-            if self.pernosco is not None:
+            if self.pernosco:
                 raw_args.extend(["--pernosco"])
             if self.repeat is not None:
                 raw_args.extend(["--repeat", self.repeat])

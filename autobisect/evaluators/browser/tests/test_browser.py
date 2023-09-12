@@ -1,10 +1,16 @@
 from pathlib import Path
+from platform import system
 
 import pytest
 from grizzly.common.utils import Exit
 
 from autobisect.evaluators import BrowserEvaluator, EvaluatorResult
 from autobisect.evaluators.browser.browser import BrowserEvaluatorException
+
+
+def not_linux():
+    """Simple fixture for skipping parameters when not run on Linux"""
+    return pytest.mark.skipif(not system().startswith("Linux"), reason="linux only")
 
 
 def test_verify_build_status(mocker):
@@ -76,17 +82,21 @@ def test_launch_non_existent_binary(tmp_path):
         browser.launch(binary, testcase)
 
 
-@pytest.mark.parametrize("ignore", ("log-limit", "memory", "timeout"))
-@pytest.mark.parametrize("valgrind", (True, False))
-@pytest.mark.parametrize("xvfb", (True, False))
 @pytest.mark.parametrize("harness", (True, False))
+@pytest.mark.parametrize(
+    "headless", ("default", pytest.param("xvfb", marks=not_linux()))
+)
+@pytest.mark.parametrize("ignore", ("log-limit", "memory", "timeout"))
+@pytest.mark.parametrize("pernosco", (False, pytest.param(True, marks=not_linux())))
+@pytest.mark.parametrize("valgrind", (False, pytest.param(True, marks=not_linux())))
 def test_grizzly_arg_parsing(
     mocker,
     tmp_path: Path,
-    ignore: str,
-    valgrind: bool,
-    xvfb: bool,
     harness: bool,
+    headless: bool,
+    ignore: str,
+    pernosco: bool,
+    valgrind: bool,
 ):
     """Ensure that args are accepted by grizzly"""
     binary = tmp_path / "firefox"
@@ -101,15 +111,15 @@ def test_grizzly_arg_parsing(
 
     evaluator = BrowserEvaluator(
         testcase,
+        headless=headless,
         ignore=[ignore],
         launch_timeout=300,
         prefs=prefs,
         relaunch=1,
         use_harness=harness,
         use_valgrind=valgrind,
-        use_xvfb=xvfb,
         logs=tmp_path,
-        pernosco=True,
+        pernosco=pernosco,
         repeat=10,
     )
     evaluator.parse_args(binary, tmp_path, verify=False)

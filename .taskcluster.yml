@@ -32,11 +32,6 @@ tasks:
             version: "3.10"
             env:
               TOXENV: py310,lint
-          - name: tests python 3.10 (macos)
-            version: "3.10"
-            platform: macos
-            env:
-              TOXENV: py310
           - name: test python 3.10 (windows)
             version: "3.10"
             platform: windows

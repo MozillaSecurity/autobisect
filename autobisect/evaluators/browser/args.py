@@ -2,6 +2,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
+from os import access, getenv
+from platform import system
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
@@ -30,10 +32,16 @@ class BrowserArgs(BisectCommonArgs):
             type=Path,
             help="Optional prefs.js file to use",
         )
+        headless_choices = ["default"]
+        if system().startswith("Linux"):
+            headless_choices.append("xvfb")
         launcher_grp.add_argument(
-            "--xvfb",
-            action="store_true",
-            help="Use Xvfb (Linux only)",
+            "--headless",
+            choices=headless_choices,
+            const="default",
+            default="default" if self.is_headless() else None,
+            nargs="?",
+            help="Headless mode. 'default' uses browser's built-in headless mode.",
         )
         launcher_grp.add_argument(
             "--no-harness",
@@ -50,6 +58,34 @@ class BrowserArgs(BisectCommonArgs):
             f"{' '.join(BrowserArgs.IGNORABLE)} (default: {' '.join(BrowserArgs.IGNORABLE)})",
         )
 
+        if system().startswith("Linux"):
+            dbg_group = launcher_grp.add_mutually_exclusive_group()
+            dbg_group.add_argument(
+                "--pernosco",
+                action="store_true",
+                help="Use rr. Trace intended to be used with Pernosco.",
+            )
+            dbg_group.add_argument("--rr", action="store_true", help="Use rr.")
+            dbg_group.add_argument(
+                "--valgrind", action="store_true", help="Use Valgrind."
+            )
+        else:
+            self.parser.set_defaults(
+                pernosco=False,
+                rr=False,
+                valgrind=False,
+            )
+
+    @staticmethod
+    def is_headless():
+        if (
+            system().startswith("Linux")
+            and not getenv("DISPLAY")
+            and not getenv("WAYLAND_DISPLAY")
+        ):
+            return True
+        return False
+
     def sanity_check(self, args: Namespace) -> None:
         """Perform Sanity Checks
 
@@ -59,5 +95,5 @@ class BrowserArgs(BisectCommonArgs):
         super().sanity_check(args)
         if args.prefs:
             args.prefs = args.prefs.expanduser()
-            if not (args.prefs.is_file() and os.access(args.prefs, os.R_OK)):
+            if not (args.prefs.is_file() and access(args.prefs, os.R_OK)):
                 self.parser.error("Cannot read the prefs.js file!")

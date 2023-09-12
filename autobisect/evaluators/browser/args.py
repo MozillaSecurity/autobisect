@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import os
-from os import access, getenv
+from os import access
 from platform import system
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
@@ -39,7 +39,7 @@ class BrowserArgs(BisectCommonArgs):
             "--headless",
             choices=headless_choices,
             const="default",
-            default="default" if self.is_headless() else None,
+            default="default",
             nargs="?",
             help="Headless mode. 'default' uses browser's built-in headless mode.",
         )
@@ -75,16 +75,6 @@ class BrowserArgs(BisectCommonArgs):
                 rr=False,
                 valgrind=False,
             )
-
-    @staticmethod
-    def is_headless():
-        if (
-            system().startswith("Linux")
-            and not getenv("DISPLAY")
-            and not getenv("WAYLAND_DISPLAY")
-        ):
-            return True
-        return False
 
     def sanity_check(self, args: Namespace) -> None:
         """Perform Sanity Checks

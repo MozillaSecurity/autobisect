@@ -15,13 +15,13 @@ def test_config_init_no_config_file(tmp_path):
     config.APP_CACHE_DIR = tmp_path
 
     config.DEFAULT_CONFIG = re.sub(
-        r"(?<=storage-path: )(.+)", str(tmp_path), config.DEFAULT_CONFIG
+        r"(?<=storage-path: )(.+)", tmp_path.as_posix(), config.DEFAULT_CONFIG
     )
     result = config.BisectionConfig()
-    assert str(result.db_path) == str(tmp_path / "autobisect.db")
+    assert result.db_path == tmp_path / "autobisect.db"
     assert result.persist is True
     assert result.persist_limit == 31457280000
-    assert str(result.store_path) == str(tmp_path)
+    assert result.store_path == tmp_path
 
 
 def test_config_init_with_predefined_config(tmp_path):

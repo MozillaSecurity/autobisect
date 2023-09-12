@@ -107,17 +107,16 @@ def test_build_manager_remove_old_builds(mocker, config_fixture):
     assert manager.current_build_size == 1024 * 1024 * expected
 
 
-def test_build_manager_remove_old_builds_in_use(config_fixture):
+def test_build_manager_remove_old_builds_in_use(mocker, config_fixture):
     """Test that in_use builds are not removed"""
+    # Patch getsize to return a static value of 1MB
+    mocker.patch("os.path.getsize", return_value=1024 * 1024)
+
     manager = BuildManager(config_fixture)
-    total = 5
+    total = 6
     for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
         build_dir.mkdir()
-        build_path = build_dir / "firefox"
-        with build_path.open("w+") as handler:
-            handler.seek(1024 * 1024 - 1)
-            handler.write("x")
         if i != 0:
             # Mark all builds other than the first as in_use
             manager.db.cur.execute(

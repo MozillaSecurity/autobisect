@@ -30,15 +30,12 @@ MOCK_HOSTS = {
 }
 
 
-assert not BUILD_CACHE or str is not bytes, "BUILD_CACHE requires Python 3"
-
-
 def _translate_to_path(url):
     assert url.split("://")[0] in {"http", "https"}, f"unhandled protocol: {url}"
     for mock, host in MOCK_HOSTS.items():
         url = url.replace(host, f"mock-{mock}")
     assert url.startswith("mock-"), f"unmocked URL: {url}"
-    return CACHE_PATH / quote(url.replace("/", os.sep))
+    return CACHE_PATH / quote(url)
 
 
 def _cache_requests(request, context):
@@ -115,7 +112,9 @@ def requests_mock_cache():
 @pytest.fixture
 def config_fixture(tmp_path):
     """A mock configuration file"""
-    config_data = re.sub(r"(?<=storage-path: )(.+)", str(tmp_path), DEFAULT_CONFIG)
+    config_data = re.sub(
+        r"(?<=storage-path: )(.+)", tmp_path.as_posix(), DEFAULT_CONFIG
+    )
     config_data = re.sub(r"(?<=persist-limit: )(.+)", "5", config_data)
     config_path = tmp_path / "autobisect.ini"
     config_path.write_text(config_data)

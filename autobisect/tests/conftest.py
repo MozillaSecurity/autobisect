@@ -8,7 +8,6 @@ import logging
 import os
 import re
 from pathlib import Path
-from platform import system
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import Request, urlopen

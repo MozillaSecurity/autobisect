@@ -138,9 +138,7 @@ class BisectionResult(object):
 
 
 class Bisector(object):
-    """
-    Taskcluster Bisection Class
-    """
+    """Taskcluster Bisection Class"""
 
     def __init__(
         self,

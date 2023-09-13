@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v7.2.0 (2023-09-13)
+
+### Feature
+
+* Add support for platform dependent browser features ([`767e7e2`](https://github.com/MozillaSecurity/autobisect/commit/767e7e27980a334e056b009419f7854e44a8aa8a))
+
+### Fix
+
+* Remove duplicate valgrind args ([`daa2c8d`](https://github.com/MozillaSecurity/autobisect/commit/daa2c8d7dd5149416c4acc5f24b64f34105efe62))
+
 ## v7.1.0 (2023-09-07)
 
 ### Feature

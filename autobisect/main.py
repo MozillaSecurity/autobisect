@@ -5,7 +5,7 @@ import logging
 import time
 from argparse import ArgumentParser, Namespace
 from datetime import timedelta
-from typing import Union
+from typing import Union, Optional, List
 
 from fuzzfetch import BuildFlags, Platform
 from grizzly.main import configure_logging
@@ -16,7 +16,7 @@ from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 LOG = logging.getLogger("autobisect")
 
 
-def parse_args() -> Namespace:
+def parse_args(argv: Optional[List[str]] = None) -> Namespace:
     """
     Argument parser
     """
@@ -25,7 +25,7 @@ def parse_args() -> Namespace:
     firefox_parser = BrowserArgs(subparsers.add_parser("firefox"))
     js_parser = JSArgs(subparsers.add_parser("js"))
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.target == "firefox":
         firefox_parser.sanity_check(args)
     elif args.target == "js":

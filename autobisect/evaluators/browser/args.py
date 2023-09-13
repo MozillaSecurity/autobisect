@@ -66,9 +66,6 @@ class BrowserArgs(BisectCommonArgs):
                 help="Use rr. Trace intended to be used with Pernosco.",
             )
             dbg_group.add_argument("--rr", action="store_true", help="Use rr.")
-            dbg_group.add_argument(
-                "--valgrind", action="store_true", help="Use Valgrind."
-            )
         else:
             self.parser.set_defaults(
                 pernosco=False,

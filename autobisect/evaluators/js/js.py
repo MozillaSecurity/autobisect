@@ -9,7 +9,7 @@ from string import Template
 from typing import List, Any
 
 import requests
-from lithium import interestingness
+from lithium.interestingness import diff_test, hangs, outputs, timed_run
 
 from ..base import Evaluator, EvaluatorResult
 
@@ -132,20 +132,20 @@ class JSEvaluator(Evaluator):
                     LOG.info("> Launching build with testcase...")
                     if self.detect == "diff":
                         args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
-                        if interestingness.diff_test.interesting(args, ""):
+                        if diff_test.interesting(args, ""):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "output":
                         args = [self._match] + common_args
-                        if interestingness.outputs.interesting(args, ""):
+                        if outputs.interesting(args, str(self.testcase.parent / "log")):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
                         args = [str(binary), *flags, str(self.testcase)]
-                        result = interestingness.timed_run.timed_run(args, self.timeout)
-                        if result.sta == interestingness.timed_run.CRASHED:
+                        result = timed_run.timed_run(args, self.timeout)
+                        if result.sta == timed_run.CRASHED:
                             if b"[unhandlable oom]" not in result.err:
                                 return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "hang":
-                        if interestingness.hangs.interesting(common_args, ""):
+                        if hangs.interesting(common_args, ""):
                             return EvaluatorResult.BUILD_CRASHED
             finally:
                 # Reset cwd and LD_LIBRARY_PATH

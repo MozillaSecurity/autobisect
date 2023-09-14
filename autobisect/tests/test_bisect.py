@@ -237,7 +237,7 @@ def test_verify_bounds_invalid_status(mocker, test_results):
 
 def test_build_iterator_random(mocker):
     """
-    Verify that random.choice called when random_choice arg set to True
+    Verify that random choice called when random_choice arg set to True
     """
     builds = BuildRange([])
     for _ in range(1, 4):

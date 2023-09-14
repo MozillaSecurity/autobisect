@@ -38,15 +38,11 @@ def _get_rev(binary: Path) -> str:
 
 
 class JSEvaluatorException(Exception):
-    """
-    Raised for any JSEvaluator exception
-    """
+    """Raised for any JSEvaluator exception"""
 
 
 class JSEvaluator(Evaluator):
-    """
-    Testcase evaluator for SpiderMonkey shells
-    """
+    """Testcase evaluator for SpiderMonkey shells"""
 
     target = "js"
 
@@ -71,8 +67,7 @@ class JSEvaluator(Evaluator):
 
     @staticmethod
     def get_valid_flags(rev: str) -> List[str]:
-        """
-        Extract list of runtime flags available to the current build
+        """Extract list of runtime flags available to the current build
         :param rev:
         """
         # Fuzzing safe is always included but not in the same format as the rest
@@ -84,29 +79,27 @@ class JSEvaluator(Evaluator):
             matches = re.findall(r"(?:get\w+Option)\(\"(.[^\"]*)", data.text)
             flags.extend(list(set(matches)))
         except requests.exceptions.RequestException as e:
-            LOG.warning("Failed to retrieve build flags %s", e)
+            LOG.warning("Failed to retrieve build flags: %s", e)
 
         return flags
 
     def verify_build(self, binary: Path, flags: List[str]) -> bool:
-        """
-        Verify that build doesn't crash on start
+        """Verify that build doesn't crash on start
         :param binary: The path to the target binary
         :param flags: Runtime flags
         :return: Boolean
         """
         LOG.info("> Verifying build...")
         args = [str(binary), *flags, "-e", '"quit()"']
-        run_data = interestingness.timed_run.timed_run(args, self.timeout)
-        if run_data.sta is not interestingness.timed_run.NORMAL:
+        run_data = timed_run.timed_run(args, self.timeout)
+        if run_data.sta is not timed_run.NORMAL:
             LOG.error(">> Build crashed!")
             return False
 
         return True
 
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
-        """
-        Validate build and launch with supplied testcase
+        """Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
         binary = build_path / "dist" / "bin" / "js"

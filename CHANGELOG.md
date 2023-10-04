@@ -2,6 +2,19 @@
 
 <!--next-version-placeholder-->
 
+## v7.2.1 (2023-10-04)
+
+### Fix
+
+* Update fuzzfetch to 2.4.2 ([`d677d92`](https://github.com/MozillaSecurity/autobisect/commit/d677d9260cda1881218ff4e46d6e673dc365ad9f))
+
+### Documentation
+
+* Add missing mpl license header ([`b7bece5`](https://github.com/MozillaSecurity/autobisect/commit/b7bece5215f6a9a9d8d6343287fe529b6bb728d5))
+* Minor formatting change to docstring ([`e0975ab`](https://github.com/MozillaSecurity/autobisect/commit/e0975ab7f84d964a485acdabc691e2d29642a9e2))
+* Minor docstring format change ([`f99b418`](https://github.com/MozillaSecurity/autobisect/commit/f99b4180599fae0f74d176053f50171ed266a975))
+* Add mpl header where missing ([`8320e2f`](https://github.com/MozillaSecurity/autobisect/commit/8320e2f94c3c76ec8e3ca33ed8315090dc1dfb68))
+
 ## v7.2.0 (2023-09-13)
 
 ### Feature

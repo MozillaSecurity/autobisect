@@ -474,13 +474,13 @@ files = [
 
 [[package]]
 name = "ffpuppet"
-version = "0.10.2"
+version = "0.11.0"
 description = "A Python module that aids in the automation of Firefox at the process level"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ffpuppet-0.10.2-py3-none-any.whl", hash = "sha256:a6b423d726b5f52ec0b0c38d9efe738f4b1bfddbe965e4b1bd7db382ac5ce2d6"},
-    {file = "ffpuppet-0.10.2.tar.gz", hash = "sha256:c07d33da0ca673707d6e514d0a848992cc7ea8172e3e3b6a76bf3a220e7facfc"},
+    {file = "ffpuppet-0.11.0-py3-none-any.whl", hash = "sha256:9a506fd5adcaa35f1cb02f3f2197866d1919ffe79673c68182232472cefc6f91"},
+    {file = "ffpuppet-0.11.0.tar.gz", hash = "sha256:4aa57770c45f39b1edad6c8c2a7d3176fbeff9cbe2d85d82644065190464c88e"},
 ]
 
 [package.dependencies]
@@ -572,13 +572,13 @@ six = "*"
 
 [[package]]
 name = "fuzzfetch"
-version = "2.4.1"
+version = "2.4.2"
 description = "Downloader for firefox/jsshell builds."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fuzzfetch-2.4.1-py3-none-any.whl", hash = "sha256:3be510597d749f666d1fad419537c9f94bb9264aa03c4857b352a24558f7f9a7"},
-    {file = "fuzzfetch-2.4.1.tar.gz", hash = "sha256:f9782362fcffc4018256c3bf7f6bff50b0dc68c55a5ff2bd57b6b113ff0bfab4"},
+    {file = "fuzzfetch-2.4.2-py3-none-any.whl", hash = "sha256:1c0cc728ea6c0d3601b40b2b590bb48ac426958e5860bb810fb808b37fcbf8ee"},
+    {file = "fuzzfetch-2.4.2.tar.gz", hash = "sha256:71a92d6a2f503a29195b59a6ab2b4053cd578fe58debe8c46450913e40e4cf89"},
 ]
 
 [package.dependencies]
@@ -1166,13 +1166,13 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "prefpicker"
-version = "1.11.0"
+version = "1.13.0"
 description = "PrefPicker - Manage & generate prefs.js files"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "prefpicker-1.11.0-py3-none-any.whl", hash = "sha256:847f45c73ab414d2cb42e9d778d4b5e73640adfecb1078d798c28a94308ad6c7"},
-    {file = "prefpicker-1.11.0.tar.gz", hash = "sha256:9676f5e09d590e3965e19c1ab038f0c8b97abc43037ba30df38c47c6a57aee36"},
+    {file = "prefpicker-1.13.0-py3-none-any.whl", hash = "sha256:3b1a6d917e94964d3c61bb83bf71b83d4bc1ef0333998076204700ca01daefea"},
+    {file = "prefpicker-1.13.0.tar.gz", hash = "sha256:81983b57583345d4838f3c5af83f38e95ec88e60cc3003efd4fe9ce78ff0d07d"},
 ]
 
 [package.dependencies]
@@ -2114,4 +2114,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "3d44e50306f59756151bc6a025be512907ae6c189f185f7cbd7108144f2c78a0"
+content-hash = "a99b54dbd1231e101bcb66c3ba89598fdfe5eb08ccee7860e4bca3dfd9df0dab"

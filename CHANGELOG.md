@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.3.0 (2023-10-05)
+
+### Feature
+
+* Update prefpicker ([`4b16def`](https://github.com/MozillaSecurity/autobisect/commit/4b16deffc1632ed35520c011367bd971db44e05e))
+
 ## v7.2.1 (2023-10-04)
 
 ### Fix

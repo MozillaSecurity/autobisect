@@ -1166,13 +1166,13 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "prefpicker"
-version = "1.13.0"
+version = "1.14.0"
 description = "PrefPicker - Manage & generate prefs.js files"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "prefpicker-1.13.0-py3-none-any.whl", hash = "sha256:3b1a6d917e94964d3c61bb83bf71b83d4bc1ef0333998076204700ca01daefea"},
-    {file = "prefpicker-1.13.0.tar.gz", hash = "sha256:81983b57583345d4838f3c5af83f38e95ec88e60cc3003efd4fe9ce78ff0d07d"},
+    {file = "prefpicker-1.14.0-py3-none-any.whl", hash = "sha256:91bb935fed846bdfba2e7fa188854bb44171fa4e10c30935f49656571ea572f0"},
+    {file = "prefpicker-1.14.0.tar.gz", hash = "sha256:ef8c38f8bbe09c3dda9d80ae9601718124054929861e99689884d774fd2de14b"},
 ]
 
 [package.dependencies]

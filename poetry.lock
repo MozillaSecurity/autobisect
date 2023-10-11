@@ -474,13 +474,13 @@ files = [
 
 [[package]]
 name = "ffpuppet"
-version = "0.11.0"
+version = "0.11.1"
 description = "A Python module that aids in the automation of Firefox at the process level"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "ffpuppet-0.11.0-py3-none-any.whl", hash = "sha256:9a506fd5adcaa35f1cb02f3f2197866d1919ffe79673c68182232472cefc6f91"},
-    {file = "ffpuppet-0.11.0.tar.gz", hash = "sha256:4aa57770c45f39b1edad6c8c2a7d3176fbeff9cbe2d85d82644065190464c88e"},
+    {file = "ffpuppet-0.11.1-py3-none-any.whl", hash = "sha256:4ff298733cddd6d247961024fc5a9ff436dcb9e17a1b5115b2b51c407c34ab01"},
+    {file = "ffpuppet-0.11.1.tar.gz", hash = "sha256:134cb414bfa46bf3401c6e035aaab11a4678abd3840517b3701d257ebf25e0f4"},
 ]
 
 [package.dependencies]
@@ -675,24 +675,25 @@ gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "grizzly-framework"
-version = "0.16.5"
+version = "0.17.0"
 description = "A framework for developing and running browser fuzzers"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "grizzly-framework-0.16.5.tar.gz", hash = "sha256:697f1299fd85047f249358c336e6c09dbbcdfcdebe074fc0567c3ad7f853424d"},
-    {file = "grizzly_framework-0.16.5-py3-none-any.whl", hash = "sha256:e8af73867d57f7883e39c05889fcc4597416baa2924b00023b88aeda9744782b"},
+    {file = "grizzly-framework-0.17.0.tar.gz", hash = "sha256:62e94e11acf9c9d45ee98de8542f418ee9cc5edfe55e7cfc37cd6642ed803620"},
+    {file = "grizzly_framework-0.17.0-py3-none-any.whl", hash = "sha256:e0137068eeefcf3224882ea478ae03868b412269a47b32a341a636e42473fdef"},
 ]
 
 [package.dependencies]
+cryptography = "*"
 cssbeautifier = "*"
 fasteners = "*"
-ffpuppet = ">=0.10.0"
+ffpuppet = ">=0.11.1"
 FuzzManager = "*"
 jsbeautifier = "*"
 lithium-reducer = ">=0.5.3"
 prefpicker = ">=1.1.0"
-psutil = ">=4.4.0"
+psutil = ">=5.9.0"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
@@ -2114,4 +2115,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "a99b54dbd1231e101bcb66c3ba89598fdfe5eb08ccee7860e4bca3dfd9df0dab"
+content-hash = "a50c6cda4255fa1e0753681f974c0a9e3d57bae9a5ac9cea1450c4ad2060e5b6"

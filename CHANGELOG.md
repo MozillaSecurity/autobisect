@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v7.4.0 (2023-10-16)
+
+### Feature
+
+* Update prefpicker to 1.15.0 ([`ace16fe`](https://github.com/MozillaSecurity/autobisect/commit/ace16fe84a7cc6f2c0f7e01189e69b69e0fdc396))
+* Update grizzly-framework to 0.17.0 ([`f25b1c2`](https://github.com/MozillaSecurity/autobisect/commit/f25b1c29b5d7dc9bf1c46968446850ea53661e4a))
+
+### Documentation
+
+* Add MPL ([`7f55fdf`](https://github.com/MozillaSecurity/autobisect/commit/7f55fdf52959a0664816562c5e5b4574fb8ea366))
+
 ## v7.3.0 (2023-10-05)
 
 ### Feature

@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.4.1 (2023-11-28)
+
+### Fix
+
+* Lock grizzly to 0.17.0 ([`e2b1a41`](https://github.com/MozillaSecurity/autobisect/commit/e2b1a4166657cff39189901817093e2579f787d3))
+
 ## v7.4.0 (2023-10-16)
 
 ### Feature

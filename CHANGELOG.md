@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v7.4.2 (2023-12-05)
+
+### Fix
+
+* Update fuzzfetch ([`7127301`](https://github.com/MozillaSecurity/autobisect/commit/71273013be2f354941f1afb8b691de83de9d04d1))
+
 ## v7.4.1 (2023-11-28)
 
 ### Fix

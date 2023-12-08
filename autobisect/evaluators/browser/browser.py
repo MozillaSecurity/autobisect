@@ -143,11 +143,16 @@ class BrowserEvaluator(Evaluator):
         Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = build_path / "firefox"
+        binary = "firefox.exe" if system() == "Windows" else "firefox"
+        binary_path = build_path / binary
         result = EvaluatorResult.BUILD_FAILED
-        if binary.is_file() and self.verify_build(binary):
+        if not binary_path.is_file():
+            LOG.error("Cannot find build path!")
+            return result
+
+        if self.verify_build(binary_path):
             LOG.info("> Launching build with testcase...")
-            result = self.launch(binary, self.testcase, scan_dir=True)
+            result = self.launch(binary_path, self.testcase, scan_dir=True)
 
             if result == EvaluatorResult.BUILD_CRASHED:
                 LOG.info(">> Build crashed!")

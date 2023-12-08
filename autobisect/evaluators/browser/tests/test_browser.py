@@ -4,6 +4,7 @@
 
 from pathlib import Path
 from platform import system
+from unittest.mock import MagicMock
 
 import pytest
 from grizzly.common.utils import Exit
@@ -55,6 +56,27 @@ def test_evaluate_testcase_non_existent_binary(tmp_path):
     """
     browser = BrowserEvaluator(Path("testcase.html"))
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_FAILED
+
+
+def test_evaluate_testcase_system_windows(mocker, tmp_path):
+    """Test that the binary path is calculated as firefox.exe on windows"""
+    evaluator = BrowserEvaluator(Path("testcase.html"))
+
+    # Mock the system function to simulate running in Windows
+    mocker.patch("autobisect.evaluators.browser.browser.system", return_value="Windows")
+
+    # Mock the binary_path to an existing path
+    binary_path = tmp_path / "firefox.exe"
+    binary_path.touch()
+
+    # Mock the verify_build method to return False
+    spy = MagicMock(wraps=evaluator.verify_build, return_value=False)
+    mocker.patch.object(evaluator, "verify_build", spy)
+
+    evaluator.evaluate_testcase(tmp_path)
+
+    # Assert that verify_build was called with the expected file path
+    spy.assert_called_once_with(binary_path)
 
 
 def test_launch_simple(mocker, tmp_path):

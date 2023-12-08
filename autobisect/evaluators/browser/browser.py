@@ -3,8 +3,10 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import argparse
 import logging
-import tempfile
+import os
 from pathlib import Path
+from platform import system
+from tempfile import NamedTemporaryFile, TemporaryDirectory
 from typing import Optional, NoReturn, Any, List, cast
 
 from grizzly.common.storage import TestCase
@@ -120,19 +122,21 @@ class BrowserEvaluator(Evaluator):
         :param binary: The path to the target binary
         :return: Boolean
         """
-        with tempfile.NamedTemporaryFile(suffix=".html", mode="w") as temp:
+        with NamedTemporaryFile(suffix=".html", mode="w", delete=False) as temp:
             temp.write("<html><script>window.close()</script></html>")
-            temp.flush()
-            LOG.info("> Verifying build...")
 
+        try:
+            LOG.info("> Verifying build...")
             status = self.launch(binary, Path(temp.name), verify=True)
 
-        if status != EvaluatorResult.BUILD_PASSED:
-            LOG.error(">> Failed to validate build!")
-            return False
+            if status != EvaluatorResult.BUILD_PASSED:
+                LOG.error(">> Failed to validate build!")
+                return False
 
-        LOG.info(">> Build verified!")
-        return True
+            LOG.info(">> Build verified!")
+            return True
+        finally:
+            os.unlink(temp.name)
 
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
         """
@@ -176,7 +180,7 @@ class BrowserEvaluator(Evaluator):
             for key, value in self.env_vars.items():
                 testcase.env_vars[key] = value
 
-        with tempfile.TemporaryDirectory() as test_dir:
+        with TemporaryDirectory() as test_dir:
             testcase.dump(test_dir, include_details=True)
             args = self.parse_args(binary, Path(test_dir), verify)
             success = ReplayManager.main(args)

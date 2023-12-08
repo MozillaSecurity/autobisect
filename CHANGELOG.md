@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v7.4.3 (2023-12-08)
+
+### Fix
+
+* Add correct binary extension based on platform ([`651168d`](https://github.com/MozillaSecurity/autobisect/commit/651168da145ac9d26a9f24718595e5539ff9f528))
+* Close test file so that windows can access it ([`9e1f0bd`](https://github.com/MozillaSecurity/autobisect/commit/9e1f0bd07e4a86faf8a250617c506b659d60d31e))
+
 ## v7.4.2 (2023-12-05)
 
 ### Fix

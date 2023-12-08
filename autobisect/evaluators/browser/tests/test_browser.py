@@ -46,7 +46,8 @@ def test_evaluate_testcase_simple(mocker, tmp_path):
         return_value=EvaluatorResult.BUILD_PASSED,
     )
     browser = BrowserEvaluator(Path("testcase.html"))
-    (tmp_path / "firefox").touch()
+    binary_name = "firefox.exe" if system() == "Windows" else "firefox"
+    (tmp_path / binary_name).touch()
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_PASSED
 
 

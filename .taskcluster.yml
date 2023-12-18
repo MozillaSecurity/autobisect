@@ -1,6 +1,4 @@
 version: 1
-policy:
-  pullRequests: collaborators
 tasks:
   $let:
 

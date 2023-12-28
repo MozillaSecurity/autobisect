@@ -5,6 +5,7 @@ import logging
 import os
 import re
 from pathlib import Path
+from platform import system
 from string import Template
 from typing import List, Any
 
@@ -102,19 +103,20 @@ class JSEvaluator(Evaluator):
         """Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
-        binary = build_path / "dist" / "bin" / "js"
-        if not binary.is_file():
+        binary = "js.exe" if system() == "Windows" else "js"
+        binary_path = build_path / binary
+        if not binary_path.is_file():
             return EvaluatorResult.BUILD_FAILED
-        rev = _get_rev(binary)
+        rev = _get_rev(binary_path)
         all_flags = self.get_valid_flags(rev)
         flags = []
         for flag in self.flags:
             if flag.lstrip("--").split("=")[0] in all_flags:
                 flags.append(flag)
 
-        if self.verify_build(binary, flags):
+        if self.verify_build(binary_path, flags):
             common_args = [
-                str(binary),
+                str(binary_path),
                 *flags,
                 str(self.testcase),
             ]
@@ -125,7 +127,7 @@ class JSEvaluator(Evaluator):
 
             # Set LD_LIBRARY_PATH to the build directory
             previous_ld_path = os.environ.get("LD_LIBRARY_PATH", "")
-            os.environ["LD_LIBRARY_PATH"] = str(binary.parent)
+            os.environ["LD_LIBRARY_PATH"] = str(binary_path.parent)
 
             try:
                 for _ in range(self.repeat):
@@ -139,7 +141,7 @@ class JSEvaluator(Evaluator):
                         if outputs.interesting(args, str(self.testcase.parent / "log")):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
-                        args = [str(binary), *flags, str(self.testcase)]
+                        args = [str(binary_path), *flags, str(self.testcase)]
                         result = timed_run.timed_run(args, self.timeout)
                         if result.sta == timed_run.CRASHED:
                             if b"[unhandlable oom]" not in result.err:

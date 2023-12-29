@@ -2,6 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from pathlib import Path
+from platform import system
 
 import pytest
 from lithium.interestingness.timed_run import ExitStatus, RunData
@@ -268,7 +269,8 @@ def test_js_evaluator_verify_build(mocker, tmp_path, status):
 def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, ext_args, verified):
     """Simple test of JSEvaluator.evaluate_testcase()"""
     (tmp_path / "dist" / "bin").mkdir(parents=True)
-    (tmp_path / "dist" / "bin" / "js").touch()
+    binary = "js.exe" if system() == "Windows" else "js"
+    (tmp_path / "dist" / "bin" / binary).touch()
     test = tmp_path / "testcase.js"
 
     # Set additional args required by each mode

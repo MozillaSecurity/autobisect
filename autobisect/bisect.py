@@ -168,8 +168,10 @@ class Bisector(object):
         self.flags = flags
         self.find_fix = find_fix
 
-        # If no start date is supplied, default to oldest available build
-        earliest = (datetime.utcnow() - timedelta(days=364)).strftime("%Y-%m-%d")
+        # If no start date is supplied, default to the oldest available build
+        max_days = 364 if evaluator.target == "firefox" else 89
+        earliest = (datetime.utcnow() - timedelta(days=max_days)).strftime("%Y-%m-%d")
+
         start_id = start if start else earliest
         end_id = end if end else "latest"
 

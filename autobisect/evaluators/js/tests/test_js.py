@@ -4,7 +4,7 @@
 from pathlib import Path
 
 import pytest
-from lithium.interestingness.timed_run import CRASHED, NORMAL, RunData, TIMED_OUT
+from lithium.interestingness.timed_run import ExitStatus, RunData
 from requests import RequestException
 
 from autobisect import EvaluatorResult
@@ -240,7 +240,7 @@ def test_js_evaluator_verify_build(mocker, tmp_path, status):
 
     # Configure the mock return value for timed_run
     mock_run_data = mocker.MagicMock(RunData)
-    mock_run_data.sta = NORMAL if status else CRASHED
+    mock_run_data.status = ExitStatus.NORMAL if status else ExitStatus.CRASH
     mock_timed_run.return_value = mock_run_data
 
     # Call the verify_build method
@@ -256,19 +256,22 @@ def test_js_evaluator_verify_build(mocker, tmp_path, status):
 
 
 @pytest.mark.parametrize("verified", (True, False))
-@pytest.mark.parametrize("mode", ("crash", "diff", "hang", "output"))
-def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, verified):
+@pytest.mark.parametrize(
+    "mode, ext_args",
+    (
+        ("crash", {}),
+        ("diff", {"arg_1": "a", "arg_2": "b"}),
+        ("hang", {}),
+        ("output", {"match": "magic string"}),
+    ),
+)
+def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, ext_args, verified):
     """Simple test of JSEvaluator.evaluate_testcase()"""
     (tmp_path / "dist" / "bin").mkdir(parents=True)
     (tmp_path / "dist" / "bin" / "js").touch()
     test = tmp_path / "testcase.js"
 
     # Set additional args required by each mode
-    ext_args = {}
-    if mode == "diff":
-        ext_args.update({"arg_1": "a", "arg_2": "b"})
-    elif mode == "output":
-        ext_args.update({"match": "magic string"})
     evaluator = JSEvaluator(test, detect=mode, flags=["--fuzzing-safe"], **ext_args)
 
     mocker.patch("autobisect.evaluators.js.js._get_rev", return_value="tip")
@@ -276,19 +279,28 @@ def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, verified):
     mocker.patch.object(evaluator, "verify_build", return_value=verified)
 
     # Mock the timed_run function
-    mock_timed_run = mocker.patch("lithium.interestingness.timed_run.timed_run")
 
     # Configure RunData return value for timed_run
     mock_run_data = mocker.MagicMock(RunData)
     mock_run_data.elapsedtime = 10
-    type(mock_run_data).return_code = mocker.PropertyMock(side_effect=[1, 2, 1, 2])
-    mock_run_data.sta = CRASHED
-    if mode == "hang":
-        mock_run_data.sta = TIMED_OUT
+
+    mock_run_data.status = ExitStatus.NORMAL
+    if mode == "diff":
+        type(mock_run_data).return_code = mocker.PropertyMock(side_effect=[1, 2])
+        patch_path = "lithium.interestingness.diff_test.timed_run"
+    elif mode == "hang":
+        mock_run_data.status = ExitStatus.TIMEOUT
+        patch_path = "lithium.interestingness.hangs.timed_run"
     elif mode == "output":
-        (test.parent / "log-out.txt").write_text("magic string")
-        (test.parent / "log-err.txt").touch()
-    mock_timed_run.return_value = mock_run_data
+        mock_run_data.err = b""
+        mock_run_data.out = b"magic string"
+        patch_path = "lithium.interestingness.outputs.timed_run"
+    else:
+        mock_run_data.err = b""
+        mock_run_data.status = ExitStatus.CRASH
+        patch_path = "lithium.interestingness.timed_run.timed_run"
+
+    mocker.patch(patch_path, return_value=mock_run_data)
 
     result = evaluator.evaluate_testcase(tmp_path)
     if not verified:

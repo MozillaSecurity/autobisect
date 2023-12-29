@@ -11,6 +11,7 @@ from typing import List, Any
 
 import requests
 from lithium.interestingness import diff_test, hangs, outputs, timed_run
+from lithium.interestingness.timed_run import ExitStatus
 
 from ..base import Evaluator, EvaluatorResult
 
@@ -93,7 +94,7 @@ class JSEvaluator(Evaluator):
         LOG.info("> Verifying build...")
         args = [str(binary), *flags, "-e", '"quit()"']
         run_data = timed_run.timed_run(args, self.timeout)
-        if run_data.sta is not timed_run.NORMAL:
+        if run_data.status is not ExitStatus.NORMAL:
             LOG.error(">> Build crashed!")
             return False
 
@@ -104,7 +105,7 @@ class JSEvaluator(Evaluator):
         :return: Result of evaluation
         """
         binary = "js.exe" if system() == "Windows" else "js"
-        binary_path = build_path / binary
+        binary_path = build_path / "dist" / "bin" / binary
         if not binary_path.is_file():
             return EvaluatorResult.BUILD_FAILED
         rev = _get_rev(binary_path)
@@ -134,20 +135,20 @@ class JSEvaluator(Evaluator):
                     LOG.info("> Launching build with testcase...")
                     if self.detect == "diff":
                         args = ["-a", self._arg_1, "-b", self._arg_2] + common_args
-                        if diff_test.interesting(args, ""):
+                        if diff_test.interesting(args):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "output":
-                        args = [self._match] + common_args
-                        if outputs.interesting(args, str(self.testcase.parent / "log")):
+                        args = ["-s", self._match] + common_args
+                        if outputs.interesting(args):
                             return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "crash":
                         args = [str(binary_path), *flags, str(self.testcase)]
                         result = timed_run.timed_run(args, self.timeout)
-                        if result.sta == timed_run.CRASHED:
+                        if result.status == ExitStatus.CRASH:
                             if b"[unhandlable oom]" not in result.err:
                                 return EvaluatorResult.BUILD_CRASHED
                     elif self.detect == "hang":
-                        if hangs.interesting(common_args, ""):
+                        if hangs.interesting(common_args):
                             return EvaluatorResult.BUILD_CRASHED
             finally:
                 # Reset cwd and LD_LIBRARY_PATH

@@ -18,7 +18,7 @@ import requests_mock
 from autobisect.config import DEFAULT_CONFIG
 
 BUILD_CACHE = os.getenv("BUILD_CACHE") == "1"  # set BUILD_CACHE=1 to populate cache
-CACHE_PATH = Path(__file__).resolve().parent  # store cache alongside this file
+CACHE_PATH = Path(__file__).resolve().parent / "data"  # store cache alongside this file
 LOG = logging.getLogger("fetcher_cb")
 # hosts to cache requests for
 # this will create directories like f"mock-{key}"

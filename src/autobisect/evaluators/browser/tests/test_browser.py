@@ -167,4 +167,4 @@ def test_grizzly_arg_parsing_no_pernosco_on_verify(tmp_path: Path):
     args = evaluator.parse_args(binary, tmp_path, verify=True)
 
     for k, v in kwargs.items():
-        assert args.__dict__[k] != kwargs[k]
+        assert args.__dict__[k] != v

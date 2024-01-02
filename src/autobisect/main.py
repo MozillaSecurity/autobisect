@@ -10,8 +10,8 @@ from typing import Union, Optional, List
 from fuzzfetch import BuildFlags, Platform
 from grizzly.main import configure_logging
 
-from .bisect import BisectionResult, Bisector
-from .evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
+from autobisect.bisect import BisectionResult, Bisector
+from autobisect.evaluators import BrowserArgs, BrowserEvaluator, JSArgs, JSEvaluator
 
 LOG = logging.getLogger("autobisect")
 
@@ -34,12 +34,13 @@ def parse_args(argv: Optional[List[str]] = None) -> Namespace:
     return args
 
 
-def main(args: Namespace) -> int:
+def main(argv: Optional[List[str]] = None) -> int:
     """Autobisect main entry point
 
     Args:
-        args: Parsed arguments
+        argv: Parsed arguments
     """
+    args = parse_args(argv)
     configure_logging(args.log_level)
 
     evaluator: Union[BrowserEvaluator, JSEvaluator]

@@ -1,6 +1,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
+# pylint: disable=protected-access
 from pathlib import Path
 from platform import system
 
@@ -8,11 +9,11 @@ import pytest
 from lithium.interestingness.timed_run import ExitStatus, RunData
 from requests import RequestException
 
-from autobisect import EvaluatorResult
-from autobisect.evaluators.js.js import _get_rev, JSEvaluator, JSEvaluatorException
-from autobisect.tests.conftest import requests_mock_cache  # noqa
+from autobisect.evaluators.base import EvaluatorResult
+from autobisect.evaluators.js import _get_rev, JSEvaluator, JSEvaluatorException
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_get_rev_with_valid_fuzzmanagerconf(tmp_path):
     """Test that _get_rev returns the correct revision"""
     binary_path = tmp_path / "firefox.exe"
@@ -74,6 +75,7 @@ def test_js_evaluator_init_match_mode_invalid_args():
 
 @pytest.mark.usefixtures("requests_mock_cache")
 def test_js_evaluator_get_valid_flags(tmp_path):
+    """Test validation of js flags"""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="crash")
     flags = evaluator.get_valid_flags("tip")
@@ -209,6 +211,7 @@ def test_js_evaluator_get_valid_flags(tmp_path):
     ]
 
 
+@pytest.mark.usefixtures("requests_mock_cache")
 def test_js_evaluator_get_valid_flags_bad_rev(caplog, mocker, tmp_path):
     """Test that _get_valid_flags fails gracefully when using an invalid revision"""
     # Mock HTTP_SESSION.get to raise a RequestException
@@ -224,7 +227,7 @@ def test_js_evaluator_get_valid_flags_bad_rev(caplog, mocker, tmp_path):
     flags = evaluator.get_valid_flags(rev)
 
     # Assert that the function returns an empty list
-    assert flags == []
+    assert not flags
 
     # Assert that a warning message is logged with the expected exception message
     assert "Failed to retrieve build flags: " in caplog.text

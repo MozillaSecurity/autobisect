@@ -13,7 +13,7 @@ import requests
 from lithium.interestingness import diff_test, hangs, outputs, timed_run
 from lithium.interestingness.timed_run import ExitStatus
 
-from ..base import Evaluator, EvaluatorResult
+from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("js-eval")
 

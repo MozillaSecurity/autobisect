@@ -12,7 +12,7 @@ from typing import List, Optional, Iterator
 
 from fuzzfetch import Fetcher, FetcherException
 
-from .config import BisectionConfig
+from autobisect.config import BisectionConfig
 
 LOG = logging.getLogger("build-manager")
 

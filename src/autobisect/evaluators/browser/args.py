@@ -7,7 +7,7 @@ from platform import system
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
-from ...args import BisectCommonArgs
+from autobisect.args import BisectCommonArgs
 
 
 class BrowserArgs(BisectCommonArgs):

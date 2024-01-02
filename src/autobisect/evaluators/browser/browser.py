@@ -13,7 +13,7 @@ from grizzly.common.storage import TestCase
 from grizzly.common.utils import Exit
 from grizzly.replay import ReplayArgs, ReplayManager
 
-from ..base import Evaluator, EvaluatorResult
+from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger("browser-eval")
 

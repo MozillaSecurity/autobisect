@@ -3,7 +3,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 from argparse import ArgumentParser
 
-from ...args import BisectCommonArgs
+from autobisect.args import BisectCommonArgs
 
 
 class JSArgs(BisectCommonArgs):

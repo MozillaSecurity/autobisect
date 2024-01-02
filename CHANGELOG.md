@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v7.5.0 (2024-01-02)
+
+### Feature
+
+* Update lithium to 1.1.1 ([`a715044`](https://github.com/MozillaSecurity/autobisect/commit/a715044d157a0e8fcb8d1918eaf0e285f13b9efe))
+
+### Fix
+
+* Js builds are limited to 90 days ([`5844aaf`](https://github.com/MozillaSecurity/autobisect/commit/5844aaf6b1e58da2ac291e93ed227155f4443ad0))
+* Add file extension to binary for windows builds ([`826e0da`](https://github.com/MozillaSecurity/autobisect/commit/826e0dab8ff8d37a313798c23ee6bfb46dfe3d0f))
+
 ## v7.4.3 (2023-12-08)
 
 ### Fix

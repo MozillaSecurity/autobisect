@@ -37,6 +37,14 @@ tasks:
             platform: windows
             env:
               TOXENV: py310
+            script:
+              - bash
+              - '-xec'
+              - python -m pip install --user pipx;
+              - python -m pipx ensurepath;
+              - pipx install poetry;
+              - tox;
+              - tox -e codecov;
           - name: tests python 3.11 (linux)
             version: "3.11"
             env:

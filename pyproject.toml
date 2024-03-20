@@ -64,7 +64,7 @@ platformdirs = "^3.10.0"
 python = "^3.8.1"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
+black = ">=23.7,<25.0"
 coverage = {extras = ["toml"], version = "^7.2.3"}
 flake8 = "^6.1.0"
 flake8-isort = "^6.0.0"

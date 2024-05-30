@@ -59,7 +59,7 @@ class BrowserEvaluator(Evaluator):
         self.logs = kwargs.get("logs", None)
         self.pernosco = kwargs.get("pernosco", False)
         self.prefs = kwargs.get("prefs", None)
-        self.relaunch = kwargs.get("relaunch", None)
+        self.relaunch = kwargs.get("relaunch", 1)
         self.repeat = kwargs.get("repeat", None)
         self.timeout = kwargs.get("timeout", None)
         self.time_limit = kwargs.get("time_limit", None)

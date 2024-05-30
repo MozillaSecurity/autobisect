@@ -127,7 +127,7 @@ class BuildManager(object):
                 if not Path.is_dir(target_path):
                     self.remove_old_builds()
                     try:
-                        build.extract_build([target], target_path)
+                        build.extract_build(target_path)
                     except FetcherException as e:
                         raise BuildManagerException("Failed to extract build.") from e
             except sqlite3.IntegrityError:

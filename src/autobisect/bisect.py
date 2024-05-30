@@ -179,15 +179,17 @@ class Bisector(object):
             self.branch,
             start_id,
             self.flags,
-            self.platform,
-            BuildSearchOrder.ASC,
+            targets=[self.evaluator.target],
+            platform=self.platform,
+            nearest=BuildSearchOrder.ASC,
         )
         self.end = Fetcher(
             self.branch,
             end_id,
             self.flags,
-            self.platform,
-            BuildSearchOrder.DESC,
+            targets=[self.evaluator.target],
+            platform=self.platform,
+            nearest=BuildSearchOrder.DESC,
         )
 
         self.build_manager = BuildManager(config)
@@ -219,7 +221,13 @@ class Bisector(object):
                     continue
 
                 # Only keep builds after the start and before the end boundaries
-                build = Fetcher(self.branch, task, self.flags, self.platform)
+                build = Fetcher(
+                    self.branch,
+                    task,
+                    self.flags,
+                    targets=[self.evaluator.target],
+                    platform=self.platform,
+                )
                 if self.end.datetime > build.datetime > self.start.datetime:
                     if build.changeset not in (
                         self.start.changeset,
@@ -247,7 +255,13 @@ class Bisector(object):
         builds = []
         for changeset in changesets:
             try:
-                build = Fetcher("autoland", changeset, self.flags, self.platform)
+                build = Fetcher(
+                    "autoland",
+                    changeset,
+                    self.flags,
+                    targets=[self.evaluator.target],
+                    platform=self.platform,
+                )
                 builds.append(build)
             except FetcherException:
                 LOG.warning("Unable to find build for %s", changeset)
@@ -270,7 +284,13 @@ class Bisector(object):
             index = build_range.index(build)
             if not isinstance(build, Fetcher):
                 try:
-                    build = Fetcher(self.branch, build, self.flags, self.platform)
+                    build = Fetcher(
+                        self.branch,
+                        build,
+                        self.flags,
+                        targets=[self.evaluator.target],
+                        platform=self.platform,
+                    )
                 except FetcherException:
                     LOG.warning("Unable to find build for %s", build)
                     build_range.builds.remove(build)

@@ -18,15 +18,11 @@ LOG = logging.getLogger("build-manager")
 
 
 class BuildManagerException(Exception):
-    """
-    Raised when a build cannot be retrieved
-    """
+    """Raised when a build cannot be retrieved"""
 
 
 class DatabaseManager(object):
-    """
-    Sqlite3 wrapper class
-    """
+    """Sqlite3 wrapper class"""
 
     def __init__(self, db_path: Path) -> None:
         self.con = sqlite3.connect(str(db_path))
@@ -52,9 +48,7 @@ class DatabaseManager(object):
 
 
 class BuildManager(object):
-    """
-    A class for managing downloaded builds
-    """
+    """A class for managing downloaded builds"""
 
     def __init__(self, config: Optional[Path] = None) -> None:
         self.config = BisectionConfig(config)
@@ -67,22 +61,16 @@ class BuildManager(object):
 
     @property
     def current_build_size(self) -> int:
-        """
-        Recursively enumerate the size of the supplied build
-        """
+        """Recursively enumerate the size of the supplied build"""
         return sum(os.path.getsize(f) for f in self.build_dir.rglob("*"))
 
     def enumerate_builds(self) -> List[Path]:
-        """
-        Enumerate all available builds including their size and stats
-        """
+        """Enumerate all available builds including their size and stats"""
         builds = [x for x in self.build_dir.iterdir() if x.is_dir()]
         return sorted(builds, key=lambda b: b.stat().st_atime_ns)
 
     def remove_old_builds(self) -> None:
-        """
-        Removes stored builds to make room for newer builds
-        """
+        """Removes stored builds to make room for newer builds"""
         while self.current_build_size > self.config.persist_limit:
             builds = self.enumerate_builds()
             for build_path in builds:
@@ -107,10 +95,9 @@ class BuildManager(object):
 
     @contextmanager
     def get_build(self, build: Fetcher, target: str) -> Iterator[Path]:
-        """
-        Retrieve the build matching the supplied revision
+        """Retrieve the build matching the supplied revision
         :param build: A fuzzFetch.Fetcher build object
-        :param target: The target to retrieve (i.e. firefox, js, gtest, etc)
+        :param target: The target to retrieve (i.e. firefox, js, gtest, etc.)
         """
         # pylint: disable=protected-access
         branch = f"m-{build._branch[0]}"

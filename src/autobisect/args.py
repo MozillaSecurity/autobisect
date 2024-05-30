@@ -34,9 +34,7 @@ class BisectCommonArgs:
 
     def __init__(self, parser: ArgumentParser):
         """Add common args to parser
-
-        Args:
-            parser:
+        :param parser: Base parser.
         """
         self.parser = parser
         self.parser.add_argument(
@@ -202,9 +200,7 @@ class BisectCommonArgs:
 
     def sanity_check(self, args: Namespace) -> None:
         """Perform Sanity Checks
-
-        Args:
-            args: Parsed arguments
+        :param args: Parsed arguments.
         """
         args.testcase = args.testcase.expanduser()
         if not args.testcase.is_file() or not os.access(args.testcase, os.R_OK):

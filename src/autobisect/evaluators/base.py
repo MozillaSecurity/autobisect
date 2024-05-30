@@ -7,9 +7,7 @@ from pathlib import Path
 
 
 class EvaluatorResult(Enum):
-    """
-    Evaluator result
-    """
+    """Evaluator result"""
 
     BUILD_CRASHED = 0
     BUILD_PASSED = 1
@@ -17,9 +15,7 @@ class EvaluatorResult(Enum):
 
 
 class Evaluator(ABC):
-    """
-    Base evaluator class
-    """
+    """Base evaluator class"""
 
     @property
     @abstractmethod
@@ -28,9 +24,4 @@ class Evaluator(ABC):
 
     @abstractmethod
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
-        """
-        Method for evaluating testcase
-
-        :returns: Evaluation result
-        :rtype: EvaluatorResult
-        """
+        """Method for evaluating testcase"""

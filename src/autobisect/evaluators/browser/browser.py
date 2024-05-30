@@ -44,9 +44,7 @@ class BrowserEvaluatorException(Exception):
 
 
 class BrowserEvaluator(Evaluator):
-    """
-    Testcase evaluator for Firefox
-    """
+    """Testcase evaluator for Firefox"""
 
     target = "firefox"
 
@@ -77,8 +75,7 @@ class BrowserEvaluator(Evaluator):
         test_dir: Path,
         verify: Optional[bool] = False,
     ) -> argparse.Namespace:
-        """
-        Parse arguments destined for grizzly.
+        """Parse arguments destined for grizzly.
         :param binary: The path to the firefox binary
         :param test_dir: The path to the testcase
         :param verify: Indicates if we're running a testcase or verifying the browser stability
@@ -117,8 +114,7 @@ class BrowserEvaluator(Evaluator):
         return cast(argparse.Namespace, args)
 
     def verify_build(self, binary: Path) -> bool:
-        """
-        Verify that build doesn't crash on start
+        """Verify that build doesn't crash on start
         :param binary: The path to the target binary
         :return: Boolean
         """
@@ -139,8 +135,7 @@ class BrowserEvaluator(Evaluator):
             os.unlink(temp.name)
 
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
-        """
-        Validate build and launch with supplied testcase
+        """Validate build and launch with supplied testcase
         :return: Result of evaluation
         """
         binary = "firefox.exe" if system() == "Windows" else "firefox"
@@ -168,8 +163,7 @@ class BrowserEvaluator(Evaluator):
         verify: Optional[bool] = False,
         scan_dir: Optional[bool] = False,
     ) -> EvaluatorResult:
-        """
-        Launch firefox using the supplied binary and testcase
+        """Launch firefox using the supplied binary and testcase
         :param binary: The path to the firefox binary
         :param test_path: The path to the testcase
         :param verify: Indicates if we're running a testcase or verifying the browser stability

@@ -55,6 +55,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         args.valgrind,
         args.no_opt,
         args.fuzzilli,
+        searchfox=False,
+        afl=False,
         nyx=False,
     )
     platform = Platform(args.os, args.cpu)

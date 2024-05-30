@@ -171,13 +171,13 @@ class BrowserEvaluator(Evaluator):
             raise BrowserEvaluatorException(f"Binary path does not exist ({binary})!")
 
         # Create testcase
-        testcase = TestCase.load_single(test_path, scan_dir)
+        testcase = TestCase.load(test_path, catalog=scan_dir)
         if self.env_vars:
             for key, value in self.env_vars.items():
                 testcase.env_vars[key] = value
 
         with TemporaryDirectory() as test_dir:
-            testcase.dump(test_dir, include_details=True)
+            testcase.dump(Path(test_dir), include_details=True)
             args = self.parse_args(binary, Path(test_dir), verify)
             success = ReplayManager.main(args)
 

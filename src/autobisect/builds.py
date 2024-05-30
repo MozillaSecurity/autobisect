@@ -16,7 +16,7 @@ import random
 from datetime import timedelta, datetime
 from typing import List, Union, TypeVar, Generic, Type, Any, overload
 
-LOG = logging.getLogger("builds")
+LOG = logging.getLogger(__name__)
 
 T = TypeVar("T")
 

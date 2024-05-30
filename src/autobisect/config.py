@@ -8,7 +8,7 @@ from typing import Optional
 
 from platformdirs import user_config_dir, user_cache_dir
 
-LOG = logging.getLogger("browser-bisect")
+LOG = logging.getLogger(__name__)
 
 APP_CONFIG_DIR = Path(user_config_dir("autobisect"))
 APP_CONFIG_FILE = APP_CONFIG_DIR / "autobisect.ini"

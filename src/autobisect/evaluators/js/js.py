@@ -15,7 +15,7 @@ from lithium.interestingness.timed_run import ExitStatus
 
 from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
-LOG = logging.getLogger("js-eval")
+LOG = logging.getLogger(__name__)
 
 HTTP_SESSION = requests.Session()
 

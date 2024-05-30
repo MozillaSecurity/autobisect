@@ -15,7 +15,7 @@ from grizzly.replay import ReplayArgs, ReplayManager
 
 from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
-LOG = logging.getLogger("browser-eval")
+LOG = logging.getLogger(__name__)
 
 # Disable sub loggers
 logging.getLogger("grizzly.replay").setLevel(logging.WARNING)

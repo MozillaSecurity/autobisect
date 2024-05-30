@@ -14,7 +14,7 @@ from fuzzfetch import Fetcher, FetcherException
 
 from autobisect.config import BisectionConfig
 
-LOG = logging.getLogger("build-manager")
+LOG = logging.getLogger(__name__)
 
 
 class BuildManagerException(Exception):

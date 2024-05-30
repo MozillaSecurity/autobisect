@@ -23,7 +23,7 @@ from .evaluators import Evaluator, EvaluatorResult
 
 T = TypeVar("T")
 
-LOG = logging.getLogger("bisect")
+LOG = logging.getLogger(__name__)
 
 
 def get_autoland_range(start: str, end: str) -> Union[List[str], None]:

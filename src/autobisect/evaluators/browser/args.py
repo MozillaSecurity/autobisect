@@ -39,7 +39,7 @@ class BrowserArgs(BisectCommonArgs):
             "--headless",
             choices=headless_choices,
             const="default",
-            default="default",
+            default=None,
             nargs="?",
             help="Headless mode. 'default' uses browser's built-in headless mode.",
         )

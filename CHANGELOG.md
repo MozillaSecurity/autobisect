@@ -2,6 +2,22 @@
 
 <!--next-version-placeholder-->
 
+## v7.6.0 (2024-05-30)
+
+### Feature
+
+* Set default grizzly logging level to info ([`a1703b0`](https://github.com/MozillaSecurity/autobisect/commit/a1703b0a2d4dbfa58b51360ee5837dc998e6fa05))
+* Set relaunch to 1 by default ([`1b0143c`](https://github.com/MozillaSecurity/autobisect/commit/1b0143c76cde6e739a88ed566109beeecc5d01e8))
+
+### Fix
+
+* Disable headless mode by default ([`6ea6b88`](https://github.com/MozillaSecurity/autobisect/commit/6ea6b887dd15b2fa70b2f4f7eeaf4a8e427ea6ae))
+* Use module name as logger name ([`e9a1240`](https://github.com/MozillaSecurity/autobisect/commit/e9a12402919aec29563b09e01bd9063a6f1e0452))
+
+### Documentation
+
+* Normalize reST docstrings ([`7e46cb4`](https://github.com/MozillaSecurity/autobisect/commit/7e46cb4df0b472697b8a88a63fa6793b762f31b6))
+
 ## v7.5.0 (2024-01-02)
 
 ### Feature

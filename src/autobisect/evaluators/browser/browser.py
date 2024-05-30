@@ -17,9 +17,6 @@ from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
 LOG = logging.getLogger(__name__)
 
-# Disable sub loggers
-logging.getLogger("grizzly.replay").setLevel(logging.WARNING)
-
 
 class ArgParserNoExit(argparse.ArgumentParser):
     """Override default ArgParser SystemExit Behavior"""
@@ -67,7 +64,7 @@ class BrowserEvaluator(Evaluator):
         self.valgrind = kwargs.get("valgrind", False)
 
         if logging.getLogger().level != logging.DEBUG:
-            logging.getLogger("grizzly").setLevel(logging.WARNING)
+            logging.getLogger("grizzly").setLevel(logging.INFO)
 
     def parse_args(
         self,

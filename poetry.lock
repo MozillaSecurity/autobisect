@@ -428,8 +428,11 @@ name = "docutils"
 version = "0.20.1"
 description = "Docutils -- Python Documentation Utilities"
 optional = false
-python-versions = "*"
-files = []
+python-versions = ">=3.7"
+files = [
+    {file = "docutils-0.20.1-py3-none-any.whl", hash = "sha256:96f387a2c5562db4476f09f13bbab2192e764cac08ebbf3a34a95d9b1e4a59d6"},
+    {file = "docutils-0.20.1.tar.gz", hash = "sha256:f08a4e276c3a1583a86dce3e34aba3fe04d02bba2dd51ed16106244e8a923e3b"},
+]
 
 [[package]]
 name = "dotty-dict"
@@ -685,13 +688,13 @@ test = ["coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mock", "mypy", "pre-commit",
 
 [[package]]
 name = "grizzly-framework"
-version = "0.18.0"
+version = "0.19.3"
 description = "A framework for developing and running browser fuzzers"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "grizzly-framework-0.18.0.tar.gz", hash = "sha256:1855aa0f5d7ae7501977797346a9943180c6aaa4f225a9096945e55fb3cb62c6"},
-    {file = "grizzly_framework-0.18.0-py3-none-any.whl", hash = "sha256:ba9f6fe9715e08df60bb0bcf4ebefe64a3ae4124254ddc6c80020d0eabbe45d2"},
+    {file = "grizzly_framework-0.19.3-py3-none-any.whl", hash = "sha256:8403024acf5806bb2dc1ca41ab9e8fcf51ba592e0163697222d1f49a5de78869"},
+    {file = "grizzly_framework-0.19.3.tar.gz", hash = "sha256:62bb9877d7d2d9cbd9e4beb6a86885446dc467263985c425579fbad4d7c45460"},
 ]
 
 [package.dependencies]
@@ -699,12 +702,12 @@ bugsy = "*"
 cryptography = "*"
 cssbeautifier = "*"
 fasteners = "*"
-ffpuppet = ">=0.11.1"
+ffpuppet = ">=0.13.1"
 FuzzManager = "*"
 jsbeautifier = "*"
-lithium-reducer = ">=0.5.3"
-prefpicker = ">=1.1.0"
-psutil = ">=5.9.0"
+lithium-reducer = ">=3.0.0"
+prefpicker = ">=1.23.0"
+psutil = ">=5.9.4"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
@@ -998,13 +1001,13 @@ files = [
 
 [[package]]
 name = "lithium-reducer"
-version = "2.0.1"
+version = "3.0.0"
 description = "Lithium is an automated testcase reduction tool"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "lithium_reducer-2.0.1-py3-none-any.whl", hash = "sha256:a9243b0ade89e00efe5f1b859aefa457ef59a83d86f291d4cf07f9ec3bd1cce0"},
-    {file = "lithium_reducer-2.0.1.tar.gz", hash = "sha256:e8fdff95714ca5359abde8c9b7fdbe0958c0d8b573f76576407978ed671c183d"},
+    {file = "lithium_reducer-3.0.0-py3-none-any.whl", hash = "sha256:d382bb6b8eb719776553c91caef2cfbfbb208a0a2cc943703db15b0806f69755"},
+    {file = "lithium_reducer-3.0.0.tar.gz", hash = "sha256:36db8c5e9032850bcddbf9267c1358f4443b272d78ff05f40c6da57e14a71ecd"},
 ]
 
 [package.dependencies]
@@ -2407,4 +2410,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "5942e879aa79f85107943ece370a147db340779e2936c6b3e79e957749a77672"
+content-hash = "cd9f24223670694439427cc9154579727b9468a958fc886e3bdd2262efb32f65"

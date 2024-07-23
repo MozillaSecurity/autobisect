@@ -2,6 +2,26 @@
 
 <!--next-version-placeholder-->
 
+## v7.7.0 (2024-07-23)
+
+### Feature
+
+* Replace deprecated pytest-freezegun with pytest-freezer ([`b0c57f9`](https://github.com/MozillaSecurity/autobisect/commit/b0c57f94116e12765998d70321a1a63fe0b67806))
+* Update grizzly-framework and lithium deps ([`8689ce7`](https://github.com/MozillaSecurity/autobisect/commit/8689ce7bdde6e3eb3e2b13c45bd875475c3d40d8))
+* Update lithium-reducer and platformdirs ([`75f313c`](https://github.com/MozillaSecurity/autobisect/commit/75f313c5ecfbe329593b100b910ffd6633e09b8f))
+* Update grizzly to 0.18.0 ([`948a921`](https://github.com/MozillaSecurity/autobisect/commit/948a921bebd8ba98385d1ca06e426897dede7266))
+* Update fuzzfetch to 7.0.0 ([`520b503`](https://github.com/MozillaSecurity/autobisect/commit/520b50338a0922078e1ecac1441482d7c538ba9c))
+
+### Fix
+
+* Replace deprecated grizzly logs arg with output ([`d322603`](https://github.com/MozillaSecurity/autobisect/commit/d322603c28651911f859baaf4a52eef57c86bc99))
+* Allow setting launch attempts ([`63aeed6`](https://github.com/MozillaSecurity/autobisect/commit/63aeed6a190b953ac0edcbff7a5449077491f04f))
+* Remove unnecessary exception handling around extract_build ([`99c6c65`](https://github.com/MozillaSecurity/autobisect/commit/99c6c65fba75203d43b9b71e8e4f0c5c83dbf04f))
+
+### Documentation
+
+* Unify docstring format ([`89cabf3`](https://github.com/MozillaSecurity/autobisect/commit/89cabf36e0c429458363ad95cfa65a7d12c542b1))
+
 ## v7.6.0 (2024-05-30)
 
 ### Feature

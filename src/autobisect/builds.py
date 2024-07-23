@@ -37,11 +37,11 @@ class BuildRange(Generic[T]):
 
     @overload
     def __getitem__(self, expr: int) -> T:
-        ...
+        pass
 
     @overload
     def __getitem__(self, expr: slice) -> "BuildRange[T]":
-        ...
+        pass
 
     def __getitem__(self, expr: Union[int, slice]) -> Union[T, "BuildRange[T]"]:
         if isinstance(expr, slice):

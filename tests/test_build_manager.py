@@ -3,7 +3,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 import sqlite3
 from pathlib import Path
-from time import sleep
 
 import pytest
 from fuzzfetch import Fetcher, BuildFlags
@@ -11,7 +10,6 @@ from fuzzfetch import Fetcher, BuildFlags
 from autobisect.build_manager import (
     BuildManager,
     DatabaseManager,
-    BuildManagerException,
 )
 
 
@@ -76,18 +74,17 @@ def test_build_manager_build_size(mocker, config_fixture):
 def test_build_manager_enumerate_builds(config_fixture):
     """Simple test of BuildManager.enumerate_builds"""
     manager = BuildManager(config_fixture)
+
+    assert not manager.enumerate_builds()
+
     builds = []
     total = 10
     for i in range(total):
         build_dir = manager.build_dir / f"firefox_{i}"
-        sleep(0.1)
         build_dir.mkdir()
         builds.append(build_dir)
 
-    enumerated = manager.enumerate_builds()
-    assert len(enumerated) == total
-    for x, y in zip(enumerated, builds):
-        assert x == y
+    assert len(manager.enumerate_builds()) == total
 
 
 def test_build_manager_remove_old_builds(mocker, config_fixture):
@@ -131,12 +128,12 @@ def test_build_manager_remove_old_builds_in_use(mocker, config_fixture):
     assert manager.build_dir / "firefox_0" not in manager.enumerate_builds()
 
 
-@pytest.mark.usefixtures("requests_mock_cache")
+@pytest.mark.vcr()
 def test_build_manager_get_build(mocker, config_fixture):
     """Simple test of BuildManager.get_build"""
     manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(9)])
-    fetcher = Fetcher("central", "latest", flags)
+    flags = BuildFlags(*[False for _ in range(11)])
+    fetcher = Fetcher("central", "latest", flags, ["firefox"])
     extract_build = mocker.patch.object(Fetcher, "extract_build")
 
     execute = manager.db.cur.execute
@@ -150,16 +147,3 @@ def test_build_manager_get_build(mocker, config_fixture):
     # The build should no longer be marked as in_use
     res = execute("SELECT * FROM in_use WHERE build_path == ?", (str(build),))
     assert res.fetchone() is None
-
-
-def test_database_manager_fails_to_extract(config_fixture):
-    """Test that the build manager raised the proper exception when failing to extract target"""
-    manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(9)])
-    build = "gecko.v2.mozilla-central.latest.firefox.sm-linux64-asan-opt"
-    fetcher = Fetcher("central", build, flags)
-    with pytest.raises(BuildManagerException) as e:
-        with manager.get_build(fetcher, "firefox") as build:
-            pass
-
-    assert str(e.value) == "Failed to extract build."

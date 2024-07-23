@@ -1,6 +1,8 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
+import platform
+
 import pytest
 
 from autobisect.main import parse_args
@@ -46,3 +48,25 @@ def test_parse_args_raises_with_invalid_args(capsys, tmp_path, args):
 
     _, err = capsys.readouterr()
     assert args[1] in err
+
+
+@pytest.mark.skipif(platform.system() != "Windows", reason="Windows only")
+def test_parse_args_windows_defaults(mocker, tmp_path):
+    """Test that parse_args sets the expected windows defaults"""
+    testcase = tmp_path / "testcase.html"
+    testcase.touch()
+
+    args = parse_args(["firefox", str(testcase)])
+    assert not args.pernosco
+    assert not args.rr
+    assert not args.valgrind
+
+
+def test_parse_args_prefs_sanity_check(mocker, tmp_path):
+    """Test that parse_args exits if the prefs.js file is not accessible."""
+    testcase = tmp_path / "testcase.html"
+    testcase.touch()
+    prefs = tmp_path / "prefs.js"
+
+    with pytest.raises(SystemExit):
+        parse_args(["firefox", str(testcase), "--prefs", str(prefs)])

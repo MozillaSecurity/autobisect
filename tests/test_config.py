@@ -10,9 +10,7 @@ from autobisect import config
 
 
 def test_config_init_no_config_file(tmp_path):
-    """
-    Initialize a config object with default settings
-    """
+    """Initialize a config object with default settings"""
     config.APP_CONFIG_DIR = tmp_path
     config.APP_CONFIG_FILE = tmp_path / "autobisect.ini"
     config.APP_CACHE_DIR = tmp_path
@@ -28,9 +26,7 @@ def test_config_init_no_config_file(tmp_path):
 
 
 def test_config_init_with_predefined_config(tmp_path):
-    """
-    Initialize a config object with predefined settings
-    """
+    """Initialize a config object with predefined settings"""
     conf = tmp_path / "autobisect.ini"
     conf.write_text(re.sub(r"(?<=persist-limit: )(\d+)", "1000", config.DEFAULT_CONFIG))
     result = config.BisectionConfig(conf)
@@ -38,17 +34,13 @@ def test_config_init_with_predefined_config(tmp_path):
 
 
 def test_config_invalid_config_path(tmp_path):
-    """
-    Attempts to initialize a config object with a non-existent path
-    """
+    """Attempts to initialize a config object with a non-existent path"""
     with pytest.raises(IOError, match="Invalid configuration file specified"):
         config.BisectionConfig(tmp_path / "foobar")
 
 
 def test_config_init_with_invalid_configuration(tmp_path):
-    """
-    Attempt to initialize a config object with an invalid configuration
-    """
+    """Attempt to initialize a config object with an invalid configuration"""
     invalid = tmp_path / "invalid"
     invalid.touch()
     with pytest.raises((NoOptionError, NoSectionError)):
@@ -56,9 +48,7 @@ def test_config_init_with_invalid_configuration(tmp_path):
 
 
 def test_config_init_with_non_existent_dir(tmp_path):
-    """
-    Attempt to initialize a config object with an invalid configuration
-    """
+    """Attempt to initialize a config object with an invalid configuration"""
     dir_path = tmp_path / "non-existent"
     config.APP_CONFIG_DIR = dir_path
     config.APP_CONFIG_FILE = dir_path / "autobisect.ini"

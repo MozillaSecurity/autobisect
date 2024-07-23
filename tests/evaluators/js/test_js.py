@@ -7,23 +7,22 @@ from platform import system
 
 import pytest
 from lithium.interestingness.timed_run import ExitStatus, RunData
-from requests import RequestException
 
 from autobisect.evaluators.base import EvaluatorResult
 from autobisect.evaluators.js import _get_rev, JSEvaluator, JSEvaluatorException
 
 
-@pytest.mark.usefixtures("requests_mock_cache")
 def test_get_rev_with_valid_fuzzmanagerconf(tmp_path):
-    """Test that _get_rev returns the correct revision"""
+    """Test that _get_rev returns the correct revision."""
     binary_path = tmp_path / "firefox.exe"
     fm_conf_path = binary_path.with_suffix(".fuzzmanagerconf")
     fm_conf_path.write_text("product_version = 20230908-3096b15a785a")
+
     assert _get_rev(binary_path) == "3096b15a785a"
 
 
 def test_get_rev_with_missing_fuzzmanagerconf(tmp_path):
-    """Test that _get_rev returns tip when it cannot find the product_version"""
+    """Test that _get_rev returns tip when it cannot find the product_version."""
     binary_path = tmp_path / "test_binary.exe"
     binary_path.with_suffix(".fuzzmanagerconf").touch()
 
@@ -31,9 +30,10 @@ def test_get_rev_with_missing_fuzzmanagerconf(tmp_path):
 
 
 def test_js_evaluator_init(tmp_path):
-    """Test the initialization of JSEvaluator with valid arguments"""
+    """Test the initialization of JSEvaluator with valid arguments."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, flags=["--x"], repeat=2, timeout=30, detect="crash")
+
     assert evaluator.testcase == test
     assert evaluator.flags == ["--x"]
     assert evaluator.repeat == 2
@@ -42,43 +42,46 @@ def test_js_evaluator_init(tmp_path):
 
 
 def test_js_evaluator_init_diff_mode(tmp_path):
-    """Test initialization of diff mode"""
+    """Test initialization of diff mode."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="diff", arg_1="a", arg_2="b")
+
     assert evaluator.detect == "diff"
     assert evaluator._arg_1 == "a"
     assert evaluator._arg_2 == "b"
 
 
 def test_js_evaluator_init_diff_mode_invalid_args(tmp_path):
-    """Test initialization of diff mode without supplying arg_1 or arg_2"""
+    """Test initialization of diff mode without supplying arg_1 or arg_2."""
     error_message = "Diff mode requires 'arg_1' and 'arg_2'"
     with pytest.raises(JSEvaluatorException, match=error_message):
         JSEvaluator(tmp_path / "testcase.js", detect="diff")
 
 
 def test_js_evaluator_init_match_mode(tmp_path):
-    """Test initialization of "output" (match) mode"""
+    """Test initialization of output mode."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="output", match="expected_output")
+
     assert evaluator.testcase == test
     assert evaluator.detect == "output"
     assert evaluator._match == "expected_output"
 
 
 def test_js_evaluator_init_match_mode_invalid_args():
-    """Test initialization in "output" (match) mode without providing match string"""
+    """Test initialization of output mode without providing a match string."""
     error_message = "Match mode requires a match string"
     with pytest.raises(JSEvaluatorException, match=error_message):
         JSEvaluator(Path("/path/to/testcase.js"), detect="output")
 
 
-@pytest.mark.usefixtures("requests_mock_cache")
+@pytest.mark.vcr()
 def test_js_evaluator_get_valid_flags(tmp_path):
-    """Test validation of js flags"""
+    """Test extraction of js flags."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="crash")
     flags = evaluator.get_valid_flags("tip")
+
     assert sorted(flags) == [
         "arm-asm-nop-fill",
         "arm-hwcap",
@@ -99,6 +102,7 @@ def test_js_evaluator_get_valid_flags(tmp_path):
         "delazification-mode",
         "differential-testing",
         "disable-bailout-loop-check",
+        "disable-change-array-by-copy",
         "disable-jithints",
         "disable-oom-functions",
         "disable-property-error-message-fix",
@@ -109,8 +113,8 @@ def test_js_evaluator_get_valid_flags(tmp_path):
         "dll",
         "dump-entrained-variables",
         "emit-interpreter-entry",
+        "enable-array-from-async",
         "enable-array-grouping",
-        "enable-arraybuffer-transfer",
         "enable-avx",
         "enable-ic-frame-pointers",
         "enable-import-assertions",
@@ -207,20 +211,12 @@ def test_js_evaluator_get_valid_flags(tmp_path):
         "wasm-compile-and-serialize",
         "wasm-compiler",
         "wasm-verbose",
-        "write-protect-code",
     ]
 
 
-@pytest.mark.usefixtures("requests_mock_cache")
-def test_js_evaluator_get_valid_flags_bad_rev(caplog, mocker, tmp_path):
-    """Test that _get_valid_flags fails gracefully when using an invalid revision"""
-    # Mock HTTP_SESSION.get to raise a RequestException
-    mocker.patch(
-        "autobisect.evaluators.js.js.HTTP_SESSION.get",
-        side_effect=RequestException("404 Client Error"),
-    )
-
-    # Call the get_valid_flags function with a sample 'rev'
+@pytest.mark.vcr()
+def test_js_evaluator_get_valid_flags_bad_rev(caplog, tmp_path):
+    """Test that _get_valid_flags fails gracefully when using an invalid revision."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="crash")
     rev = "sample_rev"
@@ -235,7 +231,7 @@ def test_js_evaluator_get_valid_flags_bad_rev(caplog, mocker, tmp_path):
 
 @pytest.mark.parametrize("status", [True, False])
 def test_js_evaluator_verify_build(mocker, tmp_path, status):
-    """Test that verify build calls timed_run with the expected arguments"""
+    """Test that verify_build calls timed_run with the expected arguments."""
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="crash", timeout=30)
 
@@ -270,7 +266,7 @@ def test_js_evaluator_verify_build(mocker, tmp_path, status):
     ),
 )
 def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, ext_args, verified):
-    """Simple test of JSEvaluator.evaluate_testcase()"""
+    """Simple test of evaluate_testcase."""
     (tmp_path / "dist" / "bin").mkdir(parents=True)
     binary = "js.exe" if system() == "Windows" else "js"
     (tmp_path / "dist" / "bin" / binary).touch()
@@ -315,8 +311,9 @@ def test_js_evaluator_evaluate_testcase(mocker, tmp_path, mode, ext_args, verifi
 
 
 def test_js_evaluator_evaluate_testcase_invalid_binary(tmp_path):
-    """Test that evaluate_testcase returns BUILD_FAILED when a bad binary path is supplied"""
+    """Test that evaluate_testcase returns BUILD_FAILED for invalid binary paths."""
     binary = tmp_path / "dist" / "bin" / "js"
     test = tmp_path / "testcase.js"
     evaluator = JSEvaluator(test, detect="crash")
+
     assert evaluator.evaluate_testcase(binary) == EvaluatorResult.BUILD_FAILED

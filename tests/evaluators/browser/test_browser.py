@@ -14,14 +14,12 @@ from autobisect.evaluators.browser.browser import BrowserEvaluatorException
 
 
 def not_linux():
-    """Simple fixture for skipping parameters when not run on Linux"""
+    """Simple fixture for skipping parameters when not run on Linux."""
     return pytest.mark.skipif(not system().startswith("Linux"), reason="linux only")
 
 
 def test_verify_build_status(mocker):
-    """
-    Test that BrowserEvaluator.verify_build() returns the correct status
-    """
+    """Test that verify_build returns the correct status."""
     mocker.patch(
         "autobisect.BrowserEvaluator.launch",
         side_effect=(
@@ -31,36 +29,34 @@ def test_verify_build_status(mocker):
         ),
     )
     browser = BrowserEvaluator(Path("testcase.html"))
+
     assert browser.verify_build(Path("firefox")) is False
     assert browser.verify_build(Path("firefox")) is True
     assert browser.verify_build(Path("firefox")) is False
 
 
 def test_evaluate_testcase_simple(mocker, tmp_path):
-    """
-    Simple test of BrowserEvaluator.evaluate_testcase()
-    """
+    """Test that evaluate_testcase fails when using a non-existent build path."""
     mocker.patch(
         "autobisect.BrowserEvaluator.launch",
-        autospec=True,
         return_value=EvaluatorResult.BUILD_PASSED,
     )
     browser = BrowserEvaluator(Path("testcase.html"))
     binary_name = "firefox.exe" if system() == "Windows" else "firefox"
     (tmp_path / binary_name).touch()
+
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_PASSED
 
 
 def test_evaluate_testcase_non_existent_binary(tmp_path):
-    """
-    Test that BrowserEvaluator.evaluate_testcase fails when using a non-existent build path
-    """
+    """Test that the binary path is calculated as "firefox.exe" on windows."""
     browser = BrowserEvaluator(Path("testcase.html"))
+
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_FAILED
 
 
 def test_evaluate_testcase_system_windows(mocker, tmp_path):
-    """Test that the binary path is calculated as firefox.exe on windows"""
+    """Simple test of evaluate_testcase on windows."""
     evaluator = BrowserEvaluator(Path("testcase.html"))
 
     # Mock the system function to simulate running in Windows
@@ -81,7 +77,7 @@ def test_evaluate_testcase_system_windows(mocker, tmp_path):
 
 
 def test_launch_simple(mocker, tmp_path):
-    """Simple test of BrowserEvaluator.launch()"""
+    """Test that launch returns the expected evaluator result."""
     mocker.patch(
         "grizzly.replay.ReplayManager.main",
         side_effect=(Exit.SUCCESS, Exit.FAILURE),
@@ -92,13 +88,14 @@ def test_launch_simple(mocker, tmp_path):
     testcase = tmp_path / "testcase.html"
     testcase.touch()
 
-    browser = BrowserEvaluator(testcase)
-    assert browser.launch(binary, testcase) == EvaluatorResult.BUILD_CRASHED
-    assert browser.launch(binary, testcase) == EvaluatorResult.BUILD_PASSED
+    evaluator = BrowserEvaluator(testcase)
+
+    assert evaluator.launch(binary, testcase) == EvaluatorResult.BUILD_CRASHED
+    assert evaluator.launch(binary, testcase) == EvaluatorResult.BUILD_PASSED
 
 
 def test_launch_non_existent_binary(tmp_path):
-    """Simple test of BrowserEvaluator.launch()"""
+    """Test that launch fails when using a non-existent build path."""
     binary = tmp_path / "firefox"
     testcase = tmp_path / "testcase.html"
     testcase.touch()
@@ -125,7 +122,7 @@ def test_grizzly_arg_parsing(
     pernosco: bool,
     valgrind: bool,
 ):
-    """Ensure that args are accepted by grizzly"""
+    """Ensure that args are accepted by grizzly."""
     binary = tmp_path / "firefox"
     binary.touch()
     testcase = tmp_path / "testcase.html"
@@ -153,7 +150,7 @@ def test_grizzly_arg_parsing(
 
 
 def test_grizzly_arg_parsing_no_pernosco_on_verify(tmp_path: Path):
-    """Ensure that args are accepted by grizzly"""
+    """Test that pernosco is not used when verifying build."""
     binary = tmp_path / "firefox"
     binary.touch()
     testcase = tmp_path / "testcase.html"

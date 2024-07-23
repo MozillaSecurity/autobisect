@@ -107,7 +107,7 @@ class BrowserEvaluator(Evaluator):
 
         if not verify:
             if self.logs is not None:
-                raw_args.extend(["--logs", self.logs])
+                raw_args.extend(["--output", self.logs])
             if self.pernosco:
                 raw_args.extend(["--pernosco"])
             if self.repeat is not None:

@@ -130,8 +130,20 @@ def test_grizzly_arg_parsing(
     prefs = tmp_path / "prefs.js"
     prefs.touch()
 
-    # 'rr needs /proc/sys/kernel/perf_event_paranoid <= 1, but it is 2'
-    mocker.patch.object(Path, "read_text", return_value=1)
+    original_read_text = Path.read_text
+
+    def read_text_bypass(self: Path, *args, **kwargs):
+        """'rr needs /proc/sys/kernel/perf_event_paranoid <= 1, but it is 2'"""
+        if self.absolute() == Path("/proc/sys/kernel/perf_event_paranoid"):
+            return "1"
+        else:
+            return original_read_text(self, *args, **kwargs)
+
+    mocker.patch(
+        "grizzly.args.Path.read_text",
+        autospec=True,
+        side_effect=read_text_bypass,
+    )
 
     evaluator = BrowserEvaluator(
         testcase,
@@ -163,5 +175,4 @@ def test_grizzly_arg_parsing_no_pernosco_on_verify(tmp_path: Path):
     evaluator = BrowserEvaluator(testcase, **kwargs)
     args = evaluator.parse_args(binary, tmp_path, verify=True)
 
-    for k, v in kwargs.items():
-        assert args.__dict__[k] != v
+    assert not args.pernosco

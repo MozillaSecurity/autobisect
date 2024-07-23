@@ -22,13 +22,13 @@ T = TypeVar("T")
 
 
 class BuildRange(Generic[T]):
-    """A class for storing a range of builds or build representations"""
+    """A class for storing a range of builds or build representations."""
 
     def __init__(self, builds: List[T]):
         """
-        Instantiate a new instance
+        Instantiate a new instance.
 
-        param builds: A list of Fetcher.BuildTask objects
+        param builds: A list of Fetcher.BuildTask objects.
         """
         self._builds: List[T] = builds
 
@@ -53,16 +53,12 @@ class BuildRange(Generic[T]):
 
     @property
     def builds(self) -> List[T]:
-        """
-        Returns the "builds" list
-        """
+        """Returns the list of builds."""
         return self._builds
 
     @property
     def mid_point(self) -> Union[T, None]:
-        """
-        Returns the midpoint of the "builds" list
-        """
+        """Returns the midpoint build"""
         if len(self) > 0:
             return self._builds[len(self) // 2]
 
@@ -70,9 +66,7 @@ class BuildRange(Generic[T]):
 
     @property
     def random(self) -> Union[T, None]:
-        """
-        Select a random index
-        """
+        """Returns a random build."""
         if len(self) > 0:
             return random.choice(self._builds)
 
@@ -80,8 +74,10 @@ class BuildRange(Generic[T]):
 
     def index(self, build: T) -> Union[int, None]:
         """
-        Returns the index of the provided build
-        :param build: An object within the "builds" list
+        Returns the index of the provided build.
+
+        :param build: An object within the "builds" list.
+        :returns: The index of the provided build.
         """
         return self.builds.index(build)
 
@@ -95,7 +91,7 @@ class BuildRange(Generic[T]):
         :type start: datetime.datetime
         :param end: An ending datetime object
         :type end: datetime.datetime
-        :return: A BuildRange object
+        :returns: A BuildRange object
         """
         dates = []
         # Remove time date

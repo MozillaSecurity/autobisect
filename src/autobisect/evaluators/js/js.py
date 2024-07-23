@@ -25,8 +25,11 @@ FLAGS_URL = Template(
 
 
 def _get_rev(binary: Path) -> str:
-    """Return either the revision specified in the fuzzmanagerconf or tip
-    :param binary: Path to build
+    """
+    Return either the revision specified in the fuzzmanagerconf or tip.
+
+    :param binary: Path to build.
+    :returns: Extracted revision.
     """
     rev = "tip"
     path = binary.with_suffix(".fuzzmanagerconf")
@@ -39,11 +42,11 @@ def _get_rev(binary: Path) -> str:
 
 
 class JSEvaluatorException(Exception):
-    """Raised for any JSEvaluator exception"""
+    """Raised for any JSEvaluator exception."""
 
 
 class JSEvaluator(Evaluator):
-    """Testcase evaluator for SpiderMonkey shells"""
+    """Testcase evaluator for SpiderMonkey shells."""
 
     target = "js"
 
@@ -68,8 +71,11 @@ class JSEvaluator(Evaluator):
 
     @staticmethod
     def get_valid_flags(rev: str) -> List[str]:
-        """Extract list of runtime flags available to the current build.
+        """
+        Extract list of runtime flags available to the current build.
+
         :param rev: Revision of the build.
+        :returns: List of valid flags.
         """
         # Fuzzing safe is always included but not in the same format as the rest
         flags = []
@@ -85,9 +91,12 @@ class JSEvaluator(Evaluator):
         return flags
 
     def verify_build(self, binary: Path, flags: List[str]) -> bool:
-        """Verify that build doesn't crash on start.
+        """
+        Verify that build doesn't crash on start.
+
         :param binary: The path to the target binary
         :param flags: Runtime flags
+        :returns: True if the build is valid, False otherwise.
         """
         LOG.info("> Verifying build...")
         args = [str(binary), *flags, "-e", '"quit()"']

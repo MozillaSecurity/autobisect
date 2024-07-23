@@ -11,7 +11,7 @@ from autobisect.args import BisectCommonArgs
 
 
 class BrowserArgs(BisectCommonArgs):
-    """Arguments for the BrowserEvaluator"""
+    """Arguments for the BrowserEvaluator."""
 
     IGNORABLE = ("log-limit", "memory", "timeout")
 
@@ -74,10 +74,10 @@ class BrowserArgs(BisectCommonArgs):
             )
 
     def sanity_check(self, args: Namespace) -> None:
-        """Perform Sanity Checks
+        """
+        Perform Sanity Checks.
 
-        Args:
-            args: Parsed arguments
+        :param args: Parsed arguments.
         """
         super().sanity_check(args)
         if args.prefs:

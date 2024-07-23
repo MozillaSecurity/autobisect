@@ -37,11 +37,11 @@ class ReplayArgsNoExit(ReplayArgs):  # type: ignore
 
 
 class BrowserEvaluatorException(Exception):
-    """Simple exception handler for BrowserEvaluator"""
+    """Simple exception handler for BrowserEvaluator."""
 
 
 class BrowserEvaluator(Evaluator):
-    """Testcase evaluator for Firefox"""
+    """Testcase evaluator for Firefox."""
 
     target = "firefox"
 
@@ -72,11 +72,13 @@ class BrowserEvaluator(Evaluator):
         test_dir: Path,
         verify: Optional[bool] = False,
     ) -> argparse.Namespace:
-        """Parse arguments destined for grizzly.
-        :param binary: The path to the firefox binary
-        :param test_dir: The path to the testcase
-        :param verify: Indicates if we're running a testcase or verifying the browser stability
-        :return: The return code or None
+        """
+        Parse arguments destined for grizzly.
+
+        :param binary: The path to the firefox binary.
+        :param test_dir: The path to the testcase.
+        :param verify: Indicates if we're running a testcase or verifying the browser stability.
+        :returns: The return code or None.
         """
         raw_args: List[Any] = [binary, test_dir]
 
@@ -111,9 +113,11 @@ class BrowserEvaluator(Evaluator):
         return cast(argparse.Namespace, args)
 
     def verify_build(self, binary: Path) -> bool:
-        """Verify that build doesn't crash on start
-        :param binary: The path to the target binary
-        :return: Boolean
+        """
+        Verify that build doesn't crash on start.
+
+        :param binary: The path to the target binary.
+        :return: True if the build is valid, False otherwise.
         """
         with NamedTemporaryFile(suffix=".html", mode="w", delete=False) as temp:
             temp.write("<html><script>window.close()</script></html>")
@@ -132,8 +136,10 @@ class BrowserEvaluator(Evaluator):
             os.unlink(temp.name)
 
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
-        """Validate build and launch with supplied testcase
-        :return: Result of evaluation
+        """
+        Validate build and launch with supplied testcase.
+
+        :returns: Result of evaluation.
         """
         binary = "firefox.exe" if system() == "Windows" else "firefox"
         binary_path = build_path / binary
@@ -160,12 +166,14 @@ class BrowserEvaluator(Evaluator):
         verify: Optional[bool] = False,
         scan_dir: Optional[bool] = False,
     ) -> EvaluatorResult:
-        """Launch firefox using the supplied binary and testcase
-        :param binary: The path to the firefox binary
-        :param test_path: The path to the testcase
-        :param verify: Indicates if we're running a testcase or verifying the browser stability
-        :param scan_dir: Scan subdirectory for additional files to serve
-        :return: The return code or None
+        """
+        Launch firefox using the supplied binary and testcase.
+
+        :param binary: The path to the firefox binary.
+        :param test_path: The path to the testcase.
+        :param verify: Indicates if we're running a testcase or verifying the browser stability.
+        :param scan_dir: Scan subdirectory for additional files to serve.
+        :returns: The return code or None.
         """
         if not binary.is_file():
             raise BrowserEvaluatorException(f"Binary path does not exist ({binary})!")

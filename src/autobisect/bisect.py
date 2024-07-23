@@ -28,10 +28,11 @@ LOG = logging.getLogger(__name__)
 
 def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
     """
-    Retrieve changeset from autoland within supplied boundary
+    Retrieve changeset from autoland within supplied boundary.
 
-    :param start: Starting revision
-    :param end: Ending revision
+    :param start: Starting revision.
+    :param end: Ending revision.
+    :return: List of changesets.
     """
     url = (
         "https://hg.mozilla.org/mozilla-central/json-pushes"
@@ -54,15 +55,11 @@ def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
 
 
 class StatusException(Exception):
-    """
-    Raised when an invalid status is supplied
-    """
+    """Raised when an invalid status is supplied."""
 
 
 class VerificationStatus(Enum):
-    """
-    Class for storing build verification result
-    """
+    """Class for storing build verification result."""
 
     SUCCESS = 0
     START_BUILD_FAILED = 1
@@ -74,9 +71,7 @@ class VerificationStatus(Enum):
 
     @property
     def message(self) -> Optional[str]:
-        """
-        Return message matching explaining current status
-        """
+        """Return message matching explaining current status."""
         result = None
         if self == VerificationStatus.SUCCESS:
             result = "Verified supplied boundaries!"
@@ -97,9 +92,7 @@ class VerificationStatus(Enum):
 
 
 class BisectionResult(object):
-    """
-    Class for storing bisection result
-    """
+    """Class for storing bisection result."""
 
     SUCCESS = 0
     FAILED = 1
@@ -138,7 +131,7 @@ class BisectionResult(object):
 
 
 class Bisector(object):
-    """Taskcluster Bisection Class"""
+    """Taskcluster Bisection Class."""
 
     def __init__(
         self,
@@ -152,15 +145,16 @@ class Bisector(object):
         config: Optional[Path] = None,
     ):
         """
-        Instantiate bisection object
-        :param evaluator: Object instance used to evaluate testcase
-        :param branch: Mozilla branch to use for finding builds
-        :param start: Start revision, date, or buildid
-        :param end: End revision, date, or buildid
-        :param flags: Build flags (asan, tsan, debug, fuzzing, valgrind)
-        :param platform: fuzzfetch.fetch.Platform instance
-        :param find_fix: Boolean identifying whether to find a fix or bisect bug
-        :param config: Path to config file
+        Instantiate bisection object.
+
+        :param evaluator: Object instance used to evaluate testcase.
+        :param branch: Mozilla branch to use for finding builds.
+        :param start: Start revision, date, or buildid.
+        :param end: End revision, date, or buildid.
+        :param flags: Build flags (asan, tsan, debug, fuzzing, valgrind).
+        :param platform: fuzzfetch.fetch.Platform instance.
+        :param find_fix: Boolean identifying whether to find a fix or bisect bug.
+        :param config: Path to config file.
         """
         self.evaluator: Evaluator = evaluator
         self.branch = branch
@@ -195,9 +189,7 @@ class Bisector(object):
         self.build_manager = BuildManager(config)
 
     def _get_daily_builds(self) -> BuildRange[str]:
-        """
-        Create build range containing one build per day
-        """
+        """Create build range containing one build per day."""
         start = self.start.datetime + timedelta(days=1)
         end = self.end.datetime - timedelta(days=1)
         LOG.info(f"Enumerating daily builds: {start} - {end}")
@@ -205,9 +197,7 @@ class Bisector(object):
         return BuildRange.new(start, end)
 
     def _get_pushdate_builds(self) -> BuildRange[Fetcher]:
-        """
-        Create build range containing all builds per pushdate
-        """
+        """Create build range containing all builds per pushdate."""
         start = self.start.datetime
         end = self.end.datetime
         LOG.info(f"Enumerating pushdate builds: {start} - {end}")
@@ -238,9 +228,7 @@ class Bisector(object):
         return BuildRange(builds)
 
     def _get_autoland_builds(self) -> BuildRange[Fetcher]:
-        """
-        Create build range containing all autoland builds per pushdate
-        """
+        """Create build range containing all autoland builds per pushdate"""
         if self.branch != "central":
             return BuildRange([])
 
@@ -269,11 +257,11 @@ class Bisector(object):
         return BuildRange(builds)
 
     def build_iterator(
-        self, build_range: BuildRange[Union[str, Fetcher]], random_choice: bool
+        self,
+        build_range: BuildRange[Union[str, Fetcher]],
+        random_choice: bool,
     ) -> Generator[Fetcher, EvaluatorResult, None]:
-        """
-        Yields next build to be evaluated until all possibilities consumed
-        """
+        """Yields next build to be evaluated until all possibilities consumed."""
         while build_range:
             if random_choice:
                 build = build_range.random
@@ -303,11 +291,10 @@ class Bisector(object):
 
     def bisect(self, random_choice: bool = False) -> BisectionResult:
         """
-        Main bisection function
+        Main bisection function.
 
-        :param random_choice: Select builds at random during bisection (QuickSort)
-
-        :return: BisectionResult
+        :param random_choice: Select builds at random during bisection (QuickSort).
+        :returns: Bisection result.
         """
         LOG.info("Begin bisection...")
         LOG.info("> Start: %s (%s)", self.start.changeset, self.start.id)
@@ -357,13 +344,13 @@ class Bisector(object):
         build_range: BuildRange[T],
     ) -> BuildRange[T]:
         """
-        Returns a new build range based on the status of the previously evaluated test
+        Returns a new build range based on the status of the previously evaluated test.
 
-        :param status: The status of the evaluated testcase
-        :param build: The evaluated build
-        :param index: Index of the build
-        :param build_range: The build_range to update
-        :return: The adjusted BuildRange object
+        :param status: The status of the evaluated testcase.
+        :param build: The evaluated build.
+        :param index: Index of the build.
+        :param build_range: The build_range to update.
+        :returns: New build range.
         """
         if status == EvaluatorResult.BUILD_PASSED:
             if not self.find_fix:
@@ -387,8 +374,7 @@ class Bisector(object):
         raise StatusException("Invalid status supplied")
 
     def test_build(self, build: Fetcher) -> EvaluatorResult:
-        """
-        Prepare the build directory and launch the supplied build
+        """Prepare the build directory and launch the supplied build
         :param build: An Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """

@@ -24,15 +24,14 @@ persist-limit: 30000
 
 
 class BisectionConfig(object):
-    """
-    Class for accessing configuration data and 'skip' revs
-    """
+    """Class for accessing configuration data and 'skip' revs."""
 
     def __init__(self, config_file: Optional[Path] = None):
         """
         Initializes the object using either the specified config_file or creates a new
-        database using default values
-        :param config_file: A path to custom configuration file
+        database using default values.
+
+        :param config_file: A path to custom configuration file.
         """
 
         if not config_file:
@@ -59,9 +58,9 @@ class BisectionConfig(object):
     @staticmethod
     def create_default_config() -> Path:
         """
-        Create a config file using default options and write to disk
-        :return: A path to the newly created configuration file
-        :rtype: str
+        Create a config file using default options and write to disk.
+
+        :return: A path to the newly created configuration file.
         """
         if not APP_CONFIG_DIR.is_dir():
             APP_CONFIG_DIR.mkdir(parents=True)

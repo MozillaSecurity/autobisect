@@ -7,7 +7,7 @@ from autobisect.args import BisectCommonArgs
 
 
 class JSArgs(BisectCommonArgs):
-    """Arguments for the JSEvaluator"""
+    """Arguments for the JSEvaluator."""
 
     def __init__(self, parser: ArgumentParser):
         self.parser = parser

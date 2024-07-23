@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 class EvaluatorResult(Enum):
-    """Evaluator result"""
+    """Evaluator result."""
 
     BUILD_CRASHED = 0
     BUILD_PASSED = 1
@@ -15,13 +15,13 @@ class EvaluatorResult(Enum):
 
 
 class Evaluator(ABC):
-    """Base evaluator class"""
+    """Base evaluator class."""
 
     @property
     @abstractmethod
     def target(self) -> str:
-        """The corresponding Fetcher target"""
+        """The corresponding Fetcher target."""
 
     @abstractmethod
     def evaluate_testcase(self, build_path: Path) -> EvaluatorResult:
-        """Method for evaluating testcase"""
+        """Method for evaluating testcase."""

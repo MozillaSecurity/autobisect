@@ -17,7 +17,7 @@ LOG = logging.getLogger("autobisect")
 
 
 def parse_args(argv: Optional[List[str]] = None) -> Namespace:
-    """Argument parser"""
+    """Argument parser."""
     parser = ArgumentParser(description="Firefox and Spidermonkey Bisection Tool")
     subparsers = parser.add_subparsers(dest="target", required=True)
     firefox_parser = BrowserArgs(subparsers.add_parser("firefox"))
@@ -33,8 +33,11 @@ def parse_args(argv: Optional[List[str]] = None) -> Namespace:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    """Autobisect main entry point
-    :param argv: Parsed arguments
+    """
+    Main entry point.
+
+    :param argv: Parsed arguments.
+    :returns: Exit code.
     """
     args = parse_args(argv)
     configure_logging(args.log_level)

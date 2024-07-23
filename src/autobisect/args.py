@@ -30,10 +30,11 @@ LOG_LEVELS = {
 
 
 class BisectCommonArgs:
-    """Arguments common to all bisection targets"""
+    """Arguments common to all bisection targets."""
 
     def __init__(self, parser: ArgumentParser):
-        """Add common args to parser
+        """
+        Add common args to parser.
         :param parser: Base parser.
         """
         self.parser = parser
@@ -199,8 +200,11 @@ class BisectCommonArgs:
         self.parser.set_defaults(branch="central")
 
     def sanity_check(self, args: Namespace) -> None:
-        """Perform Sanity Checks
+        """
+        Perform sanity checks.
+
         :param args: Parsed arguments.
+        :raises SystemExit: If sanity check fails.
         """
         args.testcase = args.testcase.expanduser()
         if not args.testcase.is_file() or not os.access(args.testcase, os.R_OK):

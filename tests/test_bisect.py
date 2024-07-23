@@ -174,9 +174,9 @@ def test_verify_bounds_simple(mocker, start_result, end_result, find_fix):
     elif end_result == EvaluatorResult.BUILD_FAILED:
         assert result == VerificationStatus.END_BUILD_FAILED
     elif end_result == EvaluatorResult.BUILD_PASSED and not find_fix:
-        return VerificationStatus.END_BUILD_PASSES
+        assert VerificationStatus.END_BUILD_PASSES
     elif end_result == EvaluatorResult.BUILD_CRASHED and find_fix:
-        return VerificationStatus.FIND_FIX_END_BUILD_CRASHES
+        assert VerificationStatus.FIND_FIX_END_BUILD_CRASHES
     else:
         assert result == VerificationStatus.SUCCESS
 

@@ -52,6 +52,7 @@ class BrowserEvaluator(Evaluator):
         self.env_vars = kwargs.get("env", None)
         self.headless = kwargs.get("headless", None)
         self.ignore = kwargs.get("ignore", None)
+        self.launch_attempts = kwargs.get("launch_attempts", 15)
         self.launch_timeout = kwargs.get("launch_timeout", None)
         self.logs = kwargs.get("logs", None)
         self.pernosco = kwargs.get("pernosco", False)
@@ -81,6 +82,9 @@ class BrowserEvaluator(Evaluator):
         :returns: The return code or None.
         """
         raw_args: List[Any] = [binary, test_dir]
+
+        if self.launch_attempts:
+            raw_args.extend(["--launch-attempts", self.launch_attempts])
 
         if self.ignore:
             raw_args.extend(["--ignore"] + self.ignore)

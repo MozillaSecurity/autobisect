@@ -1994,24 +1994,24 @@ urllib3 = ">=1.26.0"
 
 [[package]]
 name = "types-freezegun"
-version = "0.1.4"
+version = "1.1.10"
 description = "Typing stubs for freezegun"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-freezegun-0.1.4.tar.gz", hash = "sha256:4b4a391598af0c5695d56f6af7ac36faf2a757e3f50046a2e95b3a01ba889fcd"},
-    {file = "types_freezegun-0.1.4-py2.py3-none-any.whl", hash = "sha256:e90a30b16daf3ca0758c2bce53f47ea7d2e8520f14c28a3dc6108bcb67bb7525"},
+    {file = "types-freezegun-1.1.10.tar.gz", hash = "sha256:cb3a2d2eee950eacbaac0673ab50499823365ceb8c655babb1544a41446409ec"},
+    {file = "types_freezegun-1.1.10-py3-none-any.whl", hash = "sha256:fadebe72213e0674036153366205038e1f95c8ca96deb4ef9b71ddc15413543e"},
 ]
 
 [[package]]
 name = "types-pytz"
-version = "2021.3.8"
+version = "2024.1.0.20240417"
 description = "Typing stubs for pytz"
 optional = false
-python-versions = "*"
+python-versions = ">=3.8"
 files = [
-    {file = "types-pytz-2021.3.8.tar.gz", hash = "sha256:41253a3a2bf028b6a3f17b58749a692d955af0f74e975de94f6f4d2d3cd01dbd"},
-    {file = "types_pytz-2021.3.8-py3-none-any.whl", hash = "sha256:aef4a917ab28c585d3f474bfce4f4b44b91e95d9d47d4de29dd845e0db8e3910"},
+    {file = "types-pytz-2024.1.0.20240417.tar.gz", hash = "sha256:6810c8a1f68f21fdf0f4f374a432487c77645a0ac0b31de4bf4690cf21ad3981"},
+    {file = "types_pytz-2024.1.0.20240417-py3-none-any.whl", hash = "sha256:8335d443310e2db7b74e007414e74c4f53b67452c0cb0d228ca359ccfba59659"},
 ]
 
 [[package]]
@@ -2030,13 +2030,13 @@ types-urllib3 = "*"
 
 [[package]]
 name = "types-six"
-version = "0.1.9"
+version = "1.16.21.20240513"
 description = "Typing stubs for six"
 optional = false
-python-versions = "*"
+python-versions = ">=3.8"
 files = [
-    {file = "types-six-0.1.9.tar.gz", hash = "sha256:860d4ce7e24d14e7441a1118428964ccd2d100c654ef69e7ee1d137f9aaa82d6"},
-    {file = "types_six-0.1.9-py2.py3-none-any.whl", hash = "sha256:659efd70c88c750d33f83857bbe83c4686e437dcdd542816825ba64f01a999f3"},
+    {file = "types-six-1.16.21.20240513.tar.gz", hash = "sha256:cdf445b5161bf17753500713a475ab79a45bd0d87728b8bfcecd86e2fbf66402"},
+    {file = "types_six-1.16.21.20240513-py3-none-any.whl", hash = "sha256:af2a105be6d504339bfed81319cc8e8697865f0ee5c6baa63658f127b33b9e63"},
 ]
 
 [[package]]
@@ -2340,4 +2340,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "848eafe111f218e88e97368ba19a3a36142dc54bde111f5004b1b73a428b7d0a"
+content-hash = "920048b08ab7795e7987ea762eadfb203b1af208346a567ae17b797332e30838"

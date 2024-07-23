@@ -85,10 +85,10 @@ python-semantic-release = "<8"
 taskcluster-yml-validator = "^0.0.9"
 toml-sort = "^0.23.1"
 tox = "^3.14.5"
-types-freezegun = "^0.1.4"
-types-pytz = "^2021.1.0"
+types-freezegun = "^1.1.10"
+types-pytz = "^2024.1.0.20240417"
 types-requests = "^2.25.0"
-types-six = "^0.1.7"
+types-six = "^1.16.21.20240513"
 
 [tool.poetry.scripts]
 autobisect = "autobisect.main:main"

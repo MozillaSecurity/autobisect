@@ -65,8 +65,12 @@ tasks:
               all_passed: true
             secrets:
               - type: env
-                secret: project/fuzzing/pypi-autobisect
-                name: PYPI_TOKEN
+                secret: project/fuzzing/pypi-fuzzfetch
+                name: TWINE_USERNAME
+                key: username
+              - type: env
+                secret: project/fuzzing/pypi-fuzzfetch
+                name: TWINE_PASSWORD
                 key: password
               - type: key
                 secret: project/fuzzing/deploy-autobisect

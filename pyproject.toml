@@ -81,7 +81,6 @@ pytest-freezer = "^0.4.8"
 pytest-mock = "^3.0.0"
 pytest-pylint = "^0.21.0"
 pytest-recording = "^0.13.2"
-python-semantic-release = "<8"
 taskcluster-yml-validator = "^0.0.9"
 toml-sort = "^0.23.1"
 tox = "^3.14.5"
@@ -122,6 +121,5 @@ log_level = "DEBUG"
 [tool.semantic_release]
 build_command = "pip install poetry && poetry build"
 commit_subject = "chore(release): {version} [skip ci]"
-upload_to_pypi = true
-upload_to_release = false
-version_toml = "pyproject.toml:tool.poetry.version"
+upload_to_vcs_release = false
+version_toml = ["pyproject.toml:tool.poetry.version"]

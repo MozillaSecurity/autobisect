@@ -588,13 +588,13 @@ python-dateutil = ">=2.7"
 
 [[package]]
 name = "fuzzfetch"
-version = "7.0.0"
+version = "8.0.0"
 description = "Downloader for firefox/jsshell builds."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fuzzfetch-7.0.0-py3-none-any.whl", hash = "sha256:a65241c6f19909c3afe15ee8282a78849f0276d9c22de4eaec9d3dcd6ca71c8a"},
-    {file = "fuzzfetch-7.0.0.tar.gz", hash = "sha256:603c81ad49acb91b7960f5e1ee716b90bebb0e29333dc1219dad40c38d7956e8"},
+    {file = "fuzzfetch-8.0.0-py3-none-any.whl", hash = "sha256:3b963530d80c3e2d107b2bf1ef88c9713f5c258614e0f7510c1bc53177a2ddf0"},
+    {file = "fuzzfetch-8.0.0.tar.gz", hash = "sha256:608ec4f0bc14c2416610d431458e425f5e20a6258700a236be99488459110404"},
 ]
 
 [package.dependencies]
@@ -1813,4 +1813,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "c3e24c2b6aa9d4b0c68efa81e83ed0fc35ba9663c7694775a3dd3634f34899e0"
+content-hash = "feacb60c90b519d295b434ef88aab4c26537a5be3442f4597ce21e43ab66087b"

@@ -132,7 +132,7 @@ def test_build_manager_remove_old_builds_in_use(mocker, config_fixture):
 def test_build_manager_get_build(mocker, config_fixture):
     """Simple test of BuildManager.get_build"""
     manager = BuildManager(config_fixture)
-    flags = BuildFlags(*[False for _ in range(11)])
+    flags = BuildFlags()
     fetcher = Fetcher("central", "latest", flags, ["firefox"])
     extract_build = mocker.patch.object(Fetcher, "extract_build")
 

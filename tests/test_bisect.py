@@ -36,19 +36,7 @@ class MockBisector(Bisector):
         self.end = MockFetcher(dt=end)
         self.branch = "central"
         self.find_fix = False
-        self.flags = BuildFlags(
-            asan=False,
-            tsan=False,
-            debug=False,
-            fuzzing=False,
-            coverage=False,
-            valgrind=False,
-            no_opt=False,
-            fuzzilli=False,
-            afl=False,
-            nyx=False,
-            searchfox=False,
-        )
+        self.flags = BuildFlags()
         self.platform = Platform("Linux", "x86_64")
         self.evaluator = BrowserEvaluator(Path("testcase.html"))
 

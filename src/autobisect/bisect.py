@@ -374,8 +374,10 @@ class Bisector(object):
         raise StatusException("Invalid status supplied")
 
     def test_build(self, build: Fetcher) -> EvaluatorResult:
-        """Prepare the build directory and launch the supplied build
-        :param build: An Fetcher object to prevent duplicate fetching
+        """
+        Prepare the build directory and launch the supplied build.
+
+        :param build: A Fetcher object to prevent duplicate fetching
         :return: The result of the build evaluation
         """
         LOG.info("Testing build %s (%s)", build.changeset, build.id)

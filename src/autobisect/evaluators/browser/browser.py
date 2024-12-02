@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from platform import system
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-from typing import Optional, NoReturn, Any, List, cast
+from typing import Optional, NoReturn, Any, List
 
 from grizzly.common.storage import TestCase
 from grizzly.common.utils import Exit
@@ -21,14 +21,14 @@ LOG = logging.getLogger(__name__)
 class ArgParserNoExit(argparse.ArgumentParser):
     """Override default ArgParser SystemExit Behavior"""
 
-    def exit(self, status: int = 0, message: Optional[str] = None) -> NoReturn:  # type: ignore
-        pass
+    def exit(self, status: int = 0, message: Optional[str] = None) -> NoReturn:
+        raise SystemExit(f"Suppressed exit: status={status}, message={message}")
 
     def error(self, message: str) -> NoReturn:
         raise BrowserEvaluatorException(message)
 
 
-class ReplayArgsNoExit(ReplayArgs):  # type: ignore
+class ReplayArgsNoExit(ReplayArgs):
     """Set parser to ArgParserNoExit instance"""
 
     def __init__(self) -> None:
@@ -113,8 +113,7 @@ class BrowserEvaluator(Evaluator):
             if self.repeat is not None:
                 raw_args.extend(["--repeat", self.repeat])
 
-        args = ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
-        return cast(argparse.Namespace, args)
+        return ReplayArgsNoExit().parse_args([str(arg) for arg in raw_args])
 
     def verify_build(self, binary: Path) -> bool:
         """
@@ -167,8 +166,8 @@ class BrowserEvaluator(Evaluator):
         self,
         binary: Path,
         test_path: Path,
-        verify: Optional[bool] = False,
-        scan_dir: Optional[bool] = False,
+        verify: bool = False,
+        scan_dir: bool = False,
     ) -> EvaluatorResult:
         """
         Launch firefox using the supplied binary and testcase.

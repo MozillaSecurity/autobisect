@@ -116,8 +116,8 @@ disable = [
 log_level = "DEBUG"
 
 [tool.semantic_release]
-build_command = "poetry build && twine upload --skip-existing dist/*"
+build_command = "poetry build"
 build_command_env = ["TWINE_PASSWORD", "TWINE_USERNAME"]
-commit_subject = "chore(release): {version} [skip ci]"
+commit_subject = "chore(release): {version}"
 upload_to_vcs_release = false
 version_toml = ["pyproject.toml:tool.poetry.version"]

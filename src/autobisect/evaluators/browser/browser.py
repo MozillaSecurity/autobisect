@@ -50,7 +50,7 @@ class BrowserEvaluator(Evaluator):
 
         # Grizzly arguments
         self.env_vars = kwargs.get("env", None)
-        self.headless = kwargs.get("headless", None)
+        self.display = kwargs.get("display", None)
         self.ignore = kwargs.get("ignore", None)
         self.launch_attempts = kwargs.get("launch_attempts", 15)
         self.launch_timeout = kwargs.get("launch_timeout", None)
@@ -102,8 +102,8 @@ class BrowserEvaluator(Evaluator):
             raw_args.append("--no-harness")
         if self.valgrind:
             raw_args.append("--valgrind")
-        if self.headless:
-            raw_args.extend(["--headless", self.headless])
+        if self.display:
+            raw_args.extend(["--display", self.display])
 
         if not verify:
             if self.logs is not None:

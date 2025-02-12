@@ -32,16 +32,14 @@ class BrowserArgs(BisectCommonArgs):
             type=Path,
             help="Optional prefs.js file to use",
         )
-        headless_choices = ["default"]
+        display_modes = ["default", "headless"]
         if system().startswith("Linux"):
-            headless_choices.append("xvfb")
+            display_modes.append("xvfb")
         launcher_grp.add_argument(
-            "--headless",
-            choices=headless_choices,
-            const="default",
-            default=None,
-            nargs="?",
-            help="Headless mode. 'default' uses browser's built-in headless mode.",
+            "--display",
+            choices=display_modes,
+            default="default",
+            help="Display mode.",
         )
         launcher_grp.add_argument(
             "--no-harness",

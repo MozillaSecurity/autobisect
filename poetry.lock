@@ -544,13 +544,13 @@ files = [
 
 [[package]]
 name = "ffpuppet"
-version = "0.16.0"
+version = "0.16.1"
 description = "A Python module that aids in the automation of Firefox at the process level"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ffpuppet-0.16.0-py3-none-any.whl", hash = "sha256:43410a72349e79a310eaea234500afe781943533659696dd9c33ff344cd99fdd"},
-    {file = "ffpuppet-0.16.0.tar.gz", hash = "sha256:e181a66d33f7fa2debdb6bac0139bf077fb3de0f899a8c684564ecaf1f871830"},
+    {file = "ffpuppet-0.16.1-py3-none-any.whl", hash = "sha256:3366f9e6a05157ab0de1407343c716b7f1613dd860cfbbaf4eeaed61eaaba63d"},
+    {file = "ffpuppet-0.16.1.tar.gz", hash = "sha256:ce44423b110a0f2ef28bfc5adf20bd9e20de9912fb7020c42319bdb47403c6d8"},
 ]
 
 [package.dependencies]

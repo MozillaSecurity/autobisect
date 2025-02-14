@@ -59,6 +59,7 @@ grizzly-framework = "0.22.0"
 lithium-reducer = "^4.0.0"
 platformdirs = "^4.2.2"
 python = "^3.9"
+twine = "^6.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
@@ -78,6 +79,7 @@ pytest-freezer = "^0.4.8"
 pytest-mock = "^3.0.0"
 pytest-pylint = "^0.21.0"
 pytest-recording = "^0.13.2"
+semantic-release = "^0.1.0"
 toml-sort = "^0.24.2"
 tox = "^4.23.2"
 types-freezegun = "^1.1.10"
@@ -117,7 +119,8 @@ log_level = "DEBUG"
 
 [tool.semantic_release]
 build_command = "poetry build"
-build_command_env = ["TWINE_PASSWORD", "TWINE_USERNAME"]
-commit_subject = "chore(release): {version}"
+commit_message = "chore(release): {version} [skip ci]"
 upload_to_vcs_release = false
-version_toml = ["pyproject.toml:tool.poetry.version"]
+version_toml = [
+  "pyproject.toml:tool.poetry.version"
+]

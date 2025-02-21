@@ -9,8 +9,8 @@ from platform import system
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from typing import Optional, NoReturn, Any, List
 
+from grizzly.common.frontend import Exit
 from grizzly.common.storage import TestCase
-from grizzly.common.utils import Exit
 from grizzly.replay import ReplayArgs, ReplayManager
 
 from autobisect.evaluators.base import Evaluator, EvaluatorResult

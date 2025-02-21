@@ -7,7 +7,7 @@ from platform import system
 from unittest.mock import MagicMock
 
 import pytest
-from grizzly.common.utils import Exit
+from grizzly.common.frontend import Exit
 
 from autobisect.evaluators import BrowserEvaluator, EvaluatorResult
 from autobisect.evaluators.browser.browser import BrowserEvaluatorException

@@ -628,13 +628,13 @@ files = [
 
 [[package]]
 name = "ffpuppet"
-version = "0.16.4"
+version = "0.16.5"
 description = "A Python module that aids in the automation of Firefox at the process level"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ffpuppet-0.16.4-py3-none-any.whl", hash = "sha256:d3122e7d537ad3bcaf584ef580afaa440ff6e39c1032695e363ac01e853b1557"},
-    {file = "ffpuppet-0.16.4.tar.gz", hash = "sha256:eee6c8cf78479fa49666ce623cdc4bb279b728cb93291377cb4aeee0b80f4e87"},
+    {file = "ffpuppet-0.16.5-py3-none-any.whl", hash = "sha256:0591f572baa57441968dd49aa9a7a9a74c1d238f4a6d3c72a0d04d1ca7703778"},
+    {file = "ffpuppet-0.16.5.tar.gz", hash = "sha256:af33d7c253c159c82408a1b256e48b60cf56fcb0a2668c72c5c9389dc5436e36"},
 ]
 
 [package.dependencies]
@@ -833,19 +833,20 @@ test = ["coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mock", "mypy", "pre-commit",
 
 [[package]]
 name = "grizzly-framework"
-version = "0.22.1"
+version = "0.22.2"
 description = "A framework for developing and running browser fuzzers"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "grizzly_framework-0.22.1-py3-none-any.whl", hash = "sha256:f17223114064fa9a8dec062c4316121b261aff0458be3edeefc000bacbb9f336"},
-    {file = "grizzly_framework-0.22.1.tar.gz", hash = "sha256:1616bf3b5040900a27fa2b16bb0421e42cd4cc816458a5f7925f0303146ece5c"},
+    {file = "grizzly_framework-0.22.2-py3-none-any.whl", hash = "sha256:8305f48db72ac1bbdf9aaba81ae188f48df1e5680b11c6f34ff6f8b7ef215267"},
+    {file = "grizzly_framework-0.22.2.tar.gz", hash = "sha256:d18debe0fd6a84b575e66e0b9715d195c4132b2ef804dbfe7cd086dbb43964f9"},
 ]
 
 [package.dependencies]
 bugsy = "*"
 cryptography = "*"
 cssbeautifier = "*"
+fasteners = "*"
 ffpuppet = ">=0.16.3"
 FuzzManager = "*"
 jsbeautifier = "*"
@@ -2838,4 +2839,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "2d32f1f4e419462bde67702fd1f26b9aed1a3ef4956d3d46bc613e22235e787a"
+content-hash = "170efe5e93e5e0c0895ee11734b83c85520b73ccb009f25ca9606a81eb380f7b"

@@ -176,6 +176,7 @@ class Bisector(object):
             targets=[self.evaluator.target],
             platform=self.platform,
             nearest=BuildSearchOrder.ASC,
+            skip_crashreporter_symbols=True,
         )
         self.end = Fetcher(
             self.branch,
@@ -184,6 +185,7 @@ class Bisector(object):
             targets=[self.evaluator.target],
             platform=self.platform,
             nearest=BuildSearchOrder.DESC,
+            skip_crashreporter_symbols=True,
         )
 
         self.build_manager = BuildManager(config)
@@ -217,6 +219,7 @@ class Bisector(object):
                     self.flags,
                     targets=[self.evaluator.target],
                     platform=self.platform,
+                    skip_crashreporter_symbols=True,
                 )
                 if self.end.datetime > build.datetime > self.start.datetime:
                     if build.changeset not in (
@@ -249,6 +252,7 @@ class Bisector(object):
                     self.flags,
                     targets=[self.evaluator.target],
                     platform=self.platform,
+                    skip_crashreporter_symbols=True,
                 )
                 builds.append(build)
             except FetcherException:
@@ -278,6 +282,7 @@ class Bisector(object):
                         self.flags,
                         targets=[self.evaluator.target],
                         platform=self.platform,
+                        skip_crashreporter_symbols=True,
                     )
                 except FetcherException:
                     LOG.warning("Unable to find build for %s", build)

@@ -75,9 +75,6 @@ jobs:
       - name: Install tox
         run: pipx install tox
 
-      - name: Install package
-        run: poetry install
-
       - name: Run tests
         run: tox -e ${{ matrix.toxenv }}
 

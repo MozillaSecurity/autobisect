@@ -63,8 +63,6 @@ twine = "^6.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
-codecov-cli = "^11.0.3"
-coverage = {extras = ["toml"], version = "^7.9.1"}
 flake8 = "^7.1.1"
 flake8-isort = "^6.0.0"
 flake8-quotes = "^3.3.2"

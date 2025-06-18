@@ -23,6 +23,9 @@ jobs:
       - name: Install poetry
         run: pipx install poetry
 
+      - name: Install package
+        run: poetry install
+
       - name: Run linters
         run: poetry run pre-commit run -a
 

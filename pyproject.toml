@@ -54,7 +54,7 @@ repository = "https://github.com/MozillaSecurity/autobisect"
 version = "8.5.0"
 
 [tool.poetry.dependencies]
-fuzzfetch = "^10.0.1"
+fuzzfetch = "^11.0.0"
 grizzly-framework = "^0.23.0"
 lithium-reducer = "^4.0.0"
 platformdirs = "^4.2.2"

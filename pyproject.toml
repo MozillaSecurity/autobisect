@@ -51,7 +51,7 @@ name = "autobisect"
 packages = [{from = "src", include = "autobisect"}]
 readme = "README.md"
 repository = "https://github.com/MozillaSecurity/autobisect"
-version = "8.5.0"
+version = "8.6.0"
 
 [tool.poetry.dependencies]
 fuzzfetch = "^11.0.0"

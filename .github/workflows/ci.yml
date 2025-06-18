@@ -113,8 +113,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email "bugmon@mozilla.com"
-          git config --global user.name "semantic-release"
           poetry run semantic-release -v version --no-changelog
           poetry run semantic-release publish
 

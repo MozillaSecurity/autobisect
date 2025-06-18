@@ -125,5 +125,6 @@ jobs:
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: twine upload --skip-existing dist/*
-
+        run: |
+          poetry build
+          twine upload --skip-existing dist/*

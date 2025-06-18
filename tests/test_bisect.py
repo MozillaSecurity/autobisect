@@ -56,7 +56,7 @@ def test_bisect_get_daily_builds_simple(delta, expected):
     assert len(builds) == expected
 
 
-@pytest.mark.freeze_time("2024-05-30")
+@pytest.mark.freeze_time("2025-06-18")
 @pytest.mark.vcr()
 def test_bisect_get_pushdate_builds_simple():
     """Test that get_daily_builds returns the expected build range."""
@@ -66,7 +66,7 @@ def test_bisect_get_pushdate_builds_simple():
 
     builds = bisector._get_pushdate_builds()
 
-    assert len(builds) == 3
+    assert len(builds) == 2
     assert isinstance(builds, BuildRange)
     for build in builds:
         assert isinstance(build, Fetcher)

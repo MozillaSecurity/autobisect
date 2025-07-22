@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - text/html
       Date:
-      - Wed, 18 Jun 2025 15:39:13 GMT
+      - Tue, 22 Jul 2025 15:45:57 GMT
       Location:
       - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
       access-control-allow-origin:
@@ -55,7 +55,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 18 Jun 2025 15:39:14 GMT
+      - Tue, 22 Jul 2025 15:45:57 GMT
       Vary:
       - Accept-Encoding
       X-Cache:
@@ -63,9 +63,9 @@ interactions:
       X-Cache-Hits:
       - 0, 0
       X-Served-By:
-      - cache-pdk-kfty8610038-PDK, cache-pdk-kfty8610038-PDK
+      - cache-mia-kmia1760071-MIA, cache-mia-kmia1760071-MIA
       X-Timer:
-      - S1750261154.267841,VS0,VE164
+      - S1753199157.346174,VS0,VE345
       accept-ranges:
       - bytes
       access-control-allow-origin:
@@ -75,7 +75,7 @@ interactions:
       content-security-policy:
       - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
         img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
-        ''nonce-i0tbUnuDQsSxSiM6RGpAcA''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        ''nonce-FRU7bejkSQSLlqk8FDfwng''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
         frame-ancestors https:'
       content-type:
       - application/json

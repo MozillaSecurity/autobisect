@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - text/html
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:56 GMT
       Location:
       - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
       access-control-allow-origin:
@@ -72,7 +72,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 18 Jun 2025 15:39:13 GMT
+      - Tue, 22 Jul 2025 15:45:56 GMT
       Vary:
       - Accept-Encoding
       X-Cache:
@@ -80,9 +80,9 @@ interactions:
       X-Cache-Hits:
       - 0, 0
       X-Served-By:
-      - cache-pdk-kfty8610038-PDK, cache-pdk-kfty8610058-PDK
+      - cache-mia-kmia1760099-MIA, cache-mia-kmia1760100-MIA
       X-Timer:
-      - S1750261153.405003,VS0,VE289
+      - S1753199156.486644,VS0,VE344
       accept-ranges:
       - bytes
       access-control-allow-origin:
@@ -94,7 +94,7 @@ interactions:
       content-security-policy:
       - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
         img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
-        ''nonce-sUe8svuhQ3yRkXlZO4iI6g''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        ''nonce-qxFa0MtZSpGddtFzC1LfDA''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
         frame-ancestors https:'
       content-type:
       - application/json

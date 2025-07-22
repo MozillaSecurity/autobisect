@@ -45,7 +45,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:03 GMT
+      - Tue, 22 Jul 2025 15:45:44 GMT
       ETag:
       - W/"154-mCbAdodfZJYsSfWW8MNVLq3U19g"
       Server:
@@ -57,9 +57,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - bbb352ff-86ad-4169-9def-05b6e66b0591
+      - 702392cd-a89d-4a02-9d1b-7bffb571ffd4
       x-for-trace-id:
-      - 63f6400a42e467acbf91690a1176def3
+      - c271eaf7a428350b91067b5c1604f5d6
     status:
       code: 200
       message: OK
@@ -113,7 +113,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:03 GMT
+      - Tue, 22 Jul 2025 15:45:44 GMT
       ETag:
       - W/"2b4-rmrALtFhWc5FmYBbBne/+eFN4vE"
       Server:
@@ -125,9 +125,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 969f3cd7-b6e3-4bc2-830d-0bfa57eac20a
+      - a716f6cf-4055-4efa-acc4-0c2290c8604e
       x-for-trace-id:
-      - 3a11d0258795694070108e01b8fd4e3d
+      - 631b0d060e0a14e9a022db3e89253596
     status:
       code: 200
       message: OK
@@ -171,7 +171,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:03 GMT
+      - Tue, 22 Jul 2025 15:45:44 GMT
       ETag:
       - W/"d0-lxmSrWsqBK5BHRVKPMI+HBKYucw"
       Server:
@@ -183,9 +183,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 3b0cc4ab-8f56-4fe9-9a1c-5e0615e28066
+      - 0013ef03-2545-4507-b02c-dea7024b9c7c
       x-for-trace-id:
-      - 8e1d83e3a15a7319a0c2dee72cb0de4a
+      - bdd444d1e5bb00979311096168213135
     status:
       code: 200
       message: OK
@@ -206,10 +206,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:03.992Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:44.950Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.latest.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:03.992Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:44.950Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -233,9 +233,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:03 GMT
+      - Tue, 22 Jul 2025 15:45:44 GMT
       ETag:
-      - W/"1a0-o0+p5U8mAcEaZUW2AUPXVPO49hg"
+      - W/"1a0-pMSE4XMr+/GoIIcuLbrWF/Fh6Kw"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -245,9 +245,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 89e2a789-6e0f-43a0-9849-2fa3e21e3656
+      - 4419247c-90cd-4946-9ab4-4cfcc3ae4e3c
       x-for-trace-id:
-      - 1c30a61438c786d71b5923aecf47294d
+      - c382d60c9901330587c1e7cdc83bba21
     status:
       code: 404
       message: Not Found
@@ -268,10 +268,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.189Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.149Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.latest.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.189Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.149Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -295,9 +295,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a7-SmYB7U71mactt49iSVOcGaJkjR8"
+      - W/"1a7-pDs33nI0HcA+DsZ0FB/orYQ15O4"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -307,9 +307,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 421c3a0d-9c3e-4727-8e1b-dd3227b8e061
+      - 043ec6b6-5a61-4fb4-91ae-a2efd179e8a3
       x-for-trace-id:
-      - 6268c43d4276e2c8e6a3f8ee40f8bafb
+      - 43837eee1a227fa83fa88372809b6138
     status:
       code: 404
       message: Not Found
@@ -330,10 +330,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.339Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.268Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.latest.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.339Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.268Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -357,9 +357,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a3-XaD+XNzCnm3yqwsJ+aaBszR6BsM"
+      - W/"1a3-RVvpn95PUAy5wVdiX0FCKMknAzk"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -369,9 +369,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - f43b71b5-6f21-46d2-b006-fd4d15128e6c
+      - 70eeb070-f36c-4ca9-a4da-56f32f8781bd
       x-for-trace-id:
-      - 5835c0dc96145d347f4ef586535267d0
+      - af82b2e91850a314914849e33bcc0b25
     status:
       code: 404
       message: Not Found
@@ -392,10 +392,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.498Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.396Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.revision.firefox.linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.498Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.396Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -419,9 +419,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a6-S8FEET4l+uwIWJUEGpePPp1sSUo"
+      - W/"1a6-UckaVww39vkqFBsTanm6pVWxwrg"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -431,9 +431,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ac258d04-ce2e-4f83-94c9-21a4730f4cd1
+      - 08c37f61-d5db-475a-9268-012424ad354d
       x-for-trace-id:
-      - 3a22fab1a7dd1fbae7258ef55dad9d22
+      - 80dc9c6ab3b6a414943bb23f06d2be07
     status:
       code: 404
       message: Not Found
@@ -454,10 +454,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.655Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.527Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.revision.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.655Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.527Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -481,9 +481,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a2-EVBW5uiYprk0hce6G8HiyYO2OHA"
+      - W/"1a2-miOcbLYtkuHAU4YuLek1s3jk7qg"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -493,9 +493,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 0b9758bd-8316-4f89-832e-e70d0dafdfb3
+      - 80a78a53-7ce1-4ea8-b4b3-c6c22351f8d1
       x-for-trace-id:
-      - 99a4c5203636bff23bd0b5ad6956e158
+      - 7a07db27da00191e55c7fade54681257
     status:
       code: 404
       message: Not Found
@@ -516,10 +516,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.813Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.692Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.revision.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.813Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.692Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -543,9 +543,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a9-FZYWqfYS5zWYsTgnNHLsSnidiJ4"
+      - W/"1a9-Iv2/JzCIGJkSrKr/Mpb5OG8n01c"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -555,9 +555,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - d18d5cb2-08e1-4245-a909-b05c360cd15d
+      - 961630c0-df3c-4d03-bd90-4147639ca19e
       x-for-trace-id:
-      - f8f38566ebed4d1252c4ccb2b6d27e52
+      - 51b4e04a22a8375891b1e8f6777ebebb
     status:
       code: 404
       message: Not Found
@@ -578,10 +578,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:04.965Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.830Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.17.revision.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:04.965Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.830Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -605,9 +605,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:04 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1a5-oojJ884rXXHw38jrQs1RmY982EA"
+      - W/"1a5-38ewhX5yqem3LaSB1t0bg101EWs"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -617,9 +617,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ab377068-f1cd-4b63-b2d6-d77505fe91ba
+      - 943edaf3-3223-4cc2-bafb-379fbaa05a8e
       x-for-trace-id:
-      - 5654bda82822849207046358b11a4b59
+      - b8a0b718fb28eb5784c5210141294006
     status:
       code: 404
       message: Not Found
@@ -640,10 +640,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:05.122Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:45.975Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092405.firefox.linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:05.122Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:45.975Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -667,9 +667,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:45 GMT
       ETag:
-      - W/"1ab-zaD4AZpENFa14Txu8+9wwqw+0OI"
+      - W/"1ab-Yn4MrfElcwmYj+wBROqm4zr7CIw"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -679,9 +679,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ebd2b6a6-4fb6-43c6-bcd7-16508a607c29
+      - 80787fb0-a3c5-42ea-b940-345003a38332
       x-for-trace-id:
-      - de59a74a401755c35cbea202f9b37b68
+      - cc315475380d53e2ae383b8e833ea061
     status:
       code: 404
       message: Not Found
@@ -702,10 +702,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:05.267Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:46.117Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092405.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:05.267Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:46.117Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -729,9 +729,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:46 GMT
       ETag:
-      - W/"1a7-OrTlgo+VLgg+g5EREf2dyCe2tXw"
+      - W/"1a7-gDeKHqQtclf1o5HrzCZB2EnOBmQ"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -741,9 +741,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 908c95fd-2ab8-4ac5-8696-11cb6a5cd1a9
+      - 04ec0853-5318-45bf-8ae7-909f9e850768
       x-for-trace-id:
-      - c450cd3eff8afac552930ee5db283d36
+      - 8606c1283fcb7dec36190ee07bff5594
     status:
       code: 404
       message: Not Found
@@ -764,10 +764,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:05.413Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:46.249Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092405.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:05.413Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:46.249Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -791,9 +791,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:46 GMT
       ETag:
-      - W/"1ae-25XXolmgoAsSYMl7+5EUrLZ8deM"
+      - W/"1ae-3DURT6y35ljAmmiCcRqonrksAe4"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -803,9 +803,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 1e7421d4-81a8-4c3f-b83e-6789286926ba
+      - b821e008-cd6a-42c6-86ea-e3a05db65b6a
       x-for-trace-id:
-      - abb46ebe99d6ac53b5f431e00945e577
+      - fc6574ce7a90cca591f1f656d57c0184
     status:
       code: 404
       message: Not Found
@@ -826,10 +826,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:05.569Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:46.376Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092405.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:05.569Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:46.376Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -853,9 +853,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:46 GMT
       ETag:
-      - W/"1aa-IS3wjATLsXldBafA9+GNHbZrfew"
+      - W/"1aa-31eLGBMEDBQwMZUWTuvL9mv8DUc"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -865,9 +865,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 69e40d77-229b-4d00-94f8-d8b05f14b8af
+      - 8e8f5b58-520d-4486-85a4-9927eac6d03f
       x-for-trace-id:
-      - 9d68138cec4822c5b2aaad5b7b842e88
+      - ee0a7b21fc7f4c843e8b01cf8f24f15a
     status:
       code: 404
       message: Not Found
@@ -911,7 +911,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:46 GMT
       ETag:
       - W/"d7-yawxAmwOjxgXaeRoJlMqK4+vSy0"
       Server:
@@ -923,9 +923,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - c52378ee-a131-4295-83ba-6d29063170af
+      - d3a0373b-4f3b-45f8-a4b2-300590dd1f78
       x-for-trace-id:
-      - a0fec3282e5b35349367fa3051ae7e9f
+      - be486f7c93faa36a9e4318fe4d96953a
     status:
       code: 200
       message: OK
@@ -1017,12 +1017,6 @@ interactions:
         \     \"expires\": \"2026-06-17T09:33:34.347Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
         \     \"expires\": \"2026-06-17T09:33:34.347Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-06-24T09:33:34.347Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-06-24T09:33:34.347Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-06-24T09:33:34.347Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
         \     \"expires\": \"2026-06-17T09:33:34.347Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
@@ -1053,9 +1047,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:05 GMT
+      - Tue, 22 Jul 2025 15:45:46 GMT
       ETag:
-      - W/"1e15-LiViwOtHZXoTP7QOHI3DJoobjSw"
+      - W/"1bf6-aTd2J83JL1XPfgqAappq+zd9HeU"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1067,13 +1061,13 @@ interactions:
       Via:
       - 1.1 google
       content-length:
-      - '7701'
+      - '7158'
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 6878f3fc-6991-4bfe-897f-dd578089d75b
+      - 01e4f86b-8b31-4c32-8884-fada08b28883
       x-for-trace-id:
-      - 84b89acf3356f263d00815cd15e6ce9c
+      - bdebfe4939ed2e6c6d9a0315d602157e
     status:
       code: 200
       message: OK
@@ -1115,7 +1109,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:47 GMT
       ETag:
       - W/"83-1llFDHZYHXhDL+Zu/TmGIEGAPWc"
       Server:
@@ -1129,9 +1123,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 27e4b3ac-889c-490c-ad19-5c954712a527
+      - c2e9066b-48a1-4e02-a281-20f79f53496c
       x-for-trace-id:
-      - e1f6a0da15938a0b9c90e03cd90ab18d
+      - fe1d4e720c61309f4d1bed7eea8f8a2d
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -1170,8 +1164,6 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
-      Age:
-      - '76'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -1179,7 +1171,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Jun 2025 15:37:50 GMT
+      - Tue, 22 Jul 2025 15:45:47 GMT
       ETag:
       - '"3267e1fc16f33da5cb8f80b2aca93307"'
       Last-Modified:
@@ -1189,11 +1181,11 @@ interactions:
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH8_8FNDAtujDbrU-pqdffzYIt1PsJlEzP_VEG7aAtmwz63Kqxz_wLgD0U_xqNpWxge6vy-dq84I
+      - ABgVH8-JJZpmKAdBmiJvIboySuEeX70aFQncXLSa9Tqu-cTCcXO2vj8RSQ6HSszRQMqZKbZ4nlub2kQ
       content-length:
       - '933'
       x-cache-status:
-      - hit
+      - miss
       x-goog-generation:
       - '1750154203488443'
       x-goog-hash:
@@ -1227,10 +1219,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:06.291Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:47.861Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092639.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:06.291Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:47.861Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1254,9 +1246,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:47 GMT
       ETag:
-      - W/"1a7-E809f23AXjGQTpTer7WHr0GUSEk"
+      - W/"1a7-2tSGVq9Cc1sfdGQxQEmV/I018MY"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1266,9 +1258,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ec9e7549-3346-4aef-a80f-d3618d0d826c
+      - bbfb14de-d341-47ad-a67c-31e4c4ff2ea4
       x-for-trace-id:
-      - e0bb9ac010e82d8e8949371ca45ea73b
+      - 2784aae2b4b2908f04fc64de2f7c9e06
     status:
       code: 404
       message: Not Found
@@ -1289,10 +1281,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:06.444Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:47.997Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092639.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:06.444Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:47.997Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1316,9 +1308,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:47 GMT
       ETag:
-      - W/"1ae-/H38UH3aLtC3Z5HeP+qKxc03nYk"
+      - W/"1ae-Qw8qrfE9yFDqdDx6qF7/cT7rV/I"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1328,9 +1320,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - f6fe528c-30b7-4480-8241-743bcd0d382a
+      - 37c0c858-8552-48c6-81c4-fc12d2c007ea
       x-for-trace-id:
-      - a51a79cbf1d7dc1a787c0a4ffcea298a
+      - 2ad2a504fda7810c85bf8972bb2f1c51
     status:
       code: 404
       message: Not Found
@@ -1351,10 +1343,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:06.599Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:48.131Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617092639.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:06.599Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:48.131Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1378,9 +1370,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:48 GMT
       ETag:
-      - W/"1aa-DwvInq8DqjPfLf4MoVB2KLapxKA"
+      - W/"1aa-uZ2KeHh9RWAYPxSnIjcSI2anXx8"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1390,9 +1382,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 6d2e86bc-8105-4549-9128-cbc3428164f2
+      - 8a34080a-7f1e-46f9-844e-29c7e9787f1b
       x-for-trace-id:
-      - 7e2c35a01161627431e15224311ea1cc
+      - 5cd0cbd2fbfeb2e821f03593055c54ec
     status:
       code: 404
       message: Not Found
@@ -1436,7 +1428,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:48 GMT
       ETag:
       - W/"d7-Iff9JzkzEZsuHgJ+09WO0jAiw5A"
       Server:
@@ -1448,9 +1440,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 7d75fe7a-22ee-4384-8c7e-6bfc9509beec
+      - dddb10ae-c9d7-49f3-8e73-fdd13f4c3b47
       x-for-trace-id:
-      - 78d857e3aa2beeb58cc3a1b295da9685
+      - 6c62baaaf55d7b60183223512599173e
     status:
       code: 200
       message: OK
@@ -1542,12 +1534,6 @@ interactions:
         \     \"expires\": \"2026-06-18T00:04:11.346Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
         \     \"expires\": \"2026-06-18T00:04:11.346Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-06-25T00:04:11.346Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-06-25T00:04:11.346Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-06-25T00:04:11.346Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
         \     \"expires\": \"2026-06-18T00:04:11.346Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
@@ -1578,9 +1564,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:06 GMT
+      - Tue, 22 Jul 2025 15:45:48 GMT
       ETag:
-      - W/"1e15-1f0+p0gAXD248zvAosn0iD5tDTs"
+      - W/"1bf6-jCLhKk4sixxROg+soLy14wUBRAY"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1592,13 +1578,13 @@ interactions:
       Via:
       - 1.1 google
       content-length:
-      - '7701'
+      - '7158'
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - e5b53a7a-730d-4c1d-bf41-4eb01f0001d0
+      - 67c0d78a-dff9-49dc-bd8c-c7c238851778
       x-for-trace-id:
-      - 700febde93cc135816b0fd0c25d3ea76
+      - 93c763fe1a7f5150a888e14cc9658f2a
     status:
       code: 200
       message: OK
@@ -1640,7 +1626,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:07 GMT
+      - Tue, 22 Jul 2025 15:45:48 GMT
       ETag:
       - W/"83-l2DvuamyI3nDUJhCYb9nxS6jk+s"
       Server:
@@ -1654,9 +1640,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 63cab8be-9ce4-4abd-be90-de2ce6ca1f57
+      - 274d38ca-623e-407f-8b7c-28836272ccaa
       x-for-trace-id:
-      - a9939d195ea0bbc202a06ef4ab1dddbb
+      - 037613eced48461ac098f1ac621e5e7b
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -1695,8 +1681,6 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
-      Age:
-      - '76'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -1704,7 +1688,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Jun 2025 15:37:51 GMT
+      - Tue, 22 Jul 2025 15:45:48 GMT
       ETag:
       - '"6f66e9ed7b21e2c3701471b885c85a33"'
       Last-Modified:
@@ -1714,11 +1698,11 @@ interactions:
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH89qa66blvLo-ZLxBFx1bI95k8eKqVFdtpFAOBUKAsgl4w2vPBiNL3Nj-dBpySlkOYeJCK_FpOk
+      - ABgVH8_yiSndzKjRjzMtYJ6w2ty3WH7pnrDV4z8jl_8liUuy8YXsyUzaqMo9nuThX1ka3TslK9IcrJCgl0yD8A
       content-length:
       - '933'
       x-cache-status:
-      - hit
+      - miss
       x-goog-generation:
       - '1750206168713842'
       x-goog-hash:
@@ -1752,10 +1736,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:07.324Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:49.198Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617213038.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:07.324Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:49.198Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1779,9 +1763,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:07 GMT
+      - Tue, 22 Jul 2025 15:45:49 GMT
       ETag:
-      - W/"1a7-JUBYAwXGbeHgaYm2zKV1JZunUMo"
+      - W/"1a7-PxV9mJdbBdkdxQJeIVe0eT8urCs"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1791,9 +1775,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 6ec621fa-5069-4014-a67d-f4c83dc33645
+      - a5aae4ba-2878-4b22-bcd5-dcd45ae11aef
       x-for-trace-id:
-      - 91629aa8b74d00c8cdbc1ac03e518974
+      - d137cf2a06c3eb1cd7d9fee16c6b17c8
     status:
       code: 404
       message: Not Found
@@ -1814,10 +1798,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:07.479Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:49.365Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617213038.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:07.479Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:49.365Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1841,9 +1825,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:07 GMT
+      - Tue, 22 Jul 2025 15:45:49 GMT
       ETag:
-      - W/"1ae-b9LzflOK4ovYeo4YQxf6QNGIZP4"
+      - W/"1ae-doUGtMEvH8RizpDwwxsIPYtQwOk"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1853,9 +1837,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 23408c38-360e-4da4-963d-3f6e25f1170d
+      - fabc6744-fd54-4ac4-999c-24e0b0225378
       x-for-trace-id:
-      - 1b5c3c55928097d8934b79e330d0d8a7
+      - 86db01f7fc2dce2bd9f46d04dc37004d
     status:
       code: 404
       message: Not Found
@@ -1876,10 +1860,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:07.674Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:49.502Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.20250617213038.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:07.674Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:49.502Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -1903,9 +1887,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:07 GMT
+      - Tue, 22 Jul 2025 15:45:49 GMT
       ETag:
-      - W/"1aa-m8NirY8M87o9vtpoIhHg9KQcE7c"
+      - W/"1aa-A/pNNX8NmnG5WJCXZWIEWD2N8Xk"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -1915,9 +1899,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - d3408977-63b8-4a89-b2e2-5b4b58d4e493
+      - 5405058c-d8de-4700-881e-d64cf90bdbb9
       x-for-trace-id:
-      - 68d903116c3d9d46411c8cfd38f72461
+      - 70896d08dbcfbec66f1d9a819643d777
     status:
       code: 404
       message: Not Found
@@ -1961,7 +1945,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:07 GMT
+      - Tue, 22 Jul 2025 15:45:49 GMT
       ETag:
       - W/"cf-989mfYi0vOqCYBIDPMxFdkM15eY"
       Server:
@@ -1973,9 +1957,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - f16de613-ca63-484e-966b-21a1c0411964
+      - b3eab887-cad4-4d4a-bc08-c260d32a4d76
       x-for-trace-id:
-      - ec36e34e2a58a7bff5db710655414ac1
+      - c0db03f53ec7c1ee06f29475c5c15aa3
     status:
       code: 200
       message: OK
@@ -1996,10 +1980,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:08.065Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:49.837Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.latest.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:08.065Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:49.837Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2023,9 +2007,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:49 GMT
       ETag:
-      - W/"19f-qhb6eREIocJ1QzeS7q5awBcfe80"
+      - W/"19f-NySl/+EOIQFmjAolIMGSj8vVA/c"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2035,9 +2019,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 472056a9-a827-46b5-94dd-2115bd4631ba
+      - df83792d-e803-403a-9eb3-1ca8dab92979
       x-for-trace-id:
-      - 32cb693df782c26875b881923728a8ad
+      - 2aacce9067b7f39a06545ffd25cae6f9
     status:
       code: 404
       message: Not Found
@@ -2058,10 +2042,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:08.218Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:50.031Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.latest.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:08.218Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:50.031Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2085,9 +2069,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"1a6-m4JmhDFC3cQ7x5hqaElRsZ40ETc"
+      - W/"1a6-rVPn0RotWVjU9laePPIXXfxDNdA"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2097,9 +2081,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - b1867385-1fc4-4c26-83d3-d22768d072db
+      - 421242bc-5ed9-4126-bda9-9174b89d6915
       x-for-trace-id:
-      - 98e9d535e1605f893d7fa022bc0332e0
+      - ca293dceb06a57326a851c21c0f20c1b
     status:
       code: 404
       message: Not Found
@@ -2120,10 +2104,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:08.393Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:50.166Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.17.latest.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:08.393Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:50.166Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2147,9 +2131,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"1a2-VRZkdh5dNu30y82thuW6ZlX0AXY"
+      - W/"1a2-NAOscUtQvUhxD8CW0SQKk7QikRM"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2159,9 +2143,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 2ec5228a-9825-45cc-a131-b0e7fc43245e
+      - 5f25ed19-8a26-4600-9355-3cf0c5752abe
       x-for-trace-id:
-      - 0833ab0d8214ccbc874d6cf615199d98
+      - 73f99bd43f0c887b3ad42b229d6990a7
     status:
       code: 404
       message: Not Found
@@ -2211,7 +2195,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
       - W/"154-ZFaBegaxvGvVerI4sS4QD5ZecCM"
       Server:
@@ -2223,9 +2207,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 060b9d5b-679b-479f-830a-a8c5e3f6589d
+      - 880976ce-83a7-4d05-b9a5-b3142d7b6164
       x-for-trace-id:
-      - e1bce83ce2232c69c4062070ba5a6e4e
+      - b30891c69945ff3281a77715b8724d9f
     status:
       code: 200
       message: OK
@@ -2252,8 +2236,10 @@ interactions:
         \     \"name\": \"20250618042918\",\n      \"expires\": \"2026-06-21T00:00:00.000Z\"\n
         \   },\n    {\n      \"namespace\": \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618093246\",\n
         \     \"name\": \"20250618093246\",\n      \"expires\": \"2026-06-21T00:00:00.000Z\"\n
+        \   },\n    {\n      \"namespace\": \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250\",\n
+        \     \"name\": \"20250618211250\",\n      \"expires\": \"2026-06-21T00:00:00.000Z\"\n
         \   },\n    {\n      \"namespace\": \"gecko.v2.mozilla-central.pushdate.2025.06.18.latest\",\n
-        \     \"name\": \"latest\",\n      \"expires\": \"2026-06-20T00:00:00.000Z\"\n
+        \     \"name\": \"latest\",\n      \"expires\": \"2026-06-21T00:00:00.000Z\"\n
         \   }\n  ]\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2271,15 +2257,15 @@ interactions:
       Cache-Control:
       - no-store no-cache must-revalidate
       Content-Length:
-      - '521'
+      - '692'
       Content-Security-Policy:
       - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"209-kfHH1KIVwUmlhHVm1I+/tFF0Ib0"
+      - W/"2b4-Dym2SXRFZ956lx2wEIBi1dzIagc"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2289,9 +2275,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - eab99a64-754d-4dbc-9eac-c8e8218807fd
+      - f76ab5f4-41fe-46d6-bbf7-9fce6c284c4c
       x-for-trace-id:
-      - 67f37452e346984dd251d3543a1b573e
+      - b995199b84ea15656264390725185ed1
     status:
       code: 200
       message: OK
@@ -2311,8 +2297,8 @@ interactions:
   response:
     body:
       string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.shippable.2025.06.18.latest.firefox.linux64-opt\",\n
-        \ \"taskId\": \"ZTl9f1i3Q0qfnPqj4r30Iw\",\n  \"rank\": 1750239166,\n  \"data\":
-        {},\n  \"expires\": \"2026-06-18T09:36:12.985Z\"\n}"
+        \ \"taskId\": \"RLN6x_WDTb-VylqiQwJ31A\",\n  \"rank\": 1750281170,\n  \"data\":
+        {},\n  \"expires\": \"2026-06-18T21:23:34.716Z\"\n}"
     headers:
       Access-Control-Allow-Headers:
       - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
@@ -2335,9 +2321,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:08 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"d0-m5Im8IFTRLma1IRdk8ogQia8SUw"
+      - W/"d0-bFCTCKCIjh7ebcUg1HfLUX+hv24"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2347,9 +2333,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ef323fd0-4d19-4b32-bcfa-1e8bb2bb2d70
+      - 191a99d7-c19e-4e8c-ab9e-4eca90ef9f70
       x-for-trace-id:
-      - 260083e5e315a590a8cfd60bb57f1a61
+      - daf8d9c26694f53baf3eeadfc208f021
     status:
       code: 200
       message: OK
@@ -2370,10 +2356,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.048Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:50.743Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.latest.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.048Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:50.743Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2397,9 +2383,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"1a0-PgF3KUPzJ+K9mmhfuWIY7hOFkxM"
+      - W/"1a0-qJA8BBNh0jHhF55Pb9ofpWQtAJI"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2409,9 +2395,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 8b8479ce-96e1-4ab1-8de4-2482dab066a4
+      - 77899046-a747-402b-9976-f0628647186e
       x-for-trace-id:
-      - 428af1258f6d389f638b575b34fcb100
+      - 1792614c4129687c7ad361feb8af16a2
     status:
       code: 404
       message: Not Found
@@ -2432,10 +2418,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.199Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:50.952Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.latest.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.199Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:50.952Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2459,9 +2445,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:50 GMT
       ETag:
-      - W/"1a7-s87GR1bNWFWlKEDsD1uRwjDr8X8"
+      - W/"1a7-SicGlaRIZCoDXIG3S0k6JsM842Y"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2471,9 +2457,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 25070a0f-e736-4706-a6d7-19ec0deaaa07
+      - c62cdc5a-a956-477c-8fb0-792e4c3cfba3
       x-for-trace-id:
-      - cce3dc95e415d0e227f654999b00cf56
+      - 3746f655411a176f1b6bd223789bb4e7
     status:
       code: 404
       message: Not Found
@@ -2494,10 +2480,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.370Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:51.092Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.latest.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.370Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:51.092Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2521,9 +2507,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
-      - W/"1a3-2x0oHVil2SHK1NkpTU4ZM+pPWno"
+      - W/"1a3-qL9vp1mC+Xf0y8w6iBAZQF7CX90"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2533,9 +2519,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 24cf230a-8eb7-4985-b73d-c079b3bcdb8e
+      - 87a1e461-100c-4182-a778-298510e275d8
       x-for-trace-id:
-      - 478538fb400c76445eb31a67a6468b49
+      - 01519b4bf939652fbd7b1525f227f70d
     status:
       code: 404
       message: Not Found
@@ -2556,10 +2542,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.540Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:51.219Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.revision.firefox.linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.540Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:51.219Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2583,9 +2569,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
-      - W/"1a6-S1Az57VIcL6jFKvbbc4wqBXBj+8"
+      - W/"1a6-PsQLH8J5goG9hd21bOcGWByHkK8"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2595,9 +2581,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 04de84bc-6554-4a38-ad90-f876db8bf340
+      - 0ee44bff-1c61-46d1-bb70-85b8e0ae6250
       x-for-trace-id:
-      - 75a09e801b36d8999babdd286675d911
+      - c9c00453181521155280dc4c75dcaf74
     status:
       code: 404
       message: Not Found
@@ -2618,10 +2604,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.714Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:51.356Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.revision.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.714Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:51.356Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2645,9 +2631,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
-      - W/"1a2-+KPCrpzVjHUg+oT2mG4zD4OaIqs"
+      - W/"1a2-omJlTOYHisT/7BVr913VzpCYzx4"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2657,9 +2643,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - b5e9420b-69bd-4efe-8215-c0f43d547f9f
+      - 1a3594ea-4330-422c-96b0-8d0206b6c2f3
       x-for-trace-id:
-      - 094d4e33e3d5836ca87e5b9921f31400
+      - c5833c1d186abd971255df0f49c896f0
     status:
       code: 404
       message: Not Found
@@ -2680,10 +2666,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:09.875Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:51.497Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.revision.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:09.875Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:51.497Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2707,9 +2693,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:09 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
-      - W/"1a9-voz5AuQxQnf6HhYsNVDbPMiAu0k"
+      - W/"1a9-WdF6P384wGDQbZx2xkhAFyeBE5A"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2719,9 +2705,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - d8ca8281-ed32-4466-bae2-136fbc84edfb
+      - 7523ac1c-c8f7-4f92-8b3e-ee3846b0be66
       x-for-trace-id:
-      - d6057e0da4e7d5b35b9e36f3a533f7cf
+      - 09751adaf0eaf02ab4a7badaefd4e3ab
     status:
       code: 404
       message: Not Found
@@ -2742,10 +2728,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:10.031Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:51.650Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.shippable.2025.06.18.revision.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:10.031Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:51.650Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -2769,9 +2755,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
-      - W/"1a5-8UCxHBXbTRw9XuIDTi+1oPwJJsw"
+      - W/"1a5-BxxS5u4MTn05348fqgp/8wYCiXc"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2781,9 +2767,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - fa4bee66-9c02-43cf-8e36-514bd0edb215
+      - 26e0246f-6994-4165-bb3b-608fa7155ad7
       x-for-trace-id:
-      - 00dbe3835747fd3f32f13decca3c7259
+      - ce6e53a32abe2e4f4984aaa033a2fc4f
     status:
       code: 404
       message: Not Found
@@ -2827,7 +2813,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:51 GMT
       ETag:
       - W/"d7-x26pUwcGhrWm1xo0XDAmAuQ4FM8"
       Server:
@@ -2839,9 +2825,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 754c995b-a828-40f2-b93b-47b2f8bcc48e
+      - 4e06d8ee-f1bd-4699-a42a-996765aa0ed4
       x-for-trace-id:
-      - 9b95e5c9ecc04546b83d19dd06942058
+      - 6a36df80ac8857eab21f30483494105b
     status:
       code: 200
       message: OK
@@ -2933,12 +2919,6 @@ interactions:
         \     \"expires\": \"2026-06-18T04:32:39.618Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
         \     \"expires\": \"2026-06-18T04:32:39.618Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-06-25T04:32:39.618Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-06-25T04:32:39.618Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-06-25T04:32:39.618Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
         \     \"expires\": \"2026-06-18T04:32:39.618Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
@@ -2969,9 +2949,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
-      - W/"1e15-YayynyeiwaoTL+lDr4KUZCGL+h0"
+      - W/"1bf6-uSBBeHVfHRO4s7eITwqJawUORUA"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -2983,13 +2963,13 @@ interactions:
       Via:
       - 1.1 google
       content-length:
-      - '7701'
+      - '7158'
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 01add5d5-bfda-40a2-a3ad-6fc412f78b7b
+      - 5c4d4878-c2ea-4ca0-8f3d-140767ec840d
       x-for-trace-id:
-      - 163346c436fdd59b68579eae50e2f95c
+      - 43237cd0898d2d5058cf58915bb3449c
     status:
       code: 200
       message: OK
@@ -3031,7 +3011,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
       - W/"83-9j/DaohR9iWcabBJZF34tJlciYg"
       Server:
@@ -3045,9 +3025,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - e352da70-bd46-4850-9a94-46d23add02cd
+      - dc0bc12f-fb82-405b-8bd6-78780ee2acd0
       x-for-trace-id:
-      - 36f814b60776e9443a5a6505f1d39b34
+      - 92bd2e7d57e7b5ad651eb05ab0e96102
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -3086,8 +3066,6 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
-      Age:
-      - '74'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -3095,7 +3073,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Jun 2025 15:37:56 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
       - '"99d29cc8407afe1c050a14be760567e3"'
       Last-Modified:
@@ -3105,11 +3083,11 @@ interactions:
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH88VqJpr1zyUqrtiWkH-bBTiCxmNFGCfcbyGBbj91Z4PwH9sBaUJXPRYsldcNJiSyF8S
+      - ABgVH89DsrjL8g_u5fRR7EVMWBYfF5x9DGej4ptBKU_X7Ml2xZm6tlOglPW70N52QHSdCZd_TleZ5uw
       content-length:
       - '933'
       x-cache-status:
-      - hit
+      - miss
       x-goog-generation:
       - '1750222764127163'
       x-goog-hash:
@@ -3143,10 +3121,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:10.791Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:52.509Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618042918.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:10.791Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:52.509Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3170,9 +3148,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
-      - W/"1a7-KvvAlUCS34D/JihiDLEBnUZnFHg"
+      - W/"1a7-ubH1yJTKup1D9/4HsMOWGNN+DyM"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3182,9 +3160,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 2a0f6fa1-f178-4a27-9c7e-a33da3cffe30
+      - abae81f0-9321-4e26-a34c-633292ac4b11
       x-for-trace-id:
-      - e304e71c1e9c65842c6bd5d7809f5e3a
+      - a65dc4c42e534a8c0e1360eb204ae3a6
     status:
       code: 404
       message: Not Found
@@ -3205,10 +3183,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:10.957Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:52.643Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618042918.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:10.957Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:52.643Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3232,9 +3210,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:10 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
-      - W/"1ae-+wEfhcVyY9bXX5FF2LffnJjoU9Y"
+      - W/"1ae-INZyl9nmjF02bXZZzV4H97T/qvY"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3244,9 +3222,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 197b93cc-a836-468d-ab4a-386995265b38
+      - 13e4975f-f872-42c3-95da-8b8b3326a85d
       x-for-trace-id:
-      - d15c9486d2ed15274ba8d481ad27a7b3
+      - fd720347e7ae6302c3736457a230199c
     status:
       code: 404
       message: Not Found
@@ -3267,10 +3245,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:11.113Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:52.782Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618042918.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:11.113Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:52.782Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3294,9 +3272,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:11 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
-      - W/"1aa-9CmpUaSrVK1tvHeQ/1on9NSR/WI"
+      - W/"1aa-Ette/u/dyEkDnfS6RUyjLac0JKk"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3306,9 +3284,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - d20acbe0-2c6a-4f10-9e80-0debfbd9b03a
+      - 869f9c83-b696-4f4a-90b9-92d80ad619a0
       x-for-trace-id:
-      - 85008fbbb2b027753365d34066cb1572
+      - c6967421a6c904b09599a485f642be44
     status:
       code: 404
       message: Not Found
@@ -3352,7 +3330,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:11 GMT
+      - Tue, 22 Jul 2025 15:45:52 GMT
       ETag:
       - W/"d7-7pqCUoRLr+3KjuSSxPrVAo8cFTk"
       Server:
@@ -3364,9 +3342,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - a2846885-bca0-456a-9e22-c3d60c60dcaf
+      - 5950dff9-2db3-489b-a638-cd5b54e7a51c
       x-for-trace-id:
-      - d832b7b8d5f60fa803ae986c3f803c05
+      - ab635d42d80b8acec9dc99128394c7a2
     status:
       code: 200
       message: OK
@@ -3458,12 +3436,6 @@ interactions:
         \     \"expires\": \"2026-06-18T09:36:04.879Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
         \     \"expires\": \"2026-06-18T09:36:04.879Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-06-25T09:36:04.879Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-06-25T09:36:04.879Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-06-25T09:36:04.879Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
         \     \"expires\": \"2026-06-18T09:36:04.879Z\",\n      \"contentType\": \"text/plain\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
@@ -3494,9 +3466,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:11 GMT
+      - Tue, 22 Jul 2025 15:45:53 GMT
       ETag:
-      - W/"1e15-XRZuZ96FlBvXdZmvCY4ZQT0oVP0"
+      - W/"1bf6-+5llnpDEU27xq95Ejqrorck0/Uw"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3508,13 +3480,13 @@ interactions:
       Via:
       - 1.1 google
       content-length:
-      - '7701'
+      - '7158'
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 0436cbaa-daa7-4a5b-b225-d5f04f298387
+      - 1c90ca7d-bffe-45ce-a938-7a95c890a59c
       x-for-trace-id:
-      - 23dadba1454e4690ae37a104a3007c78
+      - 8e1e895a8feb3bd8b9ed793123ba2411
     status:
       code: 200
       message: OK
@@ -3556,7 +3528,7 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:11 GMT
+      - Tue, 22 Jul 2025 15:45:53 GMT
       ETag:
       - W/"83-5ggOWaNZVTwcmQK6l0OKut5que4"
       Server:
@@ -3570,9 +3542,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 7590e1a8-67cd-467a-97a8-aaaadbdd21ca
+      - 62f2738d-aaf8-4ac0-b133-08a6e03697ca
       x-for-trace-id:
-      - fbbae453d90206f4b70814289db9d5ae
+      - 8219b0db7f4d1646834fa1cb7e9b8679
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -3611,8 +3583,6 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
-      Age:
-      - '334'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -3620,7 +3590,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Jun 2025 15:33:37 GMT
+      - Tue, 22 Jul 2025 15:45:53 GMT
       ETag:
       - '"f0f76350f8e89ec567e3f9ae2b953bcb"'
       Last-Modified:
@@ -3630,11 +3600,11 @@ interactions:
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH89FnyQpDdgvURBSV0XubpMeGAu4lWLaSYp5vc1ug8CVNiwWyCnLVAXZ794lrFuPAFs8
+      - ABgVH8_82vyOeivAs4tG5oczBMxcJ6uwcgJDUSA4wAFkHc3W3YtSiN-lbgOZZHUAZR5M1U4
       content-length:
       - '933'
       x-cache-status:
-      - hit
+      - miss
       x-goog-generation:
       - '1750240891521815'
       x-goog-hash:
@@ -3668,10 +3638,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:11.861Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:53.855Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618093246.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:11.861Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:53.855Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3695,9 +3665,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:11 GMT
+      - Tue, 22 Jul 2025 15:45:53 GMT
       ETag:
-      - W/"1a7-VldSjqYl8wsxsWoVE6KZ4MzA7/8"
+      - W/"1a7-wbHGaHaU6czH89lhR3muGmX9AMY"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3707,9 +3677,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ae449371-ea81-40d9-bf55-76c7093fb6fb
+      - 31eea1de-3835-4f5b-b90b-5ccdc6f7654a
       x-for-trace-id:
-      - 0172759f1b77412a218b4fe1d03b9853
+      - fc012ceff169cb594bec0be2f3a328d7
     status:
       code: 404
       message: Not Found
@@ -3730,10 +3700,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:12.026Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:54.023Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618093246.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:12.026Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:54.023Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3757,9 +3727,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:54 GMT
       ETag:
-      - W/"1ae-MiH/0Z8D5AyIzHZzH63PnPbym6s"
+      - W/"1ae-YNFvZ/NpTa7IAmbeW3l28tdFGTY"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3769,9 +3739,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 558d6fd9-ed43-4d7b-929c-6ee5f1d86355
+      - 82898881-032d-4c84-802a-ddfbbecb6192
       x-for-trace-id:
-      - d8a18c302e1d68a248603aea5ea447ab
+      - 66e20c57a43e1415ddeeba12f10a71a4
     status:
       code: 404
       message: Not Found
@@ -3792,10 +3762,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:12.181Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:54.265Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618093246.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:12.181Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:54.265Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3819,9 +3789,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:54 GMT
       ETag:
-      - W/"1aa-OIchH8UCcZRLrYoHC4dSFxkNOO4"
+      - W/"1aa-7iSQUGIT5DeEEGHgnls9/wLPV4w"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3831,9 +3801,526 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 4ca8b50c-c924-49e9-ab9c-d23e2e460177
+      - c36bf30d-80a4-467c-b73b-f6630ccd67c3
       x-for-trace-id:
-      - d267d30ca3d67b7ced2e4fdff167e910
+      - c9924ee6df26cb602c2db91b7d60f7bb
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.linux64-opt
+  response:
+    body:
+      string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.linux64-opt\",\n
+        \ \"taskId\": \"LlbCo5_kSeGBW0wM3IEbAw\",\n  \"rank\": 1750281170,\n  \"data\":
+        {},\n  \"expires\": \"2026-06-19T00:03:49.861Z\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Length:
+      - '215'
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:54 GMT
+      ETag:
+      - W/"d7-VjES3jrq8HFE5535qjgqKCdibdE"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - 1.1 google
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - c854c8bb-99f8-4c6e-a897-028904d42643
+      x-for-trace-id:
+      - 0306f66408a28ab2fc9a933816ca5e40
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/LlbCo5_kSeGBW0wM3IEbAw/artifacts
+  response:
+    body:
+      string: "{\n  \"artifacts\": [\n    {\n      \"storageType\": \"s3\",\n      \"name\":
+        \"public/build/buildhub.json\",\n      \"expires\": \"2026-06-19T00:03:49.861Z\",\n
+        \     \"contentType\": \"application/json\"\n    },\n    {\n      \"storageType\":
+        \"s3\",\n      \"name\": \"public/build/config.status\",\n      \"expires\":
+        \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mar\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mbsdiff\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/mozharness.zip\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/profile_build_resources.json\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.checksums\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.crashreporter-symbols.zip\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.fuzztest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.generated-files.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target_info.txt\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"text/plain\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jittest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.json\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsshell.zip\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.langpack.xpi\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mozinfo.json\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.tar.xz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/x-xz\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.test_packages.json\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.txt\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"text/plain\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.updater-dep.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.gz\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpt_artifacts.zip\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"text/plain\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"text/plain\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
+        \     \"expires\": \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"text/plain;
+        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"reference\",\n      \"name\":
+        \"public/logs/live.log\",\n      \"expires\": \"2026-06-19T00:03:49.861Z\",\n
+        \     \"contentType\": \"text/plain; charset=utf-8\"\n    },\n    {\n      \"storageType\":
+        \"s3\",\n      \"name\": \"public/logs/localconfig.json\",\n      \"expires\":
+        \"2026-06-19T00:03:49.861Z\",\n      \"contentType\": \"application/json\"\n
+        \   }\n  ]\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:54 GMT
+      ETag:
+      - W/"1bf6-fnjHmY7T9PWbThmGqSlIZROX6mA"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      Via:
+      - 1.1 google
+      content-length:
+      - '7158'
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 5ace5d51-7d2d-4de2-a754-15160f7a7ed8
+      x-for-trace-id:
+      - 66b9e3ddff86a7fc60312c74c4ab2e6f
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/LlbCo5_kSeGBW0wM3IEbAw/artifacts/public/build/target.json
+  response:
+    body:
+      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/LlbCo5_kSeGBW0wM3IEbAw/0/public/build/target.json\"\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Length:
+      - '131'
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:54 GMT
+      ETag:
+      - W/"83-lloYgNJu6VaWqQFVMnbDx407Hmw"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - 1.1 google
+      location:
+      - https://firefoxci.taskcluster-artifacts.net/LlbCo5_kSeGBW0wM3IEbAw/0/public/build/target.json
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - abc750b2-1825-45d1-a0be-d3205ec39ea5
+      x-for-trace-id:
+      - 449cddd2b3dd4104be1ecb909d028483
+      x-taskcluster-artifact-storage-type:
+      - s3
+    status:
+      code: 303
+      message: See Other
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefoxci.taskcluster-artifacts.net/LlbCo5_kSeGBW0wM3IEbAw/0/public/build/target.json
+  response:
+    body:
+      string: "{\n  \"as\": \"/builds/worker/fetches/sccache/sccache /builds/worker/fetches/clang/bin/clang
+        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"buildid\":
+        \"20250618211250\",\n  \"cc\": \"/builds/worker/fetches/sccache/sccache /builds/worker/fetches/clang/bin/clang
+        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"cxx\": \"/builds/worker/fetches/sccache/sccache
+        /builds/worker/fetches/clang/bin/clang++ --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n
+        \ \"host\": \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
+        \ \"moz_app_maxversion\": \"141.0a1\",\n  \"moz_app_name\": \"firefox\",\n
+        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"141.0a1\",\n
+        \ \"moz_pkg_platform\": \"linux-x86_64\",\n  \"moz_source_repo\": \"https://hg.mozilla.org/mozilla-central\",\n
+        \ \"moz_source_stamp\": \"c5a8a6790e0f809403d4e2559f9d906984ea56f7\",\n  \"moz_update_channel\":
+        \"default\",\n  \"target\": \"x86_64-pc-linux-gnu\"\n}\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - public,max-age=604800
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 22 Jul 2025 15:45:54 GMT
+      ETag:
+      - '"0553b0e64c281b7df7b88533e876e05a"'
+      Last-Modified:
+      - Thu, 19 Jun 2025 00:17:23 GMT
+      Server:
+      - UploadServer
+      Vary:
+      - Accept-Encoding
+      X-GUploader-UploadID:
+      - ABgVH8-fBpFEfoNS8y71q7_xquaVGf4UvDXYewCF-J2XNrEUe3CX65GsccH-ghh2rBUolA6Y
+      content-length:
+      - '933'
+      x-cache-status:
+      - miss
+      x-goog-generation:
+      - '1750292243339658'
+      x-goog-hash:
+      - crc32c=L/xM0A==
+      - md5=BVOw5kwoG333uIUz6HbgWg==
+      x-goog-metageneration:
+      - '1'
+      x-goog-storage-class:
+      - STANDARD
+      x-goog-stored-content-encoding:
+      - gzip
+      x-goog-stored-content-length:
+      - '350'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-07-22T15:45:55.177Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.linux64\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:55.177Z\"\n
+        \ }\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Length:
+      - '423'
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:55 GMT
+      ETag:
+      - W/"1a7-NSRgIxXyx6W7KHhQHD9XpvQ986s"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - 1.1 google
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 9f248748-4b04-4fb0-9847-65621342a8b5
+      x-for-trace-id:
+      - 9d83d6d5cfca50c6d6ad5efdb86dc24a
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.sm-linux64-opt
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-07-22T15:45:55.346Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.sm-linux64-opt\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:55.346Z\"\n
+        \ }\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Length:
+      - '430'
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:55 GMT
+      ETag:
+      - W/"1ae-1AKRklC41/KLOhsilusBNfDLqN4"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - 1.1 google
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - c7c919be-ed76-4235-adf3-12b1b09b8504
+      x-for-trace-id:
+      - 043db86bd77492360b197b8059f7b5a1
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.4
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.sm-linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-07-22T15:45:55.476Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.pushdate.2025.06.18.20250618211250.firefox.sm-linux64\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:55.476Z\"\n
+        \ }\n}"
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '900'
+      Access-Control-Request-Method:
+      - '*'
+      Alt-Svc:
+      - clear
+      Cache-Control:
+      - no-store no-cache must-revalidate
+      Content-Length:
+      - '426'
+      Content-Security-Policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 22 Jul 2025 15:45:55 GMT
+      ETag:
+      - W/"1aa-C3Y4Y3n4JWE8uIevxhxYEyJpxbw"
+      Server:
+      - openresty
+      Strict-Transport-Security:
+      - max-age=31536000
+      Via:
+      - 1.1 google
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - d7cae922-583d-4a66-a947-97f8826fbd59
+      x-for-trace-id:
+      - 766de0dfea7a44dd8c41e5f49d16554b
     status:
       code: 404
       message: Not Found
@@ -3853,8 +4340,8 @@ interactions:
   response:
     body:
       string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.pushdate.2025.06.18.latest.firefox.linux64-opt\",\n
-        \ \"taskId\": \"QtrnHxAhQ5qWs5xhv7HgBw\",\n  \"rank\": 1750239166,\n  \"data\":
-        {},\n  \"expires\": \"2026-06-18T09:36:04.879Z\"\n}"
+        \ \"taskId\": \"LlbCo5_kSeGBW0wM3IEbAw\",\n  \"rank\": 1750281170,\n  \"data\":
+        {},\n  \"expires\": \"2026-06-19T00:03:49.861Z\"\n}"
     headers:
       Access-Control-Allow-Headers:
       - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
@@ -3877,9 +4364,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:55 GMT
       ETag:
-      - W/"cf-96yiAsFxLhHh0/awC8EBN2EmhAQ"
+      - W/"cf-pfRGkGLVZgg0vfymR701FMvzQF4"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3889,9 +4376,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 26414eda-57ce-42b5-a60c-86a001c0363e
+      - bf54df9c-43b4-4292-84df-b2c376d06e7d
       x-for-trace-id:
-      - 609c79cf37d73ec7711706bc8849cbab
+      - 3ef25b77786fca6ae4b579512c0399ca
     status:
       code: 200
       message: OK
@@ -3912,10 +4399,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:12.499Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:55.739Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.latest.firefox.linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:12.499Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:55.739Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -3939,9 +4426,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:55 GMT
       ETag:
-      - W/"19f-P/l6sbXWZ3j8HI9bF8RuWQK15W0"
+      - W/"19f-g6gwLq1sq27FEPf1F+xcRU7A46k"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -3951,9 +4438,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - ef94d3d9-ec3b-4d7a-bfa5-816fd5fdc0d4
+      - 3b91da5e-b773-4ea7-8833-b0e04cef1315
       x-for-trace-id:
-      - f14e8a566b775ef877df53af7dfba7da
+      - 956d9860ee18e821ecf74afd0096134f
     status:
       code: 404
       message: Not Found
@@ -3974,10 +4461,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:12.668Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:55.893Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.latest.firefox.sm-linux64-opt\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:12.668Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:55.893Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -4001,9 +4488,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:55 GMT
       ETag:
-      - W/"1a6-c5HN+LluI1omuObdwH6kuPbjaB8"
+      - W/"1a6-H+oQLD+Z2qj8qOc2K/Tq/5XBXHI"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -4013,9 +4500,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 4e66d654-9a8c-40c4-8cd8-0ce2f73c21cd
+      - 4a76ede9-9551-4478-bc57-3033b7906fd0
       x-for-trace-id:
-      - 5ea4505f55995a18e1e5f3c077753528
+      - 5573424f948553baefd6ed7f584134fc
     status:
       code: 404
       message: Not Found
@@ -4036,10 +4523,10 @@ interactions:
     body:
       string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
         not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
-        statusCode: 404\\n* time:       2025-06-18T15:39:12.833Z\",\n  \"requestInfo\":
+        statusCode: 404\\n* time:       2025-07-22T15:45:56.015Z\",\n  \"requestInfo\":
         {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
         \"gecko.v2.mozilla-central.pushdate.2025.06.18.latest.firefox.sm-linux64\"\n
-        \   },\n    \"payload\": {},\n    \"time\": \"2025-06-18T15:39:12.833Z\"\n
+        \   },\n    \"payload\": {},\n    \"time\": \"2025-07-22T15:45:56.015Z\"\n
         \ }\n}"
     headers:
       Access-Control-Allow-Headers:
@@ -4063,9 +4550,9 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 18 Jun 2025 15:39:12 GMT
+      - Tue, 22 Jul 2025 15:45:56 GMT
       ETag:
-      - W/"1a2-sgQZCrnX+jpZy+4pE/YFsOpKF70"
+      - W/"1a2-CA1ybVt5laKGNXuwEfKyXCXBqH0"
       Server:
       - openresty
       Strict-Transport-Security:
@@ -4075,9 +4562,9 @@ interactions:
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 72e6ae6a-6fd2-476f-857a-8f0a94a82721
+      - 704041cb-a309-4786-ab2f-af7a54937261
       x-for-trace-id:
-      - fcb25804d1b19781e7a168c6d9fdf7d9
+      - d1205a10694149913daf2143ab338081
     status:
       code: 404
       message: Not Found

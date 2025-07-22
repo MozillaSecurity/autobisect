@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - text/html
       Date:
-      - Wed, 18 Jun 2025 15:39:01 GMT
+      - Tue, 22 Jul 2025 15:45:43 GMT
       Location:
       - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
       access-control-allow-origin:
@@ -55,7 +55,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 18 Jun 2025 15:39:03 GMT
+      - Tue, 22 Jul 2025 15:45:44 GMT
       Vary:
       - Accept-Encoding
       X-Cache:
@@ -63,9 +63,9 @@ interactions:
       X-Cache-Hits:
       - 0, 0
       X-Served-By:
-      - cache-pdk-kfty8610099-PDK, cache-pdk-kfty8610072-PDK
+      - cache-mia-kmia1760079-MIA, cache-mia-kmia1760085-MIA
       X-Timer:
-      - S1750261142.136619,VS0,VE921
+      - S1753199144.594145,VS0,VE643
       accept-ranges:
       - bytes
       access-control-allow-origin:
@@ -75,7 +75,7 @@ interactions:
       content-security-policy:
       - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
         img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
-        ''nonce-gHDkVKdGRsSVueavh3JMzg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        ''nonce-lZm_H5f4RhexCaNbisUBkg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
         frame-ancestors https:'
       content-type:
       - text/plain; charset=UTF-8

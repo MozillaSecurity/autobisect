@@ -21,7 +21,7 @@ interactions:
       Content-Type:
       - text/html
       Date:
-      - Wed, 18 Jun 2025 15:38:58 GMT
+      - Tue, 22 Jul 2025 15:45:41 GMT
       Location:
       - https://hg-edge.mozilla.org/mozilla-unified/raw-file/tip/js/src/shell/js.cpp
       access-control-allow-origin:
@@ -82,8 +82,7 @@ interactions:
         \ include \"jit/loong64/Simulator-loong64.h\"\n#endif\n#ifdef JS_SIMULATOR_RISCV64\n#
         \ include \"jit/riscv64/Simulator-riscv64.h\"\n#endif\n#include \"jit/BaselineCompileQueue.h\"\n#include
         \"jit/CacheIRHealth.h\"\n#include \"jit/InlinableNatives.h\"\n#include \"jit/Ion.h\"\n#include
-        \"jit/JitcodeMap.h\"\n#include \"jit/JitZone.h\"\n#include \"jit/shared/CodeGenerator-shared.h\"\n#ifdef
-        JS_CODEGEN_ARM64\n#  include \"jit/arm64/vixl/Cpu-Features-vixl.h\"\n#endif\n#include
+        \"jit/JitcodeMap.h\"\n#include \"jit/JitZone.h\"\n#include \"jit/shared/CodeGenerator-shared.h\"\n#include
         \"js/Array.h\"        // JS::NewArrayObject\n#include \"js/ArrayBuffer.h\"
         \ // JS::{CreateMappedArrayBufferContents,NewMappedArrayBufferWithContents,IsArrayBufferObject,GetArrayBufferLengthAndData}\n#include
         \"js/BuildId.h\"      // JS::BuildIdCharVector, JS::SetProcessBuildIdOp\n#include
@@ -4311,17 +4310,17 @@ interactions:
         \   nullptr,  // delProperty\n    nullptr,  // enumerate\n    nullptr,  //
         newEnumerate\n    nullptr,  // resolve\n    nullptr,  // mayResolve\n    FakeDOMObject_finalize,\n
         \   nullptr,  // call\n    nullptr,  // construct\n    nullptr,\n};\n\nstatic
-        const JSClass dom_class = {\n    \"FakeDOMObject\",\n    JSCLASS_IS_DOMJSCLASS
-        | JSCLASS_HAS_RESERVED_SLOTS(2) |\n        JSCLASS_BACKGROUND_FINALIZE | JSCLASS_PRESERVES_WRAPPER,\n
-        \   &FakeDOMObjectClassOps};\n\nstatic const JSClass* GetDomClass() { return
-        &dom_class; }\n\nstatic bool dom_genericGetter(JSContext* cx, unsigned argc,
-        JS::Value* vp) {\n  CallArgs args = CallArgsFromVp(argc, vp);\n\n  if (!args.thisv().isObject())
-        {\n    args.rval().setUndefined();\n    return true;\n  }\n\n  RootedObject
-        obj(cx, &args.thisv().toObject());\n  if (JS::GetClass(obj) != &dom_class)
-        {\n    args.rval().set(UndefinedValue());\n    return true;\n  }\n\n  JS::Value
-        val = JS::GetReservedSlot(obj, DOM_OBJECT_SLOT);\n\n  const JSJitInfo* info
-        = FUNCTION_VALUE_TO_JITINFO(args.calleev());\n  MOZ_ASSERT(info->type() ==
-        JSJitInfo::Getter);\n  JSJitGetterOp getter = info->getter;\n  return getter(cx,
+        const JSClass dom_class = {\"FakeDOMObject\",\n                                  JSCLASS_IS_DOMJSCLASS
+        |\n                                      JSCLASS_HAS_RESERVED_SLOTS(2) |\n
+        \                                     JSCLASS_BACKGROUND_FINALIZE,\n                                  &FakeDOMObjectClassOps};\n\nstatic
+        const JSClass* GetDomClass() { return &dom_class; }\n\nstatic bool dom_genericGetter(JSContext*
+        cx, unsigned argc, JS::Value* vp) {\n  CallArgs args = CallArgsFromVp(argc,
+        vp);\n\n  if (!args.thisv().isObject()) {\n    args.rval().setUndefined();\n
+        \   return true;\n  }\n\n  RootedObject obj(cx, &args.thisv().toObject());\n
+        \ if (JS::GetClass(obj) != &dom_class) {\n    args.rval().set(UndefinedValue());\n
+        \   return true;\n  }\n\n  JS::Value val = JS::GetReservedSlot(obj, DOM_OBJECT_SLOT);\n\n
+        \ const JSJitInfo* info = FUNCTION_VALUE_TO_JITINFO(args.calleev());\n  MOZ_ASSERT(info->type()
+        == JSJitInfo::Getter);\n  JSJitGetterOp getter = info->getter;\n  return getter(cx,
         obj, val.toPrivate(), JSJitGetterCallArgs(args));\n}\n\nstatic bool dom_genericSetter(JSContext*
         cx, unsigned argc, JS::Value* vp) {\n  CallArgs args = CallArgsFromVp(argc,
         vp);\n\n  if (args.length() < 1 || !args.thisv().isObject()) {\n    args.rval().setUndefined();\n
@@ -4940,19 +4939,18 @@ interactions:
         AVX. \"\n                        \"(no-op on platforms other than x86 and
         x64).\") ||\n      !op.addBoolOption('\\0', \"no-avx\",\n                        \"No-op.
         AVX is currently disabled by default.\") ||\n#endif\n      !op.addBoolOption('\\0',
-        \"no-fjcvtzs\",\n                        \"Pretend CPU does not support FJCVTZS
-        instruction.\") ||\n      !op.addBoolOption('\\0', \"more-compartments\",\n
-        \                       \"Make newGlobal default to creating a new \"\n                        \"compartment.\")
-        ||\n      !op.addBoolOption('\\0', \"fuzzing-safe\",\n                        \"Don't
-        expose functions that aren't safe for \"\n                        \"fuzzers
-        to call\") ||\n#ifdef DEBUG\n      !op.addBoolOption('\\0', \"differential-testing\",\n
-        \                       \"Avoid random/undefined behavior that disturbs \"\n
-        \                       \"differential testing (correctness fuzzing)\") ||\n#endif\n
-        \     !op.addBoolOption('\\0', \"disable-oom-functions\",\n                        \"Disable
-        functions that cause \"\n                        \"artificial OOMs\") ||\n
-        \     !op.addBoolOption('\\0', \"no-threads\", \"Disable helper threads\")
-        ||\n      !op.addBoolOption(\n          '\\0', \"no-jit-backend\",\n          \"Disable
-        the JIT backend completely for this process\") ||\n#ifdef DEBUG\n      !op.addBoolOption('\\0',
+        \"more-compartments\",\n                        \"Make newGlobal default to
+        creating a new \"\n                        \"compartment.\") ||\n      !op.addBoolOption('\\0',
+        \"fuzzing-safe\",\n                        \"Don't expose functions that aren't
+        safe for \"\n                        \"fuzzers to call\") ||\n#ifdef DEBUG\n
+        \     !op.addBoolOption('\\0', \"differential-testing\",\n                        \"Avoid
+        random/undefined behavior that disturbs \"\n                        \"differential
+        testing (correctness fuzzing)\") ||\n#endif\n      !op.addBoolOption('\\0',
+        \"disable-oom-functions\",\n                        \"Disable functions that
+        cause \"\n                        \"artificial OOMs\") ||\n      !op.addBoolOption('\\0',
+        \"no-threads\", \"Disable helper threads\") ||\n      !op.addBoolOption(\n
+        \         '\\0', \"no-jit-backend\",\n          \"Disable the JIT backend
+        completely for this process\") ||\n#ifdef DEBUG\n      !op.addBoolOption('\\0',
         \"dump-entrained-variables\",\n                        \"Print variables which
         are \"\n                        \"unnecessarily entrained by inner functions\")
         ||\n#endif\n      !op.addBoolOption('\\0', \"no-ggc\", \"Disable Generational
@@ -5055,14 +5053,13 @@ interactions:
         \"disable-explicit-resource-management\",\n                        \"Disable
         Explicit Resource Management\") ||\n      !op.addBoolOption('\\0', \"enable-temporal\",
         \"Enable Temporal\") ||\n      !op.addBoolOption('\\0', \"enable-upsert\",
-        \"Enable Upsert proposal\") ||\n      !op.addBoolOption('\\0', \"enable-arraybuffer-immutable\",\n
-        \                       \"Enable immutable ArrayBuffers\")) {\n    return
-        false;\n  }\n\n  op.setArgTerminatesOptions(\"script\", true);\n  op.setArgCapturesRest(\"scriptArgs\");\n\n
-        \ // If --fuzzing-safe is used, print a warning for unknown shell flags instead\n
-        \ // of aborting execution.\n  op.setIgnoresUnknownOptions(\"fuzzing-safe\",
-        true);\n\n  return true;\n}\n\nbool SetGlobalOptionsPreJSInit(const OptionParser&
-        op) {\n  if (op.getBoolOption(\"fuzzing-safe\")) {\n    fuzzingSafe = true;\n
-        \ } else {\n    fuzzingSafe =\n        (getenv(\"MOZ_FUZZING_SAFE\") && getenv(\"MOZ_FUZZING_SAFE\")[0]
+        \"Enable Upsert proposal\")) {\n    return false;\n  }\n\n  op.setArgTerminatesOptions(\"script\",
+        true);\n  op.setArgCapturesRest(\"scriptArgs\");\n\n  // If --fuzzing-safe
+        is used, print a warning for unknown shell flags instead\n  // of aborting
+        execution.\n  op.setIgnoresUnknownOptions(\"fuzzing-safe\", true);\n\n  return
+        true;\n}\n\nbool SetGlobalOptionsPreJSInit(const OptionParser& op) {\n  if
+        (op.getBoolOption(\"fuzzing-safe\")) {\n    fuzzingSafe = true;\n  } else
+        {\n    fuzzingSafe =\n        (getenv(\"MOZ_FUZZING_SAFE\") && getenv(\"MOZ_FUZZING_SAFE\")[0]
         != '0');\n  }\n\n  for (MultiStringRange args = op.getMultiStringOption(\"setpref\");\n
         \      !args.empty(); args.popFront()) {\n    if (!SetPref(args.front()))
         {\n      return false;\n    }\n  }\n\n  // Override pref values for prefs
@@ -5083,7 +5080,6 @@ interactions:
         \ }\n  if (op.getBoolOption(\"enable-iterator-range\")) {\n    JS::Prefs::setAtStartup_experimental_iterator_range(true);\n
         \ }\n  if (op.getBoolOption(\"enable-joint-iteration\")) {\n    JS::Prefs::setAtStartup_experimental_joint_iteration(true);\n
         \ }\n  if (op.getBoolOption(\"enable-upsert\")) {\n    JS::Prefs::setAtStartup_experimental_upsert(true);\n
-        \ }\n  if (op.getBoolOption(\"enable-arraybuffer-immutable\")) {\n    JS::Prefs::setAtStartup_experimental_arraybuffer_immutable(true);\n
         \ }\n#endif\n#ifdef ENABLE_EXPLICIT_RESOURCE_MANAGEMENT\n  if (op.getBoolOption(\"enable-explicit-resource-management\"))
         {\n    JS::Prefs::set_experimental_explicit_resource_management(true);\n  }\n
         \ if (op.getBoolOption(\"disable-explicit-resource-management\")) {\n    JS::Prefs::set_experimental_explicit_resource_management(false);\n
@@ -5136,9 +5132,7 @@ interactions:
         {\n    js::jit::CPUInfo::SetSSE41Disabled();\n    if (!sCompilerProcessFlags.append(\"--no-sse41\"))
         {\n      return false;\n    }\n  }\n  if (op.getBoolOption(\"no-sse42\"))
         {\n    js::jit::CPUInfo::SetSSE42Disabled();\n    if (!sCompilerProcessFlags.append(\"--no-sse42\"))
-        {\n      return false;\n    }\n  }\n#endif\n#if defined(JS_CODEGEN_ARM64)\n
-        \ if (op.getBoolOption(\"no-fjcvtzs\")) {\n    vixl::CPUFeatures fjcvtzs(vixl::CPUFeatures::kJSCVT);\n
-        \   fjcvtzs.DisableGlobally();\n  }\n#endif\n#ifndef __wasi__\n  if (op.getBoolOption(\"disable-wasm-huge-memory\"))
+        {\n      return false;\n    }\n  }\n#endif\n#ifndef __wasi__\n  if (op.getBoolOption(\"disable-wasm-huge-memory\"))
         {\n    JS::Prefs::setAtStartup_wasm_disable_huge_memory(true);\n    if (!sCompilerProcessFlags.append(\"--disable-wasm-huge-memory\"))
         {\n      return false;\n    }\n  }\n#endif\n\n  if (op.getBoolOption(\"disable-decommit\"))
         {\n    gc::DisableDecommit();\n  }\n\n  return true;\n}\n\nbool SetGlobalOptionsPostJSInit(const
@@ -5475,7 +5469,7 @@ interactions:
       Connection:
       - keep-alive
       Date:
-      - Wed, 18 Jun 2025 15:39:01 GMT
+      - Tue, 22 Jul 2025 15:45:42 GMT
       Vary:
       - Accept-Encoding
       X-Cache:
@@ -5483,9 +5477,9 @@ interactions:
       X-Cache-Hits:
       - 0, 0
       X-Served-By:
-      - cache-pdk-kfty8610074-PDK, cache-pdk-kfty8610033-PDK
+      - cache-mia-kmia1760095-MIA, cache-mia-kmia1760095-MIA
       X-Timer:
-      - S1750261140.631359,VS0,VE1833
+      - S1753199141.488447,VS0,VE1430
       accept-ranges:
       - bytes
       access-control-allow-origin:
@@ -5495,11 +5489,11 @@ interactions:
       content-disposition:
       - inline; filename="js.cpp"
       content-length:
-      - '435314'
+      - '434782'
       content-security-policy:
       - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
         img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
-        ''nonce-g5FcCdDBTWO2DTC0GqjFXw''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        ''nonce-vjzxDbN0TUKJdgb_bd3ijg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
         frame-ancestors https:'
       content-type:
       - text/plain; charset="UTF-8"

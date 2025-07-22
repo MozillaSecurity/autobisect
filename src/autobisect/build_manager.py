@@ -60,7 +60,7 @@ class BuildManager(object):
     @property
     def current_build_size(self) -> int:
         """Return the total size of all cached builds."""
-        return sum(os.path.getsize(f) for f in self.build_dir.rglob("*"))
+        return sum(os.path.getsize(f) for f in self.build_dir.rglob("*") if f.exists())
 
     def enumerate_builds(self) -> List[Path]:
         """

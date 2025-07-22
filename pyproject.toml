@@ -3,7 +3,40 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core>=1.5.0"]
 
 [project]
-requires-python = ">=3.9"
+authors = [
+  {email = "jkratzer@mozilla.com", name = "Jason Kratzer"}
+]
+classifiers = [
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+  "Topic :: Software Development :: Testing"
+]
+dependencies = [
+  "fuzzfetch>=11.0.0,<12.0.0",
+  "grizzly-framework>=0.23.0,<0.24.0",
+  "lithium-reducer>=4.0.0,<5.0.0",
+  "platformdirs>=4.2.2,<5.0.0",
+  "twine>=6.1.0,<7.0.0"
+]
+description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
+homepage = "https://github.com/MozillaSecurity/autobisect"
+include = ["tests/**"]
+keywords = ["bisection", "fuzz", "fuzzing", "security", "test", "testing"]
+license = "MPL-2.0"
+maintainers = [
+  {email = "fuzzing@mozilla.com", name = "Mozilla Fuzzing Team"}
+]
+name = "autobisect"
+packages = [{from = "src", include = "autobisect"}]
+readme = "README.md"
+repository = "https://github.com/MozillaSecurity/autobisect"
+requires-python = ">=3.9,<4.0"
+version = "8.6.0"
+
+[project.scripts]
+autobisect = "autobisect.main:main"
 
 [tool.coverage.report]
 exclude_lines = [
@@ -31,39 +64,6 @@ ignore_missing_imports = "True"
 implicit_reexport = "True"
 strict = "True"
 
-[tool.poetry]
-authors = [
-  "Jason Kratzer <jkratzer@mozilla.com>"
-]
-classifiers = [
-  "Intended Audience :: Developers",
-  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
-  "Programming Language :: Python :: 3",
-  "Topic :: Security",
-  "Topic :: Software Development :: Testing"
-]
-description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
-homepage = "https://github.com/MozillaSecurity/autobisect"
-include = ["tests/**"]
-keywords = ["bisection", "fuzz", "fuzzing", "security", "test", "testing"]
-license = "MPL-2.0"
-maintainers = [
-  "Mozilla Fuzzing Team <fuzzing@mozilla.com>"
-]
-name = "autobisect"
-packages = [{from = "src", include = "autobisect"}]
-readme = "README.md"
-repository = "https://github.com/MozillaSecurity/autobisect"
-version = "8.6.0"
-
-[tool.poetry.dependencies]
-fuzzfetch = "^11.0.0"
-grizzly-framework = "^0.23.0"
-lithium-reducer = "^4.0.0"
-platformdirs = "^4.2.2"
-python = "^3.9"
-twine = "^6.1.0"
-
 [tool.poetry.group.dev.dependencies]
 black = "^25.1.0"
 codecov-cli = "^11.0.3"
@@ -90,9 +90,6 @@ types-freezegun = "^1.1.10"
 types-pytz = "^2025.1.0.20250204"
 types-requests = "^2.32.0.20250306"
 types-six = "^1.17.0.20250304"
-
-[tool.poetry.scripts]
-autobisect = "autobisect.main:main"
 
 [tool.pylint.format]
 max-line-length = 88

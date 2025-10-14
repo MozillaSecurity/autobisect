@@ -11,6 +11,7 @@ from grizzly.common.frontend import Exit
 
 from autobisect.evaluators import BrowserEvaluator, EvaluatorResult
 from autobisect.evaluators.browser.browser import BrowserEvaluatorException
+from grizzly.common.storage import TestCase
 
 
 def not_linux():
@@ -100,11 +101,7 @@ def test_launch_simple(mocker, tmp_path, scan_dir):
     testcase.touch()
 
     # Mock TestCase.load to verify correct behavior
-    mock_testcase = MagicMock()
-    mock_load = mocker.patch(
-        "autobisect.evaluators.browser.browser.TestCase.load",
-        return_value=mock_testcase,
-    )
+    testcase_spy = mocker.spy(TestCase, "load")
 
     evaluator = BrowserEvaluator(testcase, scan_dir=scan_dir)
 
@@ -114,12 +111,8 @@ def test_launch_simple(mocker, tmp_path, scan_dir):
     )
 
     # Verify TestCase.load behavior based on scan_dir
-    if scan_dir:
-        # When scan_dir=True, load is called with testcase.parent (test_dir in this case)
-        mock_load.assert_called_with(test_dir, catalog=True)
-        assert mock_testcase.entry_point == str(testcase)
-    else:
-        mock_load.assert_called_with(testcase, catalog=False)
+    testcase_spy.assert_called_once_with(test_dir, testcase, catalog=scan_dir)
+    assert testcase_spy.spy_return.entry_point == str(testcase.name)
 
     assert (
         evaluator.launch(binary, testcase, scan_dir=scan_dir)

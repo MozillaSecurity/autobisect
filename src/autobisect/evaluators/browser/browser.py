@@ -183,11 +183,7 @@ class BrowserEvaluator(Evaluator):
             raise BrowserEvaluatorException(f"Binary path does not exist ({binary})!")
 
         # Create testcase
-        if scan_dir:
-            testcase = TestCase.load(test_path.parent, catalog=scan_dir)
-            testcase.entry_point = str(test_path)
-        else:
-            testcase = TestCase.load(test_path, catalog=scan_dir)
+        testcase = TestCase.load(test_path.parent, test_path, catalog=scan_dir)
 
         if self.env_vars:
             for key, value in self.env_vars.items():

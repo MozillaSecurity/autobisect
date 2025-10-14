@@ -46,6 +46,11 @@ class BrowserArgs(BisectCommonArgs):
             action="store_true",
             help="Don't use the harness for redirection.  Browser will relaunch on every attempt.",
         )
+        launcher_grp.add_argument(
+            "--scan-dir",
+            action="store_true",
+            help="Serve all files in the directory of the testcase.",
+        )
 
         reporter_grp = self.parser.add_argument_group("Reporter Arguments")
         reporter_grp.add_argument(

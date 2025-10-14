@@ -35,17 +35,24 @@ def test_verify_build_status(mocker):
     assert browser.verify_build(Path("firefox")) is False
 
 
-def test_evaluate_testcase_simple(mocker, tmp_path):
-    """Test that evaluate_testcase fails when using a non-existent build path."""
-    mocker.patch(
+@pytest.mark.parametrize("scan_dir", (True, False))
+def test_evaluate_testcase_simple(mocker, tmp_path, scan_dir):
+    """Test that evaluate_testcase works correctly and passes scan_dir to launch."""
+    mock_launch = mocker.patch(
         "autobisect.BrowserEvaluator.launch",
         return_value=EvaluatorResult.BUILD_PASSED,
     )
-    browser = BrowserEvaluator(Path("testcase.html"))
+    browser = BrowserEvaluator(Path("testcase.html"), scan_dir=scan_dir)
     binary_name = "firefox.exe" if system() == "Windows" else "firefox"
     (tmp_path / binary_name).touch()
 
     assert browser.evaluate_testcase(tmp_path) == EvaluatorResult.BUILD_PASSED
+
+    # Verify launch was called with correct scan_dir parameter
+    # Second call is the actual testcase evaluation (first is verify_build)
+    assert mock_launch.call_count == 2
+    second_call_kwargs = mock_launch.call_args_list[1][1]
+    assert second_call_kwargs.get("scan_dir") == scan_dir
 
 
 def test_evaluate_testcase_non_existent_binary(tmp_path):
@@ -76,22 +83,48 @@ def test_evaluate_testcase_system_windows(mocker, tmp_path):
     spy.assert_called_once_with(binary_path)
 
 
-def test_launch_simple(mocker, tmp_path):
-    """Test that launch returns the expected evaluator result."""
+@pytest.mark.parametrize("scan_dir", (True, False))
+def test_launch_simple(mocker, tmp_path, scan_dir):
+    """Test that launch returns the expected evaluator result and handles scan_dir correctly."""
     mocker.patch(
         "grizzly.replay.ReplayManager.main",
         side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
 
+    # Create test structure
+    test_dir = tmp_path / "tests" if scan_dir else tmp_path
+    test_dir.mkdir(exist_ok=True)
     binary = tmp_path / "firefox"
     binary.touch()
-    testcase = tmp_path / "testcase.html"
+    testcase = test_dir / "testcase.html"
     testcase.touch()
 
-    evaluator = BrowserEvaluator(testcase)
+    # Mock TestCase.load to verify correct behavior
+    mock_testcase = MagicMock()
+    mock_load = mocker.patch(
+        "autobisect.evaluators.browser.browser.TestCase.load",
+        return_value=mock_testcase,
+    )
 
-    assert evaluator.launch(binary, testcase) == EvaluatorResult.BUILD_CRASHED
-    assert evaluator.launch(binary, testcase) == EvaluatorResult.BUILD_PASSED
+    evaluator = BrowserEvaluator(testcase, scan_dir=scan_dir)
+
+    assert (
+        evaluator.launch(binary, testcase, scan_dir=scan_dir)
+        == EvaluatorResult.BUILD_CRASHED
+    )
+
+    # Verify TestCase.load behavior based on scan_dir
+    if scan_dir:
+        # When scan_dir=True, load is called with testcase.parent (test_dir in this case)
+        mock_load.assert_called_with(test_dir, catalog=True)
+        assert mock_testcase.entry_point == str(testcase)
+    else:
+        mock_load.assert_called_with(testcase, catalog=False)
+
+    assert (
+        evaluator.launch(binary, testcase, scan_dir=scan_dir)
+        == EvaluatorResult.BUILD_PASSED
+    )
 
 
 def test_launch_non_existent_binary(tmp_path):
@@ -113,6 +146,7 @@ def test_launch_non_existent_binary(tmp_path):
 @pytest.mark.parametrize("ignore", ("log-limit", "memory", "timeout"))
 @pytest.mark.parametrize("pernosco", (False, pytest.param(True, marks=not_linux())))
 @pytest.mark.parametrize("valgrind", (False, pytest.param(True, marks=not_linux())))
+@pytest.mark.parametrize("scan_dir", (True, False))
 def test_grizzly_arg_parsing(
     mocker,
     tmp_path: Path,
@@ -121,6 +155,7 @@ def test_grizzly_arg_parsing(
     ignore: str,
     pernosco: bool,
     valgrind: bool,
+    scan_dir: bool,
 ):
     """Ensure that args are accepted by grizzly."""
     binary = tmp_path / "firefox"
@@ -152,6 +187,7 @@ def test_grizzly_arg_parsing(
         launch_timeout=300,
         prefs=prefs,
         relaunch=1,
+        scan_dir=scan_dir,
         use_harness=harness,
         use_valgrind=valgrind,
         logs=tmp_path,
@@ -159,6 +195,9 @@ def test_grizzly_arg_parsing(
         repeat=10,
     )
     evaluator.parse_args(binary, tmp_path, verify=False)
+
+    # Verify scan_dir attribute is set correctly
+    assert evaluator.scan_dir == scan_dir
 
 
 def test_grizzly_arg_parsing_no_pernosco_on_verify(tmp_path: Path):

@@ -59,6 +59,7 @@ class BrowserEvaluator(Evaluator):
         self.prefs = kwargs.get("prefs", None)
         self.relaunch = kwargs.get("relaunch", 1)
         self.repeat = kwargs.get("repeat", None)
+        self.scan_dir = kwargs.get("scan_dir", False)
         self.timeout = kwargs.get("timeout", None)
         self.time_limit = kwargs.get("time_limit", None)
         self.use_harness = kwargs.get("use_harness", None)
@@ -153,7 +154,7 @@ class BrowserEvaluator(Evaluator):
 
         if self.verify_build(binary_path):
             LOG.info("> Launching build with testcase...")
-            result = self.launch(binary_path, self.testcase, scan_dir=True)
+            result = self.launch(binary_path, self.testcase, scan_dir=self.scan_dir)
 
             if result == EvaluatorResult.BUILD_CRASHED:
                 LOG.info(">> Build crashed!")
@@ -182,7 +183,12 @@ class BrowserEvaluator(Evaluator):
             raise BrowserEvaluatorException(f"Binary path does not exist ({binary})!")
 
         # Create testcase
-        testcase = TestCase.load(test_path, catalog=scan_dir)
+        if scan_dir:
+            testcase = TestCase.load(test_path.parent, catalog=scan_dir)
+            testcase.entry_point = str(test_path)
+        else:
+            testcase = TestCase.load(test_path, catalog=scan_dir)
+
         if self.env_vars:
             for key, value in self.env_vars.items():
                 testcase.env_vars[key] = value

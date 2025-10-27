@@ -956,6 +956,27 @@ fasteners = ">=0.14.1"
 requests = ">=2.20.1"
 
 [[package]]
+name = "fxpoppet"
+version = "0.3.5"
+description = "A Python module that enables the automation of Firefox on Android"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "fxpoppet-0.3.5-py3-none-any.whl", hash = "sha256:77d84310e2a06573b39e5f52f83b82151c1d947f88dd44b92e16eb2b76f07c72"},
+    {file = "fxpoppet-0.3.5.tar.gz", hash = "sha256:b88db0aaba9efba22e9154fb9141cf250377bd7f5923f5dbb57f4075fc1b8e2b"},
+]
+
+[package.dependencies]
+ffpuppet = ">=0.16.0"
+fuzzfetch = "*"
+PyYAML = "*"
+xvfbwrapper = "*"
+
+[package.extras]
+dev = ["pre-commit", "tox"]
+
+[[package]]
 name = "gitdb"
 version = "4.0.12"
 description = "Git Object Database"
@@ -1036,14 +1057,14 @@ test = ["coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mock ; python_version < \"3.
 
 [[package]]
 name = "grizzly-framework"
-version = "0.23.0"
+version = "0.24.0"
 description = "A framework for developing and running browser fuzzers"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "grizzly_framework-0.23.0-py3-none-any.whl", hash = "sha256:d83ace2f1f3e921534b53c02f20ab5cc1362b8840a8c4add39451923fd3629cb"},
-    {file = "grizzly_framework-0.23.0.tar.gz", hash = "sha256:e21effc24f089553b62f74e94735f970e29a21bb25c4f9fea7dacc83ca51db22"},
+    {file = "grizzly_framework-0.24.0-py3-none-any.whl", hash = "sha256:191910d4d7ad2e1bd859a442412e76bf3fa90090f6c7639228c006356ef921e2"},
+    {file = "grizzly_framework-0.24.0.tar.gz", hash = "sha256:344d31ce74c050fa39ef0441e7fdb17e37daeaf0e87dd65f2950a1c1bda4b7de"},
 ]
 
 [package.dependencies]
@@ -1052,8 +1073,9 @@ bugsy = "*"
 cryptography = "*"
 cssbeautifier = "*"
 fasteners = "*"
-ffpuppet = ">=0.16.3"
+ffpuppet = ">=0.17.0"
 FuzzManager = "*"
+fxpoppet = ">=0.3.0"
 jsbeautifier = "*"
 lithium-reducer = ">=3.0.0"
 prefpicker = ">=1.23.0"
@@ -3449,7 +3471,6 @@ description = "Manage headless displays with Xvfb (X virtual framebuffer)"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "sys_platform == \"linux\""
 files = [
     {file = "xvfbwrapper-0.2.13-py3-none-any.whl", hash = "sha256:2f215cacd4a02112cf272a5e369229001003171a7bab7342720d0db46b814e87"},
     {file = "xvfbwrapper-0.2.13.tar.gz", hash = "sha256:a2e476c9a4f19737fe2b2d0b801e66f0ff701fda33d986a4bf34ddc414754102"},
@@ -3598,4 +3619,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "81bfe3d341c5ab8f8c59adf3d453cf96a7d399bcb8f7dca0941b7e1e5aa9ba06"
+content-hash = "20091c9fd63db8662e7d6d4514573e6f0341f58e94d3f57ac8c60caa93c9cbee"

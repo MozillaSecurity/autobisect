@@ -115,7 +115,7 @@ description = "Backport of CPython tarfile module"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "python_version <= \"3.11\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\""
+markers = "platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and python_version <= \"3.11\""
 files = [
     {file = "backports.tarfile-1.2.0-py3-none-any.whl", hash = "sha256:77e284d754527b01fb1e6fa8a1afe577858ebe4e9dad8919e34c862cb399bc34"},
     {file = "backports_tarfile-1.2.0.tar.gz", hash = "sha256:d75e02c268746e1b8144c278978b6e98e85de6ad16f8e4b0844a154557eca991"},
@@ -584,7 +584,7 @@ description = "cryptography is a package which provides cryptographic recipes an
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "python_version < \"3.11\" and (python_version == \"3.9\" or platform_python_implementation == \"PyPy\")"
+markers = "python_version == \"3.9\" or platform_python_implementation == \"PyPy\" and python_version < \"3.11\""
 files = [
     {file = "cryptography-43.0.3-cp37-abi3-macosx_10_9_universal2.whl", hash = "sha256:bf7a1932ac4176486eab36a19ed4c0492da5d97123f1406cf15e41b05e787d2e"},
     {file = "cryptography-43.0.3-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:63efa177ff54aec6e1c0aefaa1a241232dcd37413835a9b674b6e3f0ae2bfd3e"},
@@ -921,14 +921,14 @@ python-dateutil = ">=2.7"
 
 [[package]]
 name = "fuzzfetch"
-version = "11.0.1"
+version = "13.0.0"
 description = "Downloader for firefox/jsshell builds."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "fuzzfetch-11.0.1-py3-none-any.whl", hash = "sha256:82ecdc4f3e36c5054cc78b0f9c79199e4a46b70fe98a65fe1f4fe7e0c1eaab9a"},
-    {file = "fuzzfetch-11.0.1.tar.gz", hash = "sha256:5458ff5fd608b77505bd6c22bd6654d0dc6befb15a49d124f3eec93281f6b62e"},
+    {file = "fuzzfetch-13.0.0-py3-none-any.whl", hash = "sha256:c8f6e71c069e11fabd56d522eba8c304ffddb7bf25df68972bba2d09e50cecbe"},
+    {file = "fuzzfetch-13.0.0.tar.gz", hash = "sha256:4f9ec92cc6add6587a8eaedf9a44679c78608f6d080f96d2dd59f6866754f277"},
 ]
 
 [package.dependencies]
@@ -937,6 +937,7 @@ requests = "*"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
+sentry = ["psutil", "sentry_sdk"]
 
 [[package]]
 name = "fuzzmanager"
@@ -1453,7 +1454,7 @@ description = "Python port of markdown-it. Markdown parsing, done right!"
 optional = false
 python-versions = ">=3.8"
 groups = ["main", "dev"]
-markers = "python_version < \"3.11\" and (python_version == \"3.9\" or platform_python_implementation == \"PyPy\")"
+markers = "python_version == \"3.9\" or platform_python_implementation == \"PyPy\" and python_version < \"3.11\""
 files = [
     {file = "markdown-it-py-3.0.0.tar.gz", hash = "sha256:e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"},
     {file = "markdown_it_py-3.0.0-py3-none-any.whl", hash = "sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1"},
@@ -2602,7 +2603,7 @@ description = "A (partial) reimplementation of pywin32 using ctypes/cffi"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
-markers = "platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"win32\""
+markers = "sys_platform == \"win32\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\""
 files = [
     {file = "pywin32-ctypes-0.2.3.tar.gz", hash = "sha256:d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755"},
     {file = "pywin32_ctypes-0.2.3-py3-none-any.whl", hash = "sha256:8a1513379d709975552d202d942d9837758905c8d01eb82b8bcc30918929e7b8"},
@@ -3276,7 +3277,7 @@ description = "Automatically mock your HTTP interactions to simplify and speed u
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
-markers = "python_version < \"3.11\" and (python_version == \"3.9\" or platform_python_implementation == \"PyPy\")"
+markers = "python_version == \"3.9\" or platform_python_implementation == \"PyPy\" and python_version < \"3.11\""
 files = [
     {file = "vcrpy-4.3.0-py2.py3-none-any.whl", hash = "sha256:8fbd4be412e8a7f35f623dd61034e6380a1c8dbd0edf6e87277a3289f6e98093"},
     {file = "vcrpy-4.3.0.tar.gz", hash = "sha256:49c270ce67e826dba027d83e20d25b67a5885487697e97bca6dbdf53d750a0ac"},
@@ -3597,4 +3598,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "543e24b7d975899888e5f2f1bdb29e934c0854a42ac7087c74a88f02bbb2c507"
+content-hash = "81bfe3d341c5ab8f8c59adf3d453cf96a7d399bcb8f7dca0941b7e1e5aa9ba06"

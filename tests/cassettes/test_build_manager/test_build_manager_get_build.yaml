@@ -9,51 +9,63 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
     uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.linux64-opt
   response:
     body:
       string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.shippable.latest.firefox.linux64-opt\",\n
-        \ \"taskId\": \"XkdRcPTKS2iJz54FDWHOvg\",\n  \"rank\": 1753176866,\n  \"data\":
-        {},\n  \"expires\": \"2026-07-22T09:41:25.556Z\"\n}"
+        \ \"taskId\": \"aCFB2npAT5yJKgcH4gQWow\",\n  \"rank\": 1765433606,\n  \"data\":
+        {},\n  \"expires\": \"2026-12-11T06:19:41.962Z\"\n}"
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
+      Connection:
+      - keep-alive
       Content-Length:
       - '197'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
-      ETag:
-      - W/"c5-vFD6Cj7tUH0YOJdlH3O60dyrGNs"
-      Server:
+      - Thu, 11 Dec 2025 17:57:07 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780110-PDK, cache-pdk-kpdk1780110-PDK
+      X-Timer:
+      - S1765475827.115582,VS0,VE110
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"c5-LiVsVO/BKJpK8EzPHYb1z1ur/3E"
+      server:
       - openresty
-      Strict-Transport-Security:
+      strict-transport-security:
       - max-age=31536000
-      Via:
-      - 1.1 google
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - dc9708ad-7643-4341-9463-03db7acc67b6
+      - 6010f106-23d0-4230-b266-189adb5ba63a
       x-for-trace-id:
-      - 13be1452171a1c70c3cdc7e22d23f945
+      - f4a0811b4447089e2c22acc78a370975
     status:
       code: 200
       message: OK
@@ -67,141 +79,670 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/XkdRcPTKS2iJz54FDWHOvg/artifacts
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:07.374Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.shippable.latest.firefox.linux64\"\n    },\n    \"payload\":
+        {},\n    \"time\": \"2025-12-11T17:57:07.374Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '405'
+      Date:
+      - Thu, 11 Dec 2025 17:57:07 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780107-PDK, cache-pdk-kpdk1780104-PDK
+      X-Timer:
+      - S1765475827.307997,VS0,VE111
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"195-Tl2fNUPrxBncgulvrUOPBhQ6LqE"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - c9b3be95-e392-4609-a0f7-4094a3ee34da
+      x-for-trace-id:
+      - 2ac974ec816ac54b7d7fc3b099624dec
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.sm-linux64-opt
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:07.580Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.shippable.latest.firefox.sm-linux64-opt\"\n    },\n
+        \   \"payload\": {},\n    \"time\": \"2025-12-11T17:57:07.580Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '412'
+      Date:
+      - Thu, 11 Dec 2025 17:57:07 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780087-PDK, cache-pdk-kpdk1780143-PDK
+      X-Timer:
+      - S1765475828.509178,VS0,VE107
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"19c-qU4Ym+KHfwMXPM5ZagnFw7bUDQQ"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - f0022c64-02ea-4dd7-a12a-a3414119e617
+      x-for-trace-id:
+      - 7aaec54daf71bc0e22655f49c33ba364
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.sm-linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:07.779Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.shippable.latest.firefox.sm-linux64\"\n    },\n
+        \   \"payload\": {},\n    \"time\": \"2025-12-11T17:57:07.779Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '408'
+      Date:
+      - Thu, 11 Dec 2025 17:57:07 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780142-PDK, cache-pdk-kpdk1780111-PDK
+      X-Timer:
+      - S1765475828.707250,VS0,VE116
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"198-U0ncFFv0DGd3OdQ0BTwHL/PSFt8"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 9033e642-a456-49e5-bb89-8e2b3c074f80
+      x-for-trace-id:
+      - fb45b72dcb896b71039ad1c040e8f1f3
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.firefox.linux64-opt
+  response:
+    body:
+      string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.latest.firefox.linux64-opt\",\n
+        \ \"taskId\": \"Pt6knlQ_RX2dkvPCEFBG6g\",\n  \"rank\": 1765472204,\n  \"data\":
+        {},\n  \"expires\": \"2026-12-11T16:58:21.993Z\"\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '187'
+      Date:
+      - Thu, 11 Dec 2025 17:57:08 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780125-PDK, cache-pdk-kpdk1780021-PDK
+      X-Timer:
+      - S1765475828.893241,VS0,VE110
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"bb-1+ghfGT9kMH553DV6aK3b6b75yA"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 173f99df-cd95-43cb-9774-656bd380ff46
+      x-for-trace-id:
+      - b8dcb87091d19856b6a057f63633a78e
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.firefox.linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:08.164Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.latest.firefox.linux64\"\n    },\n    \"payload\":
+        {},\n    \"time\": \"2025-12-11T17:57:08.164Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '395'
+      Date:
+      - Thu, 11 Dec 2025 17:57:08 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780119-PDK, cache-pdk-kpdk1780112-PDK
+      X-Timer:
+      - S1765475828.091925,VS0,VE131
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"18b-8W33vqoyR9GK7y4oCm5fvtA4bp4"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 03e50c47-ee51-4424-8d57-a94fccd7391c
+      x-for-trace-id:
+      - 80bcafde8034c94518eb5027ae782d2c
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.firefox.sm-linux64-opt
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:08.361Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.latest.firefox.sm-linux64-opt\"\n    },\n    \"payload\":
+        {},\n    \"time\": \"2025-12-11T17:57:08.361Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '402'
+      Date:
+      - Thu, 11 Dec 2025 17:57:08 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780093-PDK, cache-pdk-kpdk1780109-PDK
+      X-Timer:
+      - S1765475828.299579,VS0,VE108
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"192-NGpHUwoZWCrN3eV9mSqIFrMx48w"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 6da64b24-2fbe-47e1-aeb3-c7e16090fde3
+      x-for-trace-id:
+      - 237809ad5f8b0f58b464a3dda16f08d6
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.firefox.sm-linux64
+  response:
+    body:
+      string: "{\n  \"code\": \"ResourceNotFound\",\n  \"message\": \"Indexed task
+        not found\\n\\n---\\n\\n* method:     findTask\\n* errorCode:  ResourceNotFound\\n*
+        statusCode: 404\\n* time:       2025-12-11T17:57:08.557Z\",\n  \"requestInfo\":
+        {\n    \"method\": \"findTask\",\n    \"params\": {\n      \"indexPath\":
+        \"gecko.v2.mozilla-central.latest.firefox.sm-linux64\"\n    },\n    \"payload\":
+        {},\n    \"time\": \"2025-12-11T17:57:08.557Z\"\n  }\n}"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '398'
+      Date:
+      - Thu, 11 Dec 2025 17:57:08 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780129-PDK, cache-pdk-kpdk1780121-PDK
+      X-Timer:
+      - S1765475828.497247,VS0,VE107
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"18e-ZA9FB7NOGsIKyGgha9Bx/PZ/9m4"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
+      x-content-type-options:
+      - nosniff
+      x-for-request-id:
+      - 2615f54d-18f0-49db-869d-147eab47eb0b
+      x-for-trace-id:
+      - 6fa6735019ab52c56572f3e2c046351d
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Pt6knlQ_RX2dkvPCEFBG6g/artifacts
   response:
     body:
       string: "{\n  \"artifacts\": [\n    {\n      \"storageType\": \"s3\",\n      \"name\":
-        \"public/build/buildhub.json\",\n      \"expires\": \"2026-07-22T09:41:25.556Z\",\n
+        \"public/build/buildhub.json\",\n      \"expires\": \"2026-12-11T16:58:21.993Z\",\n
         \     \"contentType\": \"application/json\"\n    },\n    {\n      \"storageType\":
         \"s3\",\n      \"name\": \"public/build/config.status\",\n      \"expires\":
-        \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mar\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mbsdiff\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/octet-stream\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/mozharness.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/zip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/perfherder-data-building.json\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/perfherder-data-compiler-metrics.json\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/perfherder-data-mozharness-actions.json\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/profile_build_resources.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.checksums\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.crashreporter-symbols.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.fuzztest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.fuzztest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.generated-files.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/gzip\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target_info.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"text/plain;
+        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"s3\",\n      \"name\":
+        \"public/build/target.jittest.tests.tar.zst\",\n      \"expires\": \"2026-12-11T16:58:21.993Z\",\n
+        \     \"contentType\": \"application/zstd\"\n    },\n    {\n      \"storageType\":
+        \"s3\",\n      \"name\": \"public/build/target.json\",\n      \"expires\":
+        \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsshell.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/zip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zip\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.langpack.xpi\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mozinfo.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.tar.xz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/x-xz\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/x-xz\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.test_packages.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/json\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.trainhop.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.updater-dep.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/gzip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"text/plain;
+        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"s3\",\n      \"name\":
+        \"public/build/target.updater-dep.tests.tar.zst\",\n      \"expires\": \"2026-12-11T16:58:21.993Z\",\n
+        \     \"contentType\": \"application/zstd\"\n    },\n    {\n      \"storageType\":
+        \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.zst\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpt_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/zip\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/zip\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.556Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.556Z\",\n      \"contentType\": \"application/binary\"\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"text/plain;
+        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"s3\",\n      \"name\":
+        \"public/chain-of-trust.json.sig\",\n      \"expires\": \"2026-12-11T16:58:21.993Z\",\n
+        \     \"contentType\": \"application/octet-stream\"\n    },\n    {\n      \"storageType\":
+        \"s3\",\n      \"name\": \"public/cidata/sccache.log\",\n      \"expires\":
+        \"2025-12-25T16:58:21.993Z\",\n      \"contentType\": \"text/plain\"\n    },\n
+        \   {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
+        \     \"expires\": \"2025-12-25T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.556Z\",\n      \"contentType\": \"application/octet-stream\"\n
+        \     \"expires\": \"2025-12-25T16:58:21.993Z\",\n      \"contentType\": \"application/zstd\"\n
+        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/fetch/perfherder-data-fetch-content.json\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
         \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"text/plain;
-        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"reference\",\n      \"name\":
-        \"public/logs/live.log\",\n      \"expires\": \"2026-07-22T09:41:25.556Z\",\n
+        \     \"expires\": \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"text/plain;
+        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"s3\",\n      \"name\":
+        \"public/logs/live_backing.log\",\n      \"expires\": \"2026-12-11T16:58:21.993Z\",\n
         \     \"contentType\": \"text/plain; charset=utf-8\"\n    },\n    {\n      \"storageType\":
         \"s3\",\n      \"name\": \"public/logs/localconfig.json\",\n      \"expires\":
-        \"2026-07-22T09:41:25.556Z\",\n      \"contentType\": \"application/json\"\n
+        \"2026-12-11T16:58:21.993Z\",\n      \"contentType\": \"application/json\"\n
         \   }\n  ]\n}"
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
+      Connection:
+      - keep-alive
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
-      ETag:
-      - W/"1e25-xhXD3giXcSh1oM5yp+jRI+p9Jpo"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
+      - Thu, 11 Dec 2025 17:57:08 GMT
       Vary:
       - Accept-Encoding
-      Via:
-      - 1.1 google
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780136-PDK, cache-pdk-kpdk1780097-PDK
+      X-Timer:
+      - S1765475829.685437,VS0,VE111
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
       content-length:
-      - '7717'
+      - '8538'
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"215a-d4YGPcSTMCYAz8+coTHd2RO1r9g"
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - aeebcbc6-361d-4370-9e6a-b5eab5a4a7d7
+      - ee9ebae1-b91d-4178-bd31-9e95584bb154
       x-for-trace-id:
-      - 544ff90a17f54c58ccca24f6ec66ddae
+      - 416c837f94453c56b7b95bef490d7777
     status:
       code: 200
       message: OK
@@ -215,51 +756,61 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/XkdRcPTKS2iJz54FDWHOvg/artifacts/public/build/target.mozinfo.json
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Pt6knlQ_RX2dkvPCEFBG6g/artifacts/public/build/target.mozinfo.json
   response:
     body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.mozinfo.json\"\n}"
+      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.mozinfo.json\"\n}"
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
+      Connection:
+      - keep-alive
       Content-Length:
       - '139'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
-      ETag:
-      - W/"8b-ppNB+lv1KT4h1JuGJN31HERNHYs"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
+      - Thu, 11 Dec 2025 17:57:08 GMT
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780136-PDK, cache-pdk-kpdk1780054-PDK
+      X-Timer:
+      - S1765475829.893564,VS0,VE98
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"8b-ifP6ec9i1n0R4BHyKXDD+vBgSi4"
       location:
-      - https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.mozinfo.json
+      - https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.mozinfo.json
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - d220ecbe-93c4-4076-9aff-0b0935041c3e
+      - 11347bfe-21b5-47b2-b58b-86059fd119f0
       x-for-trace-id:
-      - e1b426ac6b0452fac6785a6f4f80244a
+      - f51a44c18d16f38f490ef27c4c5efec2
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -275,21 +826,21 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.mozinfo.json
+    uri: https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.mozinfo.json
   response:
     body:
       string: "{\n    \"appname\": \"firefox\",\n    \"artifact\": false,\n    \"asan\":
         false,\n    \"automation\": true,\n    \"bin_suffix\": \"\",\n    \"bits\":
-        64,\n    \"buildapp\": \"browser\",\n    \"buildtype\": \"pgo\",\n    \"buildtype_guess\":
-        \"pgo\",\n    \"cc_type\": \"clang\",\n    \"ccov\": false,\n    \"crashreporter\":
+        64,\n    \"buildapp\": \"browser\",\n    \"buildtype\": \"opt\",\n    \"buildtype_guess\":
+        \"opt\",\n    \"cc_type\": \"clang\",\n    \"ccov\": false,\n    \"crashreporter\":
         true,\n    \"datareporting\": true,\n    \"dbus_enabled\": true,\n    \"debug\":
         false,\n    \"devedition\": false,\n    \"early_beta_or_earlier\": true,\n
         \   \"gecko_profiler\": true,\n    \"healthreport\": true,\n    \"isolated_process\":
         false,\n    \"mingw\": false,\n    \"mozconfig\": \"/builds/worker/checkouts/gecko/.mozconfig\",\n
         \   \"nightly_build\": true,\n    \"normandy\": true,\n    \"official\": true,\n
-        \   \"opt\": true,\n    \"os\": \"linux\",\n    \"pgo\": true,\n    \"platform_guess\":
+        \   \"opt\": true,\n    \"os\": \"linux\",\n    \"pgo\": false,\n    \"platform_guess\":
         \"linux64\",\n    \"processor\": \"x86_64\",\n    \"release_or_beta\": false,\n
         \   \"require_signing\": false,\n    \"stylo\": true,\n    \"sync\": true,\n
         \   \"telemetry\": false,\n    \"tests_enabled\": true,\n    \"toolkit\":
@@ -303,6 +854,8 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
+      Age:
+      - '1778'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -310,26 +863,26 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
+      - Thu, 11 Dec 2025 17:27:31 GMT
       ETag:
-      - '"4d2bd709e17314eff9f5462d2466afa7"'
+      - '"2d8d1925c07279868c6a84c7ec7174bb"'
       Last-Modified:
-      - Tue, 22 Jul 2025 11:28:02 GMT
+      - Thu, 11 Dec 2025 17:13:18 GMT
       Server:
       - UploadServer
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH883KHao2hR_nP4H4cORgJglJJ-n2yxCZfEju-kterQklipz42tPnKeiqju6aJQIZ0Z92lwGyio
+      - AHVrFxOA5dQ-ogEjMa0swIQtj92zA_68Qyskl1P7OcTkC9oC5xP2u5S3IUyvTTETH8Hr3yQx
       content-length:
-      - '1103'
+      - '1104'
       x-cache-status:
-      - miss
+      - hit
       x-goog-generation:
-      - '1753183682166426'
+      - '1765473198393855'
       x-goog-hash:
-      - crc32c=W28TNw==
-      - md5=TSvXCeFzFO/59UYtJGavpw==
+      - crc32c=UYnG/A==
+      - md5=LY0ZJcByeYaMaoTH7HF0uw==
       x-goog-metageneration:
       - '1'
       x-goog-storage-class:
@@ -337,7 +890,7 @@ interactions:
       x-goog-stored-content-encoding:
       - gzip
       x-goog-stored-content-length:
-      - '424'
+      - '446'
     status:
       code: 200
       message: OK
@@ -351,51 +904,61 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/XkdRcPTKS2iJz54FDWHOvg/artifacts/public/build/target.tar.xz
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Pt6knlQ_RX2dkvPCEFBG6g/artifacts/public/build/target.tar.xz
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
+      Connection:
+      - keep-alive
       Content-Length:
       - '133'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
-      ETag:
-      - W/"85-xCvuV/gleiBm80T6RSMIDr18Axo"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
+      - Thu, 11 Dec 2025 17:57:09 GMT
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780125-PDK, cache-pdk-kpdk1780125-PDK
+      X-Timer:
+      - S1765475829.219881,VS0,VE128
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"85-uJk/ClOgK7qKT85J5j8gaK2agNw"
       location:
-      - https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.tar.xz
+      - https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.tar.xz
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 614d2ae4-483b-44c4-a3a5-f8adcabb6719
+      - 079c1a23-f172-4b29-bc5f-c05472eb3908
       x-for-trace-id:
-      - 30ece2e09ef29149fb4506da6aac02d4
+      - 7ff96a285a2429751579390a707d30b0
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -411,51 +974,61 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/XkdRcPTKS2iJz54FDWHOvg/artifacts/public/build/target.crashreporter-symbols.zip
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Pt6knlQ_RX2dkvPCEFBG6g/artifacts/public/build/target.crashreporter-symbols.zip
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
+      Connection:
+      - keep-alive
       Content-Length:
       - '152'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
       Date:
-      - Tue, 22 Jul 2025 15:45:58 GMT
-      ETag:
-      - W/"98-STF6M7lCz+crft8A1MCRGJz4md4"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
+      - Thu, 11 Dec 2025 17:57:09 GMT
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780108-PDK, cache-pdk-kpdk1780108-PDK
+      X-Timer:
+      - S1765475829.439699,VS0,VE110
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"98-+UY9Q7HmKGIoOsasOCaHLR48fI0"
       location:
-      - https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.crashreporter-symbols.zip
+      - https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.crashreporter-symbols.zip
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 21123062-321d-4ea0-bc12-00e42f71641b
+      - 0681a803-61e4-4830-a872-c1cadbda4b1b
       x-for-trace-id:
-      - 3e66fdc9f24486f852c852b70e7c72d6
+      - bfc742c0a8e8a03b82b1ffe1b105488a
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -471,51 +1044,61 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/XkdRcPTKS2iJz54FDWHOvg/artifacts/public/build/target.json
+    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Pt6knlQ_RX2dkvPCEFBG6g/artifacts/public/build/target.json
   response:
     body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.json\"\n}"
+      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.json\"\n}"
     headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
+      Connection:
+      - keep-alive
       Content-Length:
       - '131'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
       Date:
-      - Tue, 22 Jul 2025 15:45:59 GMT
-      ETag:
-      - W/"83-gaXPpj2+5kvuwuztu9x5Wlnhp3A"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
+      - Thu, 11 Dec 2025 17:57:09 GMT
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780094-PDK, cache-pdk-kpdk1780049-PDK
+      X-Timer:
+      - S1765475830.631363,VS0,VE108
+      accept-ranges:
+      - bytes
+      access-control-allow-headers:
+      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
+      access-control-allow-methods:
+      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
+      access-control-allow-origin:
+      - '*'
+      access-control-max-age:
+      - '900'
+      access-control-request-method:
+      - '*'
+      cache-control:
+      - no-store no-cache must-revalidate
+      content-security-policy:
+      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"83-JqKrmTH13sYGVduXi+8+Sy1Wl9U"
       location:
-      - https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.json
+      - https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.json
+      server:
+      - openresty
+      strict-transport-security:
+      - max-age=31536000
+      via:
+      - 1.1 google, 1.1 varnish, 1.1 varnish
       x-content-type-options:
       - nosniff
       x-for-request-id:
-      - 71d31ac3-34c9-4eda-8a23-e484e833bf47
+      - 4518a129-35ac-497e-b5f2-5e23639c0397
       x-for-trace-id:
-      - 1e46ef2336571c4c988ae0040afb6c33
+      - a84b9801cd074a275b20a96aad93cb2c
       x-taskcluster-artifact-storage-type:
       - s3
     status:
@@ -531,21 +1114,22 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.32.4
+      - python-requests/2.32.5
     method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/XkdRcPTKS2iJz54FDWHOvg/0/public/build/target.json
+    uri: https://firefoxci.taskcluster-artifacts.net/Pt6knlQ_RX2dkvPCEFBG6g/0/public/build/target.json
   response:
     body:
-      string: "{\n  \"as\": \"/builds/worker/fetches/clang/bin/clang --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n
-        \ \"buildid\": \"20250722093426\",\n  \"cc\": \"/builds/worker/fetches/clang/bin/clang
-        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"cxx\": \"/builds/worker/fetches/clang/bin/clang++
-        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"host\":
-        \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
-        \ \"moz_app_maxversion\": \"143.0a1\",\n  \"moz_app_name\": \"firefox\",\n
-        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"143.0a1\",\n
+      string: "{\n  \"as\": \"/builds/worker/fetches/sccache/sccache /builds/worker/fetches/clang/bin/clang
+        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"buildid\":
+        \"20251211165644\",\n  \"cc\": \"/builds/worker/fetches/sccache/sccache /builds/worker/fetches/clang/bin/clang
+        --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu\",\n  \"cxx\": \"/builds/worker/fetches/sccache/sccache
+        /builds/worker/fetches/clang/bin/clang++ --sysroot /builds/worker/fetches/sysroot-x86_64-linux-gnu
+        -std=gnu++20\",\n  \"host\": \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
+        \ \"moz_app_maxversion\": \"148.0a1\",\n  \"moz_app_name\": \"firefox\",\n
+        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"148.0a1\",\n
         \ \"moz_pkg_platform\": \"linux-x86_64\",\n  \"moz_source_repo\": \"https://hg.mozilla.org/mozilla-central\",\n
-        \ \"moz_source_stamp\": \"47d8d7840ccb2bc0d0b7a896537dc9f85bc73c50\",\n  \"moz_update_channel\":
-        \"nightly\",\n  \"target\": \"x86_64-pc-linux-gnu\"\n}\n"
+        \ \"moz_source_stamp\": \"6429ec9d85395427a733302d1f19dbb0845989a4\",\n  \"moz_update_channel\":
+        \"default\",\n  \"target\": \"x86_64-pc-linux-gnu\"\n}\n"
     headers:
       Accept-Ranges:
       - bytes
@@ -553,6 +1137,8 @@ interactions:
       - '*'
       Access-Control-Expose-Headers:
       - '*'
+      Age:
+      - '1777'
       Alt-Svc:
       - clear
       Cache-Control:
@@ -560,26 +1146,26 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 22 Jul 2025 15:45:59 GMT
+      - Thu, 11 Dec 2025 17:27:32 GMT
       ETag:
-      - '"ac6fe71242e63f0192b24bfc33cb5c8f"'
+      - '"79321bdbc3e44a820afd0d49601c16d5"'
       Last-Modified:
-      - Tue, 22 Jul 2025 11:27:59 GMT
+      - Thu, 11 Dec 2025 17:13:18 GMT
       Server:
       - UploadServer
       Vary:
       - Accept-Encoding
       X-GUploader-UploadID:
-      - ABgVH89K5gNGJ2FMNevmEgJAEPmNAqAvbTNCWBVQmK032_jNBPfv0hcvCwgsAT6Nrd_dMGNB
+      - AHVrFxPUVcNarJnrGk_VZZi30NN3OHWHt15tZiQR4lEcPz5OCTRm8p9T-btpJPzg14Rqoh-3
       content-length:
-      - '816'
+      - '946'
       x-cache-status:
-      - miss
+      - hit
       x-goog-generation:
-      - '1753183679769200'
+      - '1765473198408750'
       x-goog-hash:
-      - crc32c=sBkNQA==
-      - md5=rG/nEkLmPwGSskv8M8tcjw==
+      - crc32c=7bEIZw==
+      - md5=eTIb28PkSoIK/Q1JYBwW1Q==
       x-goog-metageneration:
       - '1'
       x-goog-storage-class:
@@ -587,1783 +1173,7 @@ interactions:
       x-goog-stored-content-encoding:
       - gzip
       x-goog-stored-content-length:
-      - '342'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.macosx64-opt
-  response:
-    body:
-      string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.shippable.latest.firefox.macosx64-opt\",\n
-        \ \"taskId\": \"TThB_OuORa6G1h2ICA7jPQ\",\n  \"rank\": 1753176866,\n  \"data\":
-        {},\n  \"expires\": \"2026-07-22T09:41:28.126Z\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '198'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:54 GMT
-      ETag:
-      - W/"c6-ZDkrloVGxeLRT+LUxiYRQyQ5ObA"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - df5b4112-faa1-4fce-b35f-620b8d34d458
-      x-for-trace-id:
-      - dd02b8966d9c35e5399c59d506d7fab8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/TThB_OuORa6G1h2ICA7jPQ/artifacts
-  response:
-    body:
-      string: "{\n  \"artifacts\": [\n    {\n      \"storageType\": \"s3\",\n      \"name\":
-        \"public/build/buildhub.json\",\n      \"expires\": \"2026-07-22T09:41:28.126Z\",\n
-        \     \"contentType\": \"application/json\"\n    },\n    {\n      \"storageType\":
-        \"s3\",\n      \"name\": \"public/build/host/bin/mar\",\n      \"expires\":
-        \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mbsdiff\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/mozharness.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.crashreporter-symbols.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.dmg\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.generated-files.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target_info.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsshell.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.langpack.xpi\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mozinfo.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.test_packages.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.update_framework_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.updater-dep.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpt_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-07-29T09:41:28.126Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-07-29T09:41:28.126Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-07-29T09:41:28.126Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/logs\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:28.126Z\",\n      \"contentType\": \"text/plain;
-        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"reference\",\n      \"name\":
-        \"public/logs/live.log\",\n      \"expires\": \"2026-07-22T09:41:28.126Z\",\n
-        \     \"contentType\": \"text/plain; charset=utf-8\"\n    }\n  ]\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:54 GMT
-      ETag:
-      - W/"1c06-6urqzn+pLvczpnksoQ2Oi4EFXa8"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      Via:
-      - 1.1 google
-      content-length:
-      - '7174'
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 42ff1e26-357a-4ec0-835a-a2d274283191
-      x-for-trace-id:
-      - 7a0815e211b922967154b0d99a958388
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/TThB_OuORa6G1h2ICA7jPQ/artifacts/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.mozinfo.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '139'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - W/"8b-nNTUlwqNnXKaNAkotjUV8Nk206o"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.mozinfo.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - d161c194-89c7-4985-b38c-0fb65c0b7a08
-      x-for-trace-id:
-      - a12b241326d613564c2642d05205203f
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n    \"appname\": \"firefox\",\n    \"artifact\": false,\n    \"asan\":
-        false,\n    \"automation\": true,\n    \"bin_suffix\": \"\",\n    \"bits\":
-        64,\n    \"buildapp\": \"browser\",\n    \"buildtype\": \"pgo\",\n    \"buildtype_guess\":
-        \"pgo\",\n    \"cc_type\": \"clang\",\n    \"ccov\": false,\n    \"crashreporter\":
-        true,\n    \"datareporting\": true,\n    \"dbus_enabled\": false,\n    \"debug\":
-        false,\n    \"devedition\": false,\n    \"early_beta_or_earlier\": true,\n
-        \   \"gecko_profiler\": true,\n    \"healthreport\": true,\n    \"isolated_process\":
-        false,\n    \"mingw\": false,\n    \"mozconfig\": \"/builds/worker/checkouts/gecko/.mozconfig\",\n
-        \   \"nightly_build\": true,\n    \"normandy\": true,\n    \"official\": true,\n
-        \   \"opt\": true,\n    \"os\": \"mac\",\n    \"pgo\": true,\n    \"platform_guess\":
-        \"macosx64\",\n    \"processor\": \"x86_64\",\n    \"release_or_beta\": false,\n
-        \   \"require_signing\": false,\n    \"stylo\": true,\n    \"sync\": true,\n
-        \   \"telemetry\": false,\n    \"tests_enabled\": true,\n    \"toolkit\":
-        \"cocoa\",\n    \"topobjdir\": \"/builds/worker/workspace/obj-build\",\n    \"topsrcdir\":
-        \"/builds/worker/checkouts/gecko\",\n    \"tsan\": false,\n    \"ubsan\":
-        false,\n    \"updater\": true\n}"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - '"a9ff9fff25b4e9c33dc775c5c3354964"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:38:28 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH8-1NtNh9zxuASw_P-ysFx_r0lzooikA3AnKU-1b3lBEQ2bzutlBKEBNqS2Qzl1sbcn0
-      content-length:
-      - '1105'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753184308906144'
-      x-goog-hash:
-      - crc32c=AyI/Pg==
-      - md5=qf+f/yW06cM9x3XFwzVJZA==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '424'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/TThB_OuORa6G1h2ICA7jPQ/artifacts/public/build/target.dmg
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '130'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - W/"82-fzQ5nDyavbkZnSaBN55yTFh68dI"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.dmg
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - fde2f1ed-af2b-4fd0-b4dc-b1639dbdb8d2
-      x-for-trace-id:
-      - 15fb49567f234dffb92427b77effe0d6
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/TThB_OuORa6G1h2ICA7jPQ/artifacts/public/build/target.crashreporter-symbols.zip
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '152'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - W/"98-L8MFXaLizctYJQX7wAj5ZQvn0xM"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.crashreporter-symbols.zip
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 91d40fcf-7ccf-470f-a6fd-c4b6894a70d9
-      x-for-trace-id:
-      - 573c1712bbe788dde564b741416a47e1
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/TThB_OuORa6G1h2ICA7jPQ/artifacts/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '131'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - W/"83-ize2NkdzjukqgOh4ruaPOLw5L2Y"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - cdeed0c0-3801-4cd2-a968-831b84d18e07
-      x-for-trace-id:
-      - 1a03cf03ba5442a949a4c6fb795829ac
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/TThB_OuORa6G1h2ICA7jPQ/0/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"as\": \"/builds/worker/fetches/clang/bin/clang -isysroot /builds/worker/fetches/MacOSX15.5.sdk
-        -mmacosx-version-min=10.15 --target=x86_64-apple-darwin\",\n  \"buildid\":
-        \"20250722093426\",\n  \"cc\": \"/builds/worker/fetches/clang/bin/clang -isysroot
-        /builds/worker/fetches/MacOSX15.5.sdk -mmacosx-version-min=10.15 --target=x86_64-apple-darwin\",\n
-        \ \"cxx\": \"/builds/worker/fetches/clang/bin/clang++ -isysroot /builds/worker/fetches/MacOSX15.5.sdk
-        -mmacosx-version-min=10.15 -stdlib=libc++ --target=x86_64-apple-darwin\",\n
-        \ \"host\": \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
-        \ \"moz_app_maxversion\": \"143.0a1\",\n  \"moz_app_name\": \"firefox\",\n
-        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"143.0a1\",\n
-        \ \"moz_pkg_platform\": \"mac\",\n  \"moz_source_repo\": \"https://hg.mozilla.org/mozilla-central\",\n
-        \ \"moz_source_stamp\": \"47d8d7840ccb2bc0d0b7a896537dc9f85bc73c50\",\n  \"moz_update_channel\":
-        \"nightly\",\n  \"target\": \"x86_64-apple-darwin\"\n}\n"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 15:59:55 GMT
-      ETag:
-      - '"5742830e0aa49d415dd6b3d17f215fec"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:38:27 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH88fb8njU4_BEjGOBum0xIPG02w30qn3vZe0vslzuPU0uXV_H_hQU-oVOTG-Iz9j9qzX
-      content-length:
-      - '960'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753184306982448'
-      x-goog-hash:
-      - crc32c=2GuEiQ==
-      - md5=V0KDDgqknUFd1rPRfyFf7A==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '401'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.win64-opt
-  response:
-    body:
-      string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.shippable.latest.firefox.win64-opt\",\n
-        \ \"taskId\": \"FNtPq0rdRG-JX69mNnjTEQ\",\n  \"rank\": 1753176866,\n  \"data\":
-        {},\n  \"expires\": \"2026-07-22T09:41:25.627Z\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '195'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:12 GMT
-      ETag:
-      - W/"c3-eXUIb0H4WHYoTXGY1D61EzCCaVU"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - f11a66b9-63b7-4c01-8c1e-6b067ba9be88
-      x-for-trace-id:
-      - 31846326cb73047a358466d81be66173
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/FNtPq0rdRG-JX69mNnjTEQ/artifacts
-  response:
-    body:
-      string: "{\n  \"artifacts\": [\n    {\n      \"storageType\": \"s3\",\n      \"name\":
-        \"public/build/buildhub.json\",\n      \"expires\": \"2026-07-22T09:41:25.627Z\",\n
-        \     \"contentType\": \"application/json\"\n    },\n    {\n      \"storageType\":
-        \"s3\",\n      \"name\": \"public/build/config.status\",\n      \"expires\":
-        \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/mozharness.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/profile_build_resources.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/setup.exe\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.checksums\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.crashreporter-symbols.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.fuzztest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.generated-files.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target_info.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.installer.exe\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsshell.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.langpack.xpi\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mozinfo.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.test_packages.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.updater-dep.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpt_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.627Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.627Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.627Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"text/plain;
-        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"reference\",\n      \"name\":
-        \"public/logs/live.log\",\n      \"expires\": \"2026-07-22T09:41:25.627Z\",\n
-        \     \"contentType\": \"text/plain; charset=utf-8\"\n    },\n    {\n      \"storageType\":
-        \"s3\",\n      \"name\": \"public/logs/localconfig.json\",\n      \"expires\":
-        \"2026-07-22T09:41:25.627Z\",\n      \"contentType\": \"application/json\"\n
-        \   }\n  ]\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:12 GMT
-      ETag:
-      - W/"1e22-XREWIlISuSmtqTYsuVnX5YUVrN4"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      Via:
-      - 1.1 google
-      content-length:
-      - '7714'
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 853f06e6-7328-4f74-bdf7-452674521f25
-      x-for-trace-id:
-      - 41c560ffbbc248dc7dead7d67dcd8d8f
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/FNtPq0rdRG-JX69mNnjTEQ/artifacts/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.mozinfo.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '139'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - W/"8b-mKGoYMuDtxN1azBbzSrN7ih/MM8"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.mozinfo.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 49b52dc2-fa91-474d-936c-86be7b0883c1
-      x-for-trace-id:
-      - 69fda3fcf73437f009b97650bf4748d9
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n    \"appname\": \"firefox\",\n    \"artifact\": false,\n    \"asan\":
-        false,\n    \"automation\": true,\n    \"bin_suffix\": \".exe\",\n    \"bits\":
-        64,\n    \"buildapp\": \"browser\",\n    \"buildtype\": \"pgo\",\n    \"buildtype_guess\":
-        \"pgo\",\n    \"cc_type\": \"clang-cl\",\n    \"ccov\": false,\n    \"crashreporter\":
-        true,\n    \"datareporting\": true,\n    \"dbus_enabled\": false,\n    \"debug\":
-        false,\n    \"devedition\": false,\n    \"early_beta_or_earlier\": true,\n
-        \   \"gecko_profiler\": true,\n    \"healthreport\": true,\n    \"isolated_process\":
-        false,\n    \"mingw\": false,\n    \"mozconfig\": \"/builds/worker/checkouts/gecko/.mozconfig\",\n
-        \   \"nightly_build\": true,\n    \"normandy\": true,\n    \"official\": true,\n
-        \   \"opt\": true,\n    \"os\": \"win\",\n    \"pgo\": true,\n    \"platform_guess\":
-        \"win64\",\n    \"processor\": \"x86_64\",\n    \"release_or_beta\": false,\n
-        \   \"require_signing\": false,\n    \"stylo\": true,\n    \"sync\": true,\n
-        \   \"telemetry\": false,\n    \"tests_enabled\": true,\n    \"toolkit\":
-        \"windows\",\n    \"topobjdir\": \"/builds/worker/workspace/obj-build\",\n
-        \   \"topsrcdir\": \"/builds/worker/checkouts/gecko\",\n    \"tsan\": false,\n
-        \   \"ubsan\": false,\n    \"updater\": true\n}"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - '"07c11baa474d354e834a3fd639780525"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:36:16 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH89pPhsZe6almtNsC5deGxQZzFx28v0c7ABCKKg96LmQpanDPcvn448Wbb2CyXg52U2lyUE1YYc
-      content-length:
-      - '1111'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753184176891493'
-      x-goog-hash:
-      - crc32c=f2i6hQ==
-      - md5=B8EbqkdNNU6DSj/WOXgFJQ==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '427'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/FNtPq0rdRG-JX69mNnjTEQ/artifacts/public/build/target.zip
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '130'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - W/"82-kRXl1br4/pXcpfKp3GTl/X3WO8I"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.zip
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - a44cd0cb-c46f-4754-885d-12b52c68817b
-      x-for-trace-id:
-      - 81601ae0db7a4be6367ecfac77048525
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/FNtPq0rdRG-JX69mNnjTEQ/artifacts/public/build/target.crashreporter-symbols.zip
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '152'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - W/"98-qFoIU5QgeW1WHd7+dp3YaGGV9Yo"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.crashreporter-symbols.zip
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 82b83846-2797-4cc4-afd1-3d5bc92ebbc9
-      x-for-trace-id:
-      - c4404820b3853ee5fc11550512b018bf
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/FNtPq0rdRG-JX69mNnjTEQ/artifacts/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '131'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - W/"83-DaBByZPLvd8ZtGYGompDd6+RBUo"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 44c2a5e3-98da-4329-bfc8-9dc4ae2372d6
-      x-for-trace-id:
-      - 06eaab9a5c9adb8704b5394d51782240
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/FNtPq0rdRG-JX69mNnjTEQ/0/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"as\": \"/builds/worker/fetches/vs/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/ml64.exe\",\n
-        \ \"buildid\": \"20250722093426\",\n  \"cc\": \"/builds/worker/fetches/clang/bin/clang-cl
-        -fms-compatibility-version=19.39 -Xclang -ivfsoverlay -Xclang /builds/worker/fetches/vs/overlay.yaml\",\n
-        \ \"cxx\": \"/builds/worker/fetches/clang/bin/clang-cl -fms-compatibility-version=19.39
-        -std:c++17 -Xclang -ivfsoverlay -Xclang /builds/worker/fetches/vs/overlay.yaml\",\n
-        \ \"host\": \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
-        \ \"moz_app_maxversion\": \"143.0a1\",\n  \"moz_app_name\": \"firefox\",\n
-        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"143.0a1\",\n
-        \ \"moz_pkg_platform\": \"win64\",\n  \"moz_source_repo\": \"https://hg.mozilla.org/mozilla-central\",\n
-        \ \"moz_source_stamp\": \"47d8d7840ccb2bc0d0b7a896537dc9f85bc73c50\",\n  \"moz_update_channel\":
-        \"nightly\",\n  \"target\": \"x86_64-pc-mingw32\"\n}\n"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 16:00:13 GMT
-      ETag:
-      - '"8f054f3ccbe74313d7b454590ddc57b6"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:36:15 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH8_S5GjBXdCYRtrp-kV0xfe0w2r6PeVRp7izAv7ljtGK7bZjNXEqdniRWZo63oiEwqBZ
-      content-length:
-      - '888'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753184175117640'
-      x-goog-hash:
-      - crc32c=9TygEQ==
-      - md5=jwVPPMvnQxPXtFRZDdxXtg==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '432'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.shippable.latest.firefox.macosx64-aarch64-opt
-  response:
-    body:
-      string: "{\n  \"namespace\": \"gecko.v2.mozilla-central.shippable.latest.firefox.macosx64-aarch64-opt\",\n
-        \ \"taskId\": \"EdiexkCYQbGp6KrBe422Ww\",\n  \"rank\": 1753176866,\n  \"data\":
-        {},\n  \"expires\": \"2026-07-22T09:41:25.744Z\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '206'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:05 GMT
-      ETag:
-      - W/"ce-W2n3YpUkC7fe+zEyGNxYQVvy8LU"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - c88e72cd-1f8c-40ca-afca-0c3084c3129a
-      x-for-trace-id:
-      - 82013deb0482ed17bda2f4f9076154bf
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EdiexkCYQbGp6KrBe422Ww/artifacts
-  response:
-    body:
-      string: "{\n  \"artifacts\": [\n    {\n      \"storageType\": \"s3\",\n      \"name\":
-        \"public/build/buildhub.json\",\n      \"expires\": \"2026-07-22T09:41:25.744Z\",\n
-        \     \"contentType\": \"application/json\"\n    },\n    {\n      \"storageType\":
-        \"s3\",\n      \"name\": \"public/build/config.status\",\n      \"expires\":
-        \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mar\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/host/bin/mbsdiff\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/mozharness.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/profile_build_resources.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.awsy.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.checksums\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.common.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.condprof.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.cppunittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.crashreporter-symbols.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.dmg\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.fuzztest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.generated-files.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.gtest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target_info.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jittest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsreftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.jsshell.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.langpack.xpi\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/x-xpinstall\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mochitest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.mozinfo.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.perftests.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.raptor.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.reftest.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.talos.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.test_packages.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/json\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.txt\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.update_framework_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.updater-dep.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.web-platform.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpcshell.tests.tar.gz\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/gzip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/build/target.xpt_artifacts.zip\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/zip\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/chain-of-trust.json.sig\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache.log\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.744Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"error\",\n      \"name\": \"public/cidata/sccache-stats.json\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.744Z\",\n      \"contentType\": \"application/binary\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/cidata/target.crashreporter-symbols-full.tar.zst\",\n
-        \     \"expires\": \"2025-07-29T09:41:25.744Z\",\n      \"contentType\": \"application/octet-stream\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/certified.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"text/plain\"\n
-        \   },\n    {\n      \"storageType\": \"s3\",\n      \"name\": \"public/logs/live_backing.log\",\n
-        \     \"expires\": \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"text/plain;
-        charset=utf-8\"\n    },\n    {\n      \"storageType\": \"reference\",\n      \"name\":
-        \"public/logs/live.log\",\n      \"expires\": \"2026-07-22T09:41:25.744Z\",\n
-        \     \"contentType\": \"text/plain; charset=utf-8\"\n    },\n    {\n      \"storageType\":
-        \"s3\",\n      \"name\": \"public/logs/localconfig.json\",\n      \"expires\":
-        \"2026-07-22T09:41:25.744Z\",\n      \"contentType\": \"application/json\"\n
-        \   }\n  ]\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:05 GMT
-      ETag:
-      - W/"1eea-ptO73GY29iUDLgJ5XwKnWThJSfM"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      Via:
-      - 1.1 google
-      content-length:
-      - '7914'
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 6f8ad595-8c86-4504-bc5f-16a8e8e814a3
-      x-for-trace-id:
-      - b3777fd08b9a73aaca2c07607e540969
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EdiexkCYQbGp6KrBe422Ww/artifacts/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.mozinfo.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '139'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:06 GMT
-      ETag:
-      - W/"8b-/dMzZN4FIDDefBPbQUr8MAcPglM"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.mozinfo.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - a8465b2c-5cff-4d69-ae04-dd86b1ace877
-      x-for-trace-id:
-      - 3bc4b955d754a70aefb0040b125cd8b6
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.mozinfo.json
-  response:
-    body:
-      string: "{\n    \"appname\": \"firefox\",\n    \"artifact\": false,\n    \"asan\":
-        false,\n    \"automation\": true,\n    \"bin_suffix\": \"\",\n    \"bits\":
-        64,\n    \"buildapp\": \"browser\",\n    \"buildtype\": \"pgo\",\n    \"buildtype_guess\":
-        \"pgo\",\n    \"cc_type\": \"clang\",\n    \"ccov\": false,\n    \"crashreporter\":
-        true,\n    \"datareporting\": true,\n    \"dbus_enabled\": false,\n    \"debug\":
-        false,\n    \"devedition\": false,\n    \"early_beta_or_earlier\": true,\n
-        \   \"gecko_profiler\": true,\n    \"healthreport\": true,\n    \"isolated_process\":
-        false,\n    \"mingw\": false,\n    \"mozconfig\": \"/builds/worker/checkouts/gecko/.mozconfig\",\n
-        \   \"nightly_build\": true,\n    \"normandy\": true,\n    \"official\": true,\n
-        \   \"opt\": true,\n    \"os\": \"mac\",\n    \"pgo\": true,\n    \"platform_guess\":
-        \"macosx64\",\n    \"processor\": \"aarch64\",\n    \"release_or_beta\": false,\n
-        \   \"require_signing\": false,\n    \"stylo\": true,\n    \"sync\": true,\n
-        \   \"telemetry\": false,\n    \"tests_enabled\": true,\n    \"toolkit\":
-        \"cocoa\",\n    \"topobjdir\": \"/builds/worker/workspace/obj-build\",\n    \"topsrcdir\":
-        \"/builds/worker/checkouts/gecko\",\n    \"tsan\": false,\n    \"ubsan\":
-        false,\n    \"updater\": true\n}"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 16:04:06 GMT
-      ETag:
-      - '"88e90fb6af4ddc06cd720493c52034b6"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:27:03 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH8-Y2vWCcvU5aMkxqrPgHlRK6WGIrd0TzIG3B2KDYyZwjw6OWtWMmHMvOqXH-d7oBIw6
-      content-length:
-      - '1106'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753183623720129'
-      x-goog-hash:
-      - crc32c=NXDrnA==
-      - md5=iOkPtq9N3AbNcgSTxSA0tg==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '423'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EdiexkCYQbGp6KrBe422Ww/artifacts/public/build/target.dmg
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '130'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:06 GMT
-      ETag:
-      - W/"82-iM/uxYRqWseWxNvkHcMWMau1FRU"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.dmg
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - abe83a8e-979b-420b-b70b-76515be1a012
-      x-for-trace-id:
-      - d60e552f4de0ee33af7c6da0c3690ba7
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: HEAD
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EdiexkCYQbGp6KrBe422Ww/artifacts/public/build/target.crashreporter-symbols.zip
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '152'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:06 GMT
-      ETag:
-      - W/"98-j7XqoL+SRaJElAUw9FgsgOw6qdo"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.crashreporter-symbols.zip
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 597f0e85-1fa0-4600-a736-64047f67e648
-      x-for-trace-id:
-      - 7481dd6e928344070e53eb26412c37fd
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EdiexkCYQbGp6KrBe422Ww/artifacts/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"storageType\": \"s3\",\n  \"url\": \"https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.json\"\n}"
-    headers:
-      Access-Control-Allow-Headers:
-      - X-Requested-With,Content-Type,Authorization,Accept,Origin,Cache-Control
-      Access-Control-Allow-Methods:
-      - OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,CONNECT
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Max-Age:
-      - '900'
-      Access-Control-Request-Method:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - no-store no-cache must-revalidate
-      Content-Length:
-      - '131'
-      Content-Security-Policy:
-      - report-uri /__cspreport__;default-src 'none';frame-ancestors 'none';
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Tue, 22 Jul 2025 16:04:06 GMT
-      ETag:
-      - W/"83-jyrRVJMAu/QQAWLsC9qTG9ndDfM"
-      Server:
-      - openresty
-      Strict-Transport-Security:
-      - max-age=31536000
-      Via:
-      - 1.1 google
-      location:
-      - https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.json
-      x-content-type-options:
-      - nosniff
-      x-for-request-id:
-      - 5d623b59-13a8-47ad-a487-7adcea61e25f
-      x-for-trace-id:
-      - c8be473fb775795a4803b66c7e8bfd51
-      x-taskcluster-artifact-storage-type:
-      - s3
-    status:
-      code: 303
-      message: See Other
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://firefoxci.taskcluster-artifacts.net/EdiexkCYQbGp6KrBe422Ww/0/public/build/target.json
-  response:
-    body:
-      string: "{\n  \"as\": \"/builds/worker/fetches/clang/bin/clang -isysroot /builds/worker/fetches/MacOSX15.5.sdk
-        -mmacosx-version-min=11.0 --target=aarch64-apple-darwin\",\n  \"buildid\":
-        \"20250722093426\",\n  \"cc\": \"/builds/worker/fetches/clang/bin/clang -isysroot
-        /builds/worker/fetches/MacOSX15.5.sdk -mmacosx-version-min=11.0 --target=aarch64-apple-darwin\",\n
-        \ \"cxx\": \"/builds/worker/fetches/clang/bin/clang++ -isysroot /builds/worker/fetches/MacOSX15.5.sdk
-        -mmacosx-version-min=11.0 -stdlib=libc++ --target=aarch64-apple-darwin\",\n
-        \ \"host\": \"x86_64-pc-linux-gnu\",\n  \"moz_app_id\": \"{ec8030f7-c20a-464f-9b0e-13a3a9e97384}\",\n
-        \ \"moz_app_maxversion\": \"143.0a1\",\n  \"moz_app_name\": \"firefox\",\n
-        \ \"moz_app_vendor\": \"Mozilla\",\n  \"moz_app_version\": \"143.0a1\",\n
-        \ \"moz_pkg_platform\": \"mac\",\n  \"moz_source_repo\": \"https://hg.mozilla.org/mozilla-central\",\n
-        \ \"moz_source_stamp\": \"47d8d7840ccb2bc0d0b7a896537dc9f85bc73c50\",\n  \"moz_update_channel\":
-        \"nightly\",\n  \"target\": \"aarch64-apple-darwin\"\n}\n"
-    headers:
-      Accept-Ranges:
-      - bytes
-      Access-Control-Allow-Origin:
-      - '*'
-      Access-Control-Expose-Headers:
-      - '*'
-      Alt-Svc:
-      - clear
-      Cache-Control:
-      - public,max-age=604800
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 22 Jul 2025 16:04:07 GMT
-      ETag:
-      - '"81be241c9e52835af33705c49b820140"'
-      Last-Modified:
-      - Tue, 22 Jul 2025 11:27:01 GMT
-      Server:
-      - UploadServer
-      Vary:
-      - Accept-Encoding
-      X-GUploader-UploadID:
-      - ABgVH8-vK8INOzeC6dZaxIZdZipbKiCOk8V9iJzc1Aox22z6wY5Qxoo9U_4QQkDqjFnJ0rkk
-      content-length:
-      - '961'
-      x-cache-status:
-      - miss
-      x-goog-generation:
-      - '1753183621579226'
-      x-goog-hash:
-      - crc32c=cYOUiA==
-      - md5=gb4kHJ5Sg1rzNwXEm4IBQA==
-      x-goog-metageneration:
-      - '1'
-      x-goog-storage-class:
-      - STANDARD
-      x-goog-stored-content-encoding:
-      - gzip
-      x-goog-stored-content-length:
-      - '402'
+      - '384'
     status:
       code: 200
       message: OK

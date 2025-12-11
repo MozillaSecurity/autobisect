@@ -94,4 +94,669 @@ interactions:
     status:
       code: 404
       message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:27:22 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:27:23 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780144-PDK, cache-pdk-kpdk1780107-PDK
+      X-Timer:
+      - S1765470443.955986,VS0,VE385
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-pGGuKcv2R06BQkOGonSIPA''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:30:48 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:30:48 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780139-PDK, cache-pdk-kpdk1780139-PDK
+      X-Timer:
+      - S1765470648.491787,VS0,VE280
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-mppb2PdSTZ6vVMrZ03jf2g''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:39:32 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:39:32 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780110-PDK, cache-pdk-kpdk1780110-PDK
+      X-Timer:
+      - S1765471172.463680,VS0,VE342
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-ic5he_7KS0qk9BiXIS7D_g''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:27:27 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:27:28 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780130-PDK, cache-pdk-kpdk1780059-PDK
+      X-Timer:
+      - S1765474048.021185,VS0,VE302
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-xxx6eLIxQd2IGMeJTIUBXQ''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:29:46 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:29:48 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780089-PDK, cache-pdk-kpdk1780046-PDK
+      X-Timer:
+      - S1765474188.848167,VS0,VE300
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-j-xgZqbqSZau8Kgy8VTwZw''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:35:00 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:35:02 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780047-PDK, cache-pdk-kpdk1780065-PDK
+      X-Timer:
+      - S1765474502.960649,VS0,VE359
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-5lBNvOWETzCxQIN-XAFyCw''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:36:11 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=foo&tochange=bar
+  response:
+    body:
+      string: '{
+
+        "error": "unknown revision ''foo''"
+
+        }'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:36:12 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780085-PDK, cache-pdk-kpdk1780085-PDK
+      X-Timer:
+      - S1765474572.021024,VS0,VE271
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-FBoiLdtKT3qSd4oCF-VvaQ''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
 version: 1

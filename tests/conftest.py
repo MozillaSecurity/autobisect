@@ -12,6 +12,7 @@ from autobisect.config import DEFAULT_CONFIG
 def vcr_config():
     return {
         "decode_compressed_response": True,
+        "allow_playback_repeats": True,
     }
 
 

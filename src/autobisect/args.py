@@ -223,7 +223,7 @@ class BisectCommonArgs:
         if args.branch is None:
             args.branch = "central"
         elif args.branch.startswith("esr"):
-            args.branch = Fetcher.resolve_esr(args.branch)
+            args.branch = Fetcher.resolve_esr(args.branch, "firefox")
 
         if args.target == "firefox" and args.fuzzilli:
             self.parser.error("Fuzzilli builds are not available for firefox")

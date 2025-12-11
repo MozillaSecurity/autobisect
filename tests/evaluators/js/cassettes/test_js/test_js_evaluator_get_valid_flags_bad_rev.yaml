@@ -94,4 +94,764 @@ interactions:
     status:
       code: 404
       message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:27:20 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:27:21 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780117-PDK, cache-pdk-kpdk1780091-PDK
+      X-Timer:
+      - S1765470440.211975,VS0,VE837
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-82MrBlDlQ060e9KIr2Y8Ag''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:30:45 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:30:46 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780081-PDK, cache-pdk-kpdk1780122-PDK
+      X-Timer:
+      - S1765470646.035786,VS0,VE643
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-3riafohsRjiAguR5BNXa2w''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:39:11 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:39:11 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780107-PDK, cache-pdk-kpdk1780079-PDK
+      X-Timer:
+      - S1765471151.364082,VS0,VE635
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-FTHVAtW2T-aIANejXxJyzg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:27:08 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:27:10 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780110-PDK, cache-pdk-kpdk1780038-PDK
+      X-Timer:
+      - S1765474030.674443,VS0,VE506
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-SWvux9v2SjKvrv1bVKnbYg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:29:27 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:29:28 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780107-PDK, cache-pdk-kpdk1780054-PDK
+      X-Timer:
+      - S1765474168.357969,VS0,VE506
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-Igok43TmQbC0eSuLsK8SdQ''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:34:42 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:34:44 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780078-PDK, cache-pdk-kpdk1780032-PDK
+      X-Timer:
+      - S1765474483.384759,VS0,VE631
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-54nxeubDSGOI9ifs-O5rSw''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:35:51 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:35:53 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780145-PDK, cache-pdk-kpdk1780145-PDK
+      X-Timer:
+      - S1765474552.196618,VS0,VE932
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-ZmOv_LDbRHe4P8zLTc_xsQ''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:37:06 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-unified/raw-file/sample_rev/js/src/shell/js.cpp
+  response:
+    body:
+      string: '
+
+        error: revision not found: sample_rev
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:37:08 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780098-PDK, cache-pdk-kpdk1780107-PDK
+      X-Timer:
+      - S1765474628.716711,VS0,VE637
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-YxrcB5RfRw2o4KlagAmXAA''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - text/plain; charset=UTF-8
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 404
+      message: Not Found
 version: 1

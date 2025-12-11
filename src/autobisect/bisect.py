@@ -15,6 +15,7 @@ from fuzzfetch import (
     Fetcher,
     FetcherException,
     Platform,
+    Product,
 )
 
 from .build_manager import BuildManager, BuildManagerException
@@ -205,7 +206,9 @@ class Bisector(object):
         builds = []
         for dt in [start, end]:
             date = dt.strftime("%Y-%m-%d")
-            for task in BuildTask.iterall(date, self.branch, self.flags, self.platform):
+            for task in BuildTask.iterall(
+                date, self.branch, self.flags, Product("firefox"), self.platform
+            ):
                 # Ignore "latest" as these are aliases for the most recent build
                 if hasattr(task, "url") and ".latest." in str(task.url):
                     continue

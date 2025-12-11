@@ -113,4 +113,802 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:27:21 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:27:22 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780130-PDK, cache-pdk-kpdk1780080-PDK
+      X-Timer:
+      - S1765470442.999838,VS0,VE348
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-Zwx_7lXeSNenDhB7q_PQyA''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:30:47 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:30:47 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780132-PDK, cache-pdk-kpdk1780127-PDK
+      X-Timer:
+      - S1765470648.503668,VS0,VE383
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-IVSJp52YSiy41BdQHpqAug''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 16:39:31 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 16:39:31 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780093-PDK, cache-pdk-kpdk1780080-PDK
+      X-Timer:
+      - S1765471172.507326,VS0,VE361
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-Axah6ftLTFaAEM0aWOQ48Q''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:27:26 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:27:27 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780144-PDK, cache-pdk-kpdk1780140-PDK
+      X-Timer:
+      - S1765474047.080664,VS0,VE324
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-HzT3f2aOQ_WVCsYlf8J35g''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:29:45 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:29:47 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780086-PDK, cache-pdk-kpdk1780112-PDK
+      X-Timer:
+      - S1765474187.525312,VS0,VE822
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-muEJbC6CRo2yhTtNG4bX0A''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:35:00 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:35:01 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780061-PDK, cache-pdk-kpdk1780140-PDK
+      X-Timer:
+      - S1765474501.021498,VS0,VE392
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-9Vf7sBaOQhOgsJRVMQfUOg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html
+      Date:
+      - Thu, 11 Dec 2025 17:36:10 GMT
+      Location:
+      - https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+      access-control-allow-origin:
+      - '*'
+      connection:
+      - close
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://hg-edge.mozilla.org/mozilla-central/json-pushes?fromchange=abdb14987e23f88107f437b130d0817eea873199&tochange=b05a24f158503b7ea175520ef383fa005a4c41b7
+  response:
+    body:
+      string: '{"41859": {"changesets": ["7c253df59dc1d1f90df8807cafffa3df9b6bfa38",
+        "69c16d205f543abe4c9de84d0899d2c67a5fd562", "a7c3b97f32c4fd24885af78553e9c286e33b4b7f",
+        "be09294c8814e40bd435bb91f26d917e8c265401", "f681c82f6d5a6220d9e00fc16de0e8715942a9f5",
+        "14230f12bba07b434530d8cf534e059316952c93", "66062779f72677482b63b272293320e8c3a74b68",
+        "53ffba877e860c24c2ecf87cbeee4fab14be4e8a", "bc88602ce3a113eee9d513d4ac2ac0e932375bf2",
+        "7d8df15157d565c0d2c5e4384bb0ab19d9447246", "1bf49d89bbe88ef6d854dd0b378a6697a29e0bed",
+        "72cb6cb4751b7cd034ca72ad68f31e1ace298eb6", "e87f8db5d7dde9086dbdd8fc4ebb2a988128a0e0",
+        "c53f704e92982310c14de060f362412199362df7", "fa744dc84f2ccd9af1f053a013f85bb5df69a467",
+        "cf7f56a0bab057a54c3f9d70b8461fbdc0f5b7c2", "0619a4b617fece71c0d0e74f357e2eaec68bb94e",
+        "8d5a38566676519c5dd22300de912ce18093716f", "bf9c11e5d5a45e3ff11e07f50e40f8580ce2e50f",
+        "999de4ddd8c91e05ebf6dbd1bc30fa550b8e533f", "0d5dd25610fccbc394891ed3d05efd87e8dee4bd",
+        "4b0ae75cb06d2c3a966943b883328b06c135511e", "49048304131395da3925d34b2149d0c0ce0d0a55",
+        "c71ee627271d51e86edd5bc116f7224ebe581774", "184831e259d588a34833bc3b2ad5336c408badc5",
+        "c3b118344b1ec722bff181df51f44cce059b0650", "f28506956681fff9b7854eadd14b4941c6a6e76e",
+        "49ebcfb18a9cd6bc6a05f6444ef7958b91d0755b", "7b0485ef22806d6c2a417b3cb3741e5d516e1cb4",
+        "533d6e78c12cb682f0bff0ebfc226a270e61e78d", "5af89b9393132bb5f4a09ac4760767b16382a86a",
+        "14477417af2bd61d38af7becf7c3fd6d4601f6dd", "f66a0d99c2ad56c7b73db92800aa330d1d3bf915",
+        "fdcfa4f8949e4e3e03d6280de7ad3cd4e4867131", "b05a24f158503b7ea175520ef383fa005a4c41b7"],
+        "date": 1717042096, "git_changesets": [null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null, null, null, null, null, null, null, null, null, null,
+        null, null, null], "user": "ctuns@mozilla.com"}}'
+    headers:
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 11 Dec 2025 17:36:11 GMT
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - MISS, MISS
+      X-Cache-Hits:
+      - 0, 0
+      X-Served-By:
+      - cache-pdk-kpdk1780102-PDK, cache-pdk-kpdk1780048-PDK
+      X-Timer:
+      - S1765474571.026304,VS0,VE407
+      accept-ranges:
+      - bytes
+      access-control-allow-origin:
+      - '*'
+      cache-control:
+      - no-cache
+      content-length:
+      - '1846'
+      content-security-policy:
+      - 'default-src ''none''; connect-src ''self'' https://bugzilla.mozilla.org/;
+        img-src ''self''; script-src https://hg.mozilla.org/static/ https://hg-edge.mozilla.org/static/
+        ''nonce-OGw-YzJHQ8aTEKbIuBnIlg''; style-src ''self'' ''unsafe-inline''; upgrade-insecure-requests;
+        frame-ancestors https:'
+      content-type:
+      - application/json
+      server:
+      - Apache
+      strict-transport-security:
+      - max-age=31536000
+      transfer-encoding:
+      - chunked
+      via:
+      - 1.1 varnish, 1.1 varnish
+      x-cache-info:
+      - 'not cacheable; response specified "Cache-Control: no-cache"'
+      x-content-type-options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
 version: 1

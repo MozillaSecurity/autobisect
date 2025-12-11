@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 
 import pytest
-from fuzzfetch import Fetcher, BuildFlags
+from fuzzfetch import Fetcher, BuildFlags, Platform
 
 from autobisect.build_manager import (
     BuildManager,
@@ -129,11 +129,12 @@ def test_build_manager_remove_old_builds_in_use(mocker, config_fixture):
 
 
 @pytest.mark.vcr()
-def test_build_manager_get_build(mocker, config_fixture):
+@pytest.mark.parametrize("platform", ["Linux", "Windows"])
+def test_build_manager_get_build(mocker, config_fixture, platform):
     """Simple test of BuildManager.get_build"""
     manager = BuildManager(config_fixture)
     flags = BuildFlags()
-    fetcher = Fetcher("central", "latest", flags, ["firefox"])
+    fetcher = Fetcher("central", "latest", flags, ["firefox"], Platform(platform))
     extract_build = mocker.patch.object(Fetcher, "extract_build")
 
     execute = manager.db.cur.execute

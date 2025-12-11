@@ -52,9 +52,6 @@ jobs:
             platform: ubuntu-latest
             toxenv: py313
           - python-version: "3.12"
-            platform: macos-latest
-            toxenv: py312
-          - python-version: "3.12"
             platform: windows-latest
             toxenv: py312
 

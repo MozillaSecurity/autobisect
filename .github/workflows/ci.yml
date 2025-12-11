@@ -63,9 +63,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Export PIPX_DEFAULT_PYTHON
-        shell: bash
-        run: echo "PIPX_DEFAULT_PYTHON=${pythonLocation}" >> "$GITHUB_ENV"
+      - run: echo "PIPX_DEFAULT_PYTHON=${{ steps.setup-python-step.outputs.python-path }}" >> $GITHUB_ENV
 
       - name: Install poetry
         run: pipx install poetry

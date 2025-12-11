@@ -119,7 +119,7 @@ class BisectionResult(object):
                 end._branch,
             ):
                 for build in (start, end):
-                    if build._branch == "central":
+                    if build._branch == "autoland":
                         base = build.build_info["moz_source_repo"]
                         break
 

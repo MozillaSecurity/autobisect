@@ -29,7 +29,6 @@ dependencies = [
   "grizzly-framework==0.24.1",
   "lithium-reducer>=4,<5",
   "platformdirs>=4.2.2,<5",
-  "twine>=6.1,<7"
 ]
 urls.Homepage = "https://github.com/MozillaSecurity/autobisect"
 urls.Repository = "https://github.com/MozillaSecurity/autobisect"
@@ -57,6 +56,7 @@ dev = [
   "pytest-pylint>=0.21",
   "pytest-recording>=0.13.2",
   "python-semantic-release>=10.1",
+  "twine>=6.1,<7",
   "types-freezegun>=1.1.10",
   "types-pytz>=2025.1.0.20250204",
   "types-requests>=2.32.0.20250306",

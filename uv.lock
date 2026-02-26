@@ -86,7 +86,6 @@ dependencies = [
     { name = "grizzly-framework" },
     { name = "lithium-reducer" },
     { name = "platformdirs" },
-    { name = "twine" },
 ]
 
 [package.dev-dependencies]
@@ -111,6 +110,7 @@ dev = [
     { name = "pytest-pylint" },
     { name = "pytest-recording" },
     { name = "python-semantic-release" },
+    { name = "twine" },
     { name = "types-freezegun" },
     { name = "types-pytz" },
     { name = "types-requests" },
@@ -123,7 +123,6 @@ requires-dist = [
     { name = "grizzly-framework", specifier = "==0.24.1" },
     { name = "lithium-reducer", specifier = ">=4,<5" },
     { name = "platformdirs", specifier = ">=4.2.2,<5" },
-    { name = "twine", specifier = ">=6.1,<7" },
 ]
 
 [package.metadata.requires-dev]
@@ -148,6 +147,7 @@ dev = [
     { name = "pytest-pylint", specifier = ">=0.21" },
     { name = "pytest-recording", specifier = ">=0.13.2" },
     { name = "python-semantic-release", specifier = ">=10.1" },
+    { name = "twine", specifier = ">=6.1,<7" },
     { name = "types-freezegun", specifier = ">=1.1.10" },
     { name = "types-pytz", specifier = ">=2025.1.0.20250204" },
     { name = "types-requests", specifier = ">=2.32.0.20250306" },

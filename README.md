@@ -2,7 +2,7 @@ Autobisect
 ==========
 [![CI](https://github.com/MozillaSecurity/autobisect/actions/workflows/ci.yml/badge.svg)](https://github.com/MozillaSecurity/autobisect/actions/workflows/ci.yml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![codecov](https://codecov.io/gh/MozillaSecurity/autobisect/branch/master/graph/badge.svg)](https://codecov.io/gh/MozillaSecurity/autobisect)
+[![codecov](https://codecov.io/gh/MozillaSecurity/autobisect/branch/main/graph/badge.svg)](https://codecov.io/gh/MozillaSecurity/autobisect)
 
 Autobisect is a python module that automates bisection of Mozilla Firefox and SpiderMonkey bugs.
 

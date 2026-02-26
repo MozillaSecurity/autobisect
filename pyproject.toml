@@ -1,101 +1,80 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.5.0"]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
 
 [project]
-authors = [
-  {email = "jkratzer@mozilla.com", name = "Jason Kratzer"}
-]
+name = "autobisect"
+version = "9.0.1"
+description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
+readme = "README.md"
+keywords = [ "bisection", "fuzz", "fuzzing", "security", "test", "testing" ]
+license = "MPL-2.0"
+maintainers = [ { email = "fuzzing@mozilla.com", name = "Mozilla Fuzzing Team" } ]
+authors = [ { email = "jkratzer@mozilla.com", name = "Jason Kratzer" } ]
+requires-python = ">=3.10,<4.0"
 classifiers = [
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
-  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Security",
-  "Topic :: Software Development :: Testing"
+  "Topic :: Software Development :: Testing",
 ]
 dependencies = [
-  "fuzzfetch (>=16.1.0,<17.0.0)",
-  "grizzly-framework (>=0.24.0,<0.25.0)",
-  "lithium-reducer>=4.0.0,<5.0.0",
-  "platformdirs>=4.2.2,<5.0.0",
-  "twine>=6.1.0,<7.0.0"
+  "fuzzfetch>=16.1,<17",
+  "grizzly-framework==0.24.1",
+  "lithium-reducer>=4,<5",
+  "platformdirs>=4.2.2,<5",
+  "twine>=6.1,<7"
 ]
-description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
-homepage = "https://github.com/MozillaSecurity/autobisect"
-include = ["tests/**"]
-keywords = ["bisection", "fuzz", "fuzzing", "security", "test", "testing"]
-license = "MPL-2.0"
-maintainers = [
-  {email = "fuzzing@mozilla.com", name = "Mozilla Fuzzing Team"}
-]
-name = "autobisect"
-packages = [{from = "src", include = "autobisect"}]
-readme = "README.md"
-repository = "https://github.com/MozillaSecurity/autobisect"
-requires-python = ">=3.10,<4.0"
-version = "9.0.1"
+urls.Homepage = "https://github.com/MozillaSecurity/autobisect"
+urls.Repository = "https://github.com/MozillaSecurity/autobisect"
+scripts = { autobisect = "autobisect.main:main" }
 
-[project.scripts]
-autobisect = "autobisect.main:main"
-
-[tool.coverage.report]
-exclude_lines = [
-  "pragma: no cover"
+[dependency-groups]
+dev = [
+  "black>=25.1",
+  "codecov-cli>=11.0.3",
+  "coverage[toml]>=7.9.1",
+  "flake8>=7.1.1",
+  "flake8-isort>=6",
+  "flake8-quotes>=3.3.2",
+  "freezegun>=1.5.1",
+  "gitlint>=0.19.1",
+  "mypy>=1.13",
+  "pre-commit>=4.0.1",
+  "pylint>=4.0.4",
+  "pyproject-fmt>=2",
+  "pytest>=9.0.2",
+  "pytest-black>=0.6",
+  "pytest-cov>=7",
+  "pytest-freezer>=0.4.8",
+  "pytest-mock>=3",
+  "pytest-pylint>=0.21",
+  "pytest-recording>=0.13.2",
+  "python-semantic-release>=10.1",
+  "types-freezegun>=1.1.10",
+  "types-pytz>=2025.1.0.20250204",
+  "types-requests>=2.32.0.20250306",
+  "types-six>=1.17.0.20250304"
 ]
 
-[tool.coverage.run]
-omit = [
-  "*/.egg/*",
-  "*/.tox/*",
-  "*/build/*",
-  "*/dist/*",
-  "*/setup.py",
-  "*/tests/*"
-]
+[tool.hatch]
+build.targets.sdist.include = [ "/src", "/tests" ]
+build.targets.wheel.packages = [ "src/autobisect" ]
 
 [tool.isort]
 force_sort_within_sections = false
 known_first_party = "autobisect"
 profile = "black"
 
-[tool.mypy]
-exclude = "^.*tests.*$"
-ignore_missing_imports = "True"
-implicit_reexport = "True"
-strict = "True"
-
-[tool.poetry.group.dev.dependencies]
-black = "^25.1.0"
-codecov-cli = "^11.0.3"
-coverage = {extras = ["toml"], version = "^7.9.1"}
-flake8 = "^7.1.1"
-flake8-isort = "^6.0.0"
-flake8-quotes = "^3.3.2"
-freezegun = "^1.5.1"
-gitlint = "^0.19.1"
-mypy = "^1.13.0"
-pre-commit = "^4.0.1"
-pylint = "^4.0.4"
-pytest = "^9.0.2"
-pytest-black = "^0.6.0"
-pytest-cov = "^7.0.0"
-pytest-freezer = "^0.4.8"
-pytest-mock = "^3.0.0"
-pytest-pylint = "^0.21.0"
-pytest-recording = "^0.13.2"
-python-semantic-release = "^10.1.0"
-toml-sort = "^0.24.2"
-tox = "^4.24.2"
-types-freezegun = "^1.1.10"
-types-pytz = "^2025.1.0.20250204"
-types-requests = "^2.32.0.20250306"
-types-six = "^1.17.0.20250304"
-
-[tool.pylint.format]
-max-line-length = 88
-
-[tool.pylint.messages_control]
-disable = [
+[tool.pylint]
+format.max-line-length = 88
+messages_control.disable = [
   "fixme",
   "invalid-name",
   "line-too-long",
@@ -115,12 +94,21 @@ disable = [
   "useless-object-inheritance"
 ]
 
-[tool.pytest.ini_options]
-log_level = "DEBUG"
+[tool.pytest]
+ini_options.log_level = "DEBUG"
+
+[tool.coverage]
+run.omit = [ "*/.egg/*", "*/build/*", "*/dist/*", "*/setup.py", "*/tests/*" ]
+run.source_pkgs = [ "autobisect" ]
+report.exclude_lines = [ "pragma: no cover" ]
+
+[tool.mypy]
+exclude = "^.*tests.*$"
+ignore_missing_imports = "True"
+implicit_reexport = "True"
+strict = "True"
 
 [tool.semantic_release]
-build_command = "poetry build"
+build_command = "uv build"
 commit_message = "chore(release): {version} [skip ci]"
-version_toml = [
-  "pyproject.toml:project.version"
-]
+version_toml = [ "pyproject.toml:project.version" ]

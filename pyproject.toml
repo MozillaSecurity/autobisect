@@ -4,7 +4,7 @@ requires = [ "hatchling" ]
 
 [project]
 name = "autobisect"
-version = "9.0.1"
+version = "9.1.0"
 description = "Automatic bisection utility for Mozilla Firefox and SpiderMonkey"
 readme = "README.md"
 keywords = [ "bisection", "fuzz", "fuzzing", "security", "test", "testing" ]

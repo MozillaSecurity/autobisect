@@ -43,7 +43,7 @@ dev = [
   "flake8-isort>=6",
   "flake8-quotes>=3.3.2",
   "freezegun>=1.5.1",
-  "gitlint>=0.19.1",
+  "gitlint>=0.19.1; sys_platform!='win32'",
   "mypy>=1.13",
   "pre-commit>=4.0.1",
   "pylint>=4.0.4",

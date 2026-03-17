@@ -88,7 +88,7 @@ def test_evaluate_testcase_system_windows(mocker, tmp_path):
 def test_launch_simple(mocker, tmp_path, scan_dir):
     """Test that launch returns the expected evaluator result and handles scan_dir correctly."""
     mocker.patch(
-        "grizzly.replay.ReplayManager.main",
+        "autobisect.evaluators.browser.browser.replay_main",
         side_effect=(Exit.SUCCESS, Exit.FAILURE),
     )
 

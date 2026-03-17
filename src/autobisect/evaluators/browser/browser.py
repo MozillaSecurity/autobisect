@@ -11,7 +11,8 @@ from typing import Optional, NoReturn, Any, List
 
 from grizzly.common.frontend import Exit
 from grizzly.common.storage import TestCase
-from grizzly.replay import ReplayArgs, ReplayManager
+from grizzly.replay import ReplayArgs
+from grizzly.replay.main import main as replay_main
 
 from autobisect.evaluators.base import Evaluator, EvaluatorResult
 
@@ -192,7 +193,7 @@ class BrowserEvaluator(Evaluator):
         with TemporaryDirectory() as test_dir:
             testcase.dump(Path(test_dir), include_details=True)
             args = self.parse_args(binary, Path(test_dir), verify)
-            success = ReplayManager.main(args)
+            success = replay_main(args)
 
             if success == Exit.SUCCESS:
                 return EvaluatorResult.BUILD_CRASHED

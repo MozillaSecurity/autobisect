@@ -120,7 +120,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fuzzfetch", specifier = ">=16.1,<17" },
-    { name = "grizzly-framework", specifier = "==0.24.1" },
+    { name = "grizzly-framework", specifier = "==0.24.2" },
     { name = "lithium-reducer", specifier = ">=4,<5" },
     { name = "platformdirs", specifier = ">=4.2.2,<5" },
 ]
@@ -161,6 +161,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/86/72/cd9b395f25e290e633655a100af28cb253e4393396264a98bd5f5951d50f/backports_tarfile-1.2.0.tar.gz", hash = "sha256:d75e02c268746e1b8144c278978b6e98e85de6ad16f8e4b0844a154557eca991", size = 86406, upload-time = "2024-05-28T17:01:54.731Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b9/fa/123043af240e49752f1c4bd24da5053b6bd00cad78c2be53c0d1e8b975bc/backports.tarfile-1.2.0-py3-none-any.whl", hash = "sha256:77e284d754527b01fb1e6fa8a1afe577858ebe4e9dad8919e34c862cb399bc34", size = 30181, upload-time = "2024-05-28T17:01:53.112Z" },
+]
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.14.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "soupsieve" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c3/b0/1c6a16426d389813b48d95e26898aff79abbde42ad353958ad95cc8c9b21/beautifulsoup4-4.14.3.tar.gz", hash = "sha256:6292b1c5186d356bba669ef9f7f051757099565ad9ada5dd630bd9de5fa7fb86", size = 627737, upload-time = "2025-11-30T15:08:26.084Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1a/39/47f9197bdd44df24d67ac8893641e16f386c984a0619ef2ee4c51fbbc019/beautifulsoup4-4.14.3-py3-none-any.whl", hash = "sha256:0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb", size = 107721, upload-time = "2025-11-30T15:08:24.087Z" },
 ]
 
 [[package]]
@@ -899,10 +912,11 @@ wheels = [
 
 [[package]]
 name = "grizzly-framework"
-version = "0.24.1"
+version = "0.24.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aioquic" },
+    { name = "beautifulsoup4" },
     { name = "bugsy" },
     { name = "cryptography" },
     { name = "cssbeautifier" },
@@ -915,9 +929,9 @@ dependencies = [
     { name = "prefpicker" },
     { name = "psutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/df/c1/c546a2bec3b16dc0f340090d5e701a3aeb34dd68ba4feb679063eedf7c42/grizzly_framework-0.24.1.tar.gz", hash = "sha256:afda7aefdfbbeae15d710004fd314d71754ddec4db5c0a69c826ee11a43f9d89", size = 227580, upload-time = "2025-10-30T22:30:00.423Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/9b/1109cf38ebf26118d6d2bc0944047c5c85b9d7330e4fcdd27ac47fe3fe14/grizzly_framework-0.24.2.tar.gz", hash = "sha256:bfbece96e50c7bcd9b63def44aae8e1f6c8e949f37e5b501cf78c24cc577d358", size = 229892, upload-time = "2025-12-19T17:44:06.922Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f0/02/332064d1e80db2b8c98239fe4812bf4b708ad0accf9d11138c18f64b9115/grizzly_framework-0.24.1-py3-none-any.whl", hash = "sha256:b74e1de990f35a79a8ee83766a2d39d96dc67da95ee109b93560a2f9156a3b98", size = 291090, upload-time = "2025-10-30T22:29:59.11Z" },
+    { url = "https://files.pythonhosted.org/packages/76/4d/781b24f53d9f00a271d93fa97108bcaf338ff03b4b09b83807df39f17a17/grizzly_framework-0.24.2-py3-none-any.whl", hash = "sha256:7126069aec94c08348330c24e89a4143c3c40c63b52444ddd566df5bd27522a0", size = 296824, upload-time = "2025-12-19T17:44:05.698Z" },
 ]
 
 [[package]]
@@ -2266,6 +2280,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/44/cd/a040c4b3119bbe532e5b0732286f805445375489fceaec1f48306068ee3b/smmap-5.0.2.tar.gz", hash = "sha256:26ea65a03958fa0c8a1c7e8c7a58fdc77221b8910f6be2131affade476898ad5", size = 22329, upload-time = "2025-01-02T07:14:40.909Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/04/be/d09147ad1ec7934636ad912901c5fd7667e1c858e19d355237db0d0cd5e4/smmap-5.0.2-py3-none-any.whl", hash = "sha256:b30115f0def7d7531d22a0fb6502488d879e75b260a9db4d0819cfb25403af5e", size = 24303, upload-time = "2025-01-02T07:14:38.724Z" },
+]
+
+[[package]]
+name = "soupsieve"
+version = "2.8.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7b/ae/2d9c981590ed9999a0d91755b47fc74f74de286b0f5cee14c9269041e6c4/soupsieve-2.8.3.tar.gz", hash = "sha256:3267f1eeea4251fb42728b6dfb746edc9acaffc4a45b27e19450b676586e8349", size = 118627, upload-time = "2026-01-20T04:27:02.457Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl", hash = "sha256:ed64f2ba4eebeab06cc4962affce381647455978ffc1e36bb79a545b91f45a95", size = 37016, upload-time = "2026-01-20T04:27:01.012Z" },
 ]
 
 [[package]]

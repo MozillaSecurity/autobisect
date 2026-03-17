@@ -26,7 +26,7 @@ classifiers = [
 ]
 dependencies = [
   "fuzzfetch>=16.1,<17",
-  "grizzly-framework==0.24.1",
+  "grizzly-framework==0.24.2",
   "lithium-reducer>=4,<5",
   "platformdirs>=4.2.2,<5",
 ]

@@ -93,6 +93,12 @@ messages_control.disable = [
   "useless-object-inheritance"
 ]
 
+[tool.mypy]
+exclude = "^.*tests.*$"
+ignore_missing_imports = "True"
+implicit_reexport = "True"
+strict = "True"
+
 [tool.pytest]
 ini_options.log_level = "DEBUG"
 
@@ -100,12 +106,6 @@ ini_options.log_level = "DEBUG"
 run.omit = [ "*/.egg/*", "*/build/*", "*/dist/*", "*/setup.py", "*/tests/*" ]
 run.source_pkgs = [ "autobisect" ]
 report.exclude_lines = [ "pragma: no cover" ]
-
-[tool.mypy]
-exclude = "^.*tests.*$"
-ignore_missing_imports = "True"
-implicit_reexport = "True"
-strict = "True"
 
 [tool.semantic_release]
 build_command = "uv build"

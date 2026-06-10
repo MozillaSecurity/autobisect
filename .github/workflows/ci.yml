@@ -64,8 +64,6 @@ jobs:
         run: uv run pytest --cache-clear --cov=src --cov-config=pyproject.toml --cov-report=term-missing --disable-pytest-warnings
 
       - name: Run codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
           uv run coverage xml --ignore-errors
           uv run codecov upload-process

@@ -1,11 +1,13 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
+import logging
 import platform
 
 import pytest
 
-from autobisect.main import parse_args
+from autobisect.bisect import BisectionResult
+from autobisect.main import main, parse_args
 
 
 @pytest.mark.parametrize("target", ("firefox", "js"))
@@ -70,3 +72,23 @@ def test_parse_args_prefs_sanity_check(mocker, tmp_path):
 
     with pytest.raises(SystemExit):
         parse_args(["firefox", str(testcase), "--prefs", str(prefs)])
+
+
+def test_main_reports_bisection_failure_reason(mocker, tmp_path, caplog):
+    testcase = tmp_path / "testcase.html"
+    testcase.touch()
+    mocker.patch("autobisect.main.configure_logging")
+    mocker.patch("autobisect.main.BrowserEvaluator")
+    bisector = mocker.patch("autobisect.main.Bisector").return_value
+    bisector.bisect.return_value = mocker.Mock(
+        status=BisectionResult.FAILED,
+        message="Bisection bounds belong to different repositories",
+    )
+
+    with caplog.at_level(logging.ERROR, logger="autobisect"):
+        assert main(["firefox", str(testcase)]) == 0
+
+    assert (
+        "Bisection failed: Bisection bounds belong to different repositories"
+        in caplog.text
+    )

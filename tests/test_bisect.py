@@ -7,14 +7,17 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
-from fuzzfetch import BuildFlags, Fetcher, Platform
+import requests
+from fuzzfetch import BuildFlags, Fetcher, FetcherException, Platform
 
-from autobisect import EvaluatorResult, BrowserEvaluator
+from autobisect import BrowserEvaluator, EvaluatorResult
 from autobisect.bisect import (
+    BisectionResult,
     Bisector,
     StatusException,
     VerificationStatus,
     get_autoland_range,
+    get_merge_second_parent,
 )
 from autobisect.builds import BuildRange
 
@@ -72,45 +75,164 @@ def test_bisect_get_pushdate_builds_simple():
         assert isinstance(build, Fetcher)
 
 
-@pytest.mark.freeze_time("2024-05-30")
-@pytest.mark.vcr()
-@pytest.mark.skip(reason="Cassette is too large")
-def test_bisect_get_autoland_builds_simple(browser_evaluator, opt_flags, platform):
-    """Test that get_autoland_builds returns the expected build range."""
-    start = "abdb14987e23f88107f437b130d0817eea873199"
-    end = "b05a24f158503b7ea175520ef383fa005a4c41b7"
-    bisector = Bisector(
-        browser_evaluator,
-        "central",
-        start,
-        end,
-        opt_flags,
-        platform,
+def test_get_autoland_builds_uses_lineage(mocker):
+    bisector = MockBisector(datetime.now(), datetime.now())
+    mocker.patch("autobisect.bisect.get_autoland_range", return_value=["middle", "end"])
+    builds = [mocker.Mock(spec=Fetcher), mocker.Mock(spec=Fetcher)]
+    fetcher = mocker.patch("autobisect.bisect.Fetcher", side_effect=builds)
+
+    result = bisector._get_autoland_builds("start", "end")
+
+    assert result is not None
+    assert result.builds == builds
+    assert [call.args[1] for call in fetcher.call_args_list] == ["middle", "end"]
+
+
+def test_get_autoland_range_first_parent(mocker):
+    response = mocker.Mock()
+    response.json.return_value = {
+        "1": {"changesets": [{"node": "middle", "parents": ["start"]}]},
+        "2": {"changesets": [{"node": "end", "parents": ["middle"]}]},
+    }
+    request = mocker.patch("autobisect.bisect.requests.get", return_value=response)
+
+    assert get_autoland_range("start", "end") == ["middle", "end"]
+    assert "integration/autoland/json-pushes" in request.call_args.args[0]
+
+
+def test_get_autoland_range_rejects_divergent_history(mocker):
+    response = mocker.Mock()
+    response.json.return_value = {
+        "2": {"changesets": [{"node": "end", "parents": ["other-branch"]}]}
+    }
+    mocker.patch("autobisect.bisect.requests.get", return_value=response)
+
+    assert get_autoland_range("start", "end") is None
+
+
+def test_get_autoland_range_invalid_revs(mocker):
+    mocker.patch(
+        "autobisect.bisect.requests.get", side_effect=requests.exceptions.HTTPError
     )
-    builds = bisector._get_autoland_builds()
-    repo_url = "https://hg.mozilla.org/integration/autoland"
 
-    assert isinstance(builds, BuildRange)
-    assert len(builds) == 10
-    assert all(b.build_info["moz_source_repo"] == repo_url for b in builds)
-
-
-@pytest.mark.vcr()
-def test_get_autoland_range_simple():
-    """Test that get_autoland_range returns a list of changesets."""
-    start = "abdb14987e23f88107f437b130d0817eea873199"
-    end = "b05a24f158503b7ea175520ef383fa005a4c41b7"
-    changesets = get_autoland_range(start, end)
-
-    assert isinstance(changesets, list)
-    assert len(changesets) == 35
-    assert all(isinstance(c, str) and len(c) == 40 for c in changesets)
-
-
-@pytest.mark.vcr()
-def test_get_autoland_range_invalid_revs():
-    """Test that get_autoland_range returns None when using invalid revisions."""
     assert get_autoland_range("foo", "bar") is None
+
+
+def test_get_merge_second_parent(mocker):
+    response = mocker.Mock()
+    response.json.return_value = {
+        "parents": ["central-parent", "autoland-parent"],
+    }
+    mocker.patch("autobisect.bisect.requests.get", return_value=response)
+
+    assert get_merge_second_parent("merge") == "autoland-parent"
+    response.json.return_value = {"parents": ["central-parent"]}
+    assert get_merge_second_parent("non-merge") is None
+
+
+@pytest.mark.parametrize(
+    "metadata", [ValueError("invalid JSON"), None, {"parents": None}, {"parents": "ab"}]
+)
+def test_get_merge_second_parent_invalid_metadata(mocker, metadata):
+    response = mocker.Mock()
+    if isinstance(metadata, Exception):
+        response.json.side_effect = metadata
+    else:
+        response.json.return_value = metadata
+    mocker.patch("autobisect.bisect.requests.get", return_value=response)
+
+    assert get_merge_second_parent("merge") is None
+
+
+@pytest.mark.parametrize(
+    "find_fix, start_result, end_result, expected_success",
+    [
+        (True, EvaluatorResult.BUILD_CRASHED, EvaluatorResult.BUILD_PASSED, True),
+        (True, EvaluatorResult.BUILD_PASSED, EvaluatorResult.BUILD_PASSED, False),
+        (True, EvaluatorResult.BUILD_CRASHED, EvaluatorResult.BUILD_CRASHED, False),
+        (False, EvaluatorResult.BUILD_PASSED, EvaluatorResult.BUILD_CRASHED, True),
+    ],
+)
+def test_bisect_autoland_verifies_bounds_first(
+    mocker, find_fix, start_result, end_result, expected_success
+):
+    bisector = MockBisector(datetime.now(), datetime.now())
+    bisector.find_fix = find_fix
+    central_start = mocker.Mock(spec=Fetcher)
+    central_end = mocker.Mock(spec=Fetcher)
+    central_start.changeset = "central-start"
+    central_end.changeset = "central-end"
+    bisector.start, bisector.end = central_start, central_end
+    autoland_start = mocker.Mock(spec=Fetcher)
+    autoland_end = mocker.Mock(spec=Fetcher)
+    middle = mocker.Mock(spec=Fetcher)
+    events = []
+    mocker.patch(
+        "autobisect.bisect.get_merge_second_parent", side_effect=["base", "tip"]
+    )
+    mocker.patch("autobisect.bisect.Fetcher", return_value=autoland_start)
+    builds = BuildRange([middle, autoland_end])
+
+    def get_builds(start, end):
+        events.append("range")
+        assert (start, end) == ("base", "tip")
+        return builds
+
+    mocker.patch.object(bisector, "_get_autoland_builds", side_effect=get_builds)
+    outcomes = [start_result, end_result]
+
+    def test_build(build):
+        events.append(build)
+        return outcomes.pop(0)
+
+    mocker.patch.object(bisector, "test_build", side_effect=test_build)
+    run_range = mocker.patch.object(bisector, "_bisect_build_range")
+
+    bisector._bisect_autoland(False)
+
+    assert events[0] is autoland_start
+    if start_result == (
+        EvaluatorResult.BUILD_CRASHED if find_fix else EvaluatorResult.BUILD_PASSED
+    ):
+        assert events[1:] == ["range", autoland_end]
+    else:
+        assert events == [autoland_start]
+    if expected_success:
+        assert (bisector.start, bisector.end) == (autoland_start, autoland_end)
+        assert run_range.call_args.args[0].builds == [middle]
+    else:
+        assert (bisector.start, bisector.end) == (central_start, central_end)
+        run_range.assert_not_called()
+
+
+def test_unavailable_autoland_parent_preserves_central_bounds(mocker):
+    bisector = MockBisector(datetime.now(), datetime.now())
+    central_start = mocker.Mock(spec=Fetcher)
+    central_end = mocker.Mock(spec=Fetcher)
+    central_start.changeset = "central-start"
+    central_end.changeset = "central-end"
+    bisector.start, bisector.end = central_start, central_end
+    mocker.patch(
+        "autobisect.bisect.get_merge_second_parent", side_effect=["base", "tip"]
+    )
+    mocker.patch("autobisect.bisect.Fetcher", side_effect=FetcherException("missing"))
+    run_range = mocker.patch.object(bisector, "_bisect_build_range")
+
+    bisector._bisect_autoland(False)
+
+    assert (bisector.start, bisector.end) == (central_start, central_end)
+    run_range.assert_not_called()
+
+
+def test_mixed_repository_result_is_not_reported_as_success(mocker):
+    start = mocker.Mock(spec=Fetcher)
+    end = mocker.Mock(spec=Fetcher)
+    start.build_info = {"moz_source_repo": "https://hg.mozilla.org/mozilla-central"}
+    end.build_info = {"moz_source_repo": "https://hg.mozilla.org/integration/autoland"}
+
+    result = BisectionResult(BisectionResult.SUCCESS, start, end, "central")
+
+    assert result.status == BisectionResult.FAILED
 
 
 @pytest.mark.parametrize("status", EvaluatorResult)

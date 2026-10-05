@@ -5,7 +5,7 @@ import logging
 import time
 from argparse import ArgumentParser, Namespace
 from datetime import timedelta
-from typing import Union, Optional, List
+from typing import List, Optional, Union
 
 from fuzzfetch import BuildFlags, Platform
 from grizzly.main import configure_logging
@@ -79,7 +79,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         LOG.info("> End: %s (%s)", result.end.changeset, result.end.id)
         LOG.info("> %s", result.pushlog)
     else:
-        LOG.error("Bisection failed!")
+        if result.message:
+            LOG.error("Bisection failed: %s", result.message)
+        else:
+            LOG.error("Bisection failed!")
 
     elapsed = timedelta(seconds=int(end_time - start_time))
     LOG.info("Bisection completed in: %s", elapsed)

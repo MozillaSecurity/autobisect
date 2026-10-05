@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Generator, Optional, List, Union, TypeVar, Callable
+from typing import Generator, List, Optional, TypeVar, Union
 
 import requests
 from fuzzfetch import (
@@ -22,22 +22,22 @@ from .build_manager import BuildManager, BuildManagerException
 from .builds import BuildRange
 from .evaluators import Evaluator, EvaluatorResult
 
-T = TypeVar("T")
+T = TypeVar("T", str, Fetcher)
 
 LOG = logging.getLogger(__name__)
 
 
 def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
     """
-    Retrieve changeset from autoland within supplied boundary.
+    Retrieve the first-parent Autoland path between two revisions.
 
     :param start: Starting revision.
     :param end: Ending revision.
     :return: List of changesets.
     """
     url = (
-        "https://hg.mozilla.org/mozilla-central/json-pushes"
-        f"?fromchange={start}&tochange={end}"
+        "https://hg.mozilla.org/integration/autoland/json-pushes"
+        f"?fromchange={start}&tochange={end}&full=1"
     )
     try:
         data = requests.get(url, timeout=30)
@@ -46,13 +46,48 @@ def get_autoland_range(start: str, end: str) -> Union[List[str], None]:
         LOG.error("Failed to retrieve autoland changeset %s", exc)
         return None
 
-    json = data.json()
+    try:
+        changesets = {
+            changeset["node"]: changeset
+            for push in data.json().values()
+            for changeset in push["changesets"]
+        }
+        path = []
+        current = end
+        while current != start:
+            revision = changesets[current]
+            path.append(current)
+            current = revision["parents"][0]
+    except (ValueError, KeyError, IndexError, TypeError):
+        return None
 
-    changesets = []
-    for push_id in json.keys():
-        changesets.extend(json[push_id]["changesets"])
+    path.reverse()
+    return path
 
-    return changesets
+
+def get_merge_second_parent(changeset: str) -> Optional[str]:
+    """Find the second parent of a central merge.
+
+    :param changeset: Central merge revision.
+    :return: Second parent, or None if the revision is not a merge.
+    """
+    url = f"https://hg.mozilla.org/mozilla-central/json-rev/{changeset}"
+    try:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as exc:
+        LOG.warning("Failed to inspect central merge %s: %s", changeset, exc)
+        return None
+
+    try:
+        parents = response.json()["parents"]
+    except (ValueError, KeyError, TypeError):
+        LOG.warning("Invalid central revision metadata for %s", changeset)
+        return None
+
+    if isinstance(parents, list) and len(parents) == 2 and isinstance(parents[1], str):
+        return parents[1]
+    return None
 
 
 class StatusException(Exception):
@@ -110,25 +145,18 @@ class BisectionResult(object):
         self.start = start
         self.end = end
         self.branch = branch
+        self.message = message
         if status == BisectionResult.SUCCESS:
-            base = "https://hg.mozilla.org/mozilla-unified"
-            if start.build_info["moz_source_repo"] == end.build_info["moz_source_repo"]:
-                base = start.build_info["moz_source_repo"]
-            elif self.branch == "central" and "autoland" in (
-                start._branch,
-                end._branch,
-            ):
-                for build in (start, end):
-                    if build._branch == "autoland":
-                        base = build.build_info["moz_source_repo"]
-                        break
+            base = start.build_info["moz_source_repo"]
+            if base != end.build_info["moz_source_repo"]:
+                self.status = BisectionResult.FAILED
+                self.message = "Bisection bounds belong to different repositories"
+                return
 
             self.pushlog = (
                 f"{base}/pushloghtml?fromchange="
                 f"{start.changeset}&tochange={end.changeset}"
             )
-
-        self.message = message
 
 
 class Bisector(object):
@@ -230,16 +258,15 @@ class Bisector(object):
 
         return BuildRange(builds)
 
-    def _get_autoland_builds(self) -> BuildRange[Fetcher]:
-        """Create build range containing all autoland builds per pushdate"""
-        if self.branch != "central":
-            return BuildRange([])
+    def _get_autoland_builds(self, start: str, end: str) -> BuildRange[Fetcher]:
+        """Find available builds on the Autoland first-parent path.
 
-        start = self.start.datetime
-        end = self.end.datetime
-
-        LOG.info(f"Enumerating autoland builds: {start} - {end}")
-        changesets = get_autoland_range(self.start.changeset, self.end.changeset)
+        :param start: Verified Autoland start revision.
+        :param end: Autoland revision at the other central boundary.
+        :return: Available builds in ancestry order.
+        """
+        LOG.info("Enumerating autoland builds: %s - %s", start, end)
+        changesets = get_autoland_range(start, end)
         if changesets is None:
             return BuildRange([])
 
@@ -259,38 +286,102 @@ class Bisector(object):
 
         return BuildRange(builds)
 
+    def _bisect_autoland(self, random_choice: bool) -> None:
+        """Verify Autoland bounds before bisecting that branch.
+
+        :param random_choice: Select random builds instead of midpoints.
+        """
+        start_parent = get_merge_second_parent(self.start.changeset)
+        end_parent = get_merge_second_parent(self.end.changeset)
+        if start_parent is None or end_parent is None:
+            return
+
+        try:
+            autoland_start = Fetcher(
+                "autoland",
+                start_parent,
+                self.flags,
+                targets=[self.evaluator.target],
+                platform=self.platform,
+            )
+        except FetcherException:
+            return
+
+        expected_start = (
+            EvaluatorResult.BUILD_CRASHED
+            if self.find_fix
+            else EvaluatorResult.BUILD_PASSED
+        )
+        expected_end = (
+            EvaluatorResult.BUILD_PASSED
+            if self.find_fix
+            else EvaluatorResult.BUILD_CRASHED
+        )
+        if self.test_build(autoland_start) != expected_start:
+            return
+
+        builds = self._get_autoland_builds(start_parent, end_parent)
+        while builds:
+            autoland_end = builds.builds.pop()
+            result = self.test_build(autoland_end)
+            if result == EvaluatorResult.BUILD_FAILED:
+                continue
+            if result != expected_end:
+                return
+
+            self.start, self.end = autoland_start, autoland_end
+            self._bisect_build_range(builds, random_choice)
+            return
+
     def build_iterator(
         self,
-        build_range: BuildRange[Union[str, Fetcher]],
+        build_range: BuildRange[T],
         random_choice: bool,
     ) -> Generator[Fetcher, EvaluatorResult, None]:
         """Yields next build to be evaluated until all possibilities consumed."""
         while build_range:
-            if random_choice:
-                build = build_range.random
-            else:
-                build = build_range.mid_point
+            item = build_range.random if random_choice else build_range.mid_point
 
-            assert build is not None
-            index = build_range.index(build)
-            if not isinstance(build, Fetcher):
+            assert item is not None
+            index = build_range.index(item)
+            build: Fetcher
+            if isinstance(item, Fetcher):
+                build = item
+            else:
                 try:
                     build = Fetcher(
                         self.branch,
-                        build,
+                        item,
                         self.flags,
                         targets=[self.evaluator.target],
                         platform=self.platform,
                     )
                 except FetcherException:
-                    LOG.warning("Unable to find build for %s", build)
-                    build_range.builds.remove(build)
+                    LOG.warning("Unable to find build for %s", item)
+                    build_range.builds.remove(item)
                     continue
 
             status = yield build
 
             assert isinstance(index, int)
             build_range = self.update_range(status, build, index, build_range)
+
+    def _bisect_build_range(
+        self, build_range: BuildRange[T], random_choice: bool
+    ) -> None:
+        """Evaluate and narrow a range of candidate dates or builds.
+
+        :param build_range: Candidate dates or builds.
+        :param random_choice: Select random candidates instead of midpoints.
+        """
+        generator = self.build_iterator(build_range, random_choice)
+        try:
+            next_build = next(generator)
+            while True:
+                status = self.test_build(next_build)
+                next_build = generator.send(status)
+        except StopIteration:
+            pass
 
     def bisect(self, random_choice: bool = False) -> BisectionResult:
         """
@@ -317,23 +408,11 @@ class Bisector(object):
             )
 
         LOG.info("Attempting to reduce bisection range using taskcluster binaries")
-        strategies: List[Callable[[], Union[BuildRange[str], BuildRange[Fetcher]]]] = [
-            self._get_daily_builds,
-            self._get_pushdate_builds,
-        ]
-        if self.branch == "central":
-            strategies.append(self._get_autoland_builds)
+        self._bisect_build_range(self._get_daily_builds(), random_choice)
+        self._bisect_build_range(self._get_pushdate_builds(), random_choice)
 
-        for strategy in strategies:
-            build_range = strategy()
-            generator = self.build_iterator(build_range, random_choice)  # type: ignore
-            try:
-                next_build = next(generator)
-                while True:
-                    status = self.test_build(next_build)
-                    next_build = generator.send(status)
-            except StopIteration:
-                pass
+        if self.branch == "central":
+            self._bisect_autoland(random_choice)
 
         return BisectionResult(
             BisectionResult.SUCCESS, self.start, self.end, self.branch
